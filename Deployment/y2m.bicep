@@ -12,37 +12,22 @@ param appServiceName string = 'y2m-app'
 @description('The Azure region for the resources')
 param location string = 'australiasoutheast'
 
-
-module resourceGroupModule './Modules/resourceGroup.bicep' = {
-  name: 'resourceGroupDeployment'
-  params: {
-    resourceGroupName: resourceGroupName
-    location: location
-  }
-}
-
 module storageAccount './Modules/storageAccount.bicep' = {
   name: 'storageAccountDeployment'
-  scope: resourceGroup(subscriptionId)
+  scope: resourceGroup(resourceGroupName)
   params: {
     storagePrefix: 'y2m'
     storageSKU: 'Standard_LRS'
     location: location
   }
-  dependsOn: [
-    resourceGroupModule
-  ]
 }
 
 module appService './Modules/appService.bicep' = {
   name: 'appServiceDeployment'
-  scope: resourceGroup(subscriptionId)
+  scope: resourceGroup(resourceGroupName)
   params: {
     appServiceName: appServiceName
     location: location
     appServicePlanSku: 'F1'
   }
-  dependsOn: [
-    resourceGroupModule
-  ]
 }
