@@ -10,6 +10,7 @@
     "db:generate": "kysely-codegen --out-file src/types/db.d.ts"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "kysely": "^0.27.3",
