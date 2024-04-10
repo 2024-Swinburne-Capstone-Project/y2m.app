@@ -36,6 +36,8 @@ resource appService 'Microsoft.Web/sites@2023-01-01' = {
       ]
       scmType: 'None'
       ftpsState: 'Disabled'
+      linuxFxVersion: 'NODE|20-lts'
+      appCommandLine: 'npm run start'
     }
   }
 }
