@@ -34,6 +34,8 @@ resource appService 'Microsoft.Web/sites@2023-01-01' = {
           value: 'false'
         }
       ]
+      scmType: 'None'
+      ftpsState: 'Disabled'
     }
   }
 }
