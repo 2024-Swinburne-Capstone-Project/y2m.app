@@ -21,12 +21,16 @@ jobs:
       resource_group: ${{ steps.infrastructure-deployment.outputs.resource_group }}
       container_registry_name: ${{ steps.infrastructure-deployment.outputs.container_registry_name }}
     steps:
+      - uses: actions/checkout@v4
       - name: Apply Terraform configuration
         id: infrastructure-deployment
-        uses: microsoft/nubesgen-actions/gitops-apply-terraform@v0.13.0
+        uses: ./.github/actions/apply-terraform
         with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           tf_storage_account: ${{ secrets.TF_STORAGE_ACCOUNT }}
+          auth0_issuer_base_url: ${{ secrets.AUTH0_ISSUER_BASE_URL }}
+          auth0_ci_client_id: ${{ secrets.AUTH0_CI_CLIENT_ID }}
+          auth0_ci_client_secret: ${{ secrets.AUTH0_CI_CLIENT_SECRET }}
       - name: Build and deploy a Docker image
         uses: microsoft/nubesgen-actions/gitops-build-and-deploy-to-app-service-docker@v0.13.0
         with:

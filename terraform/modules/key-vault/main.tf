@@ -59,3 +59,36 @@ resource "azurerm_key_vault_secret" "database_password" {
 
   depends_on = [ azurerm_key_vault_access_policy.client ]
 }
+
+resource "azurerm_key_vault_secret" "auth0_secret" {
+  name         = "auth0-secret"
+  value        = var.auth0_secret
+  key_vault_id = azurerm_key_vault.application.id
+
+  depends_on = [ azurerm_key_vault_access_policy.client ]
+}
+
+resource "azurerm_key_vault_secret" "auth0_issuer_base_url" {
+  name         = "auth0-issuer-base-url"
+  value        = var.auth0_issuer_base_url
+  key_vault_id = azurerm_key_vault.application.id
+
+  depends_on = [ azurerm_key_vault_access_policy.client ]
+}
+
+resource "azurerm_key_vault_secret" "auth0_client_id" {
+  name         = "auth0-client-id"
+  value        = var.auth0_client_id
+  key_vault_id = azurerm_key_vault.application.id
+
+  depends_on = [ azurerm_key_vault_access_policy.client ]
+}
+
+resource "azurerm_key_vault_secret" "auth0_client_secret" {
+  name         = "auth0-client-secret"
+  value        = var.auth0_client_secret
+  key_vault_id = azurerm_key_vault.application.id
+
+  depends_on = [ azurerm_key_vault_access_policy.client ]
+}
+

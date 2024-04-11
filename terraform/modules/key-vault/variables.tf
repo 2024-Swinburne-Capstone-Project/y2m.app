@@ -28,3 +28,23 @@ variable "database_password" {
   type        = string
   description = "The database password"
 }
+
+variable "auth0_secret" {
+  type        = string
+  description = "The Auth0 client secret"
+}
+
+variable "auth0_issuer_base_url" {
+  type        = string
+  description = "The Auth0 issuer base URL"
+}
+
+variable "auth0_client_id" {
+  type        = string
+  description = "The Auth0 client ID"
+}
+
+variable "auth0_client_secret" {
+  type        = string
+  description = "The Auth0 client secret"
+}
