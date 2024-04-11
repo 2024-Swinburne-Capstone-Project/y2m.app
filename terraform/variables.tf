@@ -21,3 +21,18 @@ variable "location" {
   description = "The Azure region where all resources in this example should be created"
   default     = "australiaeast"
 }
+
+variable "auth0_issuer_base_url" {
+  type        = string
+  description = "The Auth0 issuer base URL"
+}
+
+variable "auth0_ci_client_id" {
+  type        = string
+  description = "The Auth0 CI client ID"
+}
+
+variable "auth0_ci_client_secret" {
+  type        = string
+  description = "The Auth0 CI client secret"  
+}

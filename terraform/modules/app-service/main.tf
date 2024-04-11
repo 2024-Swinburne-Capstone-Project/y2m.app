@@ -84,13 +84,19 @@ resource "azurerm_linux_web_app" "application" {
     "DOCKER_REGISTRY_SERVER_URL"          = "https://${azurerm_container_registry.container-registry.name}.azurecr.io"
     "DOCKER_REGISTRY_SERVER_USERNAME"     = azurerm_container_registry.container-registry.admin_username
     "DOCKER_REGISTRY_SERVER_PASSWORD"     = azurerm_container_registry.container-registry.admin_password
-    "WEBSITES_PORT"                       = "8080"
+    "WEBSITES_PORT"                       = "3000"
 
     # These are app specific environment variables
 
     "DATABASE_URL"      = var.database_url
     "DATABASE_USERNAME" = var.database_username
     "DATABASE_PASSWORD" = var.database_password
+
+    "AUTH0_CLIENT_ID" = var.auth0_client_id
+    "AUTH0_CLIENT_SECRET" = var.auth0_client_secret
+    "AUTH0_BASE_URL" = "https://app-${var.application_name}-${var.environment}.azurewebsites.net"
+    "AUTH0_ISSUER_BASE_URL" = var.auth0_issuer_base_url
+    "AUTH0_SECRET" = var.auth0_secret
   }
 }
 
