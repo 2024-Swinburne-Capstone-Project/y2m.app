@@ -1,0 +1,31 @@
+name: Image-Publish
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Build with Docker
+      run: docker build -t ${{ secrets.container_registry_name }}.azurecr.io/${{ github.event.repository.name }}/${{ github.event.repository.name }}:${{ github.sha }} .
+      shell: bash
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.azure_credentials }}
+
+    - name: Push to Azure Container Registry
+      env:
+        AZURE_CREDENTIALS: ${{ secrets.azure_credentials }}
+      run: |
+        az acr login -n ${{ secrets.container_registry_name }}.azurecr.io
+        docker push ${{ secrets.container_registry_name }}.azurecr.io/${{ github.event.repository.name }}/${{ github.event.repository.name }}:${{ github.sha }}
+      shell: bash
