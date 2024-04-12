@@ -9,12 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Set repo name
+      run: |
+        echo "REPO_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]' | tr '.' '-')" >>${GITHUB_ENV}
     
     - name: Checkout code
       uses: actions/checkout@v3
       
     - name: Build with Docker
-      run: docker build -t ${{ secrets.container_registry_name }}.azurecr.io/${{ github.event.repository.name }}/${{ github.event.repository.name }}:${{ github.sha }} .
+      run: |
+          docker build -t ${{ secrets.container_registry_name }}.azurecr.io/$REPO_NAME/$REPO_NAME:${{ github.sha }} .
       shell: bash
 
     - name: Login to Azure
@@ -27,5 +31,5 @@ jobs:
         AZURE_CREDENTIALS: ${{ secrets.azure_credentials }}
       run: |
         az acr login -n ${{ secrets.container_registry_name }}.azurecr.io
-        docker push ${{ secrets.container_registry_name }}.azurecr.io/${{ github.event.repository.name }}/${{ github.event.repository.name }}:${{ github.sha }}
+        docker push ${{ secrets.container_registry_name }}.azurecr.io/$REPO_NAME/$REPO_NAME:${{ github.sha }}
       shell: bash
