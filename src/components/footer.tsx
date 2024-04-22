@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Footer() {
   return (
     <footer className="border-t py-8">
@@ -6,12 +8,16 @@ export function Footer() {
           &copy; {new Date().getFullYear()} You2Mentor. All rights reserved.
         </p>
         <nav className="mt-4 flex space-x-4 sm:mt-0">
-          <a href="#" className="text-sm text-muted-foreground hover:underline">
+          <Link
+            href="#"
+            className="text-sm text-muted-foreground hover:underline">
             Terms of Service
-          </a>
-          <a href="#" className="text-sm text-muted-foreground hover:underline">
+          </Link>
+          <Link
+            href="#"
+            className="text-sm text-muted-foreground hover:underline">
             Privacy Policy
-          </a>
+          </Link>
         </nav>
       </div>
     </footer>

@@ -10,14 +10,19 @@ import { Button } from "../ui/button";
 
 export default async function UserButton() {
   const session = await getSession();
-  if (!session?.user) return <Button><a href="/api/auth/login">Login</a></Button>;
+  if (!session?.user)
+    return (
+      <Button asChild>
+        <a href="/api/auth/login">Login</a>
+      </Button>
+    );
   return (
     <Popover>
       <PopoverTrigger>
         <Avatar>
           <AvatarImage
             src={
-              session.user.image ??
+              session.user.picture ??
               "https://source.boringavatars.com/marble/120"
             }
             alt={session.user.name ?? ""}
@@ -34,7 +39,9 @@ export default async function UserButton() {
             <span>{session.user.email}</span>
           </div>
           <div>
-            <Button><a href="/api/auth/login">Sign out</a></Button>
+            <Button asChild>
+              <a href="/api/auth/logout">Sign out</a>
+            </Button>
           </div>
         </div>
       </PopoverContent>

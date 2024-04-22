@@ -29,8 +29,8 @@ export default function RootLayout({
           <NavMenu />
           {children}
           <Footer />
+          <Toaster />
         </ThemeProvider>
-        <Toaster />
       </body>
     </html>
   );

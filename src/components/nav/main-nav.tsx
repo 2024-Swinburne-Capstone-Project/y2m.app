@@ -12,8 +12,6 @@ import {
 import Link from "next/link";
 import { navConfig } from "@/config/nav";
 
-const currentPageNavLinkStyle = "underline";
-
 export function MainNav() {
   const pathname = usePathname();
 
