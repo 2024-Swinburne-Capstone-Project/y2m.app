@@ -1,19 +1,33 @@
-import { getSession } from "@auth0/nextjs-auth0";
+"use client";
+import { AnimatePresence, motion } from "framer-motion";
 
-export default async function Home() {
-  const session = await getSession();
-  const user = session?.user;
+import { Features } from "@/components/features";
+import { Testimonials } from "@/components/testimonials";
 
+export default function Home() {
   return (
-    <div>
-      {user ? (
-        <>
-          <a href="/api/auth/logout">Logout</a>
-          <code>{JSON.stringify(user, null, 2)}</code>
-        </>
-      ) : (
-        <a href="/api/auth/login">Login</a>
-      )}
+    <div className="min-h-screen bg-background">
+      <main className="container mx-auto px-4 py-16">
+        <AnimatePresence>
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+            className="mb-16 text-center"
+          >
+            <h1 className="mb-4 text-4xl font-bold md:text-6xl">
+              Unlock Your Potential with You2Mentor
+            </h1>
+            <p className="mb-8 text-lg text-muted-foreground md:text-xl">
+              Connect with experienced mentors and achieve your goals faster.
+            </p>
+          </motion.section>
+
+          <Features />
+          <Testimonials />
+        </AnimatePresence>
+      </main>
     </div>
   );
 }

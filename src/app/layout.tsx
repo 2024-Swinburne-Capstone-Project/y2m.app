@@ -4,12 +4,13 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import NavMenu from "@/components/nav/nav-menu";
+import { Footer } from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Spending Tracker",
-  description: "A simple spending tracker.",
+  title: "You2Mentor",
+  description: "You2Mentor is a platform for connecting mentors and mentees.",
 };
 
 export default function RootLayout({
@@ -27,6 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange>
           <NavMenu />
           {children}
+          <Footer />
         </ThemeProvider>
         <Toaster />
       </body>

@@ -6,10 +6,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { getSession } from "@auth0/nextjs-auth0";
+import { Button } from "../ui/button";
 
 export default async function UserButton() {
   const session = await getSession();
-  if (!session?.user) return <a href="/api/auth/login">Login</a>;
+  if (!session?.user) return <Button><a href="/api/auth/login">Login</a></Button>;
   return (
     <Popover>
       <PopoverTrigger>
@@ -33,7 +34,7 @@ export default async function UserButton() {
             <span>{session.user.email}</span>
           </div>
           <div>
-            <a href="/api/auth/login">SignOut</a>;
+            <Button><a href="/api/auth/login">Sign out</a></Button>
           </div>
         </div>
       </PopoverContent>
