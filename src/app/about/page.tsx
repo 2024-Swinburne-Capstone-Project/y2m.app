@@ -1,7 +1,5 @@
-// page.tsx
 import HeroContent from "@/app/about/components/hero-content";
 import HeroSection from "@/app/about/components/hero-section";
-import Link from "next/link";
 import HeroContentImage from "./components/hero-content-image";
 import HeroContentBody from "./components/hero-content-body";
 

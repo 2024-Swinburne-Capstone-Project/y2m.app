@@ -1,4 +1,3 @@
-// hero-content-body.tsx
 import { cn } from "@/lib/utils";
 import React, { ReactNode } from "react";
 
@@ -13,10 +12,7 @@ const HeroContentBody: React.FC<HeroContentBodyProps> = ({
   children,
   className,
 }) => {
-  const bodyClasses = cn(
-    "mb-8 md:mb-0 md:w-1/2",
-    className
-  );
+  const bodyClasses = cn("mb-8 md:mb-0 md:w-1/2", className);
 
   return (
     <div className={bodyClasses}>
