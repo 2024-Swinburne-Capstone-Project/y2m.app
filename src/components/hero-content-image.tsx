@@ -5,18 +5,22 @@ import { cn } from "@/lib/utils";
 interface HeroContentImageProps {
   imagePath: string;
   className?: string;
+  width?: number;
+  height?: number;
 }
 
 const HeroContentImage: React.FC<HeroContentImageProps> = ({
   imagePath,
   className,
+  width,
+  height,
 }) => {
   return (
-    <div className={cn("md:w-1/2", className)}>
+    <div className={cn(className)}>
       <Image
         src={imagePath}
-        width={1280}
-        height={300}
+        width={width ?? 600}
+        height={height ?? 300}
         alt="Hero Section"
         className="w-full h-auto object-cover"
       />

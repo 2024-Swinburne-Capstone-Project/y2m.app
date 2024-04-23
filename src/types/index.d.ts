@@ -5,6 +5,12 @@ interface AboutConfig {
   additionalContent: AdditionalContent;
 }
 
+interface PrivacyPolicyConfig {
+  heroSection: HeroSectionConfig;
+  sections: PrivacyPolicySection[];
+}
+
+
 export interface HeroSectionConfig {
   title: string;
   imagePath: string;
