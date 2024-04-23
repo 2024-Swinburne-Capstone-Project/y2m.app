@@ -15,6 +15,5 @@ export const navConfig: NavConfig = {
     { title: 'Enterprise Solutions', href: '/enterprise-solutions' },
     { title: 'Legal', href: '/legal' },
     { title: 'Get in Touch', href: '/get-in-touch' },
-    { title: 'My Account', href: '/my-account' },
   ],
 }
