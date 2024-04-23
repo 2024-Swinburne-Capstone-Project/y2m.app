@@ -1,7 +1,7 @@
-import HeroContent from "@/app/about/components/hero-content";
-import HeroSection from "@/app/about/components/hero-section";
-import HeroContentImage from "./components/hero-content-image";
-import HeroContentBody from "./components/hero-content-body";
+import HeroContent from "@/components/hero-content";
+import HeroSection from "@/components/hero-section";
+import HeroContentImage from "@/components/hero-content-image";
+import HeroContentBody from "@/components/hero-content-body";
 import { AboutCarousel } from "./components/about-carousel";
 import { aboutConfig } from "@/config/about";
 
