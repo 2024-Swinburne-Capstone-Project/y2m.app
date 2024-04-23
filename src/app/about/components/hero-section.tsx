@@ -21,7 +21,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       <h1 className="absolute text-4xl z-10 font-bold text-secondary-foreground">
         {title}
       </h1>
-      <div className="bg-gray-900 opacity-60">
+      <div className="bg-secondary opacity-60">
         <Image
           src={imagePath}
           alt={title}
