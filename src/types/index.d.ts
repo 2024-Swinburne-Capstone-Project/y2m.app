@@ -10,6 +10,16 @@ interface PrivacyPolicyConfig {
   sections: PrivacyPolicySection[];
 }
 
+export interface TermsAndConditionsConfig {
+  heroSection: HeroSectionConfig;
+  sections: TermsAndConditionsSection[];
+}
+
+export interface TermsAndConditionsSection {
+  title: string;
+  content: string[];
+  imagePath?: string;
+}
 
 export interface HeroSectionConfig {
   title: string;

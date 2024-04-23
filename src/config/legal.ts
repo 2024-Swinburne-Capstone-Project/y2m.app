@@ -1,4 +1,4 @@
-import { PrivacyPolicyConfig } from "@/types";
+import { PrivacyPolicyConfig, TermsAndConditionsConfig } from "@/types";
 
 export const privacyPolicyConfig: PrivacyPolicyConfig = {
   heroSection: {
@@ -70,6 +70,96 @@ export const privacyPolicyConfig: PrivacyPolicyConfig = {
       title: "9. Changes to Privacy Policy",
       content: [
         "(a) Please be aware that we may change this Privacy Policy in the future. We may modify this Policy at any time, in our sole discretion and all modifications will be effective immediately upon our posting of the modifications on our website or notice board. Please check back from time to time to review our Privacy Policy.",
+      ],
+    },
+  ],
+};
+
+export const termsAndConditionsConfig: TermsAndConditionsConfig = {
+  heroSection: {
+    title: "Terms and Conditions",
+    imagePath: "/legal/terms-and-conditions-banner.jpg",
+  },
+  sections: [
+    {
+      title: "User Conduct",
+      content: [
+        "The website allows you to submit Content. You agree to only submit Content that is proper. By way of example, and not as a limitation, you agree that when submitting Content, you will not:",
+        "- Defame, abuse, harass, stalk, threaten or otherwise violate the legal rights (such as rights of privacy and publicity) of others.",
+        "- Publish, post, upload, distribute or disseminate any inappropriate, profane, defamatory, obscene, indecent or unlawful topic, name, material or information.",
+        "- Submit Content in connection with surveys, contests, pyramid schemes, chain letters, junk email, spamming or any duplicative or unsolicited messages (commercial or otherwise).",
+        "- Upload, or otherwise make available, files that contain images, photographs, software or other material protected by intellectual property laws, including, by way of example, and not as limitation, copyright or trademark laws (or by rights of privacy or publicity) unless you own or control the rights thereto or have received all necessary consent to do the same.",
+        "- Upload files that contain viruses, Trojan horses, worms, time bombs, cancelbots, corrupted files, or any other similar software or programs that may damage the operation of another's computer or property of another.",
+        "- Download any file posted by another user of the Services that you know, or reasonably should know, cannot be legally reproduced, displayed, performed, and/or distributed in such manner.",
+        "- Advertise or offer to sell or buy any goods or services for any business purpose, unless such Submission Tool specifically allows such messages.",
+        "- Violate any applicable laws or regulations.",
+        "- Create a false identity for the purpose of misleading others.",
+      ],
+      imagePath: "/legal/terms-and-conditions.png",
+    },
+    {
+      title: "Use of Content",
+      content: [
+        "Your Content will be able to be viewed by other users of the website. You should only provide your Content if you are comfortable sharing it with others.",
+      ],
+    },
+    {
+      title: "Feedback",
+      content: [
+        "Any suggestions, comments, or other input you give to You2Mentor (\"Feedback\"), even if designated as confidential, will not create any confidentiality obligation for You2Mentor. You2Mentor will be free to use, reproduce, license or otherwise distribute, and exploit Feedback to improve and enhance You2Mentor products, technology, services, documentation or otherwise. You2Mentor use of Feedback does not create any obligation to you. You agree not to provide You2Mentor with any Feedback that is subject to license terms that seek to require any You2Mentor products, technologies, services or documentation incorporating or derived from such Feedback, or any of You2Mentor intellectual property, to be licensed or otherwise shared with any third party.",
+      ],
+    },
+    {
+      title: "Use and Copyright",
+      content: [
+        "The website and its content are subject to copyright under the laws of Australia and other countries. Unless otherwise indicated, copyright content on the website is owned by You2Mentor. In addition, third parties may own the copyright in some materials incorporated within the website and, in such cases, written permission may be required from these parties to use such material.",
+        "Other than as permitted under the Copyright Act 1968 (Cth), no material on this website may be reproduced without the prior written permission of You2Mentor, except that you may save an electronic copy or print out parts of this website solely for your own information, research or study, provided that:",
+        "- You do not modify the copy as it appears on the website.",
+        "- You include the You2Mentor copyright notice and/or acknowledge the relevant third party source.",
+        "In relation to Content you contribute to the website, you represent and warrant that you own or have the necessary licenses, rights, consents and permissions to publish your Content. You retain all rights in your Content. By submitting your Content through the website you grant You2Mentor a worldwide, non-exclusive, royalty-free, sub-licensable and transferable license to use, reproduce, distribute, prepare derivative works of, display and perform your Content in connection with the website.",
+        "You agree that you will not attempt to hack into the website or use any robot, spider or other device or process to use the website for any unauthorised purposes. You agree that you will not take any action that imposes an unreasonably burden on the website.",
+      ],
+    },
+    {
+      title: "Personal Security Information",
+      content: [
+        "You are responsible for maintaining the confidentiality of your account information and for restricting access to your computer and you agree to accept responsibility for all activities that occur under your control, including unauthorised access to your account or password.",
+      ],
+    },
+    {
+      title: "Confidentiality",
+      content: [
+        "Although all mentors and mentees who access this Portal agree to maintain the confidentiality of all information shared within the mentoring partnership, You2Mentor cannot guarantee that any information you disclose to your mentor or mentee (as applicable) will be kept confidential by the recipient.",
+      ],
+    },
+    {
+      title: "Disclaimer and limitation of liability",
+      content: [
+        "While You2Mentor attempts to ensure that the information on the website is accurate at the time of publication, it provides no express or implied warranties and does not make any representations in relation to this website or any content. In particular, You2Mentor does not guarantee and is not liable for the advice given to you in your capacity as a mentee by any mentor. This information on this website is provided 'as is' and without any guarantees as to its accuracy, currency, completeness or reliability. You2Mentor reserves the right to amend the information on this website at any time and without notice, including but not limited to information relating to fees or services.",
+        "You2Mentor is not liable for any loss or damage occasioned by your use of this website or information contained on this website. You agree that your use of this website is at your sole risk.",
+        "To the extent permitted by law You2Mentor will not be liable for any direct, incidental, consequential or indirect damages, loss or corruption of data, loss of profits, goodwill, bargain or opportunity or loss of anticipated savings resulting from your access to, or use of, or inability to use the website and its content, whether based in contract, tort, negligence, statute or any other cause of action, and whether or not You2Mentor is aware of the possibility of such damage.",
+      ],
+    },
+    {
+      title: "Applicable Law",
+      content: [
+        "These terms and conditions must be construed in accordance with, and governed by, the laws of the State of Victoria. You agree to submit to the jurisdiction of the courts in the State of Victoria.",
+      ],
+    },
+    {
+      title: "Withdrawing access to Portal",
+      content: [
+        "You2Mentor may, in its sole discretion, withdraw, suspend or refuse to permit you to participate in any mentoring program on the website for any reason without notice. In particular, this discretion may be exercised where, in You2Mentor's opinion, any of the following has occurred:",
+        "- You have breached any of these Terms and Conditions, or any applicable law or regulation in relation to your use of the website.",
+        "- You have provided misleading, deceptive or incorrect information.",
+        "- A complaint has been received about you.",
+        "- Your participation in the mentoring relationship on the website is likely to, or does, damage or is detrimental to You2Mentor reputation or brand.",
+      ],
+    },
+    {
+      title: "Modifications to these terms and conditions",
+      content: [
+        "You2Mentor may modify these terms and conditions at any time and will publish such modified terms and conditions on the website. By continuing to access the website after such modifications have been published you are agreeing to be bound by such modified terms.",
       ],
     },
   ],
