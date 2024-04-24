@@ -27,6 +27,13 @@ export interface KnowledgeHubConfig {
   carouselSlides: BlogsConfig[];
 }
 
+export interface EnterpriseSolutionsConfig {
+  heroSection: HeroSectionConfig;
+  heroContent: HeroContentConfig;
+  additionalContent: AdditionalContent;
+  additionalImagePath: string;
+}
+
 export interface HeroSectionConfig {
   title: string;
   imagePath: string;
