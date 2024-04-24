@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -28,12 +27,11 @@ export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
       className="w-full mx-10"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.start}
-      opts={{ align: "start", loop: true }}>
+      opts={{ align: "start", loop: true }}
+    >
       <CarouselContent>
         {slides.map((item, index) => (
-          <CarouselItem
-            key={index}
-            className="pl-5 md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={index} className="pl-5 md:basis-1/2 lg:basis-1/3">
             <Card className="h-full">
               <CardHeader>
                 <CardTitle>{item.title}</CardTitle>

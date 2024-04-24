@@ -17,7 +17,9 @@ export default function LegalPage() {
     setIsPrivacyPolicy(privacyPolicy);
   };
 
-  const config = isPrivacyPolicy ? privacyPolicyConfig : termsAndConditionsConfig;
+  const config = isPrivacyPolicy
+    ? privacyPolicyConfig
+    : termsAndConditionsConfig;
 
   return (
     <div className="min-h-screen bg-background">
@@ -48,36 +50,43 @@ export default function LegalPage() {
         imagePath={config.heroSection.imagePath}
         className="bg-secondary"
       />
-      {config.sections.map((section: TermsAndConditionsSection, index: number) => (
-        <HeroContent key={index} className={index % 2 === 0 ? "" : "bg-secondary"}>
-          <HeroContentBody
-            className={`md:w-1/2 ${
-              index % 2 === 0 ? "" : "md:order-2 text-secondary-foreground"
-            }`}
+      {config.sections.map(
+        (section: TermsAndConditionsSection, index: number) => (
+          <HeroContent
+            key={index}
+            className={index % 2 === 0 ? "" : "bg-secondary"}
           >
-            <Card>
-              <CardHeader>
-                <CardTitle>{section.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {section.content.map((paragraph: string, paragraphIndex: Key) => (
-                  <Typography key={paragraphIndex} variant="p">
-                    {paragraph}
-                  </Typography>
-                ))}
-              </CardContent>
-            </Card>
-          </HeroContentBody>
-          {section.imagePath && (
-            <HeroContentImage
-              imagePath={section.imagePath}
-              width={10000}
-              height={7000}
-              className={index % 2 === 0 ? "md:order-2" : ""}
-            />
-          )}
-        </HeroContent>
-      ))}
+            <HeroContentBody
+              className={`md:w-1/2 ${
+                index % 2 === 0 ? "" : "md:order-2 text-secondary-foreground"
+              }`}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle>{section.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {section.content.map(
+                    (paragraph: string, paragraphIndex: Key) => (
+                      <Typography key={paragraphIndex} variant="p">
+                        {paragraph}
+                      </Typography>
+                    )
+                  )}
+                </CardContent>
+              </Card>
+            </HeroContentBody>
+            {section.imagePath && (
+              <HeroContentImage
+                imagePath={section.imagePath}
+                width={10000}
+                height={7000}
+                className={index % 2 === 0 ? "md:order-2" : ""}
+              />
+            )}
+          </HeroContent>
+        )
+      )}
     </div>
   );
 }
