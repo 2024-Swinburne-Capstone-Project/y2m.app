@@ -3,16 +3,16 @@ import { PrivacyPolicyConfig, TermsAndConditionsConfig } from "@/types";
 export const privacyPolicyConfig: PrivacyPolicyConfig = {
   heroSection: {
     title: "Privacy Policy",
-    imagePath: "/legal/privacy-policy.jpg",
+    imagePath: "/legal/privacy-policy.png",
   },
   sections: [
     {
       title: "1. We Respect Your Privacy",
       content: [
         "(a) You2Mentor respects your right to privacy and is committed to safeguarding the privacy of our customers and website visitors. We adhere to the Australian Privacy Principles contained in the Privacy Act 1988 (Cth). This policy sets out how we collect and treat your personal information.",
-        "(b) \"Personal information\" is information we hold which is identifiable as being about you.",
+        '(b) "Personal information" is information we hold which is identifiable as being about you.',
       ],
-      imagePath: "/legal/legal.png",
+      imagePath: "/legal/privacy-policy-content.png",
     },
     {
       title: "2. Collection of personal information",
@@ -78,7 +78,7 @@ export const privacyPolicyConfig: PrivacyPolicyConfig = {
 export const termsAndConditionsConfig: TermsAndConditionsConfig = {
   heroSection: {
     title: "Terms and Conditions",
-    imagePath: "/legal/terms-and-conditions-banner.jpg",
+    imagePath: "/legal/terms-and-conditions.png",
   },
   sections: [
     {
@@ -95,7 +95,7 @@ export const termsAndConditionsConfig: TermsAndConditionsConfig = {
         "- Violate any applicable laws or regulations.",
         "- Create a false identity for the purpose of misleading others.",
       ],
-      imagePath: "/legal/terms-and-conditions.png",
+      imagePath: "/legal/terms-and-conditions-content.png",
     },
     {
       title: "Use of Content",
@@ -106,7 +106,7 @@ export const termsAndConditionsConfig: TermsAndConditionsConfig = {
     {
       title: "Feedback",
       content: [
-        "Any suggestions, comments, or other input you give to You2Mentor (\"Feedback\"), even if designated as confidential, will not create any confidentiality obligation for You2Mentor. You2Mentor will be free to use, reproduce, license or otherwise distribute, and exploit Feedback to improve and enhance You2Mentor products, technology, services, documentation or otherwise. You2Mentor use of Feedback does not create any obligation to you. You agree not to provide You2Mentor with any Feedback that is subject to license terms that seek to require any You2Mentor products, technologies, services or documentation incorporating or derived from such Feedback, or any of You2Mentor intellectual property, to be licensed or otherwise shared with any third party.",
+        'Any suggestions, comments, or other input you give to You2Mentor ("Feedback"), even if designated as confidential, will not create any confidentiality obligation for You2Mentor. You2Mentor will be free to use, reproduce, license or otherwise distribute, and exploit Feedback to improve and enhance You2Mentor products, technology, services, documentation or otherwise. You2Mentor use of Feedback does not create any obligation to you. You agree not to provide You2Mentor with any Feedback that is subject to license terms that seek to require any You2Mentor products, technologies, services or documentation incorporating or derived from such Feedback, or any of You2Mentor intellectual property, to be licensed or otherwise shared with any third party.',
       ],
     },
     {
