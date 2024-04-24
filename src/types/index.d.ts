@@ -21,6 +21,12 @@ export interface TermsAndConditionsSection {
   imagePath?: string;
 }
 
+export interface KnowledgeHubConfig {
+  heroSection: HeroSectionConfig;
+  videos: VideoConfig[];
+  carouselSlides: BlogsConfig[];
+}
+
 export interface HeroSectionConfig {
   title: string;
   imagePath: string;
@@ -40,4 +46,21 @@ export interface AboutCarouselConfig {
 
 export interface AdditionalContent {
   contentBody: string;
+}
+
+export interface VideoConfig {
+  id: number;
+  title: string;
+  description: string;
+  embeddingLink: string;
+  length: string;
+}
+
+export interface BlogsConfig {
+  id: number;
+  title: string;
+  content: string;
+  date: Date;
+  author: string;
+  imagePath: string;
 }
