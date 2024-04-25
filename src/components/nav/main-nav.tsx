@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { navConfig } from "@/config/nav";
+import Image from "next/image";
 
 export function MainNav() {
   const pathname = usePathname();
@@ -24,6 +25,17 @@ export function MainNav() {
 
   return (
     <NavigationMenu className="hidden md:flex">
+      <Link
+        href="/"
+        className="hidden items-center space-x-2 md:flex">
+        <Image
+          src={"/y2m-logo.png"}
+          alt="You2Mentor"
+          width={80}
+          height={80}
+          className="mr-5"
+        />
+      </Link>
       <NavigationMenuList>
         {navConfig.mainNav?.map(
           (item) =>

@@ -9,13 +9,6 @@ export default async function NavMenu() {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4">
-        <Image
-          src={"/y2m-logo.png"}
-          alt="You2Mentor"
-          width={80}
-          height={80}
-          className="mr-5"
-        />
         <MainNav />
         <MobileNav />
         <div className="ml-auto flex space-x-4">
