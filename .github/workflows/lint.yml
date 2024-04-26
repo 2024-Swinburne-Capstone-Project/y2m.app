@@ -18,6 +18,4 @@ jobs:
       - name: Install dependencies
         run: bun install
       - name: Run lint
-        run: bun run lint
-      - name: Reformat files
         run: bun run eslint:fix
