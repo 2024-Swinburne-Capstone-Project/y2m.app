@@ -1,10 +1,10 @@
-import HeroContent from "@/components/hero-content";
-import HeroContentBody from "@/components/hero-content-body";
-import HeroContentImage from "@/components/hero-content-image";
-import HeroSection from "@/components/hero-section";
-import { enterpriseSolutionsConfig } from "@/config/enterprise-solutions";
-import GetInTouch from "./components/get-in-touch";
-import { Card } from "@/components/ui/card";
+import HeroContent from '@/components/hero-content';
+import HeroContentBody from '@/components/hero-content-body';
+import HeroContentImage from '@/components/hero-content-image';
+import HeroSection from '@/components/hero-section';
+import { enterpriseSolutionsConfig } from '@/config/enterprise-solutions';
+import GetInTouch from './components/get-in-touch';
+import { Card } from '@/components/ui/card';
 
 export default function EnterpriseSolutions() {
   return (
@@ -21,9 +21,7 @@ export default function EnterpriseSolutions() {
         >
           <p>{enterpriseSolutionsConfig.heroContent.contentText}</p>
         </HeroContentBody>
-        <HeroContentImage
-          imagePath={enterpriseSolutionsConfig.heroContent.imagePath}
-        />
+        <HeroContentImage imagePath={enterpriseSolutionsConfig.heroContent.imagePath} />
       </HeroContent>
       <HeroContent className="bg-secondary">
         <HeroContentBody className="md:w-full text-secondary-foreground">
@@ -31,9 +29,7 @@ export default function EnterpriseSolutions() {
         </HeroContentBody>
       </HeroContent>
       <HeroContent>
-        <HeroContentImage
-          imagePath={enterpriseSolutionsConfig.additionalImagePath}
-        />
+        <HeroContentImage imagePath={enterpriseSolutionsConfig.additionalImagePath} />
         <Card className="w-[50vw] p-10">
           <GetInTouch />
         </Card>

@@ -1,15 +1,9 @@
-"use client";
-import HeroSection from "@/components/hero-section";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { knowledgeHubConfig } from "@/config/knowledge-hub";
-import { useState } from "react";
-import { BlogsCarousel } from "./components/blogs-carousel";
+'use client';
+import HeroSection from '@/components/hero-section';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { knowledgeHubConfig } from '@/config/knowledge-hub';
+import { useState } from 'react';
+import { BlogsCarousel } from './components/blogs-carousel';
 
 export default function KnowledgeHubPage() {
   const [isVideos, setIsVideos] = useState(true);
@@ -31,8 +25,8 @@ export default function KnowledgeHubPage() {
           onClick={() => toggleConfig(true)}
           className={`px-6 py-2 rounded-l-full ${
             isVideos
-              ? "bg-primary text-primary-foreground"
-              : "bg-secondary text-secondary-foreground hover:bg-secondary-hover"
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-secondary text-secondary-foreground hover:bg-secondary-hover'
           }`}
         >
           Videos
@@ -41,8 +35,8 @@ export default function KnowledgeHubPage() {
           onClick={() => toggleConfig(false)}
           className={`px-6 py-2 rounded-r-full ${
             !isVideos
-              ? "bg-primary text-primary-foreground"
-              : "bg-secondary text-secondary-foreground hover:bg-secondary-hover"
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-secondary text-secondary-foreground hover:bg-secondary-hover'
           }`}
         >
           Blogs
@@ -53,9 +47,7 @@ export default function KnowledgeHubPage() {
           <Card className="w-[90vw]">
             <CardHeader>
               <CardTitle>Videos</CardTitle>
-              <CardDescription>
-                Playlist ({knowledgeHubConfig.videos.length})
-              </CardDescription>
+              <CardDescription>Playlist ({knowledgeHubConfig.videos.length})</CardDescription>
             </CardHeader>
             <div className="flex">
               <CardContent className="grid gap-4">
@@ -63,17 +55,13 @@ export default function KnowledgeHubPage() {
                   <div
                     key={index}
                     className={`grid p-5 cursor-pointer ${
-                      selectedVideoIndex == index ? "bg-secondary" : ""
+                      selectedVideoIndex == index ? 'bg-secondary' : ''
                     }`}
                     onClick={() => setSelectedVideoIndex(index)}
                   >
                     <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {video.title}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {video.description}
-                      </p>
+                      <p className="text-sm font-medium leading-none">{video.title}</p>
+                      <p className="text-sm text-muted-foreground">{video.description}</p>
                     </div>
                   </div>
                 ))}
@@ -83,10 +71,7 @@ export default function KnowledgeHubPage() {
                   <iframe
                     width="750"
                     height="422"
-                    src={
-                      knowledgeHubConfig.videos[selectedVideoIndex]
-                        .embeddingLink
-                    }
+                    src={knowledgeHubConfig.videos[selectedVideoIndex].embeddingLink}
                     title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"

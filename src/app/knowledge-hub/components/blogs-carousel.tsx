@@ -1,30 +1,23 @@
-"use client";
-import * as React from "react";
-import Autoplay from "embla-carousel-autoplay";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+'use client';
+import * as React from 'react';
+import Autoplay from 'embla-carousel-autoplay';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import Image from "next/image";
-import { BlogsConfig } from "@/types";
-import { useEffect, useState } from "react";
-import BlogPage from "./blog";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/carousel';
+import Image from 'next/image';
+import { BlogsConfig } from '@/types';
+import { useEffect, useState } from 'react';
+import BlogPage from './blog';
+import { Button } from '@/components/ui/button';
 
 export function BlogsCarousel({ slides }: { slides: BlogsConfig[] }) {
   const plugin = React.useRef(Autoplay({ delay: 2000 }));
-  const [selectedBlog, setSelectedBlog] = useState<BlogsConfig | undefined>(
-    undefined
-  );
+  const [selectedBlog, setSelectedBlog] = useState<BlogsConfig | undefined>(undefined);
 
   useEffect(() => {
     if (selectedBlog) {
@@ -40,7 +33,7 @@ export function BlogsCarousel({ slides }: { slides: BlogsConfig[] }) {
           className="mx-10"
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.start}
-          opts={{ align: "start", loop: true }}
+          opts={{ align: 'start', loop: true }}
         >
           <CarouselContent>
             {slides.map((item, index) => (
