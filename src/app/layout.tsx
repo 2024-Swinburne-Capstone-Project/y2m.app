@@ -21,17 +21,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
+      <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <NavMenu />
+        <div className="max-w-7xl mx-auto">
+          <NavMenu/>
           {children}
-          <Footer />
-          <Toaster />
-        </ThemeProvider>
+        </div>
+        <Footer/>
+          <Toaster/>
+      </ThemeProvider>
       </body>
     </html>
-  );
+);
 }
