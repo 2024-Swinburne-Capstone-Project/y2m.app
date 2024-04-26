@@ -15,6 +15,26 @@ export interface TermsAndConditionsConfig {
   sections: TermsAndConditionsSection[];
 }
 
+export interface GetInTouchConfig {
+  heroSection: {
+    title: string;
+    imagePath: string;
+  };
+  popularQuestions: {
+    title: string;
+    answer: string;
+  }[];
+  visitUs: {
+    address: string;
+  };
+  mailUs: {
+    email: string;
+  };
+  accordionImage: {
+    imagePath: string;
+  };
+}
+
 export interface TermsAndConditionsSection {
   title: string;
   content: string[];
