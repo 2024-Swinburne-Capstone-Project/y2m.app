@@ -15,8 +15,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install dependencies
-        run: npm install
+        run: bun install
       - name: Run lint
-        run: npm run lint
+        run: bun run lint
       - name: Reformat files
-        run: npm run eslint:fix
+        run: bun run eslint:fix
