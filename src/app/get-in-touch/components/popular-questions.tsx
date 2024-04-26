@@ -6,27 +6,26 @@ import HeroContentImage from "@/components/hero-content-image";
 
 const PopularQuestions: React.FC = () => {
     return (
-        <section className="flex justify-between items-center py-12">
-            <Card className="w-3/5">
-                <CardHeader>
-                    <CardTitle>Most Popular Questions</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    {getInTouchConfig.popularQuestions.map((question, index) => (
-                        <Accordion key={index} type="single" collapsible>
-                            <AccordionItem value={question.title}>
-                                <AccordionTrigger>{question.title}</AccordionTrigger>
-                                <AccordionContent>{question.answer}</AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
-                    ))}
-                </CardContent>
-            </Card>
-            <HeroContentImage
-                imagePath={getInTouchConfig.accordionImage.imagePath}
-                className={"w-2/6"}
-            />
-        </section>
+            <section className="flex flex-col md:flex-row justify-between items-center py-12">
+                <Card className="w-full md:w-3/5 mb-8 md:mb-0">
+                    <CardHeader>
+                        <CardTitle>Most Popular Questions</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        {getInTouchConfig.popularQuestions.map((question, index) => (
+                            <Accordion key={index} type="single" collapsible>
+                                <AccordionItem value={question.title}>
+                                    <AccordionTrigger>{question.title}</AccordionTrigger>
+                                    <AccordionContent>{question.answer}</AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                        ))}
+                    </CardContent>
+                </Card>
+                    <HeroContentImage
+                        imagePath={getInTouchConfig.accordionImage.imagePath}
+                    />
+            </section>
     );
 };
 
