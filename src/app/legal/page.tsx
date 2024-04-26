@@ -22,71 +22,71 @@ export default function LegalPage() {
     : termsAndConditionsConfig;
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="flex justify-center items-center mt-8 mb-12">
-        <button
-          onClick={() => toggleConfig(true)}
-          className={`px-6 py-2 rounded-l-full ${
-            isPrivacyPolicy
-              ? "bg-primary text-primary-foreground"
-              : "bg-secondary text-secondary-foreground hover:bg-secondary-hover"
-          }`}
-        >
-          Privacy Policy
-        </button>
-        <button
-          onClick={() => toggleConfig(false)}
-          className={`px-6 py-2 rounded-r-full ${
-            !isPrivacyPolicy
-              ? "bg-primary text-primary-foreground"
-              : "bg-secondary text-secondary-foreground hover:bg-secondary-hover"
-          }`}
-        >
-          Terms & Conditions
-        </button>
-      </div>
-      <HeroSection
-        title={config.heroSection.title}
-        imagePath={config.heroSection.imagePath}
-        className="bg-secondary"
-      />
-      {config.sections.map(
-        (section: TermsAndConditionsSection, index: number) => (
-          <HeroContent
-            key={index}
-            className={index % 2 === 0 ? "" : "bg-secondary"}
-          >
-            <HeroContentBody
-              className={`md:w-1/2 ${
-                index % 2 === 0 ? "" : "md:order-2 text-secondary-foreground"
+      <div className="min-h-screen bg-background">
+        <HeroSection
+            title={config.heroSection.title}
+            imagePath={config.heroSection.imagePath}
+            className="bg-secondary"
+        />
+        <div className="flex justify-center items-center mt-8 mb-12">
+          <button
+              onClick={() => toggleConfig(true)}
+              className={`px-6 py-2 rounded-l-full ${
+                  isPrivacyPolicy
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-secondary text-secondary-foreground hover:bg-secondary-hover"
               }`}
-            >
-              <Card>
-                <CardHeader>
-                  <CardTitle>{section.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {section.content.map(
-                    (paragraph: string, paragraphIndex: Key) => (
-                      <Typography key={paragraphIndex} variant="p">
-                        {paragraph}
-                      </Typography>
-                    )
+          >
+            Privacy Policy
+          </button>
+          <button
+              onClick={() => toggleConfig(false)}
+              className={`px-6 py-2 rounded-r-full ${
+                  !isPrivacyPolicy
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-secondary text-secondary-foreground hover:bg-secondary-hover"
+              }`}
+          >
+            Terms & Conditions
+          </button>
+        </div>
+        {config.sections.map(
+            (section: TermsAndConditionsSection, index: number) => (
+                <HeroContent
+                    key={index}
+                    className={index % 2 === 0 ? "" : "bg-secondary"}
+                >
+                  <HeroContentBody
+                      className={`md:w-1/2 ${
+                          index % 2 === 0 ? "" : "md:order-2 text-secondary-foreground"
+                      }`}
+                  >
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>{section.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        {section.content.map(
+                            (paragraph: string, paragraphIndex: Key) => (
+                                <Typography key={paragraphIndex} variant="p">
+                                  {paragraph}
+                                </Typography>
+                            )
+                        )}
+                      </CardContent>
+                    </Card>
+                  </HeroContentBody>
+                  {section.imagePath && (
+                      <HeroContentImage
+                          imagePath={section.imagePath}
+                          width={10000}
+                          height={7000}
+                          className={index % 2 === 0 ? "md:order-2" : ""}
+                      />
                   )}
-                </CardContent>
-              </Card>
-            </HeroContentBody>
-            {section.imagePath && (
-              <HeroContentImage
-                imagePath={section.imagePath}
-                width={10000}
-                height={7000}
-                className={index % 2 === 0 ? "md:order-2" : ""}
-              />
-            )}
-          </HeroContent>
-        )
-      )}
-    </div>
+                </HeroContent>
+            )
+        )}
+      </div>
   );
 }
