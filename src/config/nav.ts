@@ -1,10 +1,10 @@
 interface NavItem {
-  title: string
-  href?: string
+  title: string;
+  href?: string;
 }
 
 interface NavConfig {
-  mainNav: NavItem[]
+  mainNav: NavItem[];
 }
 
 export const navConfig: NavConfig = {
@@ -16,4 +16,4 @@ export const navConfig: NavConfig = {
     { title: 'Legal', href: '/legal' },
     { title: 'Get in Touch', href: '/get-in-touch' },
   ],
-}
+};

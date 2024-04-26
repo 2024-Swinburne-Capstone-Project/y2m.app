@@ -1,22 +1,16 @@
-"use client";
-import * as React from "react";
-import Autoplay from "embla-carousel-autoplay";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+'use client';
+import * as React from 'react';
+import Autoplay from 'embla-carousel-autoplay';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import Image from "next/image";
-import { AboutCarouselConfig } from "@/types";
+} from '@/components/ui/carousel';
+import Image from 'next/image';
+import { AboutCarouselConfig } from '@/types';
 
 export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
   const plugin = React.useRef(Autoplay({ delay: 2000 }));
@@ -27,7 +21,7 @@ export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
       className="w-full mx-10"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.start}
-      opts={{ align: "start", loop: true }}
+      opts={{ align: 'start', loop: true }}
     >
       <CarouselContent>
         {slides.map((item, index) => (

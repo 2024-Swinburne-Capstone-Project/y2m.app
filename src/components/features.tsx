@@ -1,20 +1,17 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from 'framer-motion';
 
 const features = [
   {
-    title: "Personalized Mentorship",
-    description:
-      "Get matched with mentors who align with your goals and aspirations.",
+    title: 'Personalized Mentorship',
+    description: 'Get matched with mentors who align with your goals and aspirations.',
   },
   {
-    title: "Collaborative Learning",
-    description:
-      "Engage in interactive sessions and learn from experienced professionals.",
+    title: 'Collaborative Learning',
+    description: 'Engage in interactive sessions and learn from experienced professionals.',
   },
   {
-    title: "Goal Tracking",
-    description:
-      "Set goals, track your progress, and celebrate your achievements.",
+    title: 'Goal Tracking',
+    description: 'Set goals, track your progress, and celebrate your achievements.',
   },
 ];
 

@@ -1,14 +1,14 @@
-"use client";
-import { useState } from "react";
-import HeroSection from "@/components/hero-section";
-import HeroContent from "@/components/hero-content";
-import HeroContentBody from "@/components/hero-content-body";
-import HeroContentImage from "@/components/hero-content-image";
-import { privacyPolicyConfig, termsAndConditionsConfig } from "@/config/legal";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Typography from "@/components/ui/typography";
-import { Key } from "react";
-import { TermsAndConditionsSection } from "@/types";
+'use client';
+import { useState } from 'react';
+import HeroSection from '@/components/hero-section';
+import HeroContent from '@/components/hero-content';
+import HeroContentBody from '@/components/hero-content-body';
+import HeroContentImage from '@/components/hero-content-image';
+import { privacyPolicyConfig, termsAndConditionsConfig } from '@/config/legal';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Typography from '@/components/ui/typography';
+import { Key } from 'react';
+import { TermsAndConditionsSection } from '@/types';
 
 export default function LegalPage() {
   const [isPrivacyPolicy, setIsPrivacyPolicy] = useState(true);
@@ -17,9 +17,7 @@ export default function LegalPage() {
     setIsPrivacyPolicy(privacyPolicy);
   };
 
-  const config = isPrivacyPolicy
-    ? privacyPolicyConfig
-    : termsAndConditionsConfig;
+  const config = isPrivacyPolicy ? privacyPolicyConfig : termsAndConditionsConfig;
 
   return (
       <div className="min-h-screen bg-background">
