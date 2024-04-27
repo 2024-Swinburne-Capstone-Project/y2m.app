@@ -1,18 +1,14 @@
-"use client";
-import { BlogsConfig } from "@/types";
-import Image from "next/image";
-import {
-  faCalendarDays,
-  faClock,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import TextWithIcon from "@/components/text-with-icon";
+'use client';
+import { BlogsConfig } from '@/types';
+import Image from 'next/image';
+import { faCalendarDays, faClock, faUser } from '@fortawesome/free-solid-svg-icons';
+import TextWithIcon from '@/components/text-with-icon';
 
 export default function BlogPage({ blog }: { blog: BlogsConfig }) {
-  const dateString = blog.date.toLocaleDateString("en-AU");
-  const timeString = blog.date.toLocaleString("en-AU", {
-    hour: "numeric",
-    minute: "numeric",
+  const dateString = blog.date.toLocaleDateString('en-AU');
+  const timeString = blog.date.toLocaleString('en-AU', {
+    hour: 'numeric',
+    minute: 'numeric',
     hour12: true,
   });
 

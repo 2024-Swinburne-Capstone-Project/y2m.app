@@ -1,16 +1,16 @@
-import { Toaster } from "@/components/ui/toaster";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "@/styles/globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import NavMenu from "@/components/nav/nav-menu";
-import { Footer } from "@/components/footer";
+import { Toaster } from '@/components/ui/toaster';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import '@/styles/globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
+import NavMenu from '@/components/nav/nav-menu';
+import { Footer } from '@/components/footer';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "You2Mentor",
-  description: "You2Mentor is a platform for connecting mentors and mentees.",
+  title: 'You2Mentor',
+  description: 'You2Mentor is a platform for connecting mentors and mentees.',
 };
 
 export default function RootLayout({
@@ -25,9 +25,12 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange>
-          <NavMenu />
-          {children}
+          disableTransitionOnChange
+        >
+          <div className="max-w-7xl mx-auto">
+            <NavMenu />
+            {children}
+          </div>
           <Footer />
           <Toaster />
         </ThemeProvider>

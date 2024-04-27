@@ -1,12 +1,8 @@
-import * as React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { getSession } from "@auth0/nextjs-auth0";
-import { Button } from "../ui/button";
+import * as React from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { getSession } from '@auth0/nextjs-auth0';
+import { Button } from '../ui/button';
 
 export default async function UserButton() {
   const session = await getSession();
@@ -21,11 +17,8 @@ export default async function UserButton() {
       <PopoverTrigger>
         <Avatar>
           <AvatarImage
-            src={
-              session.user.picture ??
-              "https://source.boringavatars.com/marble/120"
-            }
-            alt={session.user.name ?? ""}
+            src={session.user.picture ?? 'https://source.boringavatars.com/marble/120'}
+            alt={session.user.name ?? ''}
           />
           <AvatarFallback>Fill In</AvatarFallback>
         </Avatar>

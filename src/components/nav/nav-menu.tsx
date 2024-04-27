@@ -1,9 +1,8 @@
-import * as React from "react";
-import { ModeToggle } from "./mode-toggle";
-import { MainNav } from "./main-nav";
-import { MobileNav } from "./mobile-nav";
-import UserButton from "./user-button";
-import Image from "next/image";
+import * as React from 'react';
+import { ModeToggle } from './mode-toggle';
+import { MainNav } from './main-nav';
+import { MobileNav } from './mobile-nav';
+import UserButton from './user-button';
 
 export default async function NavMenu() {
   return (

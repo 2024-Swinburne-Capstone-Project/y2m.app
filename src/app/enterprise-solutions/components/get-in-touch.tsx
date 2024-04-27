@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -12,16 +12,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
-import { Textarea } from "../../../components/ui/textarea";
-import { Checkbox } from "../../../components/ui/checkbox";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { toast } from '@/components/ui/use-toast';
+import { Textarea } from '../../../components/ui/textarea';
+import { Checkbox } from '../../../components/ui/checkbox';
 
 const FormSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z.string().email({ message: 'Invalid email address' }),
   message: z.string(),
   demo: z.boolean(),
 });
@@ -30,10 +30,10 @@ export default function GetInTouch() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      message: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      message: '',
       demo: false,
     },
   });
@@ -94,8 +94,8 @@ export default function GetInTouch() {
               <div className="flex items-center space-x-2">
                 <Checkbox
                   {...field}
-                  value={field.value ? "true" : "false"}
-                  style={{ borderColor: "hsl(var(--border))" }}
+                  value={field.value ? 'true' : 'false'}
+                  style={{ borderColor: 'hsl(var(--border))' }}
                 />
                 <FormLabel>Request a Demo</FormLabel>
               </div>
