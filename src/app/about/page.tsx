@@ -14,13 +14,13 @@ export default function AboutPage() {
         className="bg-secondary"
       />
       <HeroContent>
-        <HeroContentBody titleText={aboutConfig.heroContent.titleText} className="md:w-1/2">
+        <HeroContentBody titleText={aboutConfig.heroContent.titleText} className="md:w-2/3">
           <p>{aboutConfig.heroContent.contentText}</p>
         </HeroContentBody>
         <HeroContentImage imagePath={aboutConfig.heroContent.imagePath} />
       </HeroContent>
       <HeroContent className="bg-secondary">
-        <HeroContentBody className="md:w-full text-secondary-foreground">
+        <HeroContentBody className="md:w-2/3 m-auto text-secondary-foreground">
           <p>{aboutConfig.additionalContent.contentBody}</p>
         </HeroContentBody>
       </HeroContent>
