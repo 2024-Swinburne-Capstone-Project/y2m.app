@@ -4,7 +4,7 @@ import { getInTouchConfig } from '@/config/get-in-touch';
 
 const ContactInfo: React.FC = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16 md:w-2/3 m-auto">
       <Card>
         <CardHeader>
           <CardTitle>Visit Us</CardTitle>
