@@ -7,6 +7,7 @@ import { navConfig } from '@/config/nav';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import Image from 'next/image';
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
@@ -50,8 +51,11 @@ export function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0 space-y-8">
+      <SheetContent side="left" className="pr-0">
         <div className="flex flex-col space-y-3">
+          <MobileLink key={'/'} href={'/'} onOpenChange={setOpen}>
+            <Image src={'/y2m-logo.png'} alt="You2Mentor" width={80} height={80} className="mr-5" />
+          </MobileLink>
           {navConfig.mainNav?.map(
             (item) =>
               item.href && (
