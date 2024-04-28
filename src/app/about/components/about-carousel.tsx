@@ -46,8 +46,8 @@ export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className='hidden md:flex'/>
-      <CarouselNext className='hidden md:flex'/>
+      <CarouselPrevious className="hidden md:flex" />
+      <CarouselNext className="hidden md:flex" />
     </Carousel>
   );
 }
