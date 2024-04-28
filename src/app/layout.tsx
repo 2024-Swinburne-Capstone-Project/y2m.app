@@ -27,10 +27,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="max-w-7xl mx-auto">
-            <NavMenu />
-            {children}
-          </div>
+          <NavMenu />
+          {children}
           <Footer />
           <Toaster />
         </ThemeProvider>
