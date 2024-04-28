@@ -13,18 +13,20 @@ export default function AboutPage() {
         imagePath={aboutConfig.heroSection.imagePath}
         className="bg-secondary"
       />
-      <HeroContent>
-        <HeroContentBody titleText={aboutConfig.heroContent.titleText} className="md:w-2/3">
+      <HeroContent className="bg-gradient-to-b from-transparent to-secondary">
+        <HeroContentBody titleText={aboutConfig.heroContent.titleText}>
           <p>{aboutConfig.heroContent.contentText}</p>
         </HeroContentBody>
         <HeroContentImage imagePath={aboutConfig.heroContent.imagePath} />
       </HeroContent>
       <HeroContent className="bg-secondary">
-        <HeroContentBody className="md:w-2/3 m-auto text-secondary-foreground">
-          <p>{aboutConfig.additionalContent.contentBody}</p>
+        <HeroContentBody>
+          <blockquote className="mt-6 md:border-l-2 md:pl-6 italic text-justify">
+            {aboutConfig.additionalContent.contentBody}
+          </blockquote>
         </HeroContentBody>
       </HeroContent>
-      <HeroContent>
+      <HeroContent className="bg-gradient-to-t from-transparent to-secondary">
         <AboutCarousel slides={aboutConfig.carouselSlides} />
       </HeroContent>
     </div>
