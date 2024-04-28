@@ -6,7 +6,7 @@ import UserButton from './user-button';
 
 export default async function NavMenu() {
   return (
-    <div className="border-b">
+    <div className="border-b max-w-7xl mx-auto">
       <div className="flex h-16 items-center px-4">
         <MainNav />
         <MobileNav />
