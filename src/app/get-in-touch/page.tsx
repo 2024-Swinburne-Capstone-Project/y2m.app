@@ -15,7 +15,7 @@ export default function GetInTouchPage() {
         className="bg-secondary"
       />
       <div className="ml-5">
-      <PopularQuestions />
+        <PopularQuestions />
       </div>
       <ContactInfo />
       <div className="md:w-2/3 m-auto">

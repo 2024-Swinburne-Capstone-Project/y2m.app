@@ -20,7 +20,7 @@ const PopularQuestions: React.FC = () => {
           {getInTouchConfig.popularQuestions.map((question, index) => (
             <Accordion key={index} type="single" collapsible>
               <AccordionItem value={question.title}>
-                <AccordionTrigger>{question.title}</AccordionTrigger>
+                <AccordionTrigger className="text-left">{question.title}</AccordionTrigger>
                 <AccordionContent>{question.answer}</AccordionContent>
               </AccordionItem>
             </Accordion>
