@@ -2,14 +2,14 @@ import React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
-interface HeroContentImageProps {
+interface MainSectionImageProps {
   imagePath: string;
   className?: string;
   width?: number;
   height?: number;
 }
 
-const HeroContentImage: React.FC<HeroContentImageProps> = ({
+const MainSectionImage: React.FC<MainSectionImageProps> = ({
   imagePath,
   className,
   width,
@@ -28,4 +28,4 @@ const HeroContentImage: React.FC<HeroContentImageProps> = ({
   );
 };
 
-export default HeroContentImage;
+export default MainSectionImage;

@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
-interface HeroContentProps {
+interface MainSectionProps {
   children?: ReactNode;
   className?: string;
 }
 
-const HeroContent: React.FC<HeroContentProps> = ({ children, className }) => {
+const MainSection: React.FC<MainSectionProps> = ({ children, className }) => {
   return (
     <section
       className={cn(
@@ -19,4 +19,4 @@ const HeroContent: React.FC<HeroContentProps> = ({ children, className }) => {
   );
 };
 
-export default HeroContent;
+export default MainSection;
