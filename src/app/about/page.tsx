@@ -33,14 +33,11 @@ export default function AboutPage() {
           </div>
         </MainSectionBody>
       </MainSection>
-      <MainSection>
+      <MainSection className="bg-secondary">
         <MainSectionBody>
           <div>
             <p className="text-xl text-muted-foreground text-justify">
-              According to Gallup, only 37% of individuals currently have access to at least one
-              mentor. So we have created a platform for individual development where not only can
-              you drive your growth, you can utilise a tribe of mentors based on development goals
-              and mentor others utilising your strengths
+              {aboutConfig.additionalContent.contentBody}
             </p>
             <p className="text-xl text-muted-foreground">
               <Button variant="link" className="text-xl pl-0 pr-1" asChild>
