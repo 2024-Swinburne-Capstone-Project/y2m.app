@@ -1,7 +1,13 @@
 'use client';
 import * as React from 'react';
 import Autoplay from 'embla-carousel-autoplay';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
@@ -18,9 +24,9 @@ export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full mx-10"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.start}
+      className="w-full max-w-xs md:max-w-7xl"
       opts={{ align: 'start', loop: true }}
     >
       <CarouselContent>
@@ -32,7 +38,7 @@ export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
                 <CardDescription>{item.content}</CardDescription>
               </CardHeader>
               {item.imagePath && (
-                <CardContent className="h-80 overflow-hidden">
+                <CardContent className="overflow-hidden">
                   <Image
                     src={item.imagePath}
                     alt={item.title}
