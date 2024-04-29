@@ -11,30 +11,21 @@ import MainSection from '@/components/main-section';
 
 export default function GetInTouchPage() {
   return (
-    <div className="min-h-screen bg-background mb-5">
+    <div>
       <MainSection>
-        <MainSectionBody>
-          <div className="md:w-1/2 space-y-6">
+      <MainSectionBody>
             <Title>{getInTouchConfig.heroSection.title}</Title>
-          </div>
-          <div className="md:w-1/2">
             <Image
               src={getInTouchConfig.heroSection.imagePath}
               alt={getInTouchConfig.heroSection.title}
               width={300}
               height={300}
-              className="w-full h-auto object-cover"
             />
-          </div>
         </MainSectionBody>
       </MainSection>
-      <div className="ml-5">
-        <PopularQuestions />
-      </div>
+      <PopularQuestions />
       <ContactInfo />
-      <div className="md:w-2/3 m-auto">
-        <ContactForm />
-      </div>
+      <ContactForm />
     </div>
   );
 }

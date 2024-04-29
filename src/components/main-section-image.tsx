@@ -22,7 +22,6 @@ const MainSectionImage: React.FC<MainSectionImageProps> = ({
         width={width ?? 600}
         height={height ?? 300}
         alt="Hero Section"
-        className="w-full h-auto object-cover"
       />
     </div>
   );
