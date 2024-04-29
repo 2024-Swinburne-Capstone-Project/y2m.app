@@ -1,34 +1,51 @@
-import HeroContent from '@/components/hero-content';
-import HeroSection from '@/components/hero-section';
-import HeroContentImage from '@/components/hero-content-image';
-import HeroContentBody from '@/components/hero-content-body';
+import MainSection from '@/components/main-section';
+import MainSectionBody from '@/components/main-section-body';
 import { AboutCarousel } from './components/about-carousel';
 import { aboutConfig } from '@/config/about';
+import Image from 'next/image';
+import Title from '@/components/title';
+import Subtitle from '@/components/subtitle';
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
-      <HeroSection
-        title={aboutConfig.heroSection.title}
-        imagePath={aboutConfig.heroSection.imagePath}
-        className="bg-secondary"
-      />
-      <HeroContent className="bg-gradient-to-b from-transparent to-secondary">
-        <HeroContentBody titleText={aboutConfig.heroContent.titleText}>
-          <p>{aboutConfig.heroContent.contentText}</p>
-        </HeroContentBody>
-        <HeroContentImage imagePath={aboutConfig.heroContent.imagePath} />
-      </HeroContent>
-      <HeroContent className="bg-secondary">
-        <HeroContentBody>
+      <MainSection>
+        <MainSectionBody>
+          <div className="md:w-1/2 space-y-6">
+            <Title>
+              <>
+                At You2Mentor, we believe that <span className="text-primary">everyone</span> should
+                have the opportunity to access a mentor
+              </>
+            </Title>
+            <Subtitle>{aboutConfig.heroContent.contentText}</Subtitle>
+          </div>
+          <div className="md:w-1/2">
+            <Image
+              src={aboutConfig.heroContent.imagePath}
+              alt={aboutConfig.heroContent.titleText}
+              width={300}
+              height={300}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </MainSectionBody>
+      </MainSection>
+      <MainSection>
+        <MainSectionBody>
           <blockquote className="mt-6 md:border-l-2 md:pl-6 italic text-justify">
             {aboutConfig.additionalContent.contentBody}
           </blockquote>
-        </HeroContentBody>
-      </HeroContent>
-      <HeroContent className="bg-gradient-to-t from-transparent to-secondary">
-        <AboutCarousel slides={aboutConfig.carouselSlides} />
-      </HeroContent>
+        </MainSectionBody>
+      </MainSection>
+      <MainSection>
+        <div className="py-12 px-4 md:px-8 max-w-7xl mx-auto space-y-6">
+          <Title className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+            Our Core Values
+          </Title>
+          <AboutCarousel slides={aboutConfig.carouselSlides} />
+        </div>
+      </MainSection>
     </div>
   );
 }
