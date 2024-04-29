@@ -10,7 +10,16 @@ import Image from 'next/image';
 import RotatingWord from '@/components/rotating-word';
 
 export default function Home() {
-  const mainTitleWords = ['Unleash', 'Discover', 'Achieve', 'Conquer', 'Unlock', 'Realize', 'Fulfill', 'Maximize'];
+  const mainTitleWords = [
+    'Unleash',
+    'Discover',
+    'Achieve',
+    'Conquer',
+    'Unlock',
+    'Realize',
+    'Fulfill',
+    'Maximize',
+  ];
 
   return (
     <div className="min-h-screen bg-background mb-6">
@@ -23,7 +32,7 @@ export default function Home() {
           className="mb-16 text-center"
         >
           <MainSection>
-            <MainSectionBody className='space-y-6 items-center'>
+            <MainSectionBody className="space-y-6 items-center">
               <div className="md:w-1/2 space-y-6">
                 <Title className="lg:text-7xl">
                   <RotatingWord words={mainTitleWords} /> Your Potential!

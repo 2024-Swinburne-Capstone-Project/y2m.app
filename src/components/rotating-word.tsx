@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
-const RotatingWord = ({ words }: { words: string[]}) => {
+const RotatingWord = ({ words }: { words: string[] }) => {
   const [word, setWord] = useState(words[0]);
 
   useEffect(() => {

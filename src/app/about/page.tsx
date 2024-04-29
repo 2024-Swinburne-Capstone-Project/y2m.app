@@ -5,12 +5,14 @@ import { aboutConfig } from '@/config/about';
 import Image from 'next/image';
 import Title from '@/components/title';
 import Subtitle from '@/components/subtitle';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
       <MainSection>
-        <MainSectionBody className='space-y-6'>
+        <MainSectionBody className="space-y-6">
           <div className="md:w-1/2 space-y-6">
             <Title>
               <>
@@ -33,9 +35,20 @@ export default function AboutPage() {
       </MainSection>
       <MainSection>
         <MainSectionBody>
-          <blockquote className="mt-6 md:border-l-2 md:pl-6 italic text-justify">
-            {aboutConfig.additionalContent.contentBody}
-          </blockquote>
+          <div>
+            <p className="text-xl text-muted-foreground text-justify">
+              According to Gallup, only 37% of individuals currently have access to at least one
+              mentor. So we have created a platform for individual development where not only can
+              you drive your growth, you can utilise a tribe of mentors based on development goals
+              and mentor others utilising your strengths
+            </p>
+            <p className="text-xl text-muted-foreground">
+              <Button variant="link" className="text-xl pl-0 pr-1" asChild>
+                <Link href="/api/auth/login">Signup</Link>
+              </Button>
+              to take the next step in your development journey
+            </p>
+          </div>
         </MainSectionBody>
       </MainSection>
       <MainSection>
