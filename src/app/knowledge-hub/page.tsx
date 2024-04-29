@@ -1,9 +1,12 @@
 'use client';
-import HeroSection from '@/components/hero-section';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { knowledgeHubConfig } from '@/config/knowledge-hub';
 import { useState } from 'react';
 import { BlogsCarousel } from './components/blogs-carousel';
+import MainSection from '@/components/main-section';
+import MainSectionBody from '@/components/main-section-body';
+import Image from 'next/image';
+import Title from '@/components/title';
 
 export default function KnowledgeHubPage() {
   const [isVideos, setIsVideos] = useState(true);
@@ -15,12 +18,23 @@ export default function KnowledgeHubPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <HeroSection
-        title={knowledgeHubConfig.heroSection.title}
-        imagePath={knowledgeHubConfig.heroSection.imagePath}
-        className="bg-secondary"
-      />
-      <div className="flex justify-center items-center mt-8 mb-12">
+      <MainSection>
+        <MainSectionBody>
+          <div className="md:w-1/2 space-y-6">
+            <Title>{knowledgeHubConfig.heroSection.title}</Title>
+          </div>
+          <div className="md:w-1/2">
+            <Image
+              src={knowledgeHubConfig.heroSection.imagePath}
+              alt={knowledgeHubConfig.heroSection.title}
+              width={300}
+              height={300}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </MainSectionBody>
+      </MainSection>
+      <div className="flex justify-center items-center mt-8 mb-12 max-w-7xl mx-auto">
         <button
           onClick={() => toggleConfig(true)}
           className={`px-6 py-2 rounded-l-full ${
@@ -43,7 +57,7 @@ export default function KnowledgeHubPage() {
         </button>
       </div>
       {isVideos && (
-        <div className="flex justify-center">
+        <div className="flex justify-center max-w-7xl mx-auto">
           <Card className="w-[90vw]">
             <CardHeader>
               <CardTitle>Videos</CardTitle>

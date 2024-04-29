@@ -1,14 +1,15 @@
 'use client';
 import { useState } from 'react';
-import HeroSection from '@/components/hero-section';
-import HeroContent from '@/components/hero-content';
-import HeroContentBody from '@/components/hero-content-body';
-import HeroContentImage from '@/components/hero-content-image';
+import MainSection from '@/components/main-section';
+import MainSectionBody from '@/components/main-section-body';
+import MainSectionImage from '@/components/main-section-image';
 import { privacyPolicyConfig, termsAndConditionsConfig } from '@/config/legal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Typography from '@/components/ui/typography';
 import { Key } from 'react';
 import { TermsAndConditionsSection } from '@/types';
+import Image from 'next/image';
+import Title from '@/components/title';
 
 export default function LegalPage() {
   const [isPrivacyPolicy, setIsPrivacyPolicy] = useState(true);
@@ -21,11 +22,22 @@ export default function LegalPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <HeroSection
-        title={config.heroSection.title}
-        imagePath={config.heroSection.imagePath}
-        className="bg-secondary"
-      />
+      <MainSection>
+        <MainSectionBody>
+          <div className="md:w-1/2 space-y-6">
+            <Title>{config.heroSection.title}</Title>
+          </div>
+          <div className="md:w-1/2">
+            <Image
+              src={config.heroSection.imagePath}
+              alt={config.heroSection.title}
+              width={300}
+              height={300}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </MainSectionBody>
+      </MainSection>
       <div className="flex justify-center items-center mt-8 mb-12">
         <button
           onClick={() => toggleConfig(true)}
@@ -49,9 +61,9 @@ export default function LegalPage() {
         </button>
       </div>
       {config.sections.map((section: TermsAndConditionsSection, index: number) => (
-        <HeroContent key={index} className={index % 2 === 0 ? '' : 'bg-secondary'}>
-          <HeroContentBody
-            className={`md:w-1/2 ${index % 2 === 0 ? '' : 'md:order-2 text-secondary-foreground'}`}
+        <MainSection key={index} className={index % 2 === 0 ? '' : 'bg-secondary'}>
+          <MainSectionBody
+            className={`md:w-1/2 ${index % 2 === 0 ? '' : 'md:order-2 text-secondary-foreground '}`}
           >
             <Card>
               <CardHeader>
@@ -65,16 +77,16 @@ export default function LegalPage() {
                 ))}
               </CardContent>
             </Card>
-          </HeroContentBody>
+          </MainSectionBody>
           {section.imagePath && (
-            <HeroContentImage
+            <MainSectionImage
               imagePath={section.imagePath}
-              width={10000}
-              height={7000}
+              width={300}
+              height={300}
               className={index % 2 === 0 ? 'md:order-2' : ''}
             />
           )}
-        </HeroContent>
+        </MainSection>
       ))}
     </div>
   );

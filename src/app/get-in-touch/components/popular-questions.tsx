@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { getInTouchConfig } from '@/config/get-in-touch';
-import HeroContentImage from '@/components/hero-content-image';
+import MainSectionImage from '@/components/main-section-image';
 
 const PopularQuestions: React.FC = () => {
   return (
@@ -27,7 +27,7 @@ const PopularQuestions: React.FC = () => {
           ))}
         </CardContent>
       </Card>
-      <HeroContentImage imagePath={getInTouchConfig.accordionImage.imagePath} />
+      <MainSectionImage imagePath={getInTouchConfig.accordionImage.imagePath} />
     </section>
   );
 };
