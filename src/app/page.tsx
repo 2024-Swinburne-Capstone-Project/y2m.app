@@ -6,7 +6,7 @@ import Title from '@/components/title';
 import Subtitle from '@/components/subtitle';
 import MainSection from '@/components/main-section';
 import MainSectionBody from '@/components/main-section-body';
-import ThemeImage from '@/components/theme-image';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -29,10 +29,9 @@ export default function Home() {
                   A Platform for Peer to Peer Mentoring and Personal Development
                 </Subtitle>
               </div>
-              <div className="md:w-1/2">
-                <ThemeImage
-                  srcLight="/paper-plane.svg"
-                  srcDark="/paper-plane-dark.svg"
+              <div  className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden">
+                <Image
+                  src="/paper-plane.svg"
                   alt=""
                   width={300}
                   height={300}

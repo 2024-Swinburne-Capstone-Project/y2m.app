@@ -1,6 +1,5 @@
 interface AboutConfig {
   carouselSlides: AboutCarouselConfig[];
-  heroSection: HeroSectionConfig;
   heroContent: HeroContentConfig;
   additionalContent: AdditionalContent;
 }

@@ -1,16 +1,12 @@
 import { AboutConfig } from '@/types';
 
 export const aboutConfig: AboutConfig = {
-  heroSection: {
-    title: 'About Us',
-    imagePath: '/about/about-us.png',
-  },
   heroContent: {
     titleText:
       'At You2Mentor, we believe that everyone should have the opportunity to access a mentor',
     contentText:
       'With the goal of making mentorship accessible to all, You2Mentor was launched in December 2022 to be a dedicated online resource for personal growth. It provides users with the necessary tools and guidance to help them reach their potential.',
-    imagePath: '/about/about-us.png',
+    imagePath: '/about/creative-work.svg',
   },
   additionalContent: {
     contentBody:

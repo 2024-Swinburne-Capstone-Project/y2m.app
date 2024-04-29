@@ -10,7 +10,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
       <MainSection>
-        <MainSectionBody>
+        <MainSectionBody className='space-y-6'>
           <div className="md:w-1/2 space-y-6">
             <Title>
               <>
@@ -20,7 +20,7 @@ export default function AboutPage() {
             </Title>
             <Subtitle>{aboutConfig.heroContent.contentText}</Subtitle>
           </div>
-          <div className="md:w-1/2">
+          <div className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full">
             <Image
               src={aboutConfig.heroContent.imagePath}
               alt={aboutConfig.heroContent.titleText}
