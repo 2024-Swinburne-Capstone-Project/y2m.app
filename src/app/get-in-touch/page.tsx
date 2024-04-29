@@ -13,14 +13,14 @@ export default function GetInTouchPage() {
   return (
     <div>
       <MainSection>
-      <MainSectionBody>
-            <Title>{getInTouchConfig.heroSection.title}</Title>
-            <Image
-              src={getInTouchConfig.heroSection.imagePath}
-              alt={getInTouchConfig.heroSection.title}
-              width={300}
-              height={300}
-            />
+        <MainSectionBody>
+          <Title>{getInTouchConfig.heroSection.title}</Title>
+          <Image
+            src={getInTouchConfig.heroSection.imagePath}
+            alt={getInTouchConfig.heroSection.title}
+            width={300}
+            height={300}
+          />
         </MainSectionBody>
       </MainSection>
       <PopularQuestions />

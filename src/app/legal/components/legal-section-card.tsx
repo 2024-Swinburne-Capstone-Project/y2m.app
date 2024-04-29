@@ -21,7 +21,9 @@ export const LegalSectionCard: React.FC<LegalSectionCardProps> = ({ section }) =
           </Typography>
         ))}
       </CardContent>
-      {section.imagePath && <MainSectionImage imagePath={section.imagePath} width={300} height={300} />}
+      {section.imagePath && (
+        <MainSectionImage imagePath={section.imagePath} width={300} height={300} />
+      )}
     </Card>
   );
 };

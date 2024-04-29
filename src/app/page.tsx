@@ -4,10 +4,10 @@ import { Features } from '@/components/features';
 import { Testimonials } from '@/components/testimonials';
 import Title from '@/components/title';
 import Subtitle from '@/components/subtitle';
-import MainSection from '@/components/main-section';
 import MainSectionBody from '@/components/main-section-body';
 import Image from 'next/image';
 import RotatingWord from '@/components/rotating-word';
+import MainSection from '@/components/main-section';
 
 export default function Home() {
   const mainTitleWords = [

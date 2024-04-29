@@ -9,8 +9,8 @@ export default function AboutPage() {
       <HeroSection
         title={
           <>
-            At You2Mentor, we believe that <span className="text-primary">everyone</span> should have the opportunity
-            to access a mentor
+            At You2Mentor, we believe that <span className="text-primary">everyone</span> should
+            have the opportunity to access a mentor
           </>
         }
         subtitle={aboutConfig.heroContent.contentText}

@@ -12,7 +12,6 @@ import MainSectionImage from '@/components/main-section-image';
 const PopularQuestions: React.FC = () => {
   return (
     <section className="flex flex-col md:flex-row items-center justify-between w-2/3 mx-auto">
-
       <Card className="md:w-2/3 mb-8 md:mb-0">
         <CardHeader>
           <CardTitle>Most Popular Questions</CardTitle>
@@ -28,10 +27,7 @@ const PopularQuestions: React.FC = () => {
           ))}
         </CardContent>
       </Card>
-      <MainSectionImage
-        width={450}
-        imagePath={getInTouchConfig.accordionImage.imagePath}
-      />
+      <MainSectionImage width={450} imagePath={getInTouchConfig.accordionImage.imagePath} />
     </section>
   );
 };

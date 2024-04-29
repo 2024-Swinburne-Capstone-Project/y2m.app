@@ -12,7 +12,9 @@ export const ValuesSection: React.FC<ValuesSectionProps> = ({ title, slides }) =
   return (
     <MainSection>
       <div className="py-12 px-4 md:px-8 max-w-7xl mx-auto space-y-6">
-        <Title className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">{title}</Title>
+        <Title className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          {title}
+        </Title>
         <AboutCarousel slides={slides} />
       </div>
     </MainSection>
