@@ -30,7 +30,7 @@ export function BlogsCarousel({ slides }: { slides: BlogsConfig[] }) {
       {!selectedBlog && (
         <Carousel
           plugins={[plugin.current]}
-          className="mx-10"
+          className="max-w-xs md:max-w-7xl mx-10"
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.start}
           opts={{ align: 'start', loop: true }}
@@ -60,8 +60,8 @@ export function BlogsCarousel({ slides }: { slides: BlogsConfig[] }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
         </Carousel>
       )}
       {selectedBlog && (

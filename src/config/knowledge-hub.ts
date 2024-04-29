@@ -3,7 +3,7 @@ import { KnowledgeHubConfig } from '@/types';
 export const knowledgeHubConfig: KnowledgeHubConfig = {
   heroSection: {
     title: 'Knowledge Hub',
-    imagePath: '/knowledge-hub/knowledge-hub.png',
+    imagePath: '/knowledge-hub/genius.svg',
   },
   videos: [
     {
