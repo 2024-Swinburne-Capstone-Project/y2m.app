@@ -12,7 +12,6 @@ export const privacyPolicyConfig: PrivacyPolicyConfig = {
         '(a) You2Mentor respects your right to privacy and is committed to safeguarding the privacy of our customers and website visitors. We adhere to the Australian Privacy Principles contained in the Privacy Act 1988 (Cth). This policy sets out how we collect and treat your personal information.',
         '(b) "Personal information" is information we hold which is identifiable as being about you.',
       ],
-      imagePath: '/legal/privacy-policy-content.png',
     },
     {
       title: '2. Collection of personal information',
@@ -95,7 +94,6 @@ export const termsAndConditionsConfig: TermsAndConditionsConfig = {
         '- Violate any applicable laws or regulations.',
         '- Create a false identity for the purpose of misleading others.',
       ],
-      imagePath: '/legal/terms-and-conditions-content.png',
     },
     {
       title: 'Use of Content',
