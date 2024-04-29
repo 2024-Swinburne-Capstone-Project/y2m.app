@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import Image from 'next/image';
 
 interface LegalContentSectionProps {
   sections: TermsAndConditionsSection[];
@@ -26,7 +27,7 @@ export const LegalContentSection: React.FC<LegalContentSectionProps> = ({ sectio
               </p>
             ))}
             {section.imagePath && (
-              <img src={section.imagePath} alt={section.title} className="mt-4" />
+              <Image src={section.imagePath} alt={section.title} className="mt-4" />
             )}
           </AccordionContent>
         </AccordionItem>
