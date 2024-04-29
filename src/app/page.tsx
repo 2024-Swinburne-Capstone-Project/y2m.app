@@ -2,6 +2,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Features } from '@/components/features';
 import { Testimonials } from '@/components/testimonials';
+import Title from '@/components/title';
+import Subtitle from '@/components/subtitle';
 
 export default function Home() {
   return (
@@ -15,12 +17,14 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="mb-16 text-center"
           >
-            <h1 className="mb-4 text-4xl font-bold md:text-6xl">
-              Unlock Your Potential with You2Mentor
-            </h1>
-            <p className="mb-8 text-lg text-muted-foreground md:text-xl">
+            <Title className="mb-4 text-4xl font-bold md:text-6xl">
+              <>
+                <span className="text-primary">Unlock</span> Your Potential with You2Mentor
+              </>
+            </Title>
+            <Subtitle className="mb-8 text-lg text-muted-foreground md:text-xl">
               Connect with experienced mentors and achieve your goals faster.
-            </p>
+            </Subtitle>
           </motion.section>
           <Features />
           <Testimonials />
