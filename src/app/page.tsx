@@ -7,8 +7,11 @@ import Subtitle from '@/components/subtitle';
 import MainSection from '@/components/main-section';
 import MainSectionBody from '@/components/main-section-body';
 import Image from 'next/image';
+import RotatingWord from '@/components/rotating-word';
 
 export default function Home() {
+  const mainTitleWords = ['Unleash', 'Discover', 'Achieve', 'Conquer', 'Unlock', 'Realize', 'Fulfill', 'Maximize'];
+
   return (
     <div className="min-h-screen bg-background mb-6">
       <AnimatePresence>
@@ -23,13 +26,13 @@ export default function Home() {
             <MainSectionBody>
               <div className="md:w-1/2 space-y-6">
                 <Title className="lg:text-7xl">
-                  <span className="text-primary">Unleash</span> Your Potential!
+                  <RotatingWord words={mainTitleWords} /> Your Potential!
                 </Title>
                 <Subtitle className="mb-8 text-lg text-muted-foreground md:text-xl">
                   A Platform for Peer to Peer Mentoring and Personal Development
                 </Subtitle>
               </div>
-              <div  className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden">
+              <div className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden">
                 <Image
                   src="/paper-plane.svg"
                   alt=""
@@ -41,9 +44,9 @@ export default function Home() {
             </MainSectionBody>
           </MainSection>
         </motion.section>
-        <div className='max-w-7xl mx-auto'>
-        <Features />
-        <Testimonials />
+        <div className="max-w-7xl mx-auto">
+          <Features />
+          <Testimonials />
         </div>
       </AnimatePresence>
     </div>
