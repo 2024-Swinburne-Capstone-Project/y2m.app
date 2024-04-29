@@ -11,7 +11,12 @@ interface HeroSectionProps {
   imageAlt: string;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, imagePath, imageAlt }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  title,
+  subtitle,
+  imagePath,
+  imageAlt,
+}) => {
   return (
     <MainSection>
       <MainSectionBody className="space-y-6">
@@ -20,7 +25,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, image
           <Subtitle>{subtitle}</Subtitle>
         </div>
         <div className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full">
-          <Image src={imagePath} alt={imageAlt} width={300} height={300} className="w-full h-auto object-cover" />
+          <Image
+            src={imagePath}
+            alt={imageAlt}
+            width={300}
+            height={300}
+            className="w-full h-auto object-cover"
+          />
         </div>
       </MainSectionBody>
     </MainSection>

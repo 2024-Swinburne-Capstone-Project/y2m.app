@@ -35,7 +35,7 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
               </div>
             ))}
           </CardContent>
-          <CardContent className="md:w-2/3" style={{margin: 0}}>
+          <CardContent className="md:w-2/3" style={{ margin: 0 }}>
             {selectedVideoIndex !== null && (
               <div className="aspect-w-16 aspect-h-9">
                 <iframe

@@ -1,10 +1,9 @@
 'use client';
 import { useState } from 'react';
-import MainSection from '@/components/main-section';
 import { privacyPolicyConfig, termsAndConditionsConfig } from '@/config/legal';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { LegalHeroSection } from './components/LegalHeroSection';
-import { LegalContentSection } from './components/LegalContentSection';
+import { LegalHeroSection } from './components/legal-hero-section';
+import { LegalContentSection } from './components/legal-content-section';
 
 export default function LegalPage() {
   const [activeTab, setActiveTab] = useState('privacy');

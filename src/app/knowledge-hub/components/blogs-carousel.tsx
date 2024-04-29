@@ -2,7 +2,13 @@
 import * as React from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 import Image from 'next/image';
 import { BlogsConfig } from '@/types';
 import { useEffect, useState } from 'react';
@@ -51,8 +57,16 @@ export function BlogsCarousel({ slides }: BlogsCarouselProps) {
           >
             <Card className="h-full cursor-pointer">
               <CardHeader className="flex flex-col items-center">
-                <Image src={item.imagePath} alt={item.title} width={1280} height={300} className="object-cover h-60" />
-                <CardDescription className="text-center mt-4">{item.date.toDateString()}</CardDescription>
+                <Image
+                  src={item.imagePath}
+                  alt={item.title}
+                  width={1280}
+                  height={300}
+                  className="object-cover h-60"
+                />
+                <CardDescription className="text-center mt-4">
+                  {item.date.toDateString()}
+                </CardDescription>
                 <CardTitle className="text-center mt-2">{item.title}</CardTitle>
               </CardHeader>
             </Card>

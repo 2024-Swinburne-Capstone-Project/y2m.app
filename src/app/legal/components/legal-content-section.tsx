@@ -2,7 +2,12 @@
 'use client';
 import * as React from 'react';
 import { TermsAndConditionsSection } from '@/types';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 interface LegalContentSectionProps {
   sections: TermsAndConditionsSection[];
