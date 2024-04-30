@@ -48,7 +48,7 @@ export function Features() {
                 alt=""
                 width={300}
                 height={300}
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden"
               />
               <h3 className="mb-2 text-xl font-semibold">{feature.title}</h3>
               <p className="text-muted-foreground">{feature.description}</p>{' '}

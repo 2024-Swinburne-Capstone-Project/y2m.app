@@ -65,16 +65,16 @@ export function MenteeBenefits() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="rounded-lg border p-6 flex items-center text-left gap-8"
+              className="rounded-lg border p-6 flex flex-row items-center text-left gap-8"
             >
               <Image
                 src={benefit.imagePath}
                 alt=""
                 width={300}
                 height={300}
-                className="w-28 h-auto object-cover"
+                className="w-28 h-auto basis-1/5 object-cover dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden"
               />
-              <div>
+              <div className="basis-4/5">
                 <h1 className="mb-2 text-xl font-semibold">{benefit.title}</h1>
                 <h3 className="text-muted-foreground">{benefit.description}</h3>{' '}
               </div>
