@@ -20,7 +20,7 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
           <CardTitle>Videos</CardTitle>
           <CardDescription>Playlist ({videos.length})</CardDescription>
         </CardHeader>
-        <MainSection className="flex flex-col md:flex-row">
+        <MainSection className="flex flex-col md:flex-row py-4">
           <CardContent className="md:w-1/3">
             {videos.map((video, index) => (
               <div

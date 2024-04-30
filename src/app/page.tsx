@@ -8,6 +8,12 @@ import MainSectionBody from '@/components/main-section-body';
 import Image from 'next/image';
 import RotatingWord from '@/components/rotating-word';
 import MainSection from '@/components/main-section';
+import { IntroVideo } from '@/components/intro-video';
+import { Perks } from '@/components/perks';
+import { MentorBenefits } from '@/components/mentor-benefits';
+import { MenteeBenefits } from '@/components/mentee-benefits';
+import { HomeBlogs } from '@/components/home-blogs';
+import { AcknowledgementOfCountry } from '@/components/acknowledgement-of-country';
 
 export default function Home() {
   const mainTitleWords = [
@@ -22,7 +28,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-background mb-6">
+    <div className="min-h-screen bg-background mb-6 mx-6">
       <AnimatePresence>
         <motion.section
           initial={{ opacity: 0, y: 20 }}
@@ -54,8 +60,14 @@ export default function Home() {
           </MainSection>
         </motion.section>
         <div className="max-w-7xl mx-auto">
+          <Perks />
+          <IntroVideo />
           <Features />
+          <MentorBenefits />
+          <MenteeBenefits />
+          <HomeBlogs />
           <Testimonials />
+          <AcknowledgementOfCountry />
         </div>
       </AnimatePresence>
     </div>
