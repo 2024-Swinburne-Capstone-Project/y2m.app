@@ -51,10 +51,16 @@ export function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0">
+      <SheetContent side="left">
         <div className="flex flex-col space-y-3">
           <MobileLink key={'/'} href={'/'} onOpenChange={setOpen}>
-            <Image src={'/y2m-logo.png'} alt="You2Mentor" width={80} height={80} className="mr-5" />
+            <Image
+              src={'/y2m-logo.png'}
+              alt="You2Mentor"
+              width={80}
+              height={80}
+              className="mr-5 mb-4"
+            />
           </MobileLink>
           {navConfig.mainNav?.map(
             (item) =>

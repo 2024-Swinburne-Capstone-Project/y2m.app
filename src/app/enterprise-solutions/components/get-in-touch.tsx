@@ -92,11 +92,7 @@ export default function GetInTouch() {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center space-x-2">
-                <Checkbox
-                  {...field}
-                  value={field.value ? 'true' : 'false'}
-                  style={{ borderColor: 'hsl(var(--border))' }}
-                />
+                <Checkbox {...field} value={field.value ? 'true' : 'false'} />
                 <FormLabel>Request a Demo</FormLabel>
               </div>
               <FormMessage />
