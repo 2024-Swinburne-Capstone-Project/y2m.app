@@ -34,7 +34,7 @@ export function MentorBenefits() {
           alt=""
           width={300}
           height={300}
-          className="w-full h-auto object-cover"
+          className="w-full h-auto object-cover dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden"
         />
         <div className="grid gap-8">
           <AnimatePresence>
@@ -52,7 +52,7 @@ export function MentorBenefits() {
                   alt=""
                   width={300}
                   height={300}
-                  className="w-28 h-auto object-cover"
+                  className="w-28 h-auto object-cover dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden"
                 />
                 <div>
                   <h3 className="text-muted-foreground">{benefit.description}</h3>{' '}
