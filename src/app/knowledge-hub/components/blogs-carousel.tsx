@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import { BlogsConfig } from '@/types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import BlogPage from './blog';
 
@@ -22,12 +22,6 @@ interface BlogsCarouselProps {
 export function BlogsCarousel({ slides }: BlogsCarouselProps) {
   const plugin = React.useRef(Autoplay({ delay: 2000 }));
   const [selectedBlog, setSelectedBlog] = useState<BlogsConfig | undefined>(undefined);
-
-  useEffect(() => {
-    if (selectedBlog) {
-      window.scrollTo(0, 0);
-    }
-  }, [selectedBlog]);
 
   if (selectedBlog) {
     return (

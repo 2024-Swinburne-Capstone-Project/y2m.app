@@ -11,7 +11,7 @@ import MainSection from '@/components/main-section';
 
 export default function GetInTouchPage() {
   return (
-    <div className="mb-16">
+    <div className="mb-16 mx-3">
       <MainSection>
         <MainSectionBody>
           <Title>{getInTouchConfig.heroSection.title}</Title>
