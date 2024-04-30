@@ -3,7 +3,7 @@ import { PrivacyPolicyConfig, TermsAndConditionsConfig } from '@/types';
 export const privacyPolicyConfig: PrivacyPolicyConfig = {
   heroSection: {
     title: 'Privacy Policy',
-    imagePath: '/legal/privacy-policy.png',
+    imagePath: '/legal/presentation.svg',
   },
   sections: [
     {
@@ -77,7 +77,7 @@ export const privacyPolicyConfig: PrivacyPolicyConfig = {
 export const termsAndConditionsConfig: TermsAndConditionsConfig = {
   heroSection: {
     title: 'Terms and Conditions',
-    imagePath: '/legal/terms-and-conditions.png',
+    imagePath: '/legal/taking-notes.svg',
   },
   sections: [
     {

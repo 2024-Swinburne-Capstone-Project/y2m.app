@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import Autoplay from 'embla-carousel-autoplay';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
@@ -26,22 +26,20 @@ export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
       <CarouselContent>
         {slides.map((item, index) => (
           <CarouselItem key={index} className="pl-5 md:basis-1/2 lg:basis-1/3">
-            <Card className="h-full">
-              <CardHeader>
+            <Card className="h-full items-center">
+              {item.imagePath && (
+                <Image
+                  src={item.imagePath}
+                  alt={item.title}
+                  width={150}
+                  height={150}
+                  className="dark:bg-primary-foreground w-1/2 mx-auto mt-5 rounded-full"
+                />
+              )}
+              <CardHeader className="text-center">
                 <CardTitle>{item.title}</CardTitle>
                 <CardDescription>{item.content}</CardDescription>
               </CardHeader>
-              {item.imagePath && (
-                <CardContent className="overflow-hidden">
-                  <Image
-                    src={item.imagePath}
-                    alt={item.title}
-                    width={1280}
-                    height={300}
-                    className="w-full h-auto object-cover"
-                  />
-                </CardContent>
-              )}
             </Card>
           </CarouselItem>
         ))}

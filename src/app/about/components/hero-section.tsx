@@ -24,15 +24,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <Title>{title}</Title>
           <Subtitle>{subtitle}</Subtitle>
         </div>
-        <div className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full">
-          <Image
-            src={imagePath}
-            alt={imageAlt}
-            width={300}
-            height={300}
-            className="w-full h-auto object-cover"
-          />
-        </div>
+        <Image
+          src={imagePath}
+          alt={imageAlt}
+          width={300}
+          height={300}
+          className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full"
+        />
       </MainSectionBody>
     </MainSection>
   );

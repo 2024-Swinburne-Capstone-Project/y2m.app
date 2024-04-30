@@ -47,7 +47,6 @@ export interface KnowledgeHubConfig {
 }
 
 export interface EnterpriseSolutionsConfig {
-  heroSection: HeroSectionConfig;
   heroContent: HeroContentConfig;
   additionalContent: AdditionalContent;
   additionalImagePath: string;

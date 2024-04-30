@@ -16,10 +16,10 @@ interface LegalContentSectionProps {
 
 export const LegalContentSection: React.FC<LegalContentSectionProps> = ({ sections }) => {
   return (
-    <Accordion type="single" collapsible className="mt-20">
+    <Accordion type="single" collapsible className="mt-5">
       {sections.map((section, index) => (
         <AccordionItem key={index} value={`item-${index}`}>
-          <AccordionTrigger>{section.title}</AccordionTrigger>
+          <AccordionTrigger className="text-left">{section.title}</AccordionTrigger>
           <AccordionContent>
             {section.content.map((paragraph, paragraphIndex) => (
               <p key={paragraphIndex} className="mb-4">
