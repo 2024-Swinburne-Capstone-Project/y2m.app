@@ -5,14 +5,14 @@ const testimonials = [
   {
     name: 'John Doe',
     role: 'Software Engineer',
-    image: '/path/to/john-doe.jpg',
+    image: '/male-user.png',
     quote:
       'You2Mentor has been instrumental in my career growth. The mentors are knowledgeable and supportive.',
   },
   {
     name: 'Jane Smith',
     role: 'Product Manager',
-    image: '/path/to/jane-smith.jpg',
+    image: '/female-user.png',
     quote:
       "I highly recommend You2Mentor to anyone looking to advance their skills. It's an amazing platform.",
   },
@@ -20,7 +20,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section>
+    <section className="mb-16">
       <h2 className="mb-8 text-3xl font-bold">Testimonials</h2>
       <div className="grid gap-8 md:grid-cols-2">
         <AnimatePresence>
