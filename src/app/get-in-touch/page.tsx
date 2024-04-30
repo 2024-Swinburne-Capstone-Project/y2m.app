@@ -11,7 +11,7 @@ import MainSection from '@/components/main-section';
 
 export default function GetInTouchPage() {
   return (
-    <div>
+    <div className="mb-16">
       <MainSection>
         <MainSectionBody>
           <Title>{getInTouchConfig.heroSection.title}</Title>
@@ -20,6 +20,7 @@ export default function GetInTouchPage() {
             alt={getInTouchConfig.heroSection.title}
             width={300}
             height={300}
+            className="dark:bg-primary-foreground dark:rounded-full"
           />
         </MainSectionBody>
       </MainSection>

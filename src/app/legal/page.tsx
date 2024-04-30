@@ -13,8 +13,11 @@ export default function LegalPage() {
   return (
     <div className="min-h-screen bg-background">
       <LegalHeroSection config={config} />
-
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="max-w-7xl mx-auto pl-2 pr-2">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="max-w-7xl mx-auto pl-10 pr-10 mb-10"
+      >
         <TabsList className="grid grid-cols-2">
           <TabsTrigger value="privacy">Privacy Policy</TabsTrigger>
           <TabsTrigger value="terms">Terms & Conditions</TabsTrigger>

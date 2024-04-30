@@ -8,11 +8,12 @@ import {
 } from '@/components/ui/accordion';
 import { getInTouchConfig } from '@/config/get-in-touch';
 import MainSectionImage from '@/components/main-section-image';
+import MainSectionBody from '@/components/main-section-body';
 
 const PopularQuestions: React.FC = () => {
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between w-2/3 mx-auto">
-      <Card className="md:w-2/3 mb-8 md:mb-0">
+    <MainSectionBody className="space-y-8">
+      <Card className="md:w-[50vw] w-full m-1 p-5">
         <CardHeader>
           <CardTitle>Most Popular Questions</CardTitle>
         </CardHeader>
@@ -28,7 +29,7 @@ const PopularQuestions: React.FC = () => {
         </CardContent>
       </Card>
       <MainSectionImage width={450} imagePath={getInTouchConfig.accordionImage.imagePath} />
-    </section>
+    </MainSectionBody>
   );
 };
 

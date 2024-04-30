@@ -15,15 +15,17 @@ interface LegalHeroSectionProps {
 export const LegalHeroSection: React.FC<LegalHeroSectionProps> = ({ config }) => {
   return (
     <MainSection>
-      <MainSectionBody>
-        <Title>{config.heroSection.title}</Title>
-        <div className="md:w-1/2">
+      <MainSectionBody className="space-y-6">
+        <div className="md:w-1/2 space-y-6">
+          <Title>{config.heroSection.title}</Title>
+        </div>
+        <div>
           <Image
             src={config.heroSection.imagePath}
             alt={config.heroSection.title}
-            width={250}
-            height={250}
-            className="w-full h-auto object-cover"
+            width={300}
+            height={300}
+            className="dark:bg-primary-foreground dark:rounded-full"
           />
         </div>
       </MainSectionBody>

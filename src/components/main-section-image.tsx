@@ -17,7 +17,13 @@ const MainSectionImage: React.FC<MainSectionImageProps> = ({
 }) => {
   return (
     <div className={cn(className)}>
-      <Image src={imagePath} width={width ?? 600} height={height ?? 300} alt="Hero Section" />
+      <Image
+        src={imagePath}
+        width={width ?? 600}
+        height={height ?? 300}
+        alt="Hero Section"
+        className="dark:bg-primary-foreground dark:rounded-full"
+      />
     </div>
   );
 };

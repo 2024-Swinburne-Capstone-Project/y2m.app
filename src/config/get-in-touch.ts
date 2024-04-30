@@ -3,7 +3,7 @@ import { GetInTouchConfig } from '@/types';
 export const getInTouchConfig: GetInTouchConfig = {
   heroSection: {
     title: 'Get in Touch',
-    imagePath: '/get-in-touch/get-in-touch-bg.png',
+    imagePath: '/customer-support.svg',
   },
   popularQuestions: [
     {
@@ -37,6 +37,6 @@ export const getInTouchConfig: GetInTouchConfig = {
     email: 'info@you2mentor.com',
   },
   accordionImage: {
-    imagePath: '/get-in-touch/get-in-touch-image.png',
+    imagePath: '/get-in-touch/question-mark.svg',
   },
 };
