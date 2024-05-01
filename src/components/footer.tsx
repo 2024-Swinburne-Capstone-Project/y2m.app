@@ -13,11 +13,13 @@ export function Footer() {
   return (
     <footer className="border-t py-8">
       <div className="container mx-auto flex flex-col items-center justify-between px-4 sm:flex-row">
-        <Image src={'/y2m-logo.png'} alt="You2Mentor" width={80} height={80} className="mr-5" />
-        <p className="text-center text-sm text-muted-foreground sm:text-left">
+        <Link href="/">
+          <Image src={'/y2m-logo.png'} alt="You2Mentor" width={80} height={80} className="mb-3" />
+        </Link>
+        <p className="text-center text-sm text-muted-foreground sm:text-left mb-3">
           &copy; {new Date().getFullYear()} You2Mentor. All rights reserved.
         </p>
-        <div className="flex gap-6">
+        <div className="flex gap-6 mb-3">
           <Link href="https://www.linkedin.com/company/you2mentor/">
             <FontAwesomeIcon
               className="w-5"
@@ -54,7 +56,7 @@ export function Footer() {
             />
           </Link>
         </div>
-        <nav className="mt-4 flex space-x-4 sm:mt-0">
+        <nav className="flex space-x-4 sm:mt-0">
           <Link href="/legal" className="text-sm text-muted-foreground hover:underline">
             Privacy Policy
           </Link>

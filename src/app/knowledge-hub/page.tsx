@@ -4,18 +4,33 @@ import { knowledgeHubConfig } from '@/config/knowledge-hub';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { VideoSection } from './components/video-section';
 import { BlogSection } from './components/blog-section';
-import { HeroSection } from './components/hero-section';
+import MainSection from '@/components/main-section';
+import MainSectionBody from '@/components/main-section-body';
+import Title from '@/components/title';
+import Image from 'next/image';
 
 export default function KnowledgeHubPage() {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
 
   return (
     <div className="min-h-screen bg-background">
-      <HeroSection
-        title={knowledgeHubConfig.heroSection.title}
-        imagePath={knowledgeHubConfig.heroSection.imagePath}
-      />
-      <Tabs defaultValue="videos" className="max-w-7xl mb-10 mx-auto px-2">
+      <MainSection>
+        <MainSectionBody className="space-y-6">
+          <div className=" space-y-6">
+            <Title>{knowledgeHubConfig.heroSection.title}</Title>
+          </div>
+          <div>
+            <Image
+              src={knowledgeHubConfig.heroSection.imagePath}
+              alt={knowledgeHubConfig.heroSection.title}
+              width={300}
+              height={300}
+              className="dark:bg-primary-foreground dark:rounded-full"
+            />
+          </div>
+        </MainSectionBody>
+      </MainSection>
+      <Tabs defaultValue="videos" className="max-w-7xl mb-10 mx-auto px-6">
         <TabsList className="grid grid-cols-2">
           <TabsTrigger value="videos">Videos</TabsTrigger>
           <TabsTrigger value="blog">Blog</TabsTrigger>
