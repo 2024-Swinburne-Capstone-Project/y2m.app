@@ -56,7 +56,7 @@ export function MenteeBenefits() {
   return (
     <section className="mb-16">
       <h2 className="mb-8 text-3xl font-bold">Why You Should Have a Mentor</h2>
-      <div className="grid gap-8 md:grid-cols-2 text-center">
+      <div className="grid gap-8 text-center md:grid-cols-2">
         <AnimatePresence>
           {menteeBenefits.map((benefit, index) => (
             <motion.div
@@ -65,14 +65,14 @@ export function MenteeBenefits() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="rounded-lg border p-6 flex flex-row items-center text-left gap-8"
+              className="flex flex-row items-center gap-8 rounded-lg border p-6 text-left"
             >
               <Image
                 src={benefit.imagePath}
                 alt=""
                 width={300}
                 height={300}
-                className="w-28 h-auto basis-1/5 object-cover dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden"
+                className="h-auto w-28 basis-1/5 object-cover dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
               />
               <div className="basis-4/5">
                 <h1 className="mb-2 text-xl font-semibold">{benefit.title}</h1>

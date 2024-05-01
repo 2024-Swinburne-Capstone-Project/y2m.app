@@ -32,7 +32,7 @@ export function Features() {
   return (
     <section className="mb-16">
       <h2 className="mb-8 text-3xl font-bold">What You Can Do</h2>
-      <div className="grid gap-8 md:grid-cols-4 text-center">
+      <div className="grid gap-8 text-center md:grid-cols-4">
         <AnimatePresence>
           {features.map((feature, index) => (
             <motion.div
@@ -48,7 +48,7 @@ export function Features() {
                 alt=""
                 width={300}
                 height={300}
-                className="w-full h-auto object-cover dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden"
+                className="h-auto w-full object-cover dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
               />
               <h3 className="mb-2 text-xl font-semibold">{feature.title}</h3>
               <p className="text-muted-foreground">{feature.description}</p>{' '}

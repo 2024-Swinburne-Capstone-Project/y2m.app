@@ -28,13 +28,13 @@ export function MentorBenefits() {
   return (
     <section className="mb-16">
       <h2 className="mb-8 text-3xl font-bold">Why You Should Be a Mentor</h2>
-      <div className="grid gap-8 md:grid-cols-2 text-center">
+      <div className="grid gap-8 text-center md:grid-cols-2">
         <Image
           src="/analysis-presentation.svg"
           alt=""
           width={300}
           height={300}
-          className="w-full h-auto object-cover dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden"
+          className="h-auto w-full object-cover dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
         />
         <div className="grid gap-8">
           <AnimatePresence>
@@ -45,14 +45,14 @@ export function MentorBenefits() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="rounded-lg border p-6 flex items-center text-left gap-8"
+                className="flex items-center gap-8 rounded-lg border p-6 text-left"
               >
                 <Image
                   src={benefit.imagePath}
                   alt=""
                   width={300}
                   height={300}
-                  className="w-28 h-auto object-cover dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden"
+                  className="h-auto w-28 object-cover dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
                 />
                 <div>
                   <h3 className="text-muted-foreground">{benefit.description}</h3>{' '}

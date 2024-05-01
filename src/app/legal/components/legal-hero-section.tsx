@@ -16,7 +16,7 @@ export const LegalHeroSection: React.FC<LegalHeroSectionProps> = ({ config }) =>
   return (
     <MainSection>
       <MainSectionBody className="space-y-6">
-        <div className="md:w-1/2 space-y-6">
+        <div className="space-y-6 md:w-1/2">
           <Title>{config.heroSection.title}</Title>
         </div>
         <div>
@@ -25,7 +25,7 @@ export const LegalHeroSection: React.FC<LegalHeroSectionProps> = ({ config }) =>
             alt={config.heroSection.title}
             width={300}
             height={300}
-            className="dark:bg-primary-foreground dark:rounded-full"
+            className="dark:rounded-full dark:bg-primary-foreground"
           />
         </div>
       </MainSectionBody>

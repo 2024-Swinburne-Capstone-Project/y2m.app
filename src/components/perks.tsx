@@ -20,7 +20,7 @@ export function Perks() {
   return (
     <section className="mb-16">
       <h2 className="mb-8 text-3xl font-bold">What Do We Offer?</h2>
-      <div className="grid gap-8 md:grid-cols-3 text-center">
+      <div className="grid gap-8 text-center md:grid-cols-3">
         <AnimatePresence>
           {perks.map((perk, index) => (
             <motion.div
@@ -36,7 +36,7 @@ export function Perks() {
                 alt=""
                 width={300}
                 height={300}
-                className="w-full h-auto object-cover  dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden"
+                className="h-auto w-full object-cover  dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
               />
               <h3 className="mb-2 text-xl font-semibold">{perk.title}</h3>
             </motion.div>

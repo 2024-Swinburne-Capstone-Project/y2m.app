@@ -37,7 +37,7 @@ export function BlogsCarousel({ slides }: BlogsCarouselProps) {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="max-w-xs md:max-w-7xl mx-10"
+      className="mx-10 max-w-xs md:max-w-7xl"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.start}
       opts={{ align: 'start', loop: true }}
@@ -56,12 +56,12 @@ export function BlogsCarousel({ slides }: BlogsCarouselProps) {
                   alt={item.title}
                   width={1280}
                   height={300}
-                  className="object-cover h-60"
+                  className="h-60 object-cover"
                 />
-                <CardDescription className="text-center mt-4">
+                <CardDescription className="mt-4 text-center">
                   {item.date.toDateString()}
                 </CardDescription>
-                <CardTitle className="text-center mt-2">{item.title}</CardTitle>
+                <CardTitle className="mt-2 text-center">{item.title}</CardTitle>
               </CardHeader>
             </Card>
           </CarouselItem>

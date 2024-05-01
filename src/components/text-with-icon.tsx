@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function TextWithIcon({ text, icon }: { text: string; icon: IconProp }) {
   return (
-    <div className="flex items-center gap-2 mt-4">
+    <div className="mt-4 flex items-center gap-2">
       <FontAwesomeIcon icon={icon} />
       <p>{text}</p>
     </div>

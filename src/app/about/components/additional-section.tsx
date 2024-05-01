@@ -12,10 +12,10 @@ export const AdditionalSection: React.FC<AdditionalSectionProps> = ({ content })
     <MainSection className="bg-secondary">
       <MainSectionBody>
         <div>
-          <p className="text-xl text-muted-foreground text-justify leading-relaxed">
+          <p className="text-justify text-xl leading-relaxed text-muted-foreground">
             {content}
             <span>
-              <Button variant="link" className="text-xl pl-1 pr-1" asChild>
+              <Button variant="link" className="px-1 text-xl" asChild>
                 <Link href="/api/auth/login">Signup</Link>
               </Button>
               to take the next step in your development journey

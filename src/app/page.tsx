@@ -28,7 +28,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-background mb-6 mx-6">
+    <div className="mx-6 mb-6 min-h-screen bg-background">
       <AnimatePresence>
         <motion.section
           initial={{ opacity: 0, y: 20 }}
@@ -38,8 +38,8 @@ export default function Home() {
           className="mb-16 text-center"
         >
           <MainSection>
-            <MainSectionBody className="space-y-6 items-center">
-              <div className="md:w-1/2 space-y-6">
+            <MainSectionBody className="items-center space-y-6">
+              <div className="space-y-6 md:w-1/2">
                 <Title className="lg:text-7xl">
                   <RotatingWord words={mainTitleWords} /> Your Potential!
                 </Title>
@@ -47,19 +47,19 @@ export default function Home() {
                   A Platform for Peer to Peer Mentoring and Personal Development
                 </Subtitle>
               </div>
-              <div className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden">
+              <div className="dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground md:w-1/2">
                 <Image
                   src="/paper-plane.svg"
                   alt=""
                   width={300}
                   height={300}
-                  className="w-full h-auto object-cover"
+                  className="h-auto w-full object-cover"
                 />
               </div>
             </MainSectionBody>
           </MainSection>
         </motion.section>
-        <div className="max-w-7xl mx-auto">
+        <div className="mx-auto max-w-7xl">
           <Perks />
           <IntroVideo />
           <Features />

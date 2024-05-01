@@ -14,18 +14,18 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
   setSelectedVideoIndex,
 }) => {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="mx-auto max-w-7xl">
       <Card>
         <CardHeader>
           <CardTitle>Videos</CardTitle>
           <CardDescription>Playlist ({videos.length})</CardDescription>
         </CardHeader>
-        <MainSection className="flex flex-col md:flex-row py-4">
+        <MainSection className="flex flex-col py-4 md:flex-row">
           <CardContent className="md:w-1/3">
             {videos.map((video, index) => (
               <div
                 key={index}
-                className={`p-5 cursor-pointer ${selectedVideoIndex === index ? 'bg-secondary' : ''}`}
+                className={`cursor-pointer p-5 ${selectedVideoIndex === index ? 'bg-secondary' : ''}`}
                 onClick={() => setSelectedVideoIndex(index)}
               >
                 <div>
@@ -39,7 +39,7 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
             {selectedVideoIndex !== null && (
               <div className="aspect-w-16 aspect-h-9">
                 <iframe
-                  className="w-full h-full"
+                  className="size-full"
                   style={{ aspectRatio: '16/9' }}
                   src={videos[selectedVideoIndex].embeddingLink}
                   title="YouTube video player"
