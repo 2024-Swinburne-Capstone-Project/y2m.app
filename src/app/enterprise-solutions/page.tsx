@@ -12,7 +12,7 @@ export default function EnterpriseSolutions() {
     <div className="min-h-screen bg-background">
       <MainSection>
         <MainSectionBody className="space-y-6">
-          <div className="md:w-1/2 space-y-6">
+          <div className="space-y-6 md:w-1/2">
             <Title>{enterpriseSolutionsConfig.heroContent.titleText}</Title>
             <Subtitle>{enterpriseSolutionsConfig.heroContent.contentText}</Subtitle>
           </div>
@@ -21,25 +21,25 @@ export default function EnterpriseSolutions() {
             alt={enterpriseSolutionsConfig.heroContent.titleText}
             width={300}
             height={300}
-            className="dark:bg-primary-foreground dark:rounded-full"
+            className="dark:rounded-full dark:bg-primary-foreground"
           />
         </MainSectionBody>
       </MainSection>
       <MainSection className="bg-secondary">
-        <MainSectionBody className="md:w-full text-secondary-foreground max-w-7xl mx-auto">
+        <MainSectionBody className="mx-auto max-w-7xl text-secondary-foreground md:w-full">
           <p>{enterpriseSolutionsConfig.additionalContent.contentBody}</p>
         </MainSectionBody>
       </MainSection>
-      <MainSection className="max-w-7xl mx-auto">
+      <MainSection className="mx-auto max-w-7xl">
         <MainSectionBody className="space-y-6">
           <Image
             src={enterpriseSolutionsConfig.additionalImagePath}
             alt={enterpriseSolutionsConfig.heroContent.titleText}
             width={300}
             height={300}
-            className="dark:bg-primary-foreground dark:rounded-full"
+            className="dark:rounded-full dark:bg-primary-foreground"
           />
-          <Card className="md:w-[50vw] w-full m-1 p-5">
+          <Card className="m-1 w-full p-5 md:w-[50vw]">
             <GetInTouch />
           </Card>
         </MainSectionBody>

@@ -19,10 +19,10 @@ export default function BlogPage({ blog }: { blog: BlogsConfig }) {
         alt={blog.title}
         width={1280}
         height={300}
-        className="w-full h-auto object-cover"
+        className="h-auto w-full object-cover"
       />
-      <p className="text-3xl font-bold py-10">{blog.title}</p>
-      <div className="text-justify whitespace-break-spaces">{blog.content}</div>
+      <p className="py-10 text-3xl font-bold">{blog.title}</p>
+      <div className="whitespace-break-spaces text-justify">{blog.content}</div>
       <div className="flex gap-5">
         <TextWithIcon text={blog.author} icon={faUser} />
         <TextWithIcon text={dateString} icon={faCalendarDays} />

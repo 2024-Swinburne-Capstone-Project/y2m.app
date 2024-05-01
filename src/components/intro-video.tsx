@@ -15,7 +15,7 @@ export function IntroVideo() {
           >
             <div className="aspect-w-16 aspect-h-9">
               <iframe
-                className="w-full h-full"
+                className="size-full"
                 style={{ aspectRatio: '16/9' }}
                 src={'https://www.youtube.com/embed/Iv41XbkORAA?si=0TWReHSOKVsf5H8Q&rel=0'}
                 title="YouTube video player"

@@ -16,10 +16,10 @@ export function Footer() {
         <Link href="/">
           <Image src={'/y2m-logo.png'} alt="You2Mentor" width={80} height={80} className="mb-3" />
         </Link>
-        <p className="text-center text-sm text-muted-foreground sm:text-left mb-3">
+        <p className="mb-3 text-center text-sm text-muted-foreground sm:text-left">
           &copy; {new Date().getFullYear()} You2Mentor. All rights reserved.
         </p>
-        <div className="flex gap-6 mb-3">
+        <div className="mb-3 flex gap-6">
           <Link href="https://www.linkedin.com/company/you2mentor/">
             <FontAwesomeIcon
               className="w-5"

@@ -25,12 +25,12 @@ export default function KnowledgeHubPage() {
               alt={knowledgeHubConfig.heroSection.title}
               width={300}
               height={300}
-              className="dark:bg-primary-foreground dark:rounded-full"
+              className="dark:rounded-full dark:bg-primary-foreground"
             />
           </div>
         </MainSectionBody>
       </MainSection>
-      <Tabs defaultValue="videos" className="max-w-7xl mb-10 mx-auto px-6">
+      <Tabs defaultValue="videos" className="mx-auto mb-10 max-w-7xl px-6">
         <TabsList className="grid grid-cols-2">
           <TabsTrigger value="videos">Videos</TabsTrigger>
           <TabsTrigger value="blog">Blog</TabsTrigger>

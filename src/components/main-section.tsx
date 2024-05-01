@@ -10,7 +10,7 @@ const MainSection: React.FC<MainSectionProps> = ({ children, className }) => {
   return (
     <section
       className={cn(
-        'flex flex-col md:flex-row justify-center items-center py-12 px-4 md:px-8 space-x-6',
+        'flex flex-col items-center justify-center space-x-6 px-4 py-12 md:flex-row md:px-8',
         className
       )}
     >

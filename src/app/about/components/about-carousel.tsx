@@ -33,7 +33,7 @@ export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
                   alt={item.title}
                   width={150}
                   height={150}
-                  className="dark:bg-primary-foreground w-1/2 mx-auto mt-5 rounded-full"
+                  className="mx-auto mt-5 w-1/2 rounded-full dark:bg-primary-foreground"
                 />
               )}
               <CardHeader className="text-center">

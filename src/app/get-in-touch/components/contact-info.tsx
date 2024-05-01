@@ -5,7 +5,7 @@ import MainSectionBody from '@/components/main-section-body';
 
 const ContactInfo: React.FC = () => {
   return (
-    <MainSectionBody className="grid grid-cols-1 md:grid-cols-2 gap-8 md:mt-16 md:w-2/3 mx-auto">
+    <MainSectionBody className="mx-auto grid grid-cols-1 gap-8 md:mt-16 md:w-2/3 md:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle>Visit Us</CardTitle>

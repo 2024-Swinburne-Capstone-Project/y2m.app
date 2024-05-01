@@ -12,16 +12,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ title, imagePath }) =>
   return (
     <MainSection>
       <MainSectionBody className="space-y-6">
-        <div className="md:w-1/2 space-y-6">
+        <div className="space-y-6 md:w-1/2">
           <Title>{title}</Title>
         </div>
-        <div className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full dark:overflow-hidden max-w-sm">
+        <div className="max-w-sm dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground md:w-1/2">
           <Image
             src={imagePath}
             alt={title}
             width={300}
             height={300}
-            className="w-full h-auto object-cover"
+            className="h-auto w-full object-cover"
           />
         </div>
       </MainSectionBody>

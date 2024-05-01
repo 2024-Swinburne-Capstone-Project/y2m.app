@@ -13,7 +13,7 @@ import MainSectionBody from '@/components/main-section-body';
 const PopularQuestions: React.FC = () => {
   return (
     <MainSectionBody className="space-y-8">
-      <Card className="md:w-[50vw] w-full m-1 p-5">
+      <Card className="m-1 w-full p-5 md:w-[50vw]">
         <CardHeader>
           <CardTitle>Most Popular Questions</CardTitle>
         </CardHeader>

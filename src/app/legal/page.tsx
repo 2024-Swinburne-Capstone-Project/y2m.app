@@ -16,7 +16,7 @@ export default function LegalPage() {
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
-        className="max-w-7xl mx-auto pl-10 pr-10 mb-10"
+        className="mx-auto mb-10 max-w-7xl px-10"
       >
         <TabsList className="grid grid-cols-2">
           <TabsTrigger value="privacy">Privacy Policy</TabsTrigger>

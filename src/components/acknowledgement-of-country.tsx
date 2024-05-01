@@ -14,7 +14,7 @@ export function AcknowledgementOfCountry() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="rounded-lg border p-6 flex items-center text-left gap-8"
+            className="flex items-center gap-8 rounded-lg border p-6 text-left"
           >
             <h3 className="text-muted-foreground">{acknowledgementOfCountry}</h3>{' '}
           </motion.div>

@@ -20,7 +20,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <MainSection>
       <MainSectionBody className="space-y-6">
-        <div className="md:w-1/2 space-y-6">
+        <div className="space-y-6 md:w-1/2">
           <Title>{title}</Title>
           <Subtitle>{subtitle}</Subtitle>
         </div>
@@ -29,7 +29,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           alt={imageAlt}
           width={300}
           height={300}
-          className="md:w-1/2 dark:bg-primary-foreground dark:rounded-full"
+          className="dark:rounded-full dark:bg-primary-foreground md:w-1/2"
         />
       </MainSectionBody>
     </MainSection>
