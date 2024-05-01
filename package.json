@@ -13,6 +13,21 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "db:generate": "kysely-codegen --out-file src/types/db.d.ts"
   },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ],
+    "branches": ["master", "main"]
+  },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
     "@fortawesome/fontawesome-free": "^6.5.2",
@@ -52,6 +67,11 @@
     "zod": "^3.23.4"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^12.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^12.0.0",
+    "@semantic-release/release-notes-generator": "^13.0.0",
     "@types/node": "^20",
     "@types/pg": "^8.11.5",
     "@types/react": "^18",
@@ -66,6 +86,7 @@
     "kysely-codegen": "^0.15.0",
     "postcss": "^8",
     "prettier": "^3.2.5",
+    "semantic-release": "^23.0.8",
     "tailwindcss": "^3.4.3",
     "typescript": "^5"
   }
