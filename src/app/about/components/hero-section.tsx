@@ -6,7 +6,7 @@ import Subtitle from '@/components/subtitle';
 
 interface HeroSectionProps {
   title: React.ReactNode;
-  subtitle: string;
+  subtitle: React.ReactNode;
   imagePath: string;
   imageAlt: string;
 }

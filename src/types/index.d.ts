@@ -1,3 +1,14 @@
+type MarkupElement = {
+  type: string;
+  text: string;
+  className?: string;
+};
+
+type TextWithMarkup = {
+  text: string;
+  markup?: MarkupElement[];
+};
+
 interface AboutConfig {
   carouselSlides: AboutCarouselConfig[];
   heroContent: HeroContentConfig;
@@ -15,28 +26,16 @@ export interface TermsAndConditionsConfig {
 }
 
 export interface GetInTouchConfig {
-  heroSection: {
-    title: string;
-    imagePath: string;
-  };
-  popularQuestions: {
-    title: string;
-    answer: string;
-  }[];
-  visitUs: {
-    address: string;
-  };
-  mailUs: {
-    email: string;
-  };
-  accordionImage: {
-    imagePath: string;
-  };
+  heroSection: HeroSectionConfig;
+  popularQuestions: PopularQuestion[];
+  visitUs: Address;
+  mailUs: Email;
+  accordionImage: AccordionImage;
 }
 
 export interface TermsAndConditionsSection {
-  title: string;
-  content: string[];
+  title: TextWithMarkup;
+  content: TextWithMarkup[];
   imagePath?: string;
 }
 
@@ -53,39 +52,61 @@ export interface EnterpriseSolutionsConfig {
 }
 
 export interface HeroSectionConfig {
-  title: string;
+  title: TextWithMarkup;
   imagePath: string;
 }
 
 export interface HeroContentConfig {
-  titleText: string;
-  contentText: string;
+  title: TextWithMarkup;
+  content: TextWithMarkup;
   imagePath: string;
 }
 
 export interface AboutCarouselConfig {
-  title: string;
-  content: string;
+  title: TextWithMarkup;
+  content: TextWithMarkup;
   imagePath: string;
 }
 
 export interface AdditionalContent {
-  contentBody: string;
+  content: TextWithMarkup;
 }
 
 export interface VideoConfig {
   id: number;
-  title: string;
-  description: string;
+  title: TextWithMarkup;
+  description: TextWithMarkup;
   embeddingLink: string;
   length: string;
 }
 
 export interface BlogsConfig {
   id: number;
-  title: string;
-  content: string;
+  title: TextWithMarkup;
+  content: TextWithMarkup;
   date: Date;
-  author: string;
+  author: TextWithMarkup;
   imagePath: string;
+}
+
+export interface PopularQuestion {
+  title: TextWithMarkup;
+  answer: TextWithMarkup;
+}
+
+export interface Address {
+  address: TextWithMarkup;
+}
+
+export interface Email {
+  email: TextWithMarkup;
+}
+
+export interface AccordionImage {
+  imagePath: string;
+}
+
+export interface PrivacyPolicySection {
+  title: TextWithMarkup;
+  content: TextWithMarkup[];
 }

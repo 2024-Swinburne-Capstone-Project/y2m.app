@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 interface AdditionalSectionProps {
-  content: string;
+  content: React.ReactNode;
 }
 
 export const AdditionalSection: React.FC<AdditionalSectionProps> = ({ content }) => {
