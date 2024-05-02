@@ -14,10 +14,10 @@ export default function GetInTouchPage() {
     <div className="mx-3 mb-16">
       <MainSection>
         <MainSectionBody>
-          <Title>{getInTouchConfig.heroSection.title}</Title>
+          <Title>{getInTouchConfig.heroSection.title.text}</Title>
           <Image
             src={getInTouchConfig.heroSection.imagePath}
-            alt={getInTouchConfig.heroSection.title}
+            alt={getInTouchConfig.heroSection.title.text}
             width={300}
             height={300}
             className="dark:rounded-full dark:bg-primary-foreground"

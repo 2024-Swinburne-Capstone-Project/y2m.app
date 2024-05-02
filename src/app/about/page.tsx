@@ -1,23 +1,25 @@
+import React from 'react';
+import { ValuesSection } from '@/app/about/components/values-section';
+import { AdditionalSection } from '@/app/about/components/additional-section';
 import { aboutConfig } from '@/config/about';
-import { HeroSection } from './components/hero-section';
-import { AdditionalSection } from './components/additional-section';
-import { ValuesSection } from './components/values-section';
+import { HeroSection } from '@/app/about/components/hero-section';
+import parseTextWithMarkup from '@/config/parser/parseTextWithMarkup';
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
       <HeroSection
-        title={
-          <>
-            At You2Mentor, we believe that <span className="text-primary">everyone</span> should
-            have the opportunity to access a mentor
-          </>
-        }
-        subtitle={aboutConfig.heroContent.contentText}
+        title={parseTextWithMarkup(aboutConfig.heroContent.title)}
+        subtitle={parseTextWithMarkup(aboutConfig.heroContent.content)}
         imagePath={aboutConfig.heroContent.imagePath}
-        imageAlt={aboutConfig.heroContent.titleText}
+        imageAlt={aboutConfig.heroContent.title.text}
       />
-      <AdditionalSection content={aboutConfig.additionalContent.contentBody} />
+      <AdditionalSection
+        contentText={aboutConfig.additionalContent.content.text}
+        linkText={aboutConfig.additionalContent.link.text}
+        linkHref={aboutConfig.additionalContent.linkHref}
+        suffixText={aboutConfig.additionalContent.suffix.text}
+      />
       <ValuesSection title="Our Core Values" slides={aboutConfig.carouselSlides} />
     </div>
   );

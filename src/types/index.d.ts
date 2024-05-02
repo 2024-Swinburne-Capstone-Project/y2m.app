@@ -1,3 +1,14 @@
+type MarkupElement = {
+  type: string;
+  text: string;
+  className?: string;
+};
+
+type TextWithMarkup = {
+  text: string;
+  markup?: MarkupElement[];
+};
+
 interface AboutConfig {
   carouselSlides: AboutCarouselConfig[];
   heroContent: HeroContentConfig;
@@ -15,28 +26,52 @@ export interface TermsAndConditionsConfig {
 }
 
 export interface GetInTouchConfig {
-  heroSection: {
+  heroSection: HeroSectionConfig;
+  popularQuestions: PopularQuestion[];
+  visitUs: Address;
+  mailUs: Email;
+  accordionImage: AccordionImage;
+  form: GetInTouchForm;
+}
+
+export interface GetInTouchForm {
+  firstName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  lastName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  email: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  feedback: {
+    label: string;
+  };
+  question: {
+    label: string;
+  };
+  message: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  submitButton: {
+    text: string;
+  };
+  toast: {
     title: string;
-    imagePath: string;
-  };
-  popularQuestions: {
-    title: string;
-    answer: string;
-  }[];
-  visitUs: {
-    address: string;
-  };
-  mailUs: {
-    email: string;
-  };
-  accordionImage: {
-    imagePath: string;
   };
 }
 
 export interface TermsAndConditionsSection {
-  title: string;
-  content: string[];
+  title: TextWithMarkup;
+  content: TextWithMarkup[];
   imagePath?: string;
 }
 
@@ -48,44 +83,167 @@ export interface KnowledgeHubConfig {
 
 export interface EnterpriseSolutionsConfig {
   heroContent: HeroContentConfig;
-  additionalContent: AdditionalContent;
+  additionalContent: TextWithMarkup;
   additionalImagePath: string;
+  form: EnterpriseSolutionsForm;
+}
+
+export interface EnterpriseSolutionsForm {
+  firstName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  lastName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  email: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  message: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  demo: {
+    label: string;
+  };
+  submitButton: {
+    text: string;
+  };
+  toast: {
+    title: string;
+  };
 }
 
 export interface HeroSectionConfig {
-  title: string;
+  title: TextWithMarkup;
   imagePath: string;
 }
 
 export interface HeroContentConfig {
-  titleText: string;
-  contentText: string;
+  title: TextWithMarkup;
+  content: TextWithMarkup;
   imagePath: string;
 }
 
 export interface AboutCarouselConfig {
-  title: string;
-  content: string;
+  title: TextWithMarkup;
+  content: TextWithMarkup;
   imagePath: string;
 }
 
 export interface AdditionalContent {
-  contentBody: string;
+  content: TextWithMarkup;
+  link: TextWithMarkup;
+  linkHref: string;
+  suffix: TextWithMarkup;
 }
 
 export interface VideoConfig {
   id: number;
-  title: string;
-  description: string;
+  title: TextWithMarkup;
+  description: TextWithMarkup;
   embeddingLink: string;
   length: string;
 }
 
 export interface BlogsConfig {
   id: number;
-  title: string;
-  content: string;
+  title: TextWithMarkup;
+  content: TextWithMarkup;
   date: Date;
-  author: string;
+  author: TextWithMarkup;
   imagePath: string;
+}
+
+export interface PopularQuestion {
+  title: TextWithMarkup;
+  answer: TextWithMarkup;
+}
+
+export interface Address {
+  title: TextWithMarkup;
+  address: TextWithMarkup;
+}
+
+export interface Email {
+  title: TextWithMarkup;
+  email: TextWithMarkup;
+}
+
+export interface AccordionImage {
+  imagePath: string;
+}
+
+export interface PrivacyPolicySection {
+  title: TextWithMarkup;
+  content: TextWithMarkup[];
+}
+
+export interface HomeConfig {
+  mainTitle: {
+    words: TextWithMarkup[];
+    staticText: TextWithMarkup;
+  };
+  subtitle: TextWithMarkup;
+  heroImage: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+  perks: {
+    title: string;
+    items: {
+      title: TextWithMarkup;
+      imagePath: string;
+    }[];
+  };
+  introVideo: {
+    title: string;
+    videoUrl: string;
+  };
+  features: {
+    title: string;
+    items: {
+      title: TextWithMarkup;
+      description: TextWithMarkup;
+      imagePath: string;
+    }[];
+  };
+  mentorBenefits: {
+    title: string;
+    imagePath: string;
+    items: {
+      description: TextWithMarkup;
+      imagePath: string;
+      sourceUrl: string;
+    }[];
+  };
+  menteeBenefits: {
+    title: string;
+    items: {
+      title: TextWithMarkup;
+      description: TextWithMarkup;
+      imagePath: string;
+    }[];
+  };
+  testimonials: {
+    title: string;
+    items: {
+      name: TextWithMarkup;
+      role: TextWithMarkup;
+      image: string;
+      quote: TextWithMarkup;
+    }[];
+  };
+  acknowledgementOfCountry: {
+    title: string;
+    text: string;
+  };
 }

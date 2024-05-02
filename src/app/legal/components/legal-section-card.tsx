@@ -1,4 +1,4 @@
-import { TermsAndConditionsSection } from '@/types';
+import { TermsAndConditionsSection, TextWithMarkup } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Typography from '@/components/ui/typography';
 import { Key } from 'react';
@@ -12,12 +12,12 @@ export const LegalSectionCard: React.FC<LegalSectionCardProps> = ({ section }) =
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{section.title}</CardTitle>
+        <CardTitle>{section.title.text}</CardTitle>
       </CardHeader>
       <CardContent>
-        {section.content.map((paragraph: string, paragraphIndex: Key) => (
+        {section.content.map((paragraph: TextWithMarkup, paragraphIndex: Key) => (
           <Typography key={paragraphIndex} variant="p">
-            {paragraph}
+            {paragraph.text}
           </Typography>
         ))}
       </CardContent>

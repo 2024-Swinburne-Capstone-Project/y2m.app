@@ -13,12 +13,12 @@ export default function EnterpriseSolutions() {
       <MainSection>
         <MainSectionBody className="space-y-6">
           <div className="space-y-6 md:w-1/2">
-            <Title>{enterpriseSolutionsConfig.heroContent.titleText}</Title>
-            <Subtitle>{enterpriseSolutionsConfig.heroContent.contentText}</Subtitle>
+            <Title>{enterpriseSolutionsConfig.heroContent.title.text}</Title>
+            <Subtitle>{enterpriseSolutionsConfig.heroContent.content.text}</Subtitle>
           </div>
           <Image
             src={enterpriseSolutionsConfig.heroContent.imagePath}
-            alt={enterpriseSolutionsConfig.heroContent.titleText}
+            alt={enterpriseSolutionsConfig.heroContent.title.text}
             width={300}
             height={300}
             className="dark:rounded-full dark:bg-primary-foreground"
@@ -27,14 +27,14 @@ export default function EnterpriseSolutions() {
       </MainSection>
       <MainSection className="bg-secondary">
         <MainSectionBody className="mx-auto max-w-7xl text-secondary-foreground md:w-full">
-          <p>{enterpriseSolutionsConfig.additionalContent.contentBody}</p>
+          <p>{enterpriseSolutionsConfig.additionalContent.text}</p>
         </MainSectionBody>
       </MainSection>
       <MainSection className="mx-auto max-w-7xl">
         <MainSectionBody className="space-y-6">
           <Image
             src={enterpriseSolutionsConfig.additionalImagePath}
-            alt={enterpriseSolutionsConfig.heroContent.titleText}
+            alt={enterpriseSolutionsConfig.heroContent.title.text}
             width={300}
             height={300}
             className="dark:rounded-full dark:bg-primary-foreground"

@@ -14,19 +14,10 @@ import { MentorBenefits } from '@/components/mentor-benefits';
 import { MenteeBenefits } from '@/components/mentee-benefits';
 import { HomeBlogs } from '@/components/home-blogs';
 import { AcknowledgementOfCountry } from '@/components/acknowledgement-of-country';
+import { homeConfig } from '@/config/home-fr';
+import parseTextWithMarkup from '@/config/parser/parseTextWithMarkup';
 
 export default function Home() {
-  const mainTitleWords = [
-    'Unleash',
-    'Discover',
-    'Achieve',
-    'Conquer',
-    'Unlock',
-    'Realize',
-    'Fulfill',
-    'Maximize',
-  ];
-
   return (
     <div className="mx-6 mb-6 min-h-screen bg-background">
       <AnimatePresence>
@@ -41,18 +32,19 @@ export default function Home() {
             <MainSectionBody className="items-center space-y-6">
               <div className="space-y-6 md:w-1/2">
                 <Title className="lg:text-7xl">
-                  <RotatingWord words={mainTitleWords} /> Your Potential!
+                  <RotatingWord words={homeConfig.mainTitle.words.map((word) => word.text)} />{' '}
+                  {parseTextWithMarkup(homeConfig.mainTitle.staticText)}
                 </Title>
                 <Subtitle className="mb-8 text-lg text-muted-foreground md:text-xl">
-                  A Platform for Peer to Peer Mentoring and Personal Development
+                  {parseTextWithMarkup(homeConfig.subtitle)}
                 </Subtitle>
               </div>
               <div className="dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground md:w-1/2">
                 <Image
-                  src="/paper-plane.svg"
-                  alt=""
-                  width={300}
-                  height={300}
+                  src={homeConfig.heroImage.src}
+                  alt={homeConfig.heroImage.alt}
+                  width={homeConfig.heroImage.width}
+                  height={homeConfig.heroImage.height}
                   className="h-auto w-full object-cover"
                 />
               </div>

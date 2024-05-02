@@ -4,22 +4,28 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 interface AdditionalSectionProps {
-  content: string;
+  contentText: string;
+  linkText: string;
+  linkHref: string;
+  suffixText: string;
 }
 
-export const AdditionalSection: React.FC<AdditionalSectionProps> = ({ content }) => {
+export const AdditionalSection: React.FC<AdditionalSectionProps> = ({
+  contentText,
+  linkText,
+  linkHref,
+  suffixText,
+}) => {
   return (
     <MainSection className="bg-secondary">
       <MainSectionBody>
         <div>
           <p className="text-justify text-xl leading-relaxed text-muted-foreground">
-            {content}
-            <span>
-              <Button variant="link" className="px-1 text-xl" asChild>
-                <Link href="/api/auth/login">Signup</Link>
-              </Button>
-              to take the next step in your development journey
-            </span>
+            {contentText}{' '}
+            <Button variant="link" className="px-1 text-xl" asChild>
+              <Link href={linkHref}>{linkText}</Link>
+            </Button>{' '}
+            {suffixText}
           </p>
         </div>
       </MainSectionBody>

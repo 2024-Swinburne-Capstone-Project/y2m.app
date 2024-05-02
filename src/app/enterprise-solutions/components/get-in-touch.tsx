@@ -1,9 +1,7 @@
 'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -17,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { Textarea } from '../../../components/ui/textarea';
 import { Checkbox } from '../../../components/ui/checkbox';
+import { enterpriseSolutionsConfig } from '@/config/enterprise-solutions';
 
 const FormSchema = z.object({
   firstName: z.string(),
@@ -40,7 +39,7 @@ export default function GetInTouch() {
 
   function onSubmit() {
     toast({
-      title: "We've Got Your Message, We'll be in Touch Shortly!",
+      title: enterpriseSolutionsConfig.form.toast.title,
     });
   }
 
@@ -52,9 +51,12 @@ export default function GetInTouch() {
           name="firstName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel>{enterpriseSolutionsConfig.form.firstName.label}</FormLabel>
               <FormControl>
-                <Input placeholder="First Name" {...field} />
+                <Input
+                  placeholder={enterpriseSolutionsConfig.form.firstName.placeholder}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -65,9 +67,12 @@ export default function GetInTouch() {
           name="lastName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel>{enterpriseSolutionsConfig.form.lastName.label}</FormLabel>
               <FormControl>
-                <Input placeholder="Last Name" {...field} />
+                <Input
+                  placeholder={enterpriseSolutionsConfig.form.lastName.placeholder}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -78,9 +83,9 @@ export default function GetInTouch() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{enterpriseSolutionsConfig.form.email.label}</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <Input placeholder={enterpriseSolutionsConfig.form.email.placeholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -93,7 +98,7 @@ export default function GetInTouch() {
             <FormItem>
               <div className="flex items-center space-x-2">
                 <Checkbox {...field} value={field.value ? 'true' : 'false'} />
-                <FormLabel>Request a Demo</FormLabel>
+                <FormLabel>{enterpriseSolutionsConfig.form.demo.label}</FormLabel>
               </div>
               <FormMessage />
             </FormItem>
@@ -104,15 +109,18 @@ export default function GetInTouch() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel>{enterpriseSolutionsConfig.form.message.label}</FormLabel>
               <FormControl>
-                <Textarea placeholder="Message" {...field} />
+                <Textarea
+                  placeholder={enterpriseSolutionsConfig.form.message.placeholder}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Send a Message</Button>
+        <Button type="submit">{enterpriseSolutionsConfig.form.submitButton.text}</Button>
       </form>
     </Form>
   );

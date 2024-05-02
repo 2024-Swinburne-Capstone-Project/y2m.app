@@ -16,15 +16,15 @@ export default function BlogPage({ blog }: { blog: BlogsConfig }) {
     <div className="w-[60vw]">
       <Image
         src={blog.imagePath}
-        alt={blog.title}
+        alt={blog.title.text}
         width={1280}
         height={300}
         className="h-auto w-full object-cover"
       />
-      <p className="py-10 text-3xl font-bold">{blog.title}</p>
-      <div className="whitespace-break-spaces text-justify">{blog.content}</div>
+      <p className="py-10 text-3xl font-bold">{blog.title.text}</p>
+      <div className="whitespace-break-spaces text-justify">{blog.content.text}</div>
       <div className="flex gap-5">
-        <TextWithIcon text={blog.author} icon={faUser} />
+        <TextWithIcon text={blog.author.text} icon={faUser} />
         <TextWithIcon text={dateString} icon={faCalendarDays} />
         <TextWithIcon text={timeString} icon={faClock} />
       </div>

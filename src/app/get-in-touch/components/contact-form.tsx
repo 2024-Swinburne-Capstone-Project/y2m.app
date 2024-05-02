@@ -15,18 +15,22 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { getInTouchConfig } from '@/config/get-in-touch';
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: 'Name must be at least 2 characters.',
+  firstName: z.string().min(2, {
+    message: getInTouchConfig.form.firstName.errorMessage,
+  }),
+  lastName: z.string().min(2, {
+    message: getInTouchConfig.form.lastName.errorMessage,
   }),
   email: z.string().email({
-    message: 'Please enter a valid email address.',
+    message: getInTouchConfig.form.email.errorMessage,
   }),
   feedback: z.boolean(),
   question: z.boolean(),
   message: z.string().min(10, {
-    message: 'Message must be at least 10 characters.',
+    message: getInTouchConfig.form.message.errorMessage,
   }),
 });
 
@@ -34,7 +38,8 @@ const ContactForm: React.FC = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
       feedback: false,
       question: false,
@@ -46,22 +51,37 @@ const ContactForm: React.FC = () => {
     console.log(values);
   }
 
+  const { form: formConfig } = getInTouchConfig;
+
   return (
     <Card className="mx-5 mb-16 md:m-auto md:mt-16 md:w-2/3">
       <CardHeader>
-        <CardTitle>Get in Touch</CardTitle>
+        <CardTitle>{getInTouchConfig.heroSection.title.text}</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
-              name="name"
+              name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{formConfig.firstName.label}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Name" {...field} />
+                    <Input placeholder={formConfig.firstName.placeholder} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{formConfig.lastName.label}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={formConfig.lastName.placeholder} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -72,9 +92,9 @@ const ContactForm: React.FC = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email Address</FormLabel>
+                  <FormLabel>{formConfig.email.label}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email Address" {...field} />
+                    <Input placeholder={formConfig.email.placeholder} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,7 +109,7 @@ const ContactForm: React.FC = () => {
                     <FormControl>
                       <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
-                    <FormLabel className="mb-0">Feedback</FormLabel>
+                    <FormLabel className="mb-0">{formConfig.feedback.label}</FormLabel>
                   </FormItem>
                 )}
               />
@@ -101,7 +121,7 @@ const ContactForm: React.FC = () => {
                     <FormControl>
                       <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
-                    <FormLabel className="mb-0">Question</FormLabel>
+                    <FormLabel className="mb-0">{formConfig.question.label}</FormLabel>
                   </FormItem>
                 )}
               />
@@ -111,15 +131,15 @@ const ContactForm: React.FC = () => {
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Your Message</FormLabel>
+                  <FormLabel>{formConfig.message.label}</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Your Message" {...field} />
+                    <Textarea placeholder={formConfig.message.placeholder} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Send a message</Button>
+            <Button type="submit">{formConfig.submitButton.text}</Button>
           </form>
         </Form>
       </CardContent>

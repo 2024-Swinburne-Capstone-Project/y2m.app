@@ -20,9 +20,9 @@ const PopularQuestions: React.FC = () => {
         <CardContent>
           {getInTouchConfig.popularQuestions.map((question, index) => (
             <Accordion key={index} type="single" collapsible>
-              <AccordionItem value={question.title}>
-                <AccordionTrigger className="text-left">{question.title}</AccordionTrigger>
-                <AccordionContent>{question.answer}</AccordionContent>
+              <AccordionItem value={question.title.text}>
+                <AccordionTrigger className="text-left">{question.title.text}</AccordionTrigger>
+                <AccordionContent>{question.answer.text}</AccordionContent>
               </AccordionItem>
             </Accordion>
           ))}
