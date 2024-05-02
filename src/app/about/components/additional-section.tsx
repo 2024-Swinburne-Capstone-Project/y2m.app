@@ -1,4 +1,3 @@
-// components/additional-section.tsx
 import MainSection from '@/components/main-section';
 import MainSectionBody from '@/components/main-section-body';
 import { Button } from '@/components/ui/button';

@@ -1,4 +1,3 @@
-// pages/index.tsx
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Features } from '@/components/features';
