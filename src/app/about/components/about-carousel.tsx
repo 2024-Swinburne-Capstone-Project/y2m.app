@@ -30,15 +30,15 @@ export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
               {item.imagePath && (
                 <Image
                   src={item.imagePath}
-                  alt={item.title}
+                  alt={item.title.text}
                   width={150}
                   height={150}
                   className="mx-auto mt-5 w-1/2 rounded-full dark:bg-primary-foreground"
                 />
               )}
               <CardHeader className="text-center">
-                <CardTitle>{item.title}</CardTitle>
-                <CardDescription>{item.content}</CardDescription>
+                <CardTitle>{item.title.text}</CardTitle>
+                <CardDescription>{item.content.text}</CardDescription>
               </CardHeader>
             </Card>
           </CarouselItem>

@@ -53,7 +53,7 @@ export function BlogsCarousel({ slides }: BlogsCarouselProps) {
               <CardHeader className="flex flex-col items-center">
                 <Image
                   src={item.imagePath}
-                  alt={item.title}
+                  alt={item.title.text}
                   width={1280}
                   height={300}
                   className="h-60 object-cover"
@@ -61,7 +61,7 @@ export function BlogsCarousel({ slides }: BlogsCarouselProps) {
                 <CardDescription className="mt-4 text-center">
                   {item.date.toDateString()}
                 </CardDescription>
-                <CardTitle className="mt-2 text-center">{item.title}</CardTitle>
+                <CardTitle className="mt-2 text-center">{item.title.text}</CardTitle>
               </CardHeader>
             </Card>
           </CarouselItem>

@@ -8,7 +8,7 @@ export const aboutConfig: AboutConfig = {
         {
           type: 'span',
           className: 'text-primary',
-          text: '',
+          text: 'everyone',
         },
       ],
     },
@@ -20,6 +20,13 @@ export const aboutConfig: AboutConfig = {
   additionalContent: {
     content: {
       text: 'According to Gallup, only 37% of individuals currently have access to at least one mentor. So we have created a platform for individual development where not only can you drive your growth, you can utilise a tribe of mentors based on development goals and mentor others utilising your strengths.',
+    },
+    link: {
+      text: 'Signup',
+    },
+    linkHref: '/api/auth/login',
+    suffix: {
+      text: 'to take the next step in your development journey',
     },
   },
   carouselSlides: [

@@ -31,6 +31,42 @@ export interface GetInTouchConfig {
   visitUs: Address;
   mailUs: Email;
   accordionImage: AccordionImage;
+  form: GetInTouchForm;
+}
+
+export interface GetInTouchForm {
+  firstName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  lastName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  email: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  feedback: {
+    label: string;
+  };
+  question: {
+    label: string;
+  };
+  message: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  submitButton: {
+    text: string;
+  };
+  toast: {
+    title: string;
+  };
 }
 
 export interface TermsAndConditionsSection {
@@ -47,8 +83,41 @@ export interface KnowledgeHubConfig {
 
 export interface EnterpriseSolutionsConfig {
   heroContent: HeroContentConfig;
-  additionalContent: AdditionalContent;
+  additionalContent: TextWithMarkup;
   additionalImagePath: string;
+  form: EnterpriseSolutionsForm;
+}
+
+export interface EnterpriseSolutionsForm {
+  firstName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  lastName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  email: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  message: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  demo: {
+    label: string;
+  };
+  submitButton: {
+    text: string;
+  };
+  toast: {
+    title: string;
+  };
 }
 
 export interface HeroSectionConfig {
@@ -70,6 +139,9 @@ export interface AboutCarouselConfig {
 
 export interface AdditionalContent {
   content: TextWithMarkup;
+  link: TextWithMarkup;
+  linkHref: string;
+  suffix: TextWithMarkup;
 }
 
 export interface VideoConfig {
@@ -95,10 +167,12 @@ export interface PopularQuestion {
 }
 
 export interface Address {
+  title: TextWithMarkup;
   address: TextWithMarkup;
 }
 
 export interface Email {
+  title: TextWithMarkup;
   email: TextWithMarkup;
 }
 
@@ -109,4 +183,18 @@ export interface AccordionImage {
 export interface PrivacyPolicySection {
   title: TextWithMarkup;
   content: TextWithMarkup[];
+}
+
+export interface HomeConfig {
+  mainTitle: {
+    words: TextWithMarkup[];
+    staticText: TextWithMarkup;
+  };
+  subtitle: TextWithMarkup;
+  heroImage: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
 }

@@ -17,12 +17,12 @@ export default function KnowledgeHubPage() {
       <MainSection>
         <MainSectionBody className="space-y-6">
           <div className=" space-y-6">
-            <Title>{knowledgeHubConfig.heroSection.title}</Title>
+            <Title>{knowledgeHubConfig.heroSection.title.text}</Title>
           </div>
           <div>
             <Image
               src={knowledgeHubConfig.heroSection.imagePath}
-              alt={knowledgeHubConfig.heroSection.title}
+              alt={knowledgeHubConfig.heroSection.title.text}
               width={300}
               height={300}
               className="dark:rounded-full dark:bg-primary-foreground"

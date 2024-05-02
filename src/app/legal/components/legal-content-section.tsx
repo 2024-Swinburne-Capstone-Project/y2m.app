@@ -19,15 +19,15 @@ export const LegalContentSection: React.FC<LegalContentSectionProps> = ({ sectio
     <Accordion type="single" collapsible className="mt-5">
       {sections.map((section, index) => (
         <AccordionItem key={index} value={`item-${index}`}>
-          <AccordionTrigger className="text-left">{section.title}</AccordionTrigger>
+          <AccordionTrigger className="text-left">{section.title.text}</AccordionTrigger>
           <AccordionContent>
             {section.content.map((paragraph, paragraphIndex) => (
               <p key={paragraphIndex} className="mb-4">
-                {paragraph}
+                {paragraph.text}
               </p>
             ))}
             {section.imagePath && (
-              <Image src={section.imagePath} alt={section.title} className="mt-4" />
+              <Image src={section.imagePath} alt={section.title.text} className="mt-4" />
             )}
           </AccordionContent>
         </AccordionItem>

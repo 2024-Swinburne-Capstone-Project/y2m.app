@@ -50,16 +50,56 @@ export const getInTouchConfig: GetInTouchConfig = {
     },
   ],
   visitUs: {
+    title: {
+      text: 'Visit Us',
+    },
     address: {
       text: 'Collins Street Tower, Level 3, 480 Collins Street, Melbourne VIC 3000',
     },
   },
   mailUs: {
+    title: {
+      text: 'Mail Us',
+    },
     email: {
-      text: 'info@you2mentor.com',
+      text: 'in1@you2mentor.com',
     },
   },
   accordionImage: {
     imagePath: '/get-in-touch/question-mark.svg',
+  },
+  form: {
+    firstName: {
+      label: 'First Name',
+      placeholder: 'First Name',
+      errorMessage: 'First name must be at least 2 characters.',
+    },
+    lastName: {
+      label: 'Last Name',
+      placeholder: 'Last Name',
+      errorMessage: 'Last name must be at least 2 characters.',
+    },
+    email: {
+      label: 'Email',
+      placeholder: 'Email',
+      errorMessage: 'Please enter a valid email address.',
+    },
+    feedback: {
+      label: 'Feedback',
+    },
+    question: {
+      label: 'Question',
+    },
+    message: {
+      label: 'Message',
+      placeholder: 'Message',
+      errorMessage: 'Message must be at least 10 characters.',
+    },
+    submitButton: {
+      text: 'Send a Message',
+    },
+    toast: {
+      title: "We've Got Your Message, We'll be in Touch Shortly!",
+    },
   },
 };

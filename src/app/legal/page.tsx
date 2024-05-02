@@ -1,14 +1,17 @@
+/* eslint-disable prettier/prettier */
 'use client';
 import { useState } from 'react';
 import { privacyPolicyConfig, termsAndConditionsConfig } from '@/config/legal';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LegalHeroSection } from './components/legal-hero-section';
 import { LegalContentSection } from './components/legal-content-section';
+import { PrivacyPolicyConfig, TermsAndConditionsConfig } from '@/types';
 
 export default function LegalPage() {
   const [activeTab, setActiveTab] = useState('privacy');
 
-  const config = activeTab === 'privacy' ? privacyPolicyConfig : termsAndConditionsConfig;
+  const config: PrivacyPolicyConfig | TermsAndConditionsConfig =
+    activeTab === 'privacy' ? privacyPolicyConfig : termsAndConditionsConfig;
 
   return (
     <div className="min-h-screen bg-background">

@@ -14,15 +14,13 @@ export default function AboutPage() {
         imagePath={aboutConfig.heroContent.imagePath}
         imageAlt={aboutConfig.heroContent.title.text}
       />
-      <AdditionalSection content={parseTextWithMarkup(aboutConfig.additionalContent.content)} />
-      <ValuesSection
-        title="Our Core Values"
-        slides={aboutConfig.carouselSlides.map((slide) => ({
-          ...slide,
-          title: slide.title.text,
-          content: slide.content.text,
-        }))}
+      <AdditionalSection
+        contentText={aboutConfig.additionalContent.content.text}
+        linkText={aboutConfig.additionalContent.link.text}
+        linkHref={aboutConfig.additionalContent.linkHref}
+        suffixText={aboutConfig.additionalContent.suffix.text}
       />
+      <ValuesSection title="Our Core Values" slides={aboutConfig.carouselSlides} />
     </div>
   );
 }

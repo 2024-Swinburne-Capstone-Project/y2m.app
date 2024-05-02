@@ -29,8 +29,8 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
                 onClick={() => setSelectedVideoIndex(index)}
               >
                 <div>
-                  <p className="font-medium leading-none">{video.title}</p>
-                  <p className="text-muted-foreground">{video.description}</p>
+                  <p className="font-medium leading-none">{video.title.text}</p>
+                  <p className="text-muted-foreground">{video.description.text}</p>
                 </div>
               </div>
             ))}
