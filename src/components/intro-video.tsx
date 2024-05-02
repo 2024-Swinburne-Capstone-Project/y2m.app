@@ -1,9 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { homeConfig } from '@/config/home-fr';
 
 export function IntroVideo() {
+  const { introVideo } = homeConfig;
+
   return (
     <section className="mb-16">
-      <h2 className="mb-8 text-3xl font-bold">Who We Are</h2>
+      <h2 className="mb-8 text-3xl font-bold">{introVideo.title}</h2>
       <div className="grid gap-8 text-center">
         <AnimatePresence>
           <motion.div
@@ -17,7 +20,7 @@ export function IntroVideo() {
               <iframe
                 className="size-full"
                 style={{ aspectRatio: '16/9' }}
-                src={'https://www.youtube.com/embed/Iv41XbkORAA?si=0TWReHSOKVsf5H8Q&rel=0'}
+                src={introVideo.videoUrl}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"

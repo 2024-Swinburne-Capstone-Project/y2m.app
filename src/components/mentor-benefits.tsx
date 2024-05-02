@@ -1,36 +1,16 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-
-const mentorBenefits = [
-  {
-    description: '6 time more likely to get promoted than someone who is not a mentors',
-    imagePath: '/product-launch.svg',
-  },
-  {
-    description: '28% more likely to get a pay rise compared to 5% of non mentors',
-    imagePath: '/spending-money.svg',
-  },
-  {
-    description: 'Recognition as a subject matter expert and a leader',
-    imagePath: '/shaking-hands.svg',
-  },
-  {
-    description: 'Opportunity to develop and advocate for others',
-    imagePath: '/man-calling.svg',
-  },
-  {
-    description: 'Development of your personal leadership and coaching styles',
-    imagePath: '/creative-work.svg',
-  },
-];
+import { homeConfig } from '@/config/home-fr';
 
 export function MentorBenefits() {
+  const { mentorBenefits } = homeConfig;
+
   return (
     <section className="mb-16">
-      <h2 className="mb-8 text-3xl font-bold">Why You Should Be a Mentor</h2>
+      <h2 className="mb-8 text-3xl font-bold">{mentorBenefits.title}</h2>
       <div className="grid gap-8 text-center md:grid-cols-2">
         <Image
-          src="/analysis-presentation.svg"
+          src={mentorBenefits.imagePath}
           alt=""
           width={300}
           height={300}
@@ -38,9 +18,9 @@ export function MentorBenefits() {
         />
         <div className="grid gap-8">
           <AnimatePresence>
-            {mentorBenefits.map((benefit, index) => (
+            {mentorBenefits.items.map((benefit, index) => (
               <motion.div
-                key={benefit.description}
+                key={benefit.description.text}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
@@ -55,11 +35,8 @@ export function MentorBenefits() {
                   className="h-auto w-28 object-cover dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
                 />
                 <div>
-                  <h3 className="text-muted-foreground">{benefit.description}</h3>{' '}
-                  <a
-                    href="https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781119040002.app5"
-                    style={{ color: 'hsl(var(--primary))' }}
-                  >
+                  <h3 className="text-muted-foreground">{benefit.description.text}</h3>
+                  <a href={benefit.sourceUrl} style={{ color: 'hsl(var(--primary))' }}>
                     Source
                   </a>
                 </div>

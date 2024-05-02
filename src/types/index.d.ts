@@ -197,4 +197,53 @@ export interface HomeConfig {
     width: number;
     height: number;
   };
+  perks: {
+    title: string;
+    items: {
+      title: TextWithMarkup;
+      imagePath: string;
+    }[];
+  };
+  introVideo: {
+    title: string;
+    videoUrl: string;
+  };
+  features: {
+    title: string;
+    items: {
+      title: TextWithMarkup;
+      description: TextWithMarkup;
+      imagePath: string;
+    }[];
+  };
+  mentorBenefits: {
+    title: string;
+    imagePath: string;
+    items: {
+      description: TextWithMarkup;
+      imagePath: string;
+      sourceUrl: string;
+    }[];
+  };
+  menteeBenefits: {
+    title: string;
+    items: {
+      title: TextWithMarkup;
+      description: TextWithMarkup;
+      imagePath: string;
+    }[];
+  };
+  testimonials: {
+    title: string;
+    items: {
+      name: TextWithMarkup;
+      role: TextWithMarkup;
+      image: string;
+      quote: TextWithMarkup;
+    }[];
+  };
+  acknowledgementOfCountry: {
+    title: string;
+    text: string;
+  };
 }

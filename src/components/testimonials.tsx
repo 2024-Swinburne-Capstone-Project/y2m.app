@@ -1,32 +1,19 @@
+// components/testimonials.tsx
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-
-const testimonials = [
-  {
-    name: 'John Doe',
-    role: 'Software Engineer',
-    image: '/male-user.png',
-    quote:
-      'You2Mentor has been instrumental in my career growth. The mentors are knowledgeable and supportive.',
-  },
-  {
-    name: 'Jane Smith',
-    role: 'Product Manager',
-    image: '/female-user.png',
-    quote:
-      "I highly recommend You2Mentor to anyone looking to advance their skills. It's an amazing platform.",
-  },
-];
+import { homeConfig } from '@/config/home-fr';
 
 export function Testimonials() {
+  const { testimonials } = homeConfig;
+
   return (
     <section className="mb-16">
-      <h2 className="mb-8 text-3xl font-bold">Testimonials</h2>
+      <h2 className="mb-8 text-3xl font-bold">{testimonials.title}</h2>
       <div className="grid gap-8 md:grid-cols-2">
         <AnimatePresence>
-          {testimonials.map((testimonial, index) => (
+          {testimonials.items.map((testimonial, index) => (
             <motion.div
-              key={testimonial.name}
+              key={testimonial.name.text}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
@@ -36,17 +23,17 @@ export function Testimonials() {
               <div className="mb-4 flex items-center">
                 <Image
                   src={testimonial.image}
-                  alt={testimonial.name}
+                  alt={testimonial.name.text}
                   width={48}
                   height={48}
                   className="rounded-full"
                 />
                 <div className="ml-4">
-                  <p className="font-semibold">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  <p className="font-semibold">{testimonial.name.text}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.role.text}</p>
                 </div>
               </div>
-              <p className="text-muted-foreground">{testimonial.quote}</p>
+              <p className="text-muted-foreground">{testimonial.quote.text}</p>
             </motion.div>
           ))}
         </AnimatePresence>

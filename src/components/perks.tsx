@@ -1,30 +1,18 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-
-const perks = [
-  {
-    title: 'Free to Use',
-    imagePath: '/work-from-home.svg',
-  },
-  {
-    title: 'Learn from Industry Professionals',
-    imagePath: '/businessman-with-a-suitcase.svg',
-  },
-  {
-    title: 'Mentor Others',
-    imagePath: '/creative-work.svg',
-  },
-];
+import { homeConfig } from '@/config/home-fr';
 
 export function Perks() {
+  const { perks } = homeConfig;
+
   return (
     <section className="mb-16">
-      <h2 className="mb-8 text-3xl font-bold">What Do We Offer?</h2>
+      <h2 className="mb-8 text-3xl font-bold">{perks.title}</h2>
       <div className="grid gap-8 text-center md:grid-cols-3">
         <AnimatePresence>
-          {perks.map((perk, index) => (
+          {perks.items.map((perk, index) => (
             <motion.div
-              key={perk.title}
+              key={perk.title.text}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
@@ -36,9 +24,9 @@ export function Perks() {
                 alt=""
                 width={300}
                 height={300}
-                className="h-auto w-full object-cover  dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
+                className="h-auto w-full object-cover dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
               />
-              <h3 className="mb-2 text-xl font-semibold">{perk.title}</h3>
+              <h3 className="mb-2 text-xl font-semibold">{perk.title.text}</h3>
             </motion.div>
           ))}
         </AnimatePresence>

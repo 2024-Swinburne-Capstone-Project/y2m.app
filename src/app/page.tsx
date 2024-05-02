@@ -14,7 +14,7 @@ import { MentorBenefits } from '@/components/mentor-benefits';
 import { MenteeBenefits } from '@/components/mentee-benefits';
 import { HomeBlogs } from '@/components/home-blogs';
 import { AcknowledgementOfCountry } from '@/components/acknowledgement-of-country';
-import { homeConfig } from '@/config/home';
+import { homeConfig } from '@/config/home-fr';
 import parseTextWithMarkup from '@/config/parser/parseTextWithMarkup';
 
 export default function Home() {
