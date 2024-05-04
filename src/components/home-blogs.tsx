@@ -1,4 +1,4 @@
-import { BlogsCarousel } from '@/app/knowledge-hub/components/blogs-carousel';
+import { BlogsCarousel } from '@/app/(marketing)/knowledge-hub/components/blogs-carousel';
 import { knowledgeHubConfig } from '@/config/knowledge-hub';
 import { AnimatePresence, motion } from 'framer-motion';
 
