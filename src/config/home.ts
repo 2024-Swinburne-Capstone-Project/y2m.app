@@ -202,6 +202,6 @@ export const homeConfig: HomeConfig = {
   },
   acknowledgementOfCountry: {
     title: 'Acknowledgement of Country',
-    text: 'You2Mentor acknowledges Aboriginal and Torres Strait Islander peoples as the traditional custodians of our land – Australia. We pay our respect to them and their cultures and to the elders past, present and emerging. Wurundjeri Woi Wurrung and Bunurong Boon Wurrung peoples of the Eastern Kulin are the traditional custodians of the land on which You2Mentor office stands.',
+    text: 'You2Mentor acknowledges Aboriginal and Torres Strait Islander peoples as the traditional custodians of our land - Australia. We pay our respect to them and their cultures and to the elders past, present and emerging. Wurundjeri Woi Wurrung and Bunurong Boon Wurrung peoples of the Eastern Kulin are the traditional custodians of the land on which You2Mentor office stands.',
   },
 };
