@@ -5,7 +5,7 @@ export const knowledgeHubConfig: KnowledgeHubConfig = {
     title: {
       text: 'Knowledge Hub',
     },
-    imagePath: '/knowledge-hub/genius.svg',
+    imagePath: '/genius.svg',
   },
   videos: [
     {

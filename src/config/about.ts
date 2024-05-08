@@ -15,7 +15,7 @@ export const aboutConfig: AboutConfig = {
     content: {
       text: 'With the goal of making mentorship accessible to all, You2Mentor was launched in December 2022 to be a dedicated online resource for personal growth. It provides users with the necessary tools and guidance to help them reach their potential.',
     },
-    imagePath: '/about/creative-work.svg',
+    imagePath: '/creative-work.svg',
   },
   additionalContent: {
     content: {
@@ -55,7 +55,7 @@ export const aboutConfig: AboutConfig = {
       content: {
         text: 'In Order To Achieve Greatness, We Need To Dream Big',
       },
-      imagePath: '/about/values/work-party.svg',
+      imagePath: '/work-party.svg',
     },
     {
       title: {
@@ -73,7 +73,7 @@ export const aboutConfig: AboutConfig = {
       content: {
         text: 'We Believe That Life Is A Continuous Journey Of Learning Which Leads To Innovation And Thinking Outside The Norm',
       },
-      imagePath: '/about/values/studying.svg',
+      imagePath: '/studying.svg',
     },
   ],
 };
