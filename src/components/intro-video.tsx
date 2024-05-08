@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { homeConfig } from '@/config/home-fr';
+import { homeConfig } from '@/config/home';
 
 export function IntroVideo() {
   const { introVideo } = homeConfig;

@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { homeConfig } from '@/config/home-fr';
+import { homeConfig } from '@/config/home';
 
 export function MentorBenefits() {
   const { mentorBenefits } = homeConfig;
