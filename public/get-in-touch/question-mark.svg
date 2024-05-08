@@ -89,12 +89,12 @@
 </g>
 <defs>
 <linearGradient id="paint0_linear_317_821" x1="417.981" y1="247.873" x2="417.981" y2="481.169" gradientUnits="userSpaceOnUse">
-<stop stop-color="#FFB800"/>
-<stop offset="1" stop-color="#FF7F0A"/>
+<stop stop-color="#42E670"/>
+<stop offset="1" stop-color="#07AA50"/>
 </linearGradient>
 <linearGradient id="paint1_linear_317_821" x1="577.392" y1="468.967" x2="577.392" y2="646.204" gradientUnits="userSpaceOnUse">
-<stop stop-color="#FFB800"/>
-<stop offset="1" stop-color="#FF7F0A"/>
+<stop stop-color="#42E670"/>
+<stop offset="1" stop-color="#07AA50"/>
 </linearGradient>
 <clipPath id="clip0_317_821">
 <rect width="759" height="884" fill="white" transform="translate(101 38)"/>
