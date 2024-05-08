@@ -21,7 +21,7 @@ export default function EnterpriseSolutions() {
             alt={enterpriseSolutionsConfig.heroContent.title.text}
             width={300}
             height={300}
-            className="dark:rounded-full dark:bg-primary-foreground"
+            className="dark:rounded-full dark:bg-foreground"
           />
         </MainSectionBody>
       </MainSection>
@@ -37,7 +37,7 @@ export default function EnterpriseSolutions() {
             alt={enterpriseSolutionsConfig.heroContent.title.text}
             width={300}
             height={300}
-            className="dark:rounded-full dark:bg-primary-foreground"
+            className="dark:rounded-full dark:bg-foreground"
           />
           <Card className="m-1 w-full p-5 md:w-[50vw]">
             <GetInTouch />

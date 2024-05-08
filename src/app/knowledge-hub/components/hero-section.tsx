@@ -15,7 +15,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ title, imagePath }) =>
         <div className="space-y-6 md:w-1/2">
           <Title>{title}</Title>
         </div>
-        <div className="max-w-sm dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground md:w-1/2">
+        <div className="max-w-sm dark:overflow-hidden dark:rounded-full dark:bg-foreground md:w-1/2">
           <Image
             src={imagePath}
             alt={title}

@@ -24,7 +24,7 @@ export function Perks() {
                 alt=""
                 width={300}
                 height={300}
-                className="h-auto w-full object-cover dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
+                className="h-auto w-full object-cover dark:overflow-hidden dark:rounded-full dark:bg-foreground"
               />
               <h3 className="mb-2 text-xl font-semibold">{perk.title.text}</h3>
             </motion.div>

@@ -22,7 +22,7 @@ const MainSectionImage: React.FC<MainSectionImageProps> = ({
         width={width ?? 600}
         height={height ?? 300}
         alt="Hero Section"
-        className="dark:rounded-full dark:bg-primary-foreground"
+        className="dark:rounded-full dark:bg-foreground"
       />
     </div>
   );
