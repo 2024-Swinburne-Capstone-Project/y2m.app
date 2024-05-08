@@ -39,7 +39,7 @@ export default function Home() {
                   {parseTextWithMarkup(homeConfig.subtitle)}
                 </Subtitle>
               </div>
-              <div className="dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground md:w-1/2">
+              <div className="dark:overflow-hidden dark:rounded-full dark:bg-foreground md:w-1/2">
                 <Image
                   src={homeConfig.heroImage.src}
                   alt={homeConfig.heroImage.alt}

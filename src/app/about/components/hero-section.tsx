@@ -29,7 +29,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           alt={imageAlt}
           width={300}
           height={300}
-          className="dark:rounded-full dark:bg-primary-foreground md:w-1/2"
+          className="dark:rounded-full dark:bg-foreground md:w-1/2"
         />
       </MainSectionBody>
     </MainSection>

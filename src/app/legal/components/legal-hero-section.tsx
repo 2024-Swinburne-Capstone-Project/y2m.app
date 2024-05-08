@@ -19,7 +19,7 @@ export const LegalHeroSection = ({ config }: { config: LegalHeroSectionProps }) 
             alt={config.heroSection.title.text}
             width={300}
             height={300}
-            className="dark:rounded-full dark:bg-primary-foreground"
+            className="dark:rounded-full dark:bg-foreground"
           />
         </div>
       </MainSectionBody>

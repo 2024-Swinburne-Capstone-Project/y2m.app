@@ -24,7 +24,7 @@ export function MenteeBenefits() {
                 alt=""
                 width={300}
                 height={300}
-                className="h-auto w-28 basis-1/5 object-cover dark:overflow-hidden dark:rounded-full dark:bg-primary-foreground"
+                className="h-auto w-28 basis-1/5 object-cover dark:overflow-hidden dark:rounded-full dark:bg-foreground"
               />
               <div className="basis-4/5">
                 <h1 className="mb-2 text-xl font-semibold">{benefit.title.text}</h1>
