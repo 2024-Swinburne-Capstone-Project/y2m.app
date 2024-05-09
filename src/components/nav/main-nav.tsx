@@ -10,7 +10,6 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
-import Image from 'next/image';
 import { NavConfig } from '@/types';
 
 export function MainNav({ navItems }: NavConfig) {

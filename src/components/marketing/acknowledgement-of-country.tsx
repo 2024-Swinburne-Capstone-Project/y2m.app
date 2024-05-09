@@ -1,4 +1,3 @@
-// components/acknowledgement-of-country.tsx
 import { AnimatePresence, motion } from 'framer-motion';
 import { homeConfig } from '@/config/home';
 

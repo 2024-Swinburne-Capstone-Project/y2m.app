@@ -1,4 +1,4 @@
-import NavMenu from '@/components/nav/nav-menu';
+import MarketingNav from '@/components/marketing/marketing-nav';
 import { Footer } from '@/components/footer';
 
 interface MarketingLayoutProps {
@@ -9,7 +9,7 @@ export default async function MarketingLayout({ children }: MarketingLayoutProps
   return (
     <div className="flex min-h-screen flex-col">
       <header>
-        <NavMenu />
+        <MarketingNav />
       </header>
       <main className="flex-1">{children}</main>
       <Footer />
