@@ -247,3 +247,12 @@ export interface HomeConfig {
     text: string;
   };
 }
+
+interface NavItem {
+  title: string;
+  href?: string;
+}
+
+interface NavConfig {
+  navItems: NavItem[];
+}
