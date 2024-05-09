@@ -24,9 +24,6 @@ export function MainNav({ navItems }: NavConfig) {
 
   return (
     <NavigationMenu className="hidden md:flex">
-      <Link href="/" className="hidden items-center space-x-2 md:flex">
-        <Image src={'/y2m-logo.png'} alt="You2Mentor" width={80} height={80} className="mr-5" />
-      </Link>
       <NavigationMenuList>
         {navItems.map(
           (item) =>
