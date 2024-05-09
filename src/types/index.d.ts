@@ -256,3 +256,12 @@ interface NavItem {
 interface NavConfig {
   navItems: NavItem[];
 }
+
+interface NotFoundConfig {
+  title: string;
+  description: string;
+  imageSource: string;
+  imageAlt: string;
+  buttonText: string;
+  buttonHref: string;
+}
