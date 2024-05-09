@@ -18,50 +18,42 @@
       [
         "@semantic-release/commit-analyzer",
         {
+          "preset": "conventionalcommits",
           "releaseRules": [
             {
               "type": "revert",
-              "scope": "*",
               "release": "patch"
             },
             {
               "type": "docs",
-              "scope": "*",
               "release": "patch"
             },
             {
               "type": "style",
-              "scope": "*",
               "release": "patch"
             },
             {
               "type": "chore",
-              "scope": "*",
               "release": "patch"
             },
             {
               "type": "refactor",
-              "scope": "*",
               "release": "patch"
             },
             {
               "type": "test",
-              "scope": "*",
               "release": "patch"
             },
             {
               "type": "build",
-              "scope": "*",
               "release": "patch"
             },
             {
               "type": "ci",
-              "scope": "*",
               "release": "patch"
             },
             {
               "type": "improvement",
-              "scope": "*",
               "release": "patch"
             }
           ]
@@ -70,6 +62,7 @@
       [
         "@semantic-release/release-notes-generator",
         {
+          "preset": "conventionalcommits",
           "presetConfig": {
             "types": [
               {
@@ -132,14 +125,17 @@
           }
         }
       ],
-      "@semantic-release/git",
-      "@semantic-release/github",
+      [
+        "@semantic-release/github"
+      ],
       [
         "@semantic-release/npm",
         {
           "npmPublish": false
         }
-      ]
+      ],
+      "@semantic-release/changelog",
+      "@semantic-release/git"
     ],
     "branches": [
       "master",
@@ -196,6 +192,7 @@
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "7.2.0",
+    "conventional-changelog-conventionalcommits": "7.0.2",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.2",
     "eslint-config-prettier": "^9.1.0",
