@@ -1,14 +1,7 @@
-interface NavItem {
-  title: string;
-  href?: string;
-}
-
-interface NavConfig {
-  mainNav: NavItem[];
-}
+import { NavConfig } from '@/types';
 
 export const navConfig: NavConfig = {
-  mainNav: [
+  navItems: [
     { title: 'About', href: '/about' },
     { title: 'Knowledge Hub', href: '/knowledge-hub' },
     { title: 'Enterprise Solutions', href: '/enterprise-solutions' },

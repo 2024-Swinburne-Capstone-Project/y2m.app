@@ -10,10 +10,10 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
-import { navConfig } from '@/config/nav';
 import Image from 'next/image';
+import { NavConfig } from '@/types';
 
-export function MainNav() {
+export function MainNav({ navItems }: NavConfig) {
   const pathname = usePathname();
 
   const getNavLinkClassName = (linkPath: string) => {
@@ -29,7 +29,7 @@ export function MainNav() {
         <Image src={'/y2m-logo.png'} alt="You2Mentor" width={80} height={80} className="mr-5" />
       </Link>
       <NavigationMenuList>
-        {navConfig.mainNav?.map(
+        {navItems.map(
           (item) =>
             item.href && (
               <NavigationMenuItem key={item.href}>

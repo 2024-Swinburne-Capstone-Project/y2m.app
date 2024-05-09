@@ -3,13 +3,13 @@
 import * as React from 'react';
 import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/navigation';
-import { navConfig } from '@/config/nav';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Image from 'next/image';
+import { NavConfig } from '@/types';
 
-export function MobileNav() {
+export function MobileNav({ navItems }: NavConfig) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -62,7 +62,7 @@ export function MobileNav() {
               className="mb-4 mr-5"
             />
           </MobileLink>
-          {navConfig.mainNav?.map(
+          {navItems.map(
             (item) =>
               item.href && (
                 <MobileLink key={item.href} href={item.href} onOpenChange={setOpen}>
