@@ -1,4 +1,4 @@
-import MarketingNav from '@/components/marketing/marketing-nav';
+import ApplicatonNav from '@/components/application/application-nav';
 import { Footer } from '@/components/footer';
 import { notFound } from 'next/navigation';
 import { getSession } from '@auth0/nextjs-auth0';
@@ -16,7 +16,7 @@ export default async function ApplicatonLayout({ children }: ApplicatonLayoutPro
   return (
     <div className="flex min-h-screen flex-col">
       <header>
-        <MarketingNav />
+        <ApplicatonNav />
       </header>
       <main className="flex-1">{children}</main>
       <Footer />
