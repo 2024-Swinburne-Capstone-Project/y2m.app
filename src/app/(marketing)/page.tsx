@@ -1,19 +1,19 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Features } from '@/components/features';
-import { Testimonials } from '@/components/testimonials';
+import { Features } from '@/components/marketing/features';
+import { Testimonials } from '@/components/marketing/testimonials';
 import Title from '@/components/title';
 import Subtitle from '@/components/subtitle';
 import MainSectionBody from '@/components/main-section-body';
 import Image from 'next/image';
-import RotatingWord from '@/components/rotating-word';
+import RotatingWord from '@/components/marketing/rotating-word';
 import MainSection from '@/components/main-section';
-import { IntroVideo } from '@/components/intro-video';
-import { Perks } from '@/components/perks';
-import { MentorBenefits } from '@/components/mentor-benefits';
-import { MenteeBenefits } from '@/components/mentee-benefits';
-import { HomeBlogs } from '@/components/home-blogs';
-import { AcknowledgementOfCountry } from '@/components/acknowledgement-of-country';
+import { IntroVideo } from '@/components/marketing/intro-video';
+import { Perks } from '@/components/marketing/perks';
+import { MentorBenefits } from '@/components/marketing/mentor-benefits';
+import { MenteeBenefits } from '@/components/marketing/mentee-benefits';
+import { HomeBlogs } from '@/components/marketing/home-blogs';
+import { AcknowledgementOfCountry } from '@/components/marketing/acknowledgement-of-country';
 import { homeConfig } from '@/config/home';
 import parseTextWithMarkup from '@/config/parser/parseTextWithMarkup';
 

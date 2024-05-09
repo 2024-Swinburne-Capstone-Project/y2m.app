@@ -2,7 +2,7 @@ import { TermsAndConditionsSection, TextWithMarkup } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Typography from '@/components/ui/typography';
 import { Key } from 'react';
-import MainSectionImage from '@/components/main-section-image';
+import MainSectionImage from '@/components/marketing/main-section-image';
 
 interface LegalSectionCardProps {
   section: TermsAndConditionsSection;
