@@ -23,8 +23,9 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Image } from 'lucide-react';
+import { Image as ImageIcon } from 'lucide-react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function Home() {
   const formSchema = z.object({
@@ -68,7 +69,7 @@ export default function Home() {
   }
 
   return (
-    <main className="mx-auto flex max-w-7xl flex-col px-4 py-12 md:flex-col md:space-x-6 md:px-8 space-y-6">
+    <main className="mx-auto flex max-w-7xl flex-col space-y-6 px-4 py-12 md:flex-col md:space-x-6 md:px-8">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSumbit)}>
           <FormField
@@ -85,18 +86,18 @@ export default function Home() {
             )}
           />
           {imageURL && !showImageDialog ? (
-            <div>
+            <div className="flex flex-col items-start gap-3">
               <Button className="gap-2" variant="secondary" onClick={() => setImageURL('')}>
                 Remove Image
               </Button>
-              <img src={imageURL} alt="New Image" />
+              <Image src={imageURL} alt="New Image" width="250" height="250" />
             </div>
           ) : (
             <Dialog open={showImageDialog} onOpenChange={setShowImageDialog}>
               <DialogTrigger asChild>
                 <Button className="gap-2" variant="secondary">
                   Add Image
-                  <Image className="h-4 w-4" />
+                  <ImageIcon className="size-4" />
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">
@@ -106,7 +107,7 @@ export default function Home() {
                     Enter the URL for the image you want added to this blog
                   </DialogDescription>
                 </DialogHeader>
-                <div className="flex items-center pt-4 gap-3">
+                <div className="flex items-center gap-3 pt-4">
                   <Label htmlFor="image-url">URL:</Label>
                   <Input
                     id="image-url"
@@ -114,7 +115,14 @@ export default function Home() {
                     onChange={(e) => setImageURL(e.target.value)}
                   />
                 </div>
-                <img src={imageURL} alt="New Image" />
+                <Image
+                  src={imageURL}
+                  alt="New Image"
+                  width="500"
+                  height="500"
+                  layout="responsive"
+                  objectFit="contain"
+                />
                 <DialogFooter>
                   <Button onClick={addImage}>Submit</Button>
                 </DialogFooter>

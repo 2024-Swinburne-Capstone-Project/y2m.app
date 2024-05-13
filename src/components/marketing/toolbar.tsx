@@ -61,65 +61,65 @@ export function Toolbar({ editor }: Props) {
   };
 
   return (
-    <div className="border border-input bg-transparent m-b-2">
+    <div className="m-b-2 border border-input bg-transparent">
       <Toggle
         size="sm"
         pressed={editor.isActive('heading')}
         onPressedChange={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
       >
-        <Heading1 className="h-4 w-4" />
+        <Heading1 className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('bold')}
         onPressedChange={() => editor.chain().focus().toggleBold().run()}
       >
-        <Bold className="h-4 w-4" />
+        <Bold className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('italic')}
         onPressedChange={() => editor.chain().focus().toggleItalic().run()}
       >
-        <Italic className="h-4 w-4" />
+        <Italic className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('strike')}
         onPressedChange={() => editor.chain().focus().toggleStrike().run()}
       >
-        <Strikethrough className="h-4 w-4" />
+        <Strikethrough className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('bulletList')}
         onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
       >
-        <List className="h-4 w-4" />
+        <List className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('orderedList')}
         onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
       >
-        <ListOrdered className="h-4 w-4" />
+        <ListOrdered className="size-4" />
       </Toggle>
 
       <Dialog open={showHyperlinkDialog} onOpenChange={showDialogAndPrefillURL}>
         <DialogTrigger asChild>
           <Toggle size="sm" pressed={editor.isActive('link')}>
-            <Link className="h-4 w-4" />
+            <Link className="size-4" />
           </Toggle>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>New Link</DialogTitle>
             <DialogDescription>
-              Please make sure you've highlighted the text you want to add this link to before
+              Please make sure you have highlighted the text you want to add this link to before
               clicking on the Link button
             </DialogDescription>
           </DialogHeader>
-          <div className="flex items-center pt-4 gap-3">
+          <div className="flex items-center gap-3 pt-4">
             <Label htmlFor="url">URL:</Label>
             <Input
               id="url"

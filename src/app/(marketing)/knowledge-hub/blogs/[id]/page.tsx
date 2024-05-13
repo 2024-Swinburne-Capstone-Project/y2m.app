@@ -14,17 +14,8 @@ import NextLink from 'next/link';
 
 export default function BlogPage() {
   const searchParams = useSearchParams();
-  const id = searchParams.get('id');
-
-  if (!id) {
-    return;
-  }
-
+  const id = searchParams.get('id')!;
   const blog = knowledgeHubConfig.carouselSlides.find((x) => x.id === parseInt(id));
-
-  if (!blog) {
-    return;
-  }
 
   const editor = useEditor({
     extensions: [
@@ -51,7 +42,7 @@ export default function BlogPage() {
         },
       }),
     ],
-    content: blog.content.text,
+    content: blog?.content.text,
     editorProps: {
       attributes: {
         class: 'flex flex-col',
@@ -59,6 +50,10 @@ export default function BlogPage() {
     },
     editable: false,
   });
+
+  if (!blog) {
+    return;
+  }
 
   const dateString = blog.date.toLocaleDateString('en-AU');
   const timeString = blog.date.toLocaleString('en-AU', {
@@ -68,7 +63,7 @@ export default function BlogPage() {
   });
 
   return (
-    <div className="mx-auto flex max-w-7xl flex-col px-4 py-12 md:flex-col md:space-x-6 md:px-8 space-y-6">
+    <div className="mx-auto flex max-w-7xl flex-col space-y-6 px-4 py-12 md:flex-col md:space-x-6 md:px-8">
       <div className="flex justify-start">
         <NextLink
           className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
@@ -78,7 +73,7 @@ export default function BlogPage() {
         </NextLink>
       </div>
       <Image src={blog.imagePath} alt={blog.title.text} width={1280} height={300} />
-      <div className="py-10 text-3xl font-bold text-center">{blog.title.text}</div>
+      <div className="py-10 text-center text-3xl font-bold">{blog.title.text}</div>
       <EditorContent editor={editor} />
       <div className="flex gap-5">
         <TextWithIcon text={blog.author.text} icon={faUser} />
