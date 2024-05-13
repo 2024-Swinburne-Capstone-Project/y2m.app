@@ -8,7 +8,7 @@ import {
   ListOrdered,
   Heading1,
   Link,
-  Image,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { Toggle } from '@/components/ui/toggle';
 import {
@@ -24,21 +24,22 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { useState } from 'react';
+import Image from 'next/image';
 
 type Props = {
   editor: Editor | null;
 };
 
 export function Toolbar({ editor }: Props) {
-  if (!editor) {
-    return null;
-  }
-
   const [showHyperlinkDialog, setShowHyperlinkDialog] = useState(false);
   const [hyperlinkUrl, setHyperlinkUrl] = useState('');
 
   const [showImageDialog, setShowImageDialog] = useState(false);
   const [imageURL, setImageURL] = useState('');
+
+  if (!editor) {
+    return null;
+  }
 
   const showDialogAndPrefillURL = (state: boolean) => {
     const previousUrl = editor.getAttributes('link').href;
@@ -81,65 +82,65 @@ export function Toolbar({ editor }: Props) {
   };
 
   return (
-    <div className="border border-input bg-transparent m-b-2">
+    <div className="m-b-2 border border-input bg-transparent">
       <Toggle
         size="sm"
         pressed={editor.isActive('heading')}
         onPressedChange={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
       >
-        <Heading1 className="h-4 w-4" />
+        <Heading1 className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('bold')}
         onPressedChange={() => editor.chain().focus().toggleBold().run()}
       >
-        <Bold className="h-4 w-4" />
+        <Bold className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('italic')}
         onPressedChange={() => editor.chain().focus().toggleItalic().run()}
       >
-        <Italic className="h-4 w-4" />
+        <Italic className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('strike')}
         onPressedChange={() => editor.chain().focus().toggleStrike().run()}
       >
-        <Strikethrough className="h-4 w-4" />
+        <Strikethrough className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('bulletList')}
         onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
       >
-        <List className="h-4 w-4" />
+        <List className="size-4" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive('orderedList')}
         onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
       >
-        <ListOrdered className="h-4 w-4" />
+        <ListOrdered className="size-4" />
       </Toggle>
 
       <Dialog open={showHyperlinkDialog} onOpenChange={showDialogAndPrefillURL}>
         <DialogTrigger asChild>
           <Toggle size="sm" pressed={editor.isActive('link')}>
-            <Link className="h-4 w-4" />
+            <Link className="size-4" />
           </Toggle>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>New Link</DialogTitle>
             <DialogDescription>
-              Please make sure you've highlighted the text you want to add this link to before
+              Please make sure you have highlighted the text you want to add this link to before
               clicking on the Link button
             </DialogDescription>
           </DialogHeader>
-          <div className="flex items-center pt-4 gap-3">
+          <div className="flex items-center gap-3 pt-4">
             <Label htmlFor="url">URL:</Label>
             <Input
               id="url"
@@ -156,7 +157,7 @@ export function Toolbar({ editor }: Props) {
       <Dialog open={showImageDialog} onOpenChange={setShowImageDialog}>
         <DialogTrigger asChild>
           <Toggle size="sm" pressed={editor.isActive('image')}>
-            <Image className="h-4 w-4" />
+            <ImageIcon className="size-4" />
           </Toggle>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
@@ -166,11 +167,11 @@ export function Toolbar({ editor }: Props) {
               Enter the URL for the image you want added to this blog
             </DialogDescription>
           </DialogHeader>
-          <div className="flex items-center pt-4 gap-3">
+          <div className="flex items-center gap-3 pt-4">
             <Label htmlFor="image-url">URL:</Label>
             <Input id="image-url" value={imageURL} onChange={(e) => setImageURL(e.target.value)} />
           </div>
-          <img src={imageURL} alt="New Image" />
+          <Image src={imageURL} alt="New Image" />
           <DialogFooter>
             <Button onClick={addImage}>Submit</Button>
           </DialogFooter>
