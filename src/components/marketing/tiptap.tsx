@@ -7,7 +7,6 @@ import Heading from '@tiptap/extension-heading';
 import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Link from '@tiptap/extension-link';
-import Image from '@tiptap/extension-image';
 
 export default function Tiptap({
   description,
@@ -40,7 +39,6 @@ export default function Tiptap({
           class: 'underline cursor-pointer text-primary',
         },
       }),
-      Image,
     ],
     content: description,
     editorProps: {
@@ -55,7 +53,7 @@ export default function Tiptap({
   });
 
   return (
-    <div className="flex min-h-[250px] flex-col justify-stretch gap-1">
+    <div className="flex flex-col justify-stretch gap-1">
       <Toolbar editor={editor} />
       <EditorContent editor={editor} />
     </div>

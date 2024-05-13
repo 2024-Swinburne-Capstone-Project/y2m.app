@@ -11,9 +11,7 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import { BlogsConfig } from '@/types';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import BlogPage from './blog';
+import Link from 'next/link';
 
 interface BlogsCarouselProps {
   slides: BlogsConfig[];
@@ -21,18 +19,6 @@ interface BlogsCarouselProps {
 
 export function BlogsCarousel({ slides }: BlogsCarouselProps) {
   const plugin = React.useRef(Autoplay({ delay: 2000 }));
-  const [selectedBlog, setSelectedBlog] = useState<BlogsConfig | undefined>(undefined);
-
-  if (selectedBlog) {
-    return (
-      <div>
-        <BlogPage blog={selectedBlog} />
-        <Button className="my-5" onClick={() => setSelectedBlog(undefined)}>
-          Back
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <Carousel
@@ -44,26 +30,24 @@ export function BlogsCarousel({ slides }: BlogsCarouselProps) {
     >
       <CarouselContent>
         {slides.map((item, index) => (
-          <CarouselItem
-            key={index}
-            className="pl-5 md:basis-1/2 lg:basis-1/3"
-            onClick={() => setSelectedBlog(item)}
-          >
-            <Card className="h-full cursor-pointer">
-              <CardHeader className="flex flex-col items-center">
-                <Image
-                  src={item.imagePath}
-                  alt={item.title.text}
-                  width={1280}
-                  height={300}
-                  className="h-60 object-cover"
-                />
-                <CardDescription className="mt-4 text-center">
-                  {item.date.toDateString()}
-                </CardDescription>
-                <CardTitle className="mt-2 text-center">{item.title.text}</CardTitle>
-              </CardHeader>
-            </Card>
+          <CarouselItem key={index} className="pl-5 md:basis-1/2 lg:basis-1/3">
+            <Link href={`/knowledge-hub/blogs/blog?id=${item.id}`}>
+              <Card className="h-full cursor-pointer">
+                <CardHeader className="flex flex-col items-center">
+                  <Image
+                    src={item.imagePath}
+                    alt={item.title.text}
+                    width={1280}
+                    height={300}
+                    className="h-60 object-cover"
+                  />
+                  <CardDescription className="mt-4 text-center">
+                    {item.date.toDateString()}
+                  </CardDescription>
+                  <CardTitle className="mt-2 text-center">{item.title.text}</CardTitle>
+                </CardHeader>
+              </Card>
+            </Link>
           </CarouselItem>
         ))}
       </CarouselContent>
