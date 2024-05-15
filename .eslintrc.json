@@ -30,6 +30,7 @@
   "rules": {
     "prettier/prettier": "error",
     "tailwindcss/no-custom-classname": "off",
-    "tailwindcss/classnames-order": "error"
+    "tailwindcss/classnames-order": "error",
+    "tailwindcss/no-unnecessary-arbitrary-value": "off"
   }
 }

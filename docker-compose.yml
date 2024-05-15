@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "${DB_PORT}:5432"
+      - '${DB_PORT}:5432'
       # postgres container listens on 5432 by default
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -15,7 +15,7 @@ services:
     container_name: pgadmin
     restart: unless-stopped
     ports:
-      - "8888:80"
+      - '8888:80'
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PG_ADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_PASSWORD}
