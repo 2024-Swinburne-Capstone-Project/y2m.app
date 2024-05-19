@@ -78,7 +78,6 @@ export interface TermsAndConditionsSection {
 export interface KnowledgeHubConfig {
   heroSection: HeroSectionConfig;
   videos: VideoConfig[];
-  carouselSlides: BlogsConfig[];
 }
 
 export interface EnterpriseSolutionsConfig {

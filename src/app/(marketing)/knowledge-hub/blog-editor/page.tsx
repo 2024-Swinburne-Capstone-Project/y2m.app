@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import {
   Form,
   FormControl,
@@ -54,18 +55,39 @@ export default function Home() {
     setShowImageDialog(false);
   };
 
-  function onSumbit(values: z.infer<typeof formSchema>) {
-    //Save values to the database
+  const router = useRouter(); // Initialize the router
+
+  async function onSumbit(values: z.infer<typeof formSchema>) {
+    // Save values to the database
     const blog = {
-      id: 0, //TODO: get the id of the last blog and increment it by 1
       title: values.title,
       content: values.description,
-      timeStamp: Date.now(), //TODO: fix date
-      author: 'admin', //TODO: Change to logged in user
+      author: 'admin', // TODO: Change to logged in user
       imagePath: imageURL,
     };
     console.log({ blog });
-    //redirect to a new page with the new blog retrieved from the db
+
+    try {
+      const response = await fetch('/api/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(blog),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save blog post');
+      }
+
+      const data = await response.json();
+      // Redirect to knowledge hub after successful submission
+      router.push('/knowledge-hub'); // Redirect to /knowledge-hub
+      return data;
+    } catch (error) {
+      console.error('Error saving blog post:', error);
+      throw error;
+    }
   }
 
   return (

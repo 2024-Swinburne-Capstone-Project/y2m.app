@@ -1,11 +1,13 @@
 ## Getting Started
 
 ### Install dependencies
+
 ```bash
 npm install
 ```
 
 ### Run the development server:
+
 ```bash
 npm run dev
 # or
@@ -19,6 +21,7 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Project Structure
+
 ```
 y2m.app
 ├───.github
@@ -26,8 +29,8 @@ y2m.app
 ├───.vscode
 │   └───... -------------- Recommended VSCode extensions for development
 |
-├───public ---------------Location for static assets like images 
-│   └───about             (NextJS optimizes assets in this folder) 
+├───public ---------------Location for static assets like images
+│   └───about             (NextJS optimizes assets in this folder)
 └───src
     ├───app
     │   ├───PAGE_NAME
@@ -38,12 +41,12 @@ y2m.app
     │   │   |   └───[auth0] -- Auth0 authentication setup (do not modify)
     |   |   └───API_PATH ----- Any folder with a route.ts file will be live
     |   |
-    |   | 
+    |   |
     │   └───... -------------- Main app router entry point
-    |                          (CAUTION: special filenames will be rendered 
-    |                           e.g. page, layout, error, loading) 
+    |                          (CAUTION: special filenames will be rendered
+    |                           e.g. page, layout, error, loading)
     ├───components
-    │   ├───GROUP_NAME ------ Global components specific to GROUP 
+    │   ├───GROUP_NAME ------ Global components specific to GROUP
     │   ├───ui ------------- Shadcn UI components
     |   |                    (avoid modifying to prevent confusion)
     |   |
