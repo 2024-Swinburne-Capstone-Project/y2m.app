@@ -1,39 +1,78 @@
 'use client';
 import { faCalendarDays, faClock, faUser } from '@fortawesome/free-solid-svg-icons';
 import TextWithIcon from '@/components/marketing/text-with-icon';
-import { knowledgeHubConfig } from '@/config/knowledge-hub';
 import { useSearchParams } from 'next/navigation';
 import { EditorContent, useEditor } from '@tiptap/react';
-import BulletList from '@tiptap/extension-bullet-list';
-import OrderedList from '@tiptap/extension-ordered-list';
 import StarterKit from '@tiptap/starter-kit';
-import Heading from '@tiptap/extension-heading';
 import Link from '@tiptap/extension-link';
 import Image from 'next/image';
 import NextLink from 'next/link';
+import { useEffect, useState } from 'react';
+import { BlogsConfig } from '@/types';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function BlogPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id')!;
-  const blog = knowledgeHubConfig.carouselSlides.find((x) => x.id === parseInt(id));
+
+  const [blog, setBlog] = useState<BlogsConfig | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response = await fetch(`/api/blogs/${id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch blog post');
+        }
+        const data = await response.json();
+
+        if (data) {
+          const fetchedBlog: BlogsConfig = {
+            id: data.id,
+            title: {
+              text: data.title,
+            },
+            content: {
+              text: data.content,
+            },
+            imagePath: data.imagePath,
+            author: {
+              text: data.author,
+            },
+            date: new Date(data.date),
+          };
+
+          setBlog(fetchedBlog);
+        }
+      } catch {
+        console.error('Failed to fetch blog post');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBlog();
+  }, [id]);
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
-      Heading.configure({
-        HTMLAttributes: {
-          class: 'text-xl font-bold',
-          levels: [1],
+      StarterKit.configure({
+        heading: {
+          HTMLAttributes: {
+            class: 'text-xl font-bold',
+            levels: [1],
+          },
         },
-      }),
-      BulletList.configure({
-        HTMLAttributes: {
-          class: 'list-disc m-4 ps-10',
+        bulletList: {
+          HTMLAttributes: {
+            class: 'list-disc m-4 ps-10',
+          },
         },
-      }),
-      OrderedList.configure({
-        HTMLAttributes: {
-          class: 'list-decimal m-4 ps-10',
+        orderedList: {
+          HTMLAttributes: {
+            class: 'list-decimal m-4 ps-10',
+          },
         },
       }),
       Link.configure({
@@ -42,7 +81,6 @@ export default function BlogPage() {
         },
       }),
     ],
-    content: blog?.content.text,
     editorProps: {
       attributes: {
         class: 'flex flex-col',
@@ -51,8 +89,24 @@ export default function BlogPage() {
     editable: false,
   });
 
-  if (!blog) {
-    return;
+  useEffect(() => {
+    if (blog) {
+      editor?.commands.setContent(blog.content.text);
+    }
+  }, [blog, editor]);
+
+  if (isLoading || !blog) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="flex flex-col space-y-3">
+          <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const dateString = blog.date.toLocaleDateString('en-AU');

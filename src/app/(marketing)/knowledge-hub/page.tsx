@@ -43,7 +43,7 @@ export default function KnowledgeHubPage() {
           />
         </TabsContent>
         <TabsContent value="blog">
-          <BlogSection carouselSlides={knowledgeHubConfig.carouselSlides} />
+          <BlogSection />
         </TabsContent>
       </Tabs>
     </div>

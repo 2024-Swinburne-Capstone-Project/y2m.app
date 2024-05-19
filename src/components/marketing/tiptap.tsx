@@ -3,9 +3,6 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { Toolbar } from './toolbar';
-import Heading from '@tiptap/extension-heading';
-import BulletList from '@tiptap/extension-bullet-list';
-import OrderedList from '@tiptap/extension-ordered-list';
 import Link from '@tiptap/extension-link';
 
 export default function Tiptap({
@@ -17,21 +14,22 @@ export default function Tiptap({
 }) {
   const editor = useEditor({
     extensions: [
-      StarterKit,
-      Heading.configure({
-        HTMLAttributes: {
-          class: 'text-xl font-bold',
-          levels: [1],
+      StarterKit.configure({
+        heading: {
+          HTMLAttributes: {
+            class: 'text-xl font-bold',
+            levels: [1],
+          },
         },
-      }),
-      BulletList.configure({
-        HTMLAttributes: {
-          class: 'list-disc m-4 ps-10',
+        bulletList: {
+          HTMLAttributes: {
+            class: 'list-disc m-4 ps-10',
+          },
         },
-      }),
-      OrderedList.configure({
-        HTMLAttributes: {
-          class: 'list-decimal m-4 ps-10',
+        orderedList: {
+          HTMLAttributes: {
+            class: 'list-decimal m-4 ps-10',
+          },
         },
       }),
       Link.configure({
