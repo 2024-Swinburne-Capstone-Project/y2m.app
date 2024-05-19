@@ -50,14 +50,13 @@ export default function Home() {
 
   const addImage = () => {
     if (imageURL) {
-      console.log(imageURL);
+      setShowImageDialog(false);
     }
-    setShowImageDialog(false);
   };
 
   const router = useRouter(); // Initialize the router
 
-  async function onSumbit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Save values to the database
     const blog = {
       title: values.title,
@@ -65,7 +64,6 @@ export default function Home() {
       author: 'admin', // TODO: Change to logged in user
       imagePath: imageURL,
     };
-    console.log({ blog });
 
     try {
       const response = await fetch('/api/blogs', {
@@ -93,7 +91,7 @@ export default function Home() {
   return (
     <main className="mx-auto flex max-w-7xl flex-col space-y-6 px-4 py-12 md:flex-col md:space-x-6 md:px-8">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSumbit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
             name="title"

@@ -77,7 +77,6 @@ export interface TermsAndConditionsSection {
 
 export interface KnowledgeHubConfig {
   heroSection: HeroSectionConfig;
-  videos: VideoConfig[];
 }
 
 export interface EnterpriseSolutionsConfig {
@@ -148,7 +147,7 @@ export interface VideoConfig {
   title: TextWithMarkup;
   description: TextWithMarkup;
   embeddingLink: string;
-  length: string;
+  videoLength: string;
 }
 
 export interface BlogsConfig {
