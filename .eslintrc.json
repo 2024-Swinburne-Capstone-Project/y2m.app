@@ -31,6 +31,7 @@
     "prettier/prettier": "error",
     "tailwindcss/no-custom-classname": "off",
     "tailwindcss/classnames-order": "error",
-    "tailwindcss/no-unnecessary-arbitrary-value": "off"
+    "tailwindcss/no-unnecessary-arbitrary-value": "off",
+    "no-useless-escape": "off"
   }
 }
