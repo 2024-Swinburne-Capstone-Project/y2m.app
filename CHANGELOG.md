@@ -1,9 +1,8 @@
 ## [1.17.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.16.0...v1.17.0) (2024-05-19)
 
-
 ### Features
 
-* :sparkles: Save and retrieve blogs from the db ([0e56f8d](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/0e56f8d862502f7423ce9abaea0d3d38cccef310))
+- :sparkles: Save and retrieve blogs from the db ([0e56f8d](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/0e56f8d862502f7423ce9abaea0d3d38cccef310))
 
 ## [1.16.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.15.0...v1.16.0) (2024-05-16)
 

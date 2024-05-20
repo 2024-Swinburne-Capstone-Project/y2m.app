@@ -27,7 +27,16 @@ export interface BlogPost {
   title: string;
 }
 
+export interface Video {
+  description: string;
+  embeddingLink: string;
+  id: Generated<number>;
+  title: string;
+  videoLength: string;
+}
+
 export interface DB {
   _prisma_migrations: _PrismaMigrations;
   BlogPost: BlogPost;
+  Video: Video;
 }

@@ -54,7 +54,7 @@ export function BlogsCarousel() {
     fetchBlogPosts();
   }, []);
 
-  if (isLoading || !slides) {
+  if (isLoading || !slides || slides.length === 0) {
     return (
       <div className="flex items-center justify-center ">
         <div className="flex flex-col space-y-3">
