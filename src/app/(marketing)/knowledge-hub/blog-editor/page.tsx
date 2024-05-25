@@ -108,7 +108,9 @@ export default function Home() {
             name="title"
             render={({ field }) => (
               <FormItem className="mb-2">
-                <FormLabel>Title</FormLabel>
+                <FormLabel>
+                  Title <span className="text-red-600"> *</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Blog Title" {...field} />
                 </FormControl>
@@ -130,7 +132,9 @@ export default function Home() {
               name="imagePath"
               render={({ field }) => (
                 <FormItem className="mb-2">
-                  <FormLabel>Image URL</FormLabel>
+                  <FormLabel>
+                    Image URL <span className="text-red-600"> *</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Paste the URL of the image you want to add to the blog post"
@@ -147,7 +151,9 @@ export default function Home() {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Blog Post</FormLabel>
+                <FormLabel>
+                  Blog Post <span className="text-red-600"> *</span>
+                </FormLabel>
                 <FormControl>
                   <Tiptap description={field.value} onChange={field.onChange} />
                 </FormControl>
@@ -155,8 +161,11 @@ export default function Home() {
               </FormItem>
             )}
           />
-          <Button className="my-4" type="submit">
+          <Button className="my-4" type="submit" disabled={!form.formState.isValid}>
             Submit
+          </Button>
+          <Button className="mx-3 my-4" variant="secondary" onClick={() => router.back()}>
+            Cancel
           </Button>
         </form>
       </Form>

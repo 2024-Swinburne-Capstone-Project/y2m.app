@@ -16,13 +16,6 @@ const nextConfig = {
       },
     ],
   },
-  webpackDevMiddleware: (config) => {
-    config.watchOptions = {
-      // Increase polling interval to avoid permission issues
-      poll: 1000,
-    };
-    return config;
-  },
 };
 
 export default nextConfig;
