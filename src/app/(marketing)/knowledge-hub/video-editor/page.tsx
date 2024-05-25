@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { getYoutubeEmbedUrl } from '@/lib/utils';
+import { toast } from '@/components/ui/use-toast';
 
 export default function Home() {
   const formSchema = z.object({
@@ -55,15 +56,17 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save blog post');
+        throw new Error('Failed to save video');
       }
 
       const data = await response.json();
-      // Redirect to knowledge hub after successful submission
-      router.push('/knowledge-hub');
+      router.back();
+      toast({
+        title: 'Video saved successfully',
+      });
       return data;
     } catch (error) {
-      console.error('Error saving blog post:', error);
+      console.error('Error saving video:', error);
       throw error;
     }
   }

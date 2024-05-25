@@ -1,8 +1,7 @@
 import { db } from '@/lib/db';
-import { NextApiRequest } from 'next';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest) {
   const id = req.url?.split('blogs/')[1];
   if (!id) {
     return NextResponse.json({ error: 'Blog ID is required' }, { status: 400 });

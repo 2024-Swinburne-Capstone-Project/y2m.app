@@ -1,5 +1,4 @@
 import { BlogsCarousel } from '@/app/(marketing)/knowledge-hub/components/blogs-carousel';
-import { knowledgeHubConfig } from '@/config/knowledge-hub';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export function HomeBlogs() {
@@ -15,7 +14,7 @@ export function HomeBlogs() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="rounded-lg border p-6"
           >
-            <BlogsCarousel slides={knowledgeHubConfig.carouselSlides} />
+            <BlogsCarousel />
           </motion.div>
         </AnimatePresence>
       </div>

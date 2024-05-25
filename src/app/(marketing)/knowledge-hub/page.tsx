@@ -37,7 +37,6 @@ export default function KnowledgeHubPage() {
         </TabsList>
         <TabsContent value="videos">
           <VideoSection
-            videos={knowledgeHubConfig.videos}
             selectedVideoIndex={selectedVideoIndex}
             setSelectedVideoIndex={setSelectedVideoIndex}
           />
