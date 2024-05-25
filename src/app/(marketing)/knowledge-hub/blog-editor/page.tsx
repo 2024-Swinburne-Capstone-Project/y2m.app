@@ -37,6 +37,7 @@ export default function Home() {
 
   const router = useRouter();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const imageURL = form.getValues('imagePath');
 
   function isValidURL(url: string) {
     try {
@@ -48,17 +49,17 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (form.getValues('imagePath')) {
-      if (!isValidURL(form.getValues('imagePath'))) {
+    if (imageURL) {
+      if (!isValidURL(imageURL)) {
         form.setError('imagePath', {
           type: 'manual',
           message: 'Please enter a valid URL',
         });
       } else {
-        setImagePreview(form.getValues('imagePath'));
+        setImagePreview(imageURL);
       }
     }
-  }, [form.getValues('imagePath')]);
+  }, [form, imageURL]);
 
   function clearImage() {
     setImagePreview(null);
