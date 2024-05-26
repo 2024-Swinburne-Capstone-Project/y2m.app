@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 export const BlogSection = () => {
   return (
-    <div className="flex justify-center">
-      <Card className="w-[90vw]">
+    <div>
+      <Card>
         {/* TODO: Add a validation that this button only shows if an authorized user is logged in */}
         <div className="mr-4 mt-4 flex justify-end">
           <Link
@@ -18,7 +18,7 @@ export const BlogSection = () => {
         <CardHeader>
           <CardTitle>Blogs</CardTitle>
         </CardHeader>
-        <CardContent className="flex justify-center">
+        <CardContent>
           <BlogsCarousel />
         </CardContent>
       </Card>

@@ -14,25 +14,15 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import Tiptap from '@/components/marketing/tiptap';
-import {
-  DialogHeader,
-  DialogFooter,
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Image as ImageIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { toast } from '@/components/ui/use-toast';
 
 export default function Home() {
   const formSchema = z.object({
     title: z.string().min(5),
     description: z.string().min(5),
-    imagePath: z.string(),
+    imagePath: z.string().url(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,16 +35,36 @@ export default function Home() {
     },
   });
 
-  const [showImageDialog, setShowImageDialog] = useState(false);
-  const [imageURL, setImageURL] = useState('');
+  const router = useRouter();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const imageURL = form.getValues('imagePath');
 
-  const addImage = () => {
-    if (imageURL) {
-      setShowImageDialog(false);
+  function isValidURL(url: string) {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
     }
-  };
+  }
 
-  const router = useRouter(); // Initialize the router
+  useEffect(() => {
+    if (imageURL) {
+      if (!isValidURL(imageURL)) {
+        form.setError('imagePath', {
+          type: 'manual',
+          message: 'Please enter a valid URL',
+        });
+      } else {
+        setImagePreview(imageURL);
+      }
+    }
+  }, [form, imageURL]);
+
+  function clearImage() {
+    setImagePreview(null);
+    form.setValue('imagePath', '');
+  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Save values to the database
@@ -62,7 +72,7 @@ export default function Home() {
       title: values.title,
       content: values.description,
       author: 'admin', // TODO: Change to logged in user
-      imagePath: imageURL,
+      imagePath: values.imagePath,
     };
 
     try {
@@ -79,8 +89,10 @@ export default function Home() {
       }
 
       const data = await response.json();
-      // Redirect to knowledge hub after successful submission
-      router.push('/knowledge-hub'); // Redirect to /knowledge-hub
+      router.back();
+      toast({
+        title: 'Blog post saved successfully',
+      });
       return data;
     } catch (error) {
       console.error('Error saving blog post:', error);
@@ -97,7 +109,9 @@ export default function Home() {
             name="title"
             render={({ field }) => (
               <FormItem className="mb-2">
-                <FormLabel>Title</FormLabel>
+                <FormLabel>
+                  Title <span className="text-red-600"> *</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Blog Title" {...field} />
                 </FormControl>
@@ -105,56 +119,42 @@ export default function Home() {
               </FormItem>
             )}
           />
-          {imageURL && !showImageDialog ? (
+          {imagePreview ? (
             <div className="flex flex-col items-start gap-3">
-              <Button className="gap-2" variant="secondary" onClick={() => setImageURL('')}>
+              <Image src={imagePreview} alt="New Image" width="250" height="250" />
+
+              <Button className="gap-2" variant="secondary" onClick={() => clearImage()}>
                 Remove Image
               </Button>
-              <Image src={imageURL} alt="New Image" width="250" height="250" />
             </div>
           ) : (
-            <Dialog open={showImageDialog} onOpenChange={setShowImageDialog}>
-              <DialogTrigger asChild>
-                <Button className="gap-2" variant="secondary">
-                  Add Image
-                  <ImageIcon className="size-4" />
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>New Image</DialogTitle>
-                  <DialogDescription>
-                    Enter the URL for the image you want added to this blog
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="flex items-center gap-3 pt-4">
-                  <Label htmlFor="image-url">URL:</Label>
-                  <Input
-                    id="image-url"
-                    value={imageURL}
-                    onChange={(e) => setImageURL(e.target.value)}
-                  />
-                </div>
-                <Image
-                  src={imageURL}
-                  alt="New Image"
-                  width="500"
-                  height="500"
-                  layout="responsive"
-                  objectFit="contain"
-                />
-                <DialogFooter>
-                  <Button onClick={addImage}>Submit</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <FormField
+              control={form.control}
+              name="imagePath"
+              render={({ field }) => (
+                <FormItem className="mb-2">
+                  <FormLabel>
+                    Image URL <span className="text-red-600"> *</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Paste the URL of the image you want to add to the blog post"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           )}
           <FormField
             control={form.control}
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Blog Post</FormLabel>
+                <FormLabel>
+                  Blog Post <span className="text-red-600"> *</span>
+                </FormLabel>
                 <FormControl>
                   <Tiptap description={field.value} onChange={field.onChange} />
                 </FormControl>
@@ -162,8 +162,11 @@ export default function Home() {
               </FormItem>
             )}
           />
-          <Button className="my-4" type="submit">
+          <Button className="my-4" type="submit" disabled={!form.formState.isValid}>
             Submit
+          </Button>
+          <Button className="mx-3 my-4" variant="secondary" onClick={() => router.back()}>
+            Cancel
           </Button>
         </form>
       </Form>

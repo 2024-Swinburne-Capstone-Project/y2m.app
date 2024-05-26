@@ -6,10 +6,11 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
 import Image from 'next/image';
-import NextLink from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { BlogsConfig } from '@/types';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 
 export default function BlogPage() {
   const searchParams = useSearchParams();
@@ -17,6 +18,7 @@ export default function BlogPage() {
 
   const [blog, setBlog] = useState<BlogsConfig | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -119,12 +121,7 @@ export default function BlogPage() {
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-6 px-4 py-12 md:flex-col md:space-x-6 md:px-8">
       <div className="flex justify-start">
-        <NextLink
-          className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-          href="/knowledge-hub"
-        >
-          Back
-        </NextLink>
+        <Button onClick={() => router.back()}>Back</Button>
       </div>
       <Image src={blog.imagePath} alt={blog.title.text} width={1280} height={300} />
       <div className="py-10 text-center text-3xl font-bold">{blog.title.text}</div>

@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { getYoutubeEmbedUrl } from '@/lib/utils';
+import { toast } from '@/components/ui/use-toast';
 
 export default function Home() {
   const formSchema = z.object({
@@ -55,15 +56,17 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save blog post');
+        throw new Error('Failed to save video');
       }
 
       const data = await response.json();
-      // Redirect to knowledge hub after successful submission
-      router.push('/knowledge-hub');
+      router.back();
+      toast({
+        title: 'Video saved successfully',
+      });
       return data;
     } catch (error) {
-      console.error('Error saving blog post:', error);
+      console.error('Error saving video:', error);
       throw error;
     }
   }
@@ -77,7 +80,9 @@ export default function Home() {
             name="title"
             render={({ field }) => (
               <FormItem className="mb-2">
-                <FormLabel>Title</FormLabel>
+                <FormLabel>
+                  Title <span className="text-red-600"> *</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Video Title" {...field} />
                 </FormControl>
@@ -90,7 +95,9 @@ export default function Home() {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Video Description</FormLabel>
+                <FormLabel>
+                  Video Description <span className="text-red-600"> *</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Video Description" {...field} />
                 </FormControl>
@@ -103,7 +110,9 @@ export default function Home() {
             name="link"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Youtube Video Link</FormLabel>
+                <FormLabel>
+                  Youtube Video Link <span className="text-red-600"> *</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="https://www.youtube.com/" {...field} />
                 </FormControl>
@@ -116,7 +125,9 @@ export default function Home() {
             name="videoLength"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Length of the Video</FormLabel>
+                <FormLabel>
+                  Length of the Video <span className="text-red-600"> *</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="2:45" {...field} />
                 </FormControl>
@@ -124,8 +135,11 @@ export default function Home() {
               </FormItem>
             )}
           />
-          <Button className="my-4" type="submit">
+          <Button className="my-4" type="submit" disabled={!form.formState.isValid}>
             Submit
+          </Button>
+          <Button className="mx-3 my-4" variant="secondary" onClick={() => router.back()}>
+            Cancel
           </Button>
         </form>
       </Form>
