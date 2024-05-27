@@ -1,12 +1,9 @@
-'use client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import MainSection from '@/components/main-section';
 import { VideoConfig } from '@/types';
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-
+import Link from 'next/link';
 interface VideoSectionProps {
   selectedVideoIndex: number;
   setSelectedVideoIndex: (index: number) => void;
@@ -18,7 +15,6 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
 }) => {
   const [videos, setVideos] = useState<VideoConfig[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -69,7 +65,12 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
       <Card>
         {/* TODO: Add a validation that this button only shows if an authorized user is logged in */}
         <div className="mr-4 mt-4 flex justify-end">
-          <Button onClick={() => router.push('/knowledge-hub/video-editor')}>Add New Video</Button>
+          <Link
+            className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+            href="/knowledge-hub/video-editor"
+          >
+            Add New Video
+          </Link>
         </div>
         <CardHeader>
           <CardTitle>Videos</CardTitle>
