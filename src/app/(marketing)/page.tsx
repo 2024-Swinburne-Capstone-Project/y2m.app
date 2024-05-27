@@ -6,7 +6,6 @@ import Title from '@/components/title';
 import Subtitle from '@/components/subtitle';
 import MainSectionBody from '@/components/main-section-body';
 import Image from 'next/image';
-import RotatingWord from '@/components/marketing/rotating-word';
 import MainSection from '@/components/main-section';
 import { IntroVideo } from '@/components/marketing/intro-video';
 import { Perks } from '@/components/marketing/perks';
@@ -16,6 +15,7 @@ import { HomeBlogs } from '@/components/marketing/home-blogs';
 import { AcknowledgementOfCountry } from '@/components/marketing/acknowledgement-of-country';
 import { homeConfig } from '@/config/home';
 import parseTextWithMarkup from '@/config/parser/parseTextWithMarkup';
+import { FlipWords } from '@/components/ui/flip-words';
 
 export default function Home() {
   return (
@@ -31,8 +31,12 @@ export default function Home() {
           <MainSection>
             <MainSectionBody className="items-center space-y-6">
               <div className="space-y-6 md:w-1/2">
-                <Title className="lg:text-7xl">
-                  <RotatingWord words={homeConfig.mainTitle.words.map((word) => word.text)} />{' '}
+                <Title className="mx-auto lg:text-7xl">
+                  <FlipWords
+                    className="text-primary"
+                    words={homeConfig.mainTitle.words.map((word) => word.text)}
+                  />
+                  <br />
                   {parseTextWithMarkup(homeConfig.mainTitle.staticText)}
                 </Title>
                 <Subtitle className="mb-8 text-lg text-muted-foreground md:text-xl">
