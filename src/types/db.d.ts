@@ -7,17 +7,6 @@ export type Generated<T> =
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-export interface _PrismaMigrations {
-  applied_steps_count: Generated<number>;
-  checksum: string;
-  finished_at: Timestamp | null;
-  id: string;
-  logs: string | null;
-  migration_name: string;
-  rolled_back_at: Timestamp | null;
-  started_at: Generated<Timestamp>;
-}
-
 export interface BlogPost {
   author: string;
   content: string;
@@ -25,6 +14,23 @@ export interface BlogPost {
   id: Generated<number>;
   imagePath: string;
   title: string;
+}
+
+export interface MentorMentee {
+  createdAt: Generated<Timestamp>;
+  menteeId: string;
+  mentorId: string;
+  updatedAt: Timestamp;
+}
+
+export interface Users {
+  bio: string | null;
+  createdAt: Generated<Timestamp>;
+  email: string | null;
+  id: string;
+  name: string;
+  profilePicture: string | null;
+  updatedAt: Timestamp;
 }
 
 export interface Video {
@@ -36,7 +42,8 @@ export interface Video {
 }
 
 export interface DB {
-  _prisma_migrations: _PrismaMigrations;
   BlogPost: BlogPost;
+  mentor_mentee: MentorMentee;
+  users: Users;
   Video: Video;
 }
