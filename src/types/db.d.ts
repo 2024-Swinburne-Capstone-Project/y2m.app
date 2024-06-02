@@ -1,58 +1,19 @@
-import type { ColumnType } from 'kysely';
+import type { ColumnType } from "kysely";
 
-export type Generated<T> =
-  T extends ColumnType<infer S, infer I, infer U>
-    ? ColumnType<S, I | undefined, U>
-    : ColumnType<T, T | undefined, T>;
+export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
+  ? ColumnType<S, I | undefined, U>
+  : ColumnType<T, T | undefined, T>;
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-export interface _PrismaMigrations {
-  applied_steps_count: Generated<number>;
-  checksum: string;
-  finished_at: Timestamp | null;
-  id: string;
-  logs: string | null;
-  migration_name: string;
-  rolled_back_at: Timestamp | null;
-  started_at: Generated<Timestamp>;
-}
-
-export interface User {
-  id: string;
+export interface Badge {
+  icon: string;
+  id: Generated<number>;
+  message: string;
   name: string;
-  email: string | null;
-  aboutMe: string | null;
-  linkedInProfileLink: string | null;
-}
-
-export interface Education {
-  id: Generated<number>;
+  receivedDate: Timestamp;
+  senderName: string;
   userId: string;
-  institution: string;
-  degree: string;
-  fieldOfStudy: string;
-  startDate: Timestamp;
-  endDate: Timestamp | null;
-  grade: string | null;
-  onGoing: boolean;
-}
-
-export interface Experience {
-  id: Generated<number>;
-  userId: string;
-  position: string;
-  company: string;
-  location: string;
-  startDate: Timestamp;
-  endDate: Timestamp | null;
-  current: boolean;
-}
-
-export interface Skill {
-  id: Generated<number>;
-  userId: string;
-  name: string;
 }
 
 export interface BlogPost {
@@ -64,6 +25,84 @@ export interface BlogPost {
   title: string;
 }
 
+export interface DevelopmentArea {
+  id: Generated<number>;
+  name: string;
+  userId: string;
+}
+
+export interface Education {
+  degree: string;
+  endDate: Timestamp | null;
+  fieldOfStudy: string;
+  grade: string | null;
+  id: Generated<number>;
+  institution: string;
+  onGoing: boolean;
+  startDate: Timestamp;
+  userId: string;
+}
+
+export interface Experience {
+  company: string;
+  current: boolean;
+  endDate: Timestamp | null;
+  id: Generated<number>;
+  location: string;
+  position: string;
+  startDate: Timestamp;
+  userId: string;
+}
+
+export interface GetInTouch {
+  demo: boolean;
+  email: string;
+  feedback: boolean;
+  firstName: string;
+  id: Generated<number>;
+  lastName: string;
+  message: string;
+  question: boolean;
+  receivedDate: Timestamp | null;
+}
+
+export interface MentorMentee {
+  createdAt: Generated<Timestamp>;
+  menteeId: string;
+  mentorId: string;
+  updatedAt: Timestamp;
+}
+
+export interface Milestone {
+  endDate: Timestamp;
+  id: Generated<number>;
+  startDate: Timestamp;
+  status: "COMPLETED" | "IN_PROGRESS" | "NOT_STARTED";
+  title: string;
+  userId: string;
+}
+
+export interface MilestoneStep {
+  id: Generated<number>;
+  milestoneId: number;
+  name: string;
+  status: "COMPLETED" | "IN_PROGRESS" | "NOT_STARTED";
+}
+
+export interface Skill {
+  id: Generated<number>;
+  name: string;
+  userId: string;
+}
+
+export interface User {
+  aboutMe: string | null;
+  email: string | null;
+  id: string;
+  linkedInProfileLink: string | null;
+  name: string;
+}
+
 export interface Video {
   description: string;
   embeddingLink: string;
@@ -72,69 +111,17 @@ export interface Video {
   videoLength: string;
 }
 
-export interface DevelopmentArea {
-  id: Generated<number>;
-  userId: string;
-  name: string;
-}
-
-export interface Milestone {
-  id: Generated<number>;
-  userId: string;
-  title: string;
-  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
-  startDate: Timestamp;
-  endDate: Timestamp;
-}
-
-export interface MilestoneStep {
-  id: Generated<number>;
-  milestoneId: number;
-  name: string;
-  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
-}
-
-export interface Badge {
-  id: Generated<number>;
-  userId: string;
-  name: string;
-  icon: string;
-  senderName: string;
-  receivedDate: Timestamp;
-  message: string;
-}
-
-export interface GetInTouch {
-  id: Generated<number>;
-  firstName: string;
-  lastName: string;
-  email: string;
-  demo: boolean;
-  feedback: boolean;
-  question: boolean;
-  message: string;
-  receivedDate: Timestamp | null;
-}
-
-export interface MentorMentee {
-  mentorId: string;
-  menteeId: string;
-  createdAt: Generated<Timestamp>;
-  updatedAt: Timestamp;
-}
-
 export interface DB {
-  User: User;
-  Video: Video;
-  BlogPost: BlogPost;
-  Milestone: Milestone;
-  MilestoneStep: MilestoneStep;
-  Action: Action;
-  DevelopmentArea: DevelopmentArea;
   Badge: Badge;
-  GetInTouch: GetInTouch;
+  BlogPost: BlogPost;
+  DevelopmentArea: DevelopmentArea;
   Education: Education;
   Experience: Experience;
-  Skill: Skill;
+  GetInTouch: GetInTouch;
   MentorMentee: MentorMentee;
+  Milestone: Milestone;
+  MilestoneStep: MilestoneStep;
+  Skill: Skill;
+  User: User;
+  Video: Video;
 }
