@@ -15,7 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { getInTouchConfig } from '@/config/get-in-touch';
+import { getInTouchConfig } from '@/config/marketing/get-in-touch';
 
 const formSchema = z.object({
   firstName: z.string().min(2, {

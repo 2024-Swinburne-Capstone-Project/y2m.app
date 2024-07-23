@@ -1,21 +1,30 @@
+export * from './knowledge-hub/blog';
+export * from './knowledge-hub/video';
+export * from './development-hub/badge';
+export * from './development-hub/development-area';
+export * from './development-hub/milestone';
+export * from './development-hub/milestone-step';
+export * from './development-hub/development-hub';
+export * from './api';
+
 type MarkupElement = {
   type: string;
   text: string;
   className?: string;
 };
 
-type TextWithMarkup = {
+export type TextWithMarkup = {
   text: string;
   markup?: MarkupElement[];
 };
 
-interface AboutConfig {
+export interface AboutConfig {
   carouselSlides: AboutCarouselConfig[];
   heroContent: HeroContentConfig;
   additionalContent: AdditionalContent;
 }
 
-interface PrivacyPolicyConfig {
+export interface PrivacyPolicyConfig {
   heroSection: HeroSectionConfig;
   sections: PrivacyPolicySection[];
 }
@@ -246,16 +255,47 @@ export interface HomeConfig {
   };
 }
 
+export type DevelopmentHubConfig = {
+  heroSection: HeroSectionConfig;
+  milestoneProgress: {
+    title: string;
+    COMPLETED: string;
+    IN_PROGRESS: string;
+    NOT_STARTED: string;
+  };
+  graphicalTimeline: {
+    title: string;
+  };
+  myBadges: {
+    title: string;
+    senderLabel: TextWithMarkup;
+    dateLabel: TextWithMarkup;
+    messageLabel: TextWithMarkup;
+  };
+  developmentAreas: {
+    title: string;
+    placeholder: string;
+    addButton: string;
+  };
+  keyMilestones: {
+    title: string;
+    statusLabel: string;
+    exportButton: string;
+    addButton: string;
+    deleteButton: string;
+  };
+};
+
 interface NavItem {
   title: string;
   href?: string;
 }
 
-interface NavConfig {
+export interface NavConfig {
   navItems: NavItem[];
 }
 
-interface NotFoundConfig {
+export interface NotFoundConfig {
   title: string;
   description: string;
   imageSource: string;

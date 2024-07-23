@@ -28,7 +28,7 @@ export const homeConfig: HomeConfig = {
     items: [
       {
         title: { text: 'مجاني للاستخدام' },
-        imagePath: '/work-from-home.svg',
+        imagePath: './work-from-home.svg',
       },
       {
         title: { text: 'تعلم من المتخصصين في المجال' },

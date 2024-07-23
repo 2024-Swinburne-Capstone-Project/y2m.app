@@ -1,6 +1,6 @@
 import ApplicatonNav from '@/components/application/application-nav';
-import { Footer } from '@/components/footer';
-import { notFound } from 'next/navigation';
+import { Footer } from '@/components/layout/footer';
+import { redirect } from 'next/navigation';
 import { getSession } from '@auth0/nextjs-auth0';
 
 interface ApplicatonLayoutProps {
@@ -11,7 +11,7 @@ export default async function ApplicatonLayout({ children }: ApplicatonLayoutPro
   const session = await getSession();
   const user = session?.user;
   if (!user) {
-    return notFound();
+    return redirect('/api/auth/login');
   }
   return (
     <div className="flex min-h-screen flex-col">

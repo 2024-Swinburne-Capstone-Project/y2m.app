@@ -6,9 +6,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { getInTouchConfig } from '@/config/get-in-touch';
+import { getInTouchConfig } from '@/config/marketing/get-in-touch';
 import MainSectionImage from '@/components/marketing/main-section-image';
-import MainSectionBody from '@/components/main-section-body';
+import MainSectionBody from '@/components/common/main-section-body';
 
 const PopularQuestions: React.FC = () => {
   return (

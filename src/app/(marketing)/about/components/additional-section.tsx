@@ -1,5 +1,5 @@
-import MainSection from '@/components/main-section';
-import MainSectionBody from '@/components/main-section-body';
+import MainSection from '@/components/common/main-section';
+import MainSectionBody from '@/components/common/main-section-body';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 

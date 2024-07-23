@@ -1,7 +1,6 @@
-/* eslint-disable prettier/prettier */
 'use client';
 import { useState } from 'react';
-import { privacyPolicyConfig, termsAndConditionsConfig } from '@/config/legal';
+import { privacyPolicyConfig, termsAndConditionsConfig } from '@/config/marketing/legal';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LegalHeroSection } from './components/legal-hero-section';
 import { LegalContentSection } from './components/legal-content-section';
