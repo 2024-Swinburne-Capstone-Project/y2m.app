@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import {
   CreateDevelopmentAreaData,
@@ -7,56 +6,30 @@ import {
   MilestoneProgress,
   MilestoneWithSteps,
 } from '@/types';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 
-const useFetch = <T>(url: string) => {
-  const [data, setData] = useState<T | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-  const { user } = useUser();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const headers: HeadersInit = user?.sub ? { 'X-User-Id': user.sub } : {};
-        const response = await fetch(url, { headers });
-        if (!response.ok) throw new Error('Failed to fetch data');
-        const result = await response.json();
-        setData(result);
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error('An error occurred'));
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (user) fetchData();
-  }, [url, user]);
-
-  return { data, isLoading, error };
+const fetchDevelopmentHubData = async (userId: string): Promise<DevelopmentHubData> => {
+  const response = await fetch('/api/development-hub', {
+    headers: { 'X-User-Id': userId },
+  });
+  if (!response.ok) throw new Error('Failed to fetch data');
+  return response.json();
 };
 
-const useApiMutation = <T, TData>(key: string, endpoint: string) => {
-  const queryClient = useQueryClient();
-  const { user } = useUser();
-  return useMutation<T, Error, TData>({
-    mutationFn: async (data: TData) => {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(user?.sub ? { 'X-User-Id': user.sub } : {}),
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error(`Failed to create ${key}`);
-      return response.json();
+const updateDevelopmentHubData = async (
+  userId: string,
+  data: Partial<DevelopmentHubData>
+): Promise<DevelopmentHubData> => {
+  const response = await fetch('/api/development-hub', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Id': userId,
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [key] });
-    },
+    body: JSON.stringify(data),
   });
+  if (!response.ok) throw new Error('Failed to update data');
+  return response.json();
 };
 
 const calculateMilestoneProgress = (milestones: MilestoneWithSteps[]): MilestoneProgress => {
@@ -70,29 +43,47 @@ const calculateMilestoneProgress = (milestones: MilestoneWithSteps[]): Milestone
 };
 
 export const useCreateDevelopmentArea = () =>
-  useApiMutation<DevelopmentArea, CreateDevelopmentAreaData>(
-    'developmentAreas',
-    '/api/development-areas'
-  );
+  useMutation<DevelopmentArea, Error, CreateDevelopmentAreaData>({
+    mutationFn: (data) =>
+      fetch('/api/development-hub', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'developmentArea', data }),
+      }).then((res) => res.json()),
+  });
 
 export const useDevelopmentHub = () => {
-  const { data, isLoading, error } = useFetch<DevelopmentHubData>('/api/development-hub');
+  const { user } = useUser();
+  const queryClient = useQueryClient();
 
-  console.table(data);
+  const { data, isLoading, error } = useQuery<DevelopmentHubData, Error>({
+    queryKey: ['developmentHub', user?.sub],
+    queryFn: () => fetchDevelopmentHubData(user?.sub || ''),
+    enabled: !!user?.sub,
+  });
+
+  const updateMutation = useMutation<DevelopmentHubData, Error, Partial<DevelopmentHubData>>({
+    mutationFn: (updateData) => updateDevelopmentHubData(user?.sub || '', updateData),
+    onSuccess: (newData) => {
+      queryClient.setQueryData(['developmentHub', user?.sub], newData);
+    },
+  });
+
   const milestonesWithSteps =
     data?.milestones.map((milestone) => ({
       ...milestone,
       steps: data.milestoneSteps.filter((step) => step.milestoneId === Number(milestone.id)),
-    })) ?? [];
+    })) || [];
 
   const milestoneProgress = calculateMilestoneProgress(milestonesWithSteps);
 
   return {
     milestonesWithSteps,
-    developmentAreas: data?.developmentAreas ?? [],
-    badges: data?.badges ?? [],
+    developmentAreas: data?.developmentAreas || [],
+    badges: data?.badges || [],
     milestoneProgress,
     isLoading,
     error,
+    updateDevelopmentHub: updateMutation.mutateAsync,
   };
 };

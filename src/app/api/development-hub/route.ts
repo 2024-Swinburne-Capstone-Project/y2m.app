@@ -32,10 +32,69 @@ export async function GET(req: NextRequest) {
   }
 }
 
+export async function PUT(req: NextRequest) {
+  const userId = req.headers.get('X-User-Id');
+  if (!userId) {
+    return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
+  }
+
+  try {
+    const data = await req.json();
+    const { milestones, developmentAreas, badges } = data;
+
+    await db.transaction().execute(async (trx) => {
+      // Update milestones
+      for (const milestone of milestones) {
+        await trx
+          .updateTable('Milestone')
+          .set(milestone)
+          .where('id', '=', milestone.id)
+          .where('userId', '=', userId)
+          .execute();
+
+        // Update milestone steps
+        for (const step of milestone.steps) {
+          await trx
+            .updateTable('MilestoneStep')
+            .set(step)
+            .where('id', '=', step.id)
+            .where('milestoneId', '=', milestone.id)
+            .execute();
+        }
+      }
+
+      // Update development areas
+      for (const area of developmentAreas) {
+        await trx
+          .updateTable('DevelopmentArea')
+          .set(area)
+          .where('id', '=', area.id)
+          .where('userId', '=', userId)
+          .execute();
+      }
+
+      // Update badges
+      for (const badge of badges) {
+        await trx
+          .updateTable('Badge')
+          .set(badge)
+          .where('id', '=', badge.id)
+          .where('userId', '=', userId)
+          .execute();
+      }
+    });
+
+    return NextResponse.json({ message: 'Development hub updated successfully' });
+  } catch (error) {
+    console.error('Error updating development hub:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
 export async function POST(req: NextRequest) {
   const userId = req.headers.get('X-User-Id');
   if (!userId) {
-    return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
+    return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
   }
 
   const body = await req.json();
@@ -47,7 +106,7 @@ export async function POST(req: NextRequest) {
       case 'milestone':
         result = await db
           .insertInto('Milestone')
-          .values({ ...data, user_id: userId })
+          .values({ ...data, userId })
           .returningAll()
           .executeTakeFirstOrThrow();
         break;
@@ -61,14 +120,14 @@ export async function POST(req: NextRequest) {
       case 'developmentArea':
         result = await db
           .insertInto('DevelopmentArea')
-          .values({ ...data, user_id: userId })
+          .values({ ...data, userId })
           .returningAll()
           .executeTakeFirstOrThrow();
         break;
       case 'badge':
         result = await db
           .insertInto('Badge')
-          .values({ ...data, user_id: userId })
+          .values({ ...data, userId })
           .returningAll()
           .executeTakeFirstOrThrow();
         break;
@@ -79,127 +138,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(result);
   } catch (error) {
     console.error('Error creating item:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
-}
-
-export async function PUT(req: NextRequest) {
-  const userId = req.headers.get('X-User-Id');
-  if (!userId) {
-    return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
-  }
-
-  const body = await req.json();
-  const { type, id, data } = body;
-
-  try {
-    let result;
-    switch (type) {
-      case 'milestone':
-        result = await db
-          .updateTable('Milestone')
-          .set(data)
-          .where('id', '=', id)
-          .where('userId', '=', userId)
-          .returningAll()
-          .executeTakeFirstOrThrow();
-        break;
-      case 'milestoneStep':
-        result = await db
-          .updateTable('MilestoneStep')
-          .set(data)
-          .where('id', '=', id)
-          .returningAll()
-          .executeTakeFirstOrThrow();
-        break;
-      case 'developmentArea':
-        result = await db
-          .updateTable('DevelopmentArea')
-          .set(data)
-          .where('id', '=', id)
-          .where('userId', '=', userId)
-          .returningAll()
-          .executeTakeFirstOrThrow();
-        break;
-      case 'badge':
-        result = await db
-          .updateTable('Badge')
-          .set(data)
-          .where('id', '=', id)
-          .where('userId', '=', userId)
-          .returningAll()
-          .executeTakeFirstOrThrow();
-        break;
-      default:
-        return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
-    }
-
-    return NextResponse.json(result);
-  } catch (error) {
-    console.error('Error updating item:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
-}
-
-export async function DELETE(req: NextRequest) {
-  const userId = req.headers.get('X-User-Id');
-  if (!userId) {
-    return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
-  }
-
-  const { searchParams } = new URL(req.url);
-  const type = searchParams.get('type');
-  const id = searchParams.get('id');
-
-  if (!type || !id) {
-    return NextResponse.json({ error: 'Type and ID are required' }, { status: 400 });
-  }
-
-  try {
-    let result;
-    switch (type) {
-      case 'milestone':
-        result = await db
-          .deleteFrom('Milestone')
-          .where('id', '=', Number(id))
-          .where('userId', '=', userId)
-          .returningAll()
-          .executeTakeFirst();
-        break;
-      case 'milestoneStep':
-        result = await db
-          .deleteFrom('MilestoneStep')
-          .where('id', '=', Number(id))
-          .returningAll()
-          .executeTakeFirst();
-        break;
-      case 'developmentArea':
-        result = await db
-          .deleteFrom('DevelopmentArea')
-          .where('id', '=', Number(id))
-          .where('userId', '=', userId)
-          .returningAll()
-          .executeTakeFirst();
-        break;
-      case 'badge':
-        result = await db
-          .deleteFrom('Badge')
-          .where('id', '=', Number(id))
-          .where('userId', '=', userId)
-          .returningAll()
-          .executeTakeFirst();
-        break;
-      default:
-        return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
-    }
-
-    if (!result) {
-      return NextResponse.json({ error: 'Item not found' }, { status: 404 });
-    }
-
-    return NextResponse.json({ message: 'Item deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting item:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

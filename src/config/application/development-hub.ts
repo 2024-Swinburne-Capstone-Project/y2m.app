@@ -5,7 +5,7 @@ export const developmentHubConfig: DevelopmentHubConfig = {
     title: {
       text: 'Development Hub',
     },
-    imagePath: '/enterprise-solutions/idea-launch.svg\'',
+    imagePath: "/enterprise-solutions/idea-launch.svg'",
   },
 
   milestoneProgress: {

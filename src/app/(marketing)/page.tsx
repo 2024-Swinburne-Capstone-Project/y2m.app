@@ -15,9 +15,9 @@ import { MentorBenefits } from '@/components/marketing/mentor-benefits';
 import { MenteeBenefits } from '@/components/marketing/mentee-benefits';
 import { HomeBlogs } from '@/components/marketing/home-blogs';
 import { AcknowledgementOfCountry } from '@/components/marketing/acknowledgement-of-country';
-import { homeConfig } from "@/config/marketing/home";
-import parseTextWithMarkup from "@/config/common/parser/parseTextWithMarkup";
-import { useBlogPosts } from "@/hooks/useBlogData";
+import { homeConfig } from '@/config/marketing/home';
+import parseTextWithMarkup from '@/config/common/parser/parseTextWithMarkup';
+import { useBlogPosts } from '@/hooks/useBlogData';
 
 export default function Home() {
   const { data: blogs, isLoading, error } = useBlogPosts();
@@ -61,7 +61,7 @@ export default function Home() {
           <Features />
           <MentorBenefits />
           <MenteeBenefits />
-          <HomeBlogs blogs={blogs} isLoading={isLoading} error={error} />
+          <HomeBlogs blogs={blogs || []} isLoading={isLoading} error={error} />
           <Testimonials />
           <AcknowledgementOfCountry />
         </div>

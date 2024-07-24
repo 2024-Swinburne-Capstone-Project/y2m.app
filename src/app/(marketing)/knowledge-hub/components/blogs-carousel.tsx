@@ -11,8 +11,8 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { BlogPost } from '@/types';
-import { ErrorAlert } from "@/components/common/error-alert";
-import { LoadingSkeleton } from "@/components/common/loading-skeleton";
+import { ErrorAlert } from '@/components/common/error-alert';
+import { LoadingSkeleton } from '@/components/common/loading-skeleton';
 
 interface BlogsCarouselProps {
   blogs: BlogPost[];
@@ -58,10 +58,10 @@ export function BlogsCarousel({ blogs, isLoading, error }: BlogsCarouselProps) {
   }
 
   return (
-    <Carousel className="w-full max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-6xl">
+    <Carousel className="max-w-xs md:max-w-7xl">
       <CarouselContent>
         {blogs.map((blog) => (
-          <CarouselItem key={blog.id} className="md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={blog.id.toString()} className="md:basis-1/2 lg:basis-1/3">
             <div className="p-1">
               <BlogCard blog={blog} />
             </div>

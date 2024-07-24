@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { VideoConfig } from '@/types';
 import { ErrorAlert } from '@/components/common/error-alert';
-import { LoadingSkeleton } from "@/components/common/loading-skeleton";
-import MainSection from "@/components/common/main-section";
+import { LoadingSkeleton } from '@/components/common/loading-skeleton';
+import MainSection from '@/components/common/main-section';
 
 interface VideoSectionProps {
   videos: VideoConfig[];
@@ -17,14 +17,16 @@ interface VideoSectionProps {
 }
 
 export const VideoSection: React.FC<VideoSectionProps> = ({
-                                                            videos,
-                                                            isLoading,
-                                                            error,
-                                                            selectedVideoIndex,
-                                                            setSelectedVideoIndex,
-                                                          }) => {
+  videos,
+  isLoading,
+  error,
+  selectedVideoIndex,
+  setSelectedVideoIndex,
+}) => {
   if (isLoading) {
-    return <LoadingSkeleton count={3} className="mx-auto max-w-7xl sm:grid-cols-2 lg:grid-cols-3" />;
+    return (
+      <LoadingSkeleton count={3} className="mx-auto max-w-7xl sm:grid-cols-2 lg:grid-cols-3" />
+    );
   }
 
   if (error) {

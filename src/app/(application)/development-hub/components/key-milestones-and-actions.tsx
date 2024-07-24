@@ -2,7 +2,12 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { developmentHubConfig } from '@/config/application/development-hub';
 import { MilestoneWithSteps } from '@/types';
 import { CheckCircle2, Circle, Clock } from 'lucide-react';
@@ -15,7 +20,7 @@ const statusConfig = {
 
 const StatusIcon: React.FC<{ status: keyof typeof statusConfig }> = ({ status }) => {
   const { icon: Icon } = statusConfig[status];
-  return <Icon className={`mr-2 h-4 w-4`} />;
+  return <Icon className={`mr-2 size-4`} />;
 };
 
 const StepItem: React.FC<{ step: MilestoneWithSteps['steps'][number] }> = ({ step }) => (
@@ -49,9 +54,11 @@ interface KeyMilestonesAndActionsProps {
   milestonesWithSteps: MilestoneWithSteps[];
 }
 
-const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({ milestonesWithSteps }) => {
+const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
+  milestonesWithSteps,
+}) => {
   return (
-    <Card className="mt-8 mb-8">
+    <Card className="my-8">
       <CardHeader>
         <CardTitle>{developmentHubConfig.keyMilestones.title}</CardTitle>
       </CardHeader>

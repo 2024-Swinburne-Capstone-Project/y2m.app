@@ -27,7 +27,6 @@ const MilestoneCard: React.FC<MilestoneCardProps> = ({ title, value, color }) =>
 );
 
 const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ milestones }) => {
-  debugger;
   const progress = milestones.reduce(
     (acc, milestone) => {
       acc[milestone.status]++;
@@ -55,7 +54,7 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ milestones }) => 
   ];
 
   return (
-    <div className="grid gap-8 mt-8 md:grid-cols-3">
+    <div className="mt-8 grid gap-8 md:grid-cols-3">
       {milestoneData.map((milestone, index) => (
         <MilestoneCard key={index} {...milestone} />
       ))}

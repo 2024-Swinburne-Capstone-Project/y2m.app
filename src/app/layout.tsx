@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/components/common/theme-provider';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useAuthSync } from "@/hooks/useAuthSync";
+import { useAuthSync } from '@/hooks/useAuthSync';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,7 +26,7 @@ export default function RootLayout({
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 60 * 1000, // 1 minute
+            staleTime: 60 * 1000,
           },
         },
       })
@@ -36,17 +36,17 @@ export default function RootLayout({
       <QueryClientProvider client={queryClient}>
         <UserProvider>
           <AuthWrapper>
-          <body className={inter.className}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-              <Toaster />
-            </ThemeProvider>
-          </body>
+            <body className={inter.className}>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                {children}
+                <Toaster />
+              </ThemeProvider>
+            </body>
           </AuthWrapper>
         </UserProvider>
       </QueryClientProvider>

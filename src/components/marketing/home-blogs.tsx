@@ -1,6 +1,6 @@
 import { BlogsCarousel } from '@/app/(marketing)/knowledge-hub/components/blogs-carousel';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BlogPost } from "@/types";
+import { BlogPost } from '@/types';
 
 interface HomeBlogsProps {
   blogs: BlogPost[];

@@ -21,7 +21,7 @@ const DevelopmentAreas: React.FC<DevelopmentAreasProps> = ({ areas: initialAreas
   const handleAddArea = () => {
     if (newArea.trim()) {
       createArea.mutate(
-        { name: newArea.trim(), user_id: 'current-user-id' },
+        { name: newArea.trim(), userId: 'current-user-id' },
         {
           onSuccess: (newArea) => {
             setAreas([...areas, newArea]);

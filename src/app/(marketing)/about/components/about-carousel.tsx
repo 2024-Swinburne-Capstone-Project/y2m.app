@@ -18,8 +18,8 @@ export function AboutCarousel({ slides }: { slides: AboutCarouselConfig[] }) {
   return (
     <Carousel
       plugins={[plugin.current]}
-      onMouseEnter={plugin.current.stop}
-      onMouseLeave={plugin.current.start}
+      onMouseEnter={() => plugin.current.stop()}
+      onMouseLeave={() => plugin.current.play()}
       className="w-full max-w-xs md:max-w-7xl"
       opts={{ align: 'start', loop: true }}
     >
