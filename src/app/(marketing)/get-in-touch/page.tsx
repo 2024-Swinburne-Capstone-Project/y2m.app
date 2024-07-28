@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
-import { getInTouchConfig } from '@/config/get-in-touch';
+import { getInTouchConfig } from '@/config/marketing/get-in-touch';
 import PopularQuestions from './components/popular-questions';
 import ContactInfo from './components/contact-info';
 import ContactForm from './components/contact-form';
 import Image from 'next/image';
-import Title from '@/components/title';
-import MainSectionBody from '@/components/main-section-body';
-import MainSection from '@/components/main-section';
+import Title from '@/components/common/title';
+import MainSectionBody from '@/components/common/main-section-body';
+import MainSection from '@/components/common/main-section';
 
 export default function GetInTouchPage() {
   return (

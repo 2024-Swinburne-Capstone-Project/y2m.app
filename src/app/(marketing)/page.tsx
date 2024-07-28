@@ -1,23 +1,27 @@
 'use client';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import { Features } from '@/components/marketing/features';
 import { Testimonials } from '@/components/marketing/testimonials';
-import Title from '@/components/title';
-import Subtitle from '@/components/subtitle';
-import MainSectionBody from '@/components/main-section-body';
+import Title from '@/components/common/title';
+import Subtitle from '@/components/common/subtitle';
+import MainSectionBody from '@/components/common/main-section-body';
 import Image from 'next/image';
-import MainSection from '@/components/main-section';
+import MainSection from '@/components/common/main-section';
 import { IntroVideo } from '@/components/marketing/intro-video';
 import { Perks } from '@/components/marketing/perks';
 import { MentorBenefits } from '@/components/marketing/mentor-benefits';
 import { MenteeBenefits } from '@/components/marketing/mentee-benefits';
 import { HomeBlogs } from '@/components/marketing/home-blogs';
 import { AcknowledgementOfCountry } from '@/components/marketing/acknowledgement-of-country';
-import { homeConfig } from '@/config/home';
-import parseTextWithMarkup from '@/config/parser/parseTextWithMarkup';
+import { homeConfig } from '@/config/marketing/home';
+import parseTextWithMarkup from '@/config/common/parser/parseTextWithMarkup';
+import { useBlogPosts } from '@/hooks/useBlogData';
 import { FlipWords } from '@/components/ui/flip-words';
 
 export default function Home() {
+  const { data: blogs, isLoading, error } = useBlogPosts();
+
   return (
     <div className="mx-6 mb-6 min-h-screen bg-background">
       <AnimatePresence>
@@ -61,7 +65,7 @@ export default function Home() {
           <Features />
           <MentorBenefits />
           <MenteeBenefits />
-          <HomeBlogs />
+          <HomeBlogs blogs={blogs || []} isLoading={isLoading} error={error} />
           <Testimonials />
           <AcknowledgementOfCountry />
         </div>

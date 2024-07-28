@@ -8,7 +8,6 @@ const SearchBar = () => {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    // TODO: Implement search functionality
   };
 
   return (

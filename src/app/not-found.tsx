@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { notFoundConfig } from '@/config/not-found';
+import { notFoundConfig } from '@/config/common/components/not-found';
 
 const NotFoundPage = () => {
   return (

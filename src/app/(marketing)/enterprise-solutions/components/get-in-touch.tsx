@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
-import { enterpriseSolutionsConfig } from '@/config/enterprise-solutions';
+import { enterpriseSolutionsConfig } from '@/config/marketing/enterprise-solutions';
 
 const FormSchema = z.object({
   firstName: z.string(),

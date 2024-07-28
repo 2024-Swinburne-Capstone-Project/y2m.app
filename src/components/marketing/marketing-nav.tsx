@@ -3,7 +3,7 @@ import { ModeToggle } from '../nav/mode-toggle';
 import { MainNav } from '../nav/main-nav';
 import { MobileNav } from '../nav/mobile-nav';
 import UserButton from '../nav/user-button';
-import { marketingNavConfig } from '@/config/nav';
+import { marketingNavConfig } from '@/config/common/components/nav';
 import Link from 'next/link';
 import Image from 'next/image';
 
