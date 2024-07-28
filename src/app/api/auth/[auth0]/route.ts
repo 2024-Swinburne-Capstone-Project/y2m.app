@@ -2,8 +2,7 @@ import { handleAuth, handleLogin } from '@auth0/nextjs-auth0';
 
 export const GET = handleAuth({
   login: handleLogin({
-    // https://auth0.github.io/nextjs-auth0/modules/handlers_login.html
-    returnTo: '/home',
+    returnTo: '/development-hub',
   }),
 });
 

@@ -1,22 +1,27 @@
 'use client';
+
 import { useState } from 'react';
-import { knowledgeHubConfig } from '@/config/knowledge-hub';
+import { knowledgeHubConfig } from '@/config/marketing/knowledge-hub';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { VideoSection } from './components/video-section';
 import { BlogSection } from './components/blog-section';
-import MainSection from '@/components/main-section';
-import MainSectionBody from '@/components/main-section-body';
-import Title from '@/components/title';
+import MainSection from '@/components/common/main-section';
+import MainSectionBody from '@/components/common/main-section-body';
+import Title from '@/components/common/title';
 import Image from 'next/image';
+import { useBlogPosts } from '@/hooks/useBlogData';
+import { useVideos } from '@/hooks/useVideoData';
 
 export default function KnowledgeHubPage() {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
+  const { data: blogs, isLoading, error } = useBlogPosts();
+  const { data: videos, isLoading: isVideosLoading, error: videosError } = useVideos();
 
   return (
     <div className="min-h-screen bg-background">
       <MainSection>
         <MainSectionBody className="space-y-6">
-          <div className=" space-y-6">
+          <div className="space-y-6">
             <Title>{knowledgeHubConfig.heroSection.title.text}</Title>
           </div>
           <div>
@@ -37,12 +42,15 @@ export default function KnowledgeHubPage() {
         </TabsList>
         <TabsContent value="videos">
           <VideoSection
+            videos={videos || []}
+            isLoading={isVideosLoading}
+            error={videosError}
             selectedVideoIndex={selectedVideoIndex}
             setSelectedVideoIndex={setSelectedVideoIndex}
           />
         </TabsContent>
         <TabsContent value="blog">
-          <BlogSection />
+          <BlogSection blogs={blogs || []} isLoading={isLoading} error={error} />
         </TabsContent>
       </Tabs>
     </div>

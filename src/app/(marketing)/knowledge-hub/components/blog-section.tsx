@@ -1,8 +1,17 @@
+'use client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BlogsCarousel } from './blogs-carousel';
 import Link from 'next/link';
+import { BlogPost } from '@/types';
+import { Skeleton } from '@/components/ui/skeleton';
 
-export const BlogSection = () => {
+interface BlogSectionProps {
+  blogs: BlogPost[];
+  isLoading: boolean;
+  error: Error | null;
+}
+
+export const BlogSection = ({ blogs, isLoading, error }: BlogSectionProps) => {
   return (
     <div>
       <Card>
@@ -19,7 +28,21 @@ export const BlogSection = () => {
           <CardTitle>Blogs</CardTitle>
         </CardHeader>
         <CardContent>
-          <BlogsCarousel />
+          {isLoading ? (
+            <div className="flex items-center justify-center">
+              <div className="flex flex-col space-y-3">
+                <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-[250px]" />
+                  <Skeleton className="h-4 w-[200px]" />
+                </div>
+              </div>
+            </div>
+          ) : error ? (
+            <div>Error loading blog posts: {error.message}</div>
+          ) : (
+            <BlogsCarousel blogs={blogs} isLoading={isLoading} error={error} />
+          )}
         </CardContent>
       </Card>
     </div>

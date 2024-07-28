@@ -1,5 +1,5 @@
-import MainSection from '@/components/main-section';
-import Title from '@/components/title';
+import MainSection from '@/components/common/main-section';
+import Title from '@/components/common/title';
 import { AboutCarousel } from './about-carousel';
 import { AboutCarouselConfig } from '@/types';
 

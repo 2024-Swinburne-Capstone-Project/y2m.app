@@ -1,9 +1,9 @@
 import React from 'react';
 import { ValuesSection } from '@/app/(marketing)/about/components/values-section';
 import { AdditionalSection } from '@/app/(marketing)/about/components/additional-section';
-import { aboutConfig } from '@/config/about';
+import { aboutConfig } from '@/config/marketing/about';
 import { HeroSection } from '@/app/(marketing)/about/components/hero-section';
-import parseTextWithMarkup from '@/config/parser/parseTextWithMarkup';
+import parseTextWithMarkup from '@/config/common/parser/parseTextWithMarkup';
 
 export default function AboutPage() {
   return (

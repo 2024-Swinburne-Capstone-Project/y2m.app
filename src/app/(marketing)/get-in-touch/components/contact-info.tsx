@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getInTouchConfig } from '@/config/get-in-touch';
-import MainSectionBody from '@/components/main-section-body';
+import { getInTouchConfig } from '@/config/marketing/get-in-touch';
+import MainSectionBody from '@/components/common/main-section-body';
 
 const ContactInfo: React.FC = () => {
   const { visitUs, mailUs } = getInTouchConfig;

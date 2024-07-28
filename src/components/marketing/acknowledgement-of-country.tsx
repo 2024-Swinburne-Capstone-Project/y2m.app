@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { homeConfig } from '@/config/home';
+import { homeConfig } from '@/config/marketing/home';
 
 export function AcknowledgementOfCountry() {
   const { acknowledgementOfCountry } = homeConfig;

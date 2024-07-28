@@ -1,8 +1,8 @@
-import MainSection from '@/components/main-section';
-import MainSectionBody from '@/components/main-section-body';
+import MainSection from '@/components/common/main-section';
+import MainSectionBody from '@/components/common/main-section-body';
 import Image from 'next/image';
-import Title from '@/components/title';
-import Subtitle from '@/components/subtitle';
+import Title from '@/components/common/title';
+import Subtitle from '@/components/common/subtitle';
 
 interface HeroSectionProps {
   title: React.ReactNode;

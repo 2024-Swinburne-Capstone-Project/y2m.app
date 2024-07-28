@@ -1,4 +1,4 @@
-// config/home.ts
+// config/marketing.ts
 import { HomeConfig } from '@/types';
 
 export const homeConfig: HomeConfig = {

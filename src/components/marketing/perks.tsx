@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { homeConfig } from '@/config/home';
+import { homeConfig } from '@/config/marketing/home';
 
 export function Perks() {
   const { perks } = homeConfig;

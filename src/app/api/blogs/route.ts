@@ -1,37 +1,31 @@
 import { db } from '@/lib/db';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { BlogPost, CreateBlogPostData, ApiResponse, ApiError } from '@/types';
 
 export async function GET() {
   try {
     const blogPosts = await db.selectFrom('BlogPost').selectAll().execute();
-
-    return new Response(JSON.stringify(blogPosts), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const response: ApiResponse<BlogPost[]> = { data: blogPosts as BlogPost[] };
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error fetching blog posts:', error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch blog posts' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const apiError: ApiError = { message: 'Failed to fetch blog posts' };
+    return NextResponse.json(apiError, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body: CreateBlogPostData = await request.json();
 
     const { title, content, author, imagePath } = body;
 
     if (!title || !content || !author || !imagePath) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const apiError: ApiError = { message: 'Missing required fields' };
+      return NextResponse.json(apiError, { status: 400 });
     }
 
-    await db
+    const newBlogPost = await db
       .insertInto('BlogPost')
       .values({
         title,
@@ -40,17 +34,17 @@ export async function POST(request: NextRequest) {
         imagePath,
         date: new Date().toISOString(),
       })
-      .execute();
+      .returningAll()
+      .executeTakeFirstOrThrow();
 
-    return new Response(JSON.stringify({ message: 'Blog post created successfully' }), {
-      status: 201,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const response: ApiResponse<BlogPost> = {
+      data: newBlogPost as BlogPost,
+      message: 'Blog post created successfully',
+    };
+    return NextResponse.json(response, { status: 201 });
   } catch (error) {
     console.error('Error creating blog post:', error);
-    return new Response(JSON.stringify({ error: 'Failed to create blog post' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const apiError: ApiError = { message: 'Failed to create blog post' };
+    return NextResponse.json(apiError, { status: 500 });
   }
 }

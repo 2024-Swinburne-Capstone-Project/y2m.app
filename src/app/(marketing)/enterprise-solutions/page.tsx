@@ -1,11 +1,11 @@
-import MainSection from '@/components/main-section';
-import MainSectionBody from '@/components/main-section-body';
-import { enterpriseSolutionsConfig } from '@/config/enterprise-solutions';
+import MainSection from '@/components/common/main-section';
+import MainSectionBody from '@/components/common/main-section-body';
+import { enterpriseSolutionsConfig } from '@/config/marketing/enterprise-solutions';
 import GetInTouch from './components/get-in-touch';
 import { Card } from '@/components/ui/card';
 import Image from 'next/image';
-import Title from '@/components/title';
-import Subtitle from '@/components/subtitle';
+import Title from '@/components/common/title';
+import Subtitle from '@/components/common/subtitle';
 
 export default function EnterpriseSolutions() {
   return (

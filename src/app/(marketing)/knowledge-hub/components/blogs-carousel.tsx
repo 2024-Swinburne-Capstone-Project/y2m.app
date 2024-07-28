@@ -1,8 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
 import * as React from 'react';
-import Autoplay from 'embla-carousel-autoplay';
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
@@ -11,96 +9,67 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Image from 'next/image';
-import { BlogsConfig } from '@/types';
 import Link from 'next/link';
-import { Skeleton } from '@/components/ui/skeleton';
+import { BlogPost } from '@/types';
+import { ErrorAlert } from '@/components/common/error-alert';
+import { LoadingSkeleton } from '@/components/common/loading-skeleton';
 
-export function BlogsCarousel() {
-  const plugin = React.useRef(Autoplay({ delay: 2000 }));
+interface BlogsCarouselProps {
+  blogs: BlogPost[];
+  isLoading: boolean;
+  error: Error | null;
+}
 
-  const [slides, setSlides] = useState<BlogsConfig[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+const BlogCard: React.FC<{ blog: BlogPost }> = ({ blog }) => (
+  <Link href={`/knowledge-hub/blogs/blog?id=${blog.id}`}>
+    <Card className="h-full cursor-pointer">
+      <CardHeader>
+        <Image
+          src={blog.imagePath}
+          alt={blog.title}
+          width={1280}
+          height={300}
+          className="h-48 w-full object-cover"
+        />
+      </CardHeader>
+      <CardContent>
+        <CardTitle className="line-clamp-2">{blog.title}</CardTitle>
+      </CardContent>
+      <CardFooter>
+        <p className="text-sm text-muted-foreground">
+          {new Date(blog.date.toString()).toDateString()}
+        </p>
+      </CardFooter>
+    </Card>
+  </Link>
+);
 
-  useEffect(() => {
-    const fetchBlogPosts = async () => {
-      try {
-        const response = await fetch('/api/blogs', { method: 'GET' });
-        if (!response.ok) {
-          throw new Error('Failed to fetch blog posts');
-        }
-        const data = await response.json();
-        const formattedData = data.map((blog: BlogsConfig) => ({
-          id: blog.id,
-          title: {
-            text: blog.title,
-          },
-          content: {
-            text: blog.content,
-          },
-          date: new Date(blog.date),
-          author: {
-            text: blog.author,
-          },
-          imagePath: blog.imagePath,
-        }));
-        setSlides(formattedData);
-      } catch (error) {
-        console.error('Error fetching blog posts:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+export function BlogsCarousel({ blogs, isLoading, error }: BlogsCarouselProps) {
+  if (isLoading) {
+    return <LoadingSkeleton count={3} className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />;
+  }
 
-    fetchBlogPosts();
-  }, []);
+  if (error) {
+    return <ErrorAlert message="Failed to load blog posts. Please try again later." />;
+  }
 
-  if (isLoading || !slides || slides.length === 0) {
-    return (
-      <div className="flex items-center justify-center ">
-        <div className="flex flex-col space-y-3">
-          <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
-          </div>
-        </div>
-      </div>
-    );
+  if (!blogs || blogs.length === 0) {
+    return <ErrorAlert message="No blog posts are available at the moment." />;
   }
 
   return (
-    <Carousel
-      plugins={[plugin.current]}
-      className="max-w-xs md:max-w-7xl"
-      onMouseEnter={plugin.current.stop}
-      onMouseLeave={plugin.current.start}
-      opts={{ align: 'start', loop: true }}
-    >
+    <Carousel className="max-w-xs md:max-w-7xl">
       <CarouselContent>
-        {slides.map((item, index) => (
-          <CarouselItem key={index} className="pl-5 md:basis-1/2 lg:basis-1/3">
-            <Link href={`/knowledge-hub/blogs/blog?id=${item.id}`}>
-              <Card className="h-full cursor-pointer">
-                <CardHeader className="flex flex-col items-center">
-                  <Image
-                    src={item.imagePath}
-                    alt={item.title.text}
-                    width={1280}
-                    height={300}
-                    className="h-60 object-cover"
-                  />
-                  <CardDescription className="mt-4 text-center">
-                    {item.date.toDateString()}
-                  </CardDescription>
-                  <CardTitle className="mt-2 text-center">{item.title.text}</CardTitle>
-                </CardHeader>
-              </Card>
-            </Link>
+        {blogs.map((blog) => (
+          <CarouselItem key={blog.id.toString()} className="md:basis-1/2 lg:basis-1/3">
+            <div className="p-1">
+              <BlogCard blog={blog} />
+            </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="hidden md:flex" />
-      <CarouselNext className="hidden md:flex" />
+      <CarouselPrevious />
+      <CarouselNext />
     </Carousel>
   );
 }

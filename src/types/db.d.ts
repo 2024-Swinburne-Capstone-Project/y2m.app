@@ -18,6 +18,12 @@ export interface _PrismaMigrations {
   started_at: Generated<Timestamp>;
 }
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
 export interface BlogPost {
   author: string;
   content: string;
@@ -35,8 +41,45 @@ export interface Video {
   videoLength: string;
 }
 
+export interface DevelopmentArea {
+  id: Generated<number>;
+  userId: string;
+  name: string;
+}
+
+export interface Milestone {
+  id: Generated<number>;
+  userId: string;
+  title: string;
+  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
+  startDate: Timestamp;
+  endDate: Timestamp;
+}
+
+export interface MilestoneStep {
+  id: Generated<number>;
+  milestoneId: number;
+  name: string;
+  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
+}
+
+export interface Badge {
+  id: Generated<number>;
+  userId: string;
+  name: string;
+  icon: string;
+  senderName: string;
+  receivedDate: Timestamp;
+  message: string;
+}
+
 export interface DB {
-  _prisma_migrations: _PrismaMigrations;
-  BlogPost: BlogPost;
+  User: User;
   Video: Video;
+  BlogPost: BlogPost;
+  Milestone: Milestone;
+  MilestoneStep: MilestoneStep;
+  Action: Action;
+  DevelopmentArea: DevelopmentArea;
+  Badge: Badge;
 }

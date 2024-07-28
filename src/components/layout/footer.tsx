@@ -13,7 +13,7 @@ export function Footer() {
   return (
     <footer className="border-t py-8">
       <div className="container mx-auto flex flex-col items-center justify-between px-4 sm:flex-row">
-        <Link href="/">
+        <Link href="/public">
           <Image src={'/y2m-logo.png'} alt="You2Mentor" width={80} height={80} className="mb-3" />
         </Link>
         <p className="mb-3 text-center text-sm text-muted-foreground sm:text-left">
