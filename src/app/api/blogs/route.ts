@@ -1,11 +1,11 @@
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
-import { BlogPost, CreateBlogPostData, ApiResponse, ApiError } from '@/types';
+import { CreateBlogPostData, ApiError } from '@/types';
 
 export async function GET() {
   try {
     const blogPosts = await db.selectFrom('BlogPost').selectAll().execute();
-    const response: ApiResponse<BlogPost[]> = { data: blogPosts as BlogPost[] };
+    const response = { data: blogPosts };
     return NextResponse.json(response);
   } catch (error) {
     console.error('Error fetching blog posts:', error);
@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
       .returningAll()
       .executeTakeFirstOrThrow();
 
-    const response: ApiResponse<BlogPost> = {
-      data: newBlogPost as BlogPost,
+    const response = {
+      data: newBlogPost,
       message: 'Blog post created successfully',
     };
     return NextResponse.json(response, { status: 201 });
