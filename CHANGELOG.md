@@ -1,3 +1,21 @@
+## [1.19.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.18.0...v1.19.0) (2024-07-29)
+
+
+### Features
+
+* make hero word transtion nicer ([d205bdb](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/d205bdb47f409c5f9c598ecb5695851c707275a8))
+
+
+### Bug Fixes
+
+* :heavy_plus_sign: Add the Shadcn Alert component ([e1f232a](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/e1f232a51445e06b71d9384b167dfa5ed163640f))
+* add back sem ver dependencies ([48aea35](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/48aea35efae7ac7d6b92440179210f5c43f66169))
+
+
+### Miscellaneous Chores
+
+* Exclude files starting with underscore from database code generation to remove prisma tables ([c9d9b50](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/c9d9b50dd3278ef3f1b6b5869764653526b2eb65))
+
 ## [1.18.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.17.0...v1.18.0) (2024-05-30)
 
 
