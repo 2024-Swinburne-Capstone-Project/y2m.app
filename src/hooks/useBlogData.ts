@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ApiResponse, ApiError, BlogPost, CreateBlogPostData } from '@/types';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { ApiError, ApiResponse, BlogPost, CreateBlogPostData } from '@/types';
 
 const fetchBlogPosts = async (): Promise<BlogPost[]> => {
   const response = await fetch('/api/blogs');
@@ -22,8 +22,7 @@ const fetchBlogPost = async (id: string): Promise<BlogPost> => {
   if (!response.ok) {
     throw new Error('Failed to fetch blog post');
   }
-  const apiResponse: ApiResponse<BlogPost> = await response.json();
-  return apiResponse.data;
+  return await response.json();
 };
 
 export const useBlogPost = (id: string) => {

@@ -12,7 +12,7 @@ export const marketingNavConfig: NavConfig = {
 
 export const applicatonNavConfig: NavConfig = {
   navItems: [
-    { title: 'Home', href: '/home' },
+    { title: 'Home', href: '/' },
     { title: 'Development Hub', href: '/development-hub' },
     { title: 'My Skills', href: '/my-skills' },
     { title: 'Messages', href: '/messages' },
