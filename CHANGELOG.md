@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.19.0...v1.19.1) (2024-07-29)
+
+
+### CI/CD
+
+* ensure build passes before pr approval ([c077bbd](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/c077bbd3ce73391a780b34e32165d12d93067937))
+
 ## [1.19.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.18.0...v1.19.0) (2024-07-29)
 
 
