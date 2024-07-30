@@ -137,11 +137,12 @@ const ContactForm: React.FC = () => {
                 control={form.control}
                 name="feedback"
                 render={({ field }) => (
-                  <FormItem className="flex items-center space-x-3">
-                    <FormControl>
+                  <FormItem>
+                    <div className="flex items-center space-x-2">
                       <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                    </FormControl>
-                    <FormLabel className="mb-0">{formConfig.feedback.label}</FormLabel>
+                      <FormLabel>{formConfig.feedback.label}</FormLabel>
+                    </div>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -149,11 +150,12 @@ const ContactForm: React.FC = () => {
                 control={form.control}
                 name="question"
                 render={({ field }) => (
-                  <FormItem className="flex items-center space-x-3">
-                    <FormControl>
+                  <FormItem>
+                    <div className="flex items-center space-x-2">
                       <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                    </FormControl>
-                    <FormLabel className="mb-0">{formConfig.question.label}</FormLabel>
+                      <FormLabel>{formConfig.question.label}</FormLabel>
+                    </div>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
