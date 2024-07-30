@@ -1,11 +1,11 @@
+'use client';
 import MainSection from '@/components/common/main-section';
 import MainSectionBody from '@/components/common/main-section-body';
 import { enterpriseSolutionsConfig } from '@/config/marketing/enterprise-solutions';
-import GetInTouch from './components/get-in-touch';
-import { Card } from '@/components/ui/card';
 import Image from 'next/image';
 import Title from '@/components/common/title';
 import Subtitle from '@/components/common/subtitle';
+import ContactForm from '../get-in-touch/components/contact-form';
 
 export default function EnterpriseSolutions() {
   return (
@@ -39,9 +39,7 @@ export default function EnterpriseSolutions() {
             height={300}
             className="dark:rounded-full dark:bg-foreground"
           />
-          <Card className="m-1 w-full p-5 md:w-[50vw]">
-            <GetInTouch />
-          </Card>
+          <ContactForm />
         </MainSectionBody>
       </MainSection>
     </div>

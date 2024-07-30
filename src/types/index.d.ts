@@ -57,12 +57,16 @@ export interface GetInTouchForm {
   email: {
     label: string;
     placeholder: string;
+    invalidErrorMessage: string;
     errorMessage: string;
   };
   feedback: {
     label: string;
   };
   question: {
+    label: string;
+  };
+  demo: {
     label: string;
   };
   message: {
@@ -92,39 +96,6 @@ export interface EnterpriseSolutionsConfig {
   heroContent: HeroContentConfig;
   additionalContent: TextWithMarkup;
   additionalImagePath: string;
-  form: EnterpriseSolutionsForm;
-}
-
-export interface EnterpriseSolutionsForm {
-  firstName: {
-    label: string;
-    placeholder: string;
-    errorMessage: string;
-  };
-  lastName: {
-    label: string;
-    placeholder: string;
-    errorMessage: string;
-  };
-  email: {
-    label: string;
-    placeholder: string;
-    errorMessage: string;
-  };
-  message: {
-    label: string;
-    placeholder: string;
-    errorMessage: string;
-  };
-  demo: {
-    label: string;
-  };
-  submitButton: {
-    text: string;
-  };
-  toast: {
-    title: string;
-  };
 }
 
 export interface HeroSectionConfig {

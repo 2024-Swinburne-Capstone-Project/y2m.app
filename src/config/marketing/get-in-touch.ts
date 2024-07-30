@@ -82,13 +82,17 @@ export const getInTouchConfig: GetInTouchConfig = {
     email: {
       label: 'Email',
       placeholder: 'Email',
-      errorMessage: 'Please enter a valid email address.',
+      invalidErrorMessage: 'Please enter a valid email address.',
+      errorMessage: 'Email is required.',
     },
     feedback: {
       label: 'Feedback',
     },
     question: {
       label: 'Question',
+    },
+    demo: {
+      label: 'Request a Demo',
     },
     message: {
       label: 'Message',

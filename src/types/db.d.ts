@@ -73,6 +73,18 @@ export interface Badge {
   message: string;
 }
 
+export interface GetInTouch {
+  id: Generated<number>;
+  firstName: string;
+  lastName: string;
+  email: string;
+  demo: boolean;
+  feedback: boolean;
+  question: boolean;
+  message: string;
+  receivedDate: Timestamp | null;
+}
+
 export interface DB {
   User: User;
   Video: Video;
@@ -82,4 +94,5 @@ export interface DB {
   Action: Action;
   DevelopmentArea: DevelopmentArea;
   Badge: Badge;
+  GetInTouch: GetInTouch;
 }
