@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { getInTouchConfig } from '@/config/marketing/get-in-touch';
+import { toast } from '@/components/ui/use-toast';
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -24,11 +25,15 @@ const formSchema = z.object({
   lastName: z.string().min(2, {
     message: getInTouchConfig.form.lastName.errorMessage,
   }),
-  email: z.string().email({
-    message: getInTouchConfig.form.email.errorMessage,
-  }),
+  email: z
+    .string()
+    .email({
+      message: getInTouchConfig.form.email.invalidErrorMessage,
+    })
+    .min(1, { message: getInTouchConfig.form.email.errorMessage }),
   feedback: z.boolean(),
   question: z.boolean(),
+  demo: z.boolean(),
   message: z.string().min(10, {
     message: getInTouchConfig.form.message.errorMessage,
   }),
@@ -43,12 +48,30 @@ const ContactForm: React.FC = () => {
       email: '',
       feedback: false,
       question: false,
+      demo: false,
       message: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch('/api/get-in-touch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        alert('Failed to send message.');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Error sending message.');
+    }
+    toast({
+      title: getInTouchConfig.form.toast.title,
+    });
   }
 
   const { form: formConfig } = getInTouchConfig;
@@ -66,7 +89,10 @@ const ContactForm: React.FC = () => {
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formConfig.firstName.label}</FormLabel>
+                  <FormLabel>
+                    {formConfig.firstName.label}
+                    <span className="text-red-600"> *</span>
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder={formConfig.firstName.placeholder} {...field} />
                   </FormControl>
@@ -79,7 +105,10 @@ const ContactForm: React.FC = () => {
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formConfig.lastName.label}</FormLabel>
+                  <FormLabel>
+                    {formConfig.lastName.label}
+                    <span className="text-red-600"> *</span>
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder={formConfig.lastName.placeholder} {...field} />
                   </FormControl>
@@ -92,7 +121,10 @@ const ContactForm: React.FC = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formConfig.email.label}</FormLabel>
+                  <FormLabel>
+                    {formConfig.email.label}
+                    <span className="text-red-600"> *</span>
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder={formConfig.email.placeholder} {...field} />
                   </FormControl>
@@ -105,11 +137,12 @@ const ContactForm: React.FC = () => {
                 control={form.control}
                 name="feedback"
                 render={({ field }) => (
-                  <FormItem className="flex items-center space-x-3">
-                    <FormControl>
+                  <FormItem>
+                    <div className="flex items-center space-x-2">
                       <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                    </FormControl>
-                    <FormLabel className="mb-0">{formConfig.feedback.label}</FormLabel>
+                      <FormLabel>{formConfig.feedback.label}</FormLabel>
+                    </div>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -117,11 +150,25 @@ const ContactForm: React.FC = () => {
                 control={form.control}
                 name="question"
                 render={({ field }) => (
-                  <FormItem className="flex items-center space-x-3">
-                    <FormControl>
+                  <FormItem>
+                    <div className="flex items-center space-x-2">
                       <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                    </FormControl>
-                    <FormLabel className="mb-0">{formConfig.question.label}</FormLabel>
+                      <FormLabel>{formConfig.question.label}</FormLabel>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="demo"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                      <FormLabel>{formConfig.demo.label}</FormLabel>
+                    </div>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -131,7 +178,10 @@ const ContactForm: React.FC = () => {
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formConfig.message.label}</FormLabel>
+                  <FormLabel>
+                    {formConfig.message.label}
+                    <span className="text-red-600"> *</span>
+                  </FormLabel>
                   <FormControl>
                     <Textarea placeholder={formConfig.message.placeholder} {...field} />
                   </FormControl>

@@ -57,12 +57,16 @@ export interface GetInTouchForm {
   email: {
     label: string;
     placeholder: string;
+    invalidErrorMessage: string;
     errorMessage: string;
   };
   feedback: {
     label: string;
   };
   question: {
+    label: string;
+  };
+  demo: {
     label: string;
   };
   message: {
@@ -92,39 +96,6 @@ export interface EnterpriseSolutionsConfig {
   heroContent: HeroContentConfig;
   additionalContent: TextWithMarkup;
   additionalImagePath: string;
-  form: EnterpriseSolutionsForm;
-}
-
-export interface EnterpriseSolutionsForm {
-  firstName: {
-    label: string;
-    placeholder: string;
-    errorMessage: string;
-  };
-  lastName: {
-    label: string;
-    placeholder: string;
-    errorMessage: string;
-  };
-  email: {
-    label: string;
-    placeholder: string;
-    errorMessage: string;
-  };
-  message: {
-    label: string;
-    placeholder: string;
-    errorMessage: string;
-  };
-  demo: {
-    label: string;
-  };
-  submitButton: {
-    text: string;
-  };
-  toast: {
-    title: string;
-  };
 }
 
 export interface HeroSectionConfig {
@@ -286,13 +257,9 @@ export type DevelopmentHubConfig = {
   };
 };
 
-interface NavItem {
+export interface NavItem {
   title: string;
-  href?: string;
-}
-
-export interface NavConfig {
-  navItems: NavItem[];
+  href: string;
 }
 
 export interface NotFoundConfig {
@@ -302,4 +269,46 @@ export interface NotFoundConfig {
   imageAlt: string;
   buttonText: string;
   buttonHref: string;
+}
+
+export interface ProfileConfig {
+  form: ProfileForm;
+}
+
+export interface ProfileForm {
+  profileImage: {
+    label: string;
+    path: string;
+    errorMessage: string;
+  };
+  fullName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  email: {
+    label: string;
+    placeholder: string;
+    invalidErrorMessage: string;
+    errorMessage: string;
+  };
+  aboutMe: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  linkedInProfileLink: {
+    label: string;
+    placeholder: string;
+    invalidErrorMessage: string;
+    errorMessage: string;
+  };
+  skills: {
+    label: string;
+    list: string[];
+    errorMessage: string;
+  };
+  submitButton: {
+    text: string;
+  };
 }

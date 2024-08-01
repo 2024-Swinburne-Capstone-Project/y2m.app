@@ -13,12 +13,18 @@ import MainSection from '@/components/common/main-section';
 import MainSectionBody from '@/components/common/main-section-body';
 import Image from 'next/image';
 import { developmentHubConfig } from '@/config/application/development-hub';
+import { LoadingSkeleton } from '@/components/common/loading-skeleton';
+import { ErrorAlert } from '@/components/common/error-alert';
 
 export default function DevelopmentHubPage() {
   const { milestonesWithSteps, developmentAreas, badges, isLoading, error } = useDevelopmentHub();
 
-  if (isLoading) return <div>Loading data...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) {
+    return <LoadingSkeleton count={1} />;
+  }
+  if (error) {
+    return <ErrorAlert message={error.message} />;
+  }
 
   return (
     <AuthenticatedRoute>

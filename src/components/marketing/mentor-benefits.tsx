@@ -36,7 +36,11 @@ export function MentorBenefits() {
                 />
                 <div>
                   <h3 className="text-muted-foreground">{benefit.description.text}</h3>
-                  <a href={benefit.sourceUrl} style={{ color: 'hsl(var(--primary))' }}>
+                  <a
+                    href={benefit.sourceUrl}
+                    style={{ color: 'hsl(var(--primary))' }}
+                    target="_blank"
+                  >
                     Source
                   </a>
                 </div>

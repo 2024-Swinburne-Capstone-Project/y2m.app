@@ -33,12 +33,12 @@ export default function UserButton() {
       <PopoverContent>
         <div className="flex flex-col space-y-2">
           <div>
-            <span>{user.name}</span>
-          </div>
-          <div>
             <span>{user.email}</span>
           </div>
-          <div>
+          <div className="flex gap-2.5">
+            <Button asChild>
+              <a href="/profile">My Profile</a>
+            </Button>
             <Button asChild>
               <a href="/api/auth/logout">Sign out</a>
             </Button>
