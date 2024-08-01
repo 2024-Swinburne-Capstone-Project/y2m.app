@@ -272,10 +272,17 @@ export interface NotFoundConfig {
 }
 
 export interface ProfileConfig {
-  form: ProfileForm;
+  profileForm: ProfileForm;
+  educationForm: EducationForm;
+  educationTable: Table;
+  experienceForm: ExperienceForm;
+  experienceTable: Table;
 }
 
 export interface ProfileForm {
+  header: {
+    text: string;
+  };
   profileImage: {
     label: string;
     path: string;
@@ -311,4 +318,92 @@ export interface ProfileForm {
   submitButton: {
     text: string;
   };
+  successMessage: {
+    text: string;
+  };
+}
+
+export interface EducationForm {
+  header: {
+    text: string;
+  };
+  institution: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  degree: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  fieldOfStudy: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  onGoing: {
+    label: string;
+  };
+  startDate: {
+    label: string;
+    errorMessage: string;
+  };
+  endDate: {
+    label: string;
+    errorMessage: string;
+  };
+  grade: {
+    label: string;
+    placeholder: string;
+  };
+  submitButton: {
+    text: string;
+  };
+  successMessage: {
+    text: string;
+  };
+}
+
+export interface ExperienceForm {
+  header: {
+    text: string;
+  };
+  position: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  company: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  location: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  current: {
+    label: string;
+  };
+  startDate: {
+    label: string;
+    errorMessage: string;
+  };
+  endDate: {
+    label: string;
+    errorMessage: string;
+  };
+  submitButton: {
+    text: string;
+  };
+  successMessage: {
+    text: string;
+  };
+}
+
+export interface Table {
+  caption: string;
+  headers: string[];
 }
