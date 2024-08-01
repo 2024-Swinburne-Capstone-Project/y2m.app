@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
 import Link from 'next/link';
 import { VideoConfig } from '@/types';
 import { ErrorAlert } from '@/components/common/error-alert';

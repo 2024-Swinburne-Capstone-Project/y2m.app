@@ -257,13 +257,9 @@ export type DevelopmentHubConfig = {
   };
 };
 
-interface NavItem {
+export interface NavItem {
   title: string;
-  href?: string;
-}
-
-export interface NavConfig {
-  navItems: NavItem[];
+  href: string;
 }
 
 export interface NotFoundConfig {
@@ -273,4 +269,46 @@ export interface NotFoundConfig {
   imageAlt: string;
   buttonText: string;
   buttonHref: string;
+}
+
+export interface ProfileConfig {
+  form: ProfileForm;
+}
+
+export interface ProfileForm {
+  profileImage: {
+    label: string;
+    path: string;
+    errorMessage: string;
+  };
+  fullName: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  email: {
+    label: string;
+    placeholder: string;
+    invalidErrorMessage: string;
+    errorMessage: string;
+  };
+  aboutMe: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  linkedInProfileLink: {
+    label: string;
+    placeholder: string;
+    invalidErrorMessage: string;
+    errorMessage: string;
+  };
+  skills: {
+    label: string;
+    list: string[];
+    errorMessage: string;
+  };
+  submitButton: {
+    text: string;
+  };
 }

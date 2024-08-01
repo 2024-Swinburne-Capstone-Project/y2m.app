@@ -7,10 +7,13 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Image from 'next/image';
-import { NavConfig } from '@/types';
+import { applicationNavItems, marketingNavItems } from '@/config/common/components/nav';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
-export function MobileNav({ navItems }: NavConfig) {
+export function MobileNav() {
   const [open, setOpen] = React.useState(false);
+  const { user } = useUser();
+  const navItems = user ? [...applicationNavItems, ...marketingNavItems] : marketingNavItems;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
