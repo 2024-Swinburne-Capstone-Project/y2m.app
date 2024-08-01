@@ -68,6 +68,7 @@ export default function EducationSection() {
     //   console.error('Error updating profile:', error);
     //   alert('Error updating profile.');
     // }
+    console.log(data);
     toast({
       title: profileConfig.educationForm.successMessage.text,
     });

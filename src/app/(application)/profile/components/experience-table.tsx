@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
-import { Experience } from '@/types/profile/Profile';
+import { Experience } from '@/types/profile/experience';
 import { profileConfig } from '@/config/application/profile-config';
 
 export default function ExperienceTable() {

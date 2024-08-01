@@ -66,6 +66,7 @@ export default function ExperienceSection() {
     //   console.error('Error updating profile:', error);
     //   alert('Error updating profile.');
     // }
+    console.log(data);
     toast({
       title: profileConfig.experienceForm.successMessage.text,
     });

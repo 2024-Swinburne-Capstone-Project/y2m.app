@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
-import { Education } from '@/types/profile/Profile';
+import { Education } from '@/types/profile/education';
 import { profileConfig } from '@/config/application/profile-config';
 
 export default function EducationTable() {
