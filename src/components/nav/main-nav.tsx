@@ -12,15 +12,12 @@ import {
 import Link from 'next/link';
 import { marketingNavItems, applicationNavItems } from '@/config/common/components/nav';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function MainNav() {
   const pathname = usePathname();
   const { user } = useUser();
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLUListElement>(null);
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   const getNavLinkClassName = (linkPath: string) => {
     return cn(
@@ -44,6 +41,33 @@ export function MainNav() {
       <NavigationMenuList>
         {user && (
           <>
+            <NavigationMenuItem>
+              <button
+                onBlur={handleBlur}
+                onClick={toggleDropdown}
+                className={getNavLinkClassName('#')}
+              >
+                Explore {isDropdownOpen ? '▲' : '▼'}
+              </button>
+              {isDropdownOpen && (
+                <ul
+                  ref={dropdownRef}
+                  tabIndex={-1}
+                  className="absolute rounded bg-white shadow-md"
+                  onBlur={handleBlur}
+                >
+                  {marketingNavItems.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href} legacyBehavior passHref>
+                        <NavigationMenuLink className={getNavLinkClassName(item.href)}>
+                          {item.title}
+                        </NavigationMenuLink>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </NavigationMenuItem>
             {applicationNavItems.map(
               (item) =>
                 item.href && (
@@ -56,42 +80,6 @@ export function MainNav() {
                   </NavigationMenuItem>
                 )
             )}
-            <NavigationMenuItem>
-              <button
-                onBlur={handleBlur}
-                onClick={toggleDropdown}
-                className={getNavLinkClassName('#')}
-              >
-                Quick Links
-                {isDropdownOpen ? (
-                  <FontAwesomeIcon icon={faChevronUp} className="mx-2.5" />
-                ) : (
-                  <FontAwesomeIcon icon={faChevronDown} className="mx-2.5" />
-                )}
-              </button>
-              {isDropdownOpen && (
-                <ul
-                  ref={dropdownRef}
-                  tabIndex={-1}
-                  className="absolute flex flex-col rounded bg-white shadow-md"
-                  onBlur={handleBlur}
-                >
-                  {marketingNavItems.map((item) => (
-                    <NavigationMenuLink
-                      className={`w-initial justify-start ${getNavLinkClassName(item.href)}`}
-                      onClick={() => {
-                        setIsDropdownOpen(false);
-                        buttonRef.current?.blur();
-                      }}
-                      href={item.href}
-                      key={item.href}
-                    >
-                      {item.title}
-                    </NavigationMenuLink>
-                  ))}
-                </ul>
-              )}
-            </NavigationMenuItem>
           </>
         )}
         {!user &&
