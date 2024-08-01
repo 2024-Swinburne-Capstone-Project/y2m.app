@@ -1,3 +1,10 @@
+## [1.20.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.19.1...v1.20.0) (2024-08-01)
+
+
+### Features
+
+* :art: Use the same Get in Touch form in EnterpiseSolutions and GetInTouch pages ([7b70c12](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/7b70c12dfa0221912c811eed136f64598b51cca0))
+
 ## [1.19.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.19.0...v1.19.1) (2024-07-29)
 
 
