@@ -11,15 +11,17 @@ export default async function ApplicationNav() {
   return (
     <div className="border-b">
       <div className="mx-auto max-w-7xl">
-        <div className="ml-auto flex h-16 items-center space-x-4 px-4">
+        <div className="ml-auto flex h-16 items-center px-4">
           <Link href="/" className="hidden items-center space-x-2 md:flex">
             <Image src={'/y2m-logo.png'} alt="You2Mentor" width={80} height={80} className="mr-5" />
           </Link>
           <MainNav />
           <MobileNav />
-          <SearchBar />
-          <ModeToggle />
-          <UserButton />
+          <div className="ml-auto flex space-x-4">
+            <SearchBar />
+            <ModeToggle />
+            <UserButton />
+          </div>
         </div>
       </div>
     </div>
