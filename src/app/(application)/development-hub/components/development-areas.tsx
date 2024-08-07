@@ -6,36 +6,27 @@ import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 import { developmentHubConfig } from '@/config/application/development-hub';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { DevelopmentArea } from '@/types';
-import { useCreateDevelopmentArea } from '@/hooks/useDevelopmentHub';
+import { CreateDevelopmentAreaData, DevelopmentArea } from '@/types';
 
 interface DevelopmentAreasProps {
   areas: DevelopmentArea[];
+  setAreas: React.Dispatch<React.SetStateAction<DevelopmentArea[]>>;
 }
 
-const DevelopmentAreas: React.FC<DevelopmentAreasProps> = ({ areas: initialAreas }) => {
-  const [areas, setAreas] = useState<DevelopmentArea[]>(initialAreas);
-  const [newArea, setNewArea] = useState('');
-  const createArea = useCreateDevelopmentArea();
+const DevelopmentAreas: React.FC<DevelopmentAreasProps> = ({ areas, setAreas }) => {
+  const [newAreaName, setNewAreaName] = useState('');
 
   const handleAddArea = () => {
-    if (newArea.trim()) {
-      createArea.mutate(
-        { name: newArea.trim(), userId: 'current-user-id' },
-        {
-          onSuccess: (newArea) => {
-            setAreas([...areas, newArea]);
-            setNewArea('');
-          },
-        }
-      );
+    if (newAreaName.trim()) {
+      const newArea: CreateDevelopmentAreaData = {
+        name: newAreaName,
+      };
+      setAreas((prevAreas) => [...prevAreas, newArea as DevelopmentArea]);
     }
   };
 
   const handleRemoveArea = (id: string) => {
-    // In a real application, you would make an API call here to remove the area
-    const newAreas = areas.filter((area) => area.id.toString() !== id);
-    setAreas(newAreas);
+    setAreas((prevAreas) => prevAreas.filter((area) => area.id.toString() !== id));
   };
 
   return (
@@ -72,8 +63,8 @@ const DevelopmentAreas: React.FC<DevelopmentAreasProps> = ({ areas: initialAreas
         </div>
         <div className="flex gap-2">
           <Input
-            value={newArea}
-            onChange={(e) => setNewArea(e.target.value)}
+            value={newAreaName}
+            onChange={(e) => setNewAreaName(e.target.value)}
             placeholder={developmentHubConfig.developmentAreas.placeholder}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {

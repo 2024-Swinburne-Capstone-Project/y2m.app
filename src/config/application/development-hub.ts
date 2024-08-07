@@ -15,7 +15,7 @@ export const developmentHubConfig: DevelopmentHubConfig = {
     NOT_STARTED: 'Not started',
   },
   graphicalTimeline: {
-    title: 'Graphical development-hub of milestones and actions with where you are now indication',
+    title: 'Milestones and actions timeline',
   },
   myBadges: {
     title: 'My Badges',

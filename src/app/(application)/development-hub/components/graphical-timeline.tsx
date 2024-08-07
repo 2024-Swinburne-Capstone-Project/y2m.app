@@ -9,34 +9,53 @@ import {
   ResponsiveContainer,
   TooltipProps,
   CartesianGrid,
+  Legend,
 } from 'recharts';
 import { ChartContainer } from '@/components/ui/chart';
 import { developmentHubConfig } from '@/config/application/development-hub';
-import { MilestoneWithSteps } from '@/types';
+import { Milestone, MilestoneStep } from '@/types';
 
 interface MilestoneTooltipProps extends TooltipProps<number, string> {
   active?: boolean;
-  payload?: Array<{ payload: MilestoneWithSteps }>;
+  payload?: Array<{ name: string; value: number; fill: string }>;
 }
 
 const chartConfig = {
-  duration: {
-    label: 'Duration',
+  notStarted: {
+    label: 'Not Started',
     theme: {
-      light: '#818cf8',
-      dark: '#6366f1',
+      light: '#EF4444',
+      dark: '#DC2626',
+    },
+  },
+  inProgress: {
+    label: 'In Progress',
+    theme: {
+      light: '#F59E0B',
+      dark: '#D97706',
+    },
+  },
+  completed: {
+    label: 'Completed',
+    theme: {
+      light: '#10B981',
+      dark: '#059669',
     },
   },
 };
 
 const MilestoneTooltip: React.FC<MilestoneTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length) {
-    const { title, status, steps } = payload[0].payload;
+    const totalSteps = payload.reduce((sum, entry) => sum + entry.value, 0);
     return (
       <div className="rounded-md border border-gray-200 bg-white p-3 shadow-lg">
-        <p className="text-lg font-bold">{title}</p>
-        <p>Status: {status}</p>
-        <p>Steps: {steps.length}</p>
+        <p className="text-lg font-bold text-gray-800">{payload[0].payload.name}</p>
+        <p className="text-gray-600">Total Steps: {totalSteps}</p>
+        {payload.map((entry, index) => (
+          <p key={index} className="text-gray-600" style={{ color: entry.fill }}>
+            {entry.name}: {entry.value}
+          </p>
+        ))}
       </div>
     );
   }
@@ -44,16 +63,20 @@ const MilestoneTooltip: React.FC<MilestoneTooltipProps> = ({ active, payload }) 
 };
 
 interface GraphicalTimelineProps {
-  milestones: MilestoneWithSteps[];
+  milestones: Milestone[];
+  milestoneSteps: MilestoneStep[];
 }
 
-const GraphicalTimeline: React.FC<GraphicalTimelineProps> = ({ milestones }) => {
-  const chartData = milestones.map((milestone, index) => ({
-    name: milestone.title,
-    start: index,
-    duration: 1,
-    ...milestone,
-  }));
+const GraphicalTimeline: React.FC<GraphicalTimelineProps> = ({ milestones, milestoneSteps }) => {
+  const chartData = milestones.map((milestone) => {
+    const steps = milestoneSteps.filter((step) => step.milestoneId === Number(milestone.id));
+    return {
+      name: milestone.title,
+      notStarted: steps.filter((step) => step.status === 'NOT_STARTED').length,
+      inProgress: steps.filter((step) => step.status === 'IN_PROGRESS').length,
+      completed: steps.filter((step) => step.status === 'COMPLETED').length,
+    };
+  });
 
   return (
     <Card className="mt-8">
@@ -63,12 +86,34 @@ const GraphicalTimeline: React.FC<GraphicalTimelineProps> = ({ milestones }) => 
       <CardContent>
         <ChartContainer config={chartConfig}>
           <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={chartData} margin={{ top: 20, right: 50, left: 5, bottom: 80 }}>
+            <BarChart
+              data={chartData}
+              layout="vertical"
+              margin={{ top: 20, right: 80, left: 0, bottom: 5 }}
+            >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" type="category" angle={-45} textAnchor="end" interval={0} />
-              <YAxis type="number" />
+              <XAxis type="number" />
+              <YAxis dataKey="name" type="category" width={120} />
               <Tooltip content={<MilestoneTooltip />} />
-              <Bar dataKey="duration" fill="var(--color-duration)" />
+              <Legend />
+              <Bar
+                dataKey="notStarted"
+                stackId="a"
+                fill={chartConfig.notStarted.theme.light}
+                name="Not Started"
+              />
+              <Bar
+                dataKey="inProgress"
+                stackId="a"
+                fill={chartConfig.inProgress.theme.light}
+                name="In Progress"
+              />
+              <Bar
+                dataKey="completed"
+                stackId="a"
+                fill={chartConfig.completed.theme.light}
+                name="Completed"
+              />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>

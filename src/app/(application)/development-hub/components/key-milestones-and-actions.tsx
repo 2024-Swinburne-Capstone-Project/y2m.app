@@ -9,69 +9,178 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { developmentHubConfig } from '@/config/application/development-hub';
-import { MilestoneWithSteps } from '@/types';
-import { CheckCircle2, Circle, Clock } from 'lucide-react';
+import { CheckCircle2, Circle, Clock, MoreVertical, Trash2 } from 'lucide-react';
+import { Milestone, MilestoneStep } from '@/types';
+import AddMilestone from './add-milestone';
+import AddMilestoneStep from './add-milestone-step';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
-const statusConfig = {
+type MilestoneStatus = 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
+
+const STATUS_CONFIG = {
   COMPLETED: { color: 'bg-green-500', icon: CheckCircle2 },
   IN_PROGRESS: { color: 'bg-blue-500', icon: Clock },
   NOT_STARTED: { color: 'bg-gray-300', icon: Circle },
 };
 
-const StatusIcon: React.FC<{ status: keyof typeof statusConfig }> = ({ status }) => {
-  const { icon: Icon } = statusConfig[status];
-  return <Icon className={`mr-2 size-4`} />;
+const StatusIcon: React.FC<{ status: MilestoneStatus }> = ({ status }) => {
+  const Icon = STATUS_CONFIG[status].icon;
+  return <Icon className="mr-2 size-4" />;
 };
 
-const StepItem: React.FC<{ step: MilestoneWithSteps['steps'][number] }> = ({ step }) => (
-  <div className="flex items-center py-1">
-    <StatusIcon status={step.status as keyof typeof statusConfig} />
-    <span className={step.status === 'COMPLETED' ? 'line-through' : ''}>{step.name}</span>
-  </div>
-);
-
-const MilestoneItem: React.FC<{ milestone: MilestoneWithSteps }> = ({ milestone }) => (
-  <AccordionItem value={milestone.id.toString()}>
-    <AccordionTrigger className="hover:no-underline">
-      <div className="flex w-full items-center justify-between">
-        <span>{milestone.title}</span>
-        <Badge variant={milestone.status === 'IN_PROGRESS' ? 'default' : 'secondary'}>
-          {milestone.status}
-        </Badge>
-      </div>
-    </AccordionTrigger>
-    <AccordionContent>
-      <div className="space-y-2">
-        {milestone.steps.map((step) => (
-          <StepItem key={step.id.toString()} step={step} />
-        ))}
-      </div>
-    </AccordionContent>
-  </AccordionItem>
-);
-
 interface KeyMilestonesAndActionsProps {
-  milestonesWithSteps: MilestoneWithSteps[];
+  milestones: Milestone[];
+  milestoneSteps: MilestoneStep[];
+  setMilestones: React.Dispatch<React.SetStateAction<Milestone[]>>;
+  setMilestoneSteps: React.Dispatch<React.SetStateAction<MilestoneStep[]>>;
 }
 
 const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
-  milestonesWithSteps,
+  milestones,
+  milestoneSteps,
+  setMilestones,
+  setMilestoneSteps,
 }) => {
+  const updateMilestone = (milestoneId: number, updates: Partial<Milestone>) => {
+    setMilestones((prevMilestones) =>
+      prevMilestones.map((milestone) =>
+        Number(milestone.id) === milestoneId ? { ...milestone, ...updates } : milestone
+      )
+    );
+  };
+
+  const updateStep = (stepId: number, updates: Partial<MilestoneStep>) => {
+    setMilestoneSteps((prevSteps) =>
+      prevSteps.map((step) => (Number(step.id) === stepId ? { ...step, ...updates } : step))
+    );
+  };
+
+  const removeMilestone = (milestoneId: number) => {
+    setMilestones((prevMilestones) =>
+      prevMilestones.filter((milestone) => Number(milestone.id) !== milestoneId)
+    );
+    setMilestoneSteps((prevSteps) => prevSteps.filter((step) => step.milestoneId !== milestoneId));
+  };
+
+  const removeStep = (stepId: number) => {
+    setMilestoneSteps((prevSteps) => prevSteps.filter((step) => Number(step.id) !== stepId));
+  };
+
   return (
     <Card className="my-8">
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>{developmentHubConfig.keyMilestones.title}</CardTitle>
+        <AddMilestone setMilestones={setMilestones} />
       </CardHeader>
       <CardContent>
-        <Accordion type="single" collapsible className="w-full">
-          {milestonesWithSteps.map((milestone) => (
-            <MilestoneItem key={milestone.id.toString()} milestone={milestone} />
+        <Accordion type="single" collapsible className="w-full space-y-4">
+          {milestones.map((milestone) => (
+            <AccordionItem
+              key={`milestone-${milestone.id}`}
+              value={milestone.id?.toString()}
+              className="overflow-hidden rounded-lg border"
+            >
+              <AccordionTrigger className="px-4 py-3 hover:bg-accent hover:no-underline">
+                <div className="flex w-full items-center justify-between">
+                  <span className="font-medium">{milestone.title}</span>
+                  <div className="flex items-center space-x-2">
+                    <Badge variant={milestone.status === 'IN_PROGRESS' ? 'default' : 'secondary'}>
+                      {milestone.status}
+                    </Badge>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="sm">
+                          <MoreVertical className="size-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => removeMilestone(Number(milestone.id))}>
+                          <Trash2 className="mr-2 size-4" />
+                          Remove Milestone
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 py-3">
+                <div className="space-y-3">
+                  {milestoneSteps
+                    .filter((step) => step.milestoneId === Number(milestone.id))
+                    .map((step) => (
+                      <div
+                        key={`step-${step.id}`}
+                        className="flex items-center justify-between rounded-md px-3 py-2 text-accent-foreground transition-colors duration-200"
+                      >
+                        <div className="flex items-center">
+                          <StatusIcon status={step.status} />
+                          <span className={step.status === 'COMPLETED' ? 'line-through' : ''}>
+                            {step.name}
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <select
+                            value={step.status}
+                            onChange={(e) =>
+                              updateStep(Number(step.id), {
+                                status: e.target.value as MilestoneStatus,
+                              })
+                            }
+                            className="rounded border border-gray-300 p-1 text-sm"
+                          >
+                            <option value="NOT_STARTED">Not Started</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="COMPLETED">Completed</option>
+                          </select>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => removeStep(Number(step.id))}
+                                >
+                                  <Trash2 className="size-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Remove Step</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+                <div className="mt-4 flex items-center justify-between">
+                  <select
+                    value={milestone.status}
+                    onChange={(e) =>
+                      updateMilestone(Number(milestone.id), {
+                        status: e.target.value as MilestoneStatus,
+                      })
+                    }
+                    className="rounded border border-gray-300 p-2 text-sm"
+                  >
+                    <option value="NOT_STARTED">Not Started</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="COMPLETED">Completed</option>
+                  </select>
+                  <AddMilestoneStep
+                    milestoneId={Number(milestone.id)}
+                    setMilestoneSteps={setMilestoneSteps}
+                  ></AddMilestoneStep>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
           ))}
         </Accordion>
-        <div className="mt-4 flex justify-end space-x-2">
-          <Button variant="outline">{developmentHubConfig.keyMilestones.exportButton}</Button>
-          <Button>{developmentHubConfig.keyMilestones.addButton}</Button>
-        </div>
       </CardContent>
     </Card>
   );

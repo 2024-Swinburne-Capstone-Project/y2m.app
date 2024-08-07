@@ -1,12 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
-import {
-  CreateDevelopmentAreaData,
-  DevelopmentArea,
-  DevelopmentHubData,
-  MilestoneProgress,
-  MilestoneWithSteps,
-} from '@/types';
-import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import { DevelopmentHubData } from '@/types';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const fetchDevelopmentHubData = async (userId: string): Promise<DevelopmentHubData> => {
   const response = await fetch('/api/development-hub', {
@@ -32,58 +26,36 @@ const updateDevelopmentHubData = async (
   return response.json();
 };
 
-const calculateMilestoneProgress = (milestones: MilestoneWithSteps[]): MilestoneProgress => {
-  return milestones.reduce(
-    (acc, milestone) => {
-      acc[milestone.status as keyof MilestoneProgress]++;
-      return acc;
-    },
-    { COMPLETED: 0, IN_PROGRESS: 0, NOT_STARTED: 0 }
-  );
-};
-
-export const useCreateDevelopmentArea = () =>
-  useMutation<DevelopmentArea, Error, CreateDevelopmentAreaData>({
-    mutationFn: (data) =>
-      fetch('/api/development-hub', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'developmentArea', data }),
-      }).then((res) => res.json()),
-  });
-
 export const useDevelopmentHub = () => {
   const { user } = useUser();
   const queryClient = useQueryClient();
 
+  const userId = user?.sub ?? '';
+  const queryKey = ['developmentHub', userId];
   const { data, isLoading, error } = useQuery<DevelopmentHubData, Error>({
-    queryKey: ['developmentHub', user?.sub],
-    queryFn: () => fetchDevelopmentHubData(user?.sub || ''),
-    enabled: !!user?.sub,
+    queryKey: ['developmentHub', userId],
+    queryFn: () => fetchDevelopmentHubData(userId),
+    enabled: !!userId,
   });
 
   const updateMutation = useMutation<DevelopmentHubData, Error, Partial<DevelopmentHubData>>({
-    mutationFn: (updateData) => updateDevelopmentHubData(user?.sub || '', updateData),
+    mutationFn: (updateData) => updateDevelopmentHubData(userId, updateData),
     onSuccess: (newData) => {
-      queryClient.setQueryData(['developmentHub', user?.sub], newData);
+      queryClient.invalidateQueries({ queryKey });
+      queryClient.setQueryData(queryKey, newData);
     },
   });
 
-  const milestonesWithSteps =
-    data?.milestones.map((milestone) => ({
-      ...milestone,
-      steps: data.milestoneSteps.filter((step) => step.milestoneId === Number(milestone.id)),
-    })) || [];
-
-  const milestoneProgress = calculateMilestoneProgress(milestonesWithSteps);
+  const saveData = async (updateData: Partial<DevelopmentHubData>) => {
+    await updateMutation.mutateAsync(updateData);
+  };
 
   return {
-    milestonesWithSteps,
-    developmentAreas: data?.developmentAreas || [],
-    badges: data?.badges || [],
-    milestoneProgress,
+    data,
     isLoading,
     error,
-    updateDevelopmentHub: updateMutation.mutateAsync,
+    saveData,
+    isSaving: updateMutation.isPending,
+    saveError: updateMutation.error,
   };
 };
