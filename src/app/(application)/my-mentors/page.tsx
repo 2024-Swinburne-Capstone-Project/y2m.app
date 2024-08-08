@@ -20,7 +20,7 @@ export default function DevelopmentHubPage() {
       <div className="mx-auto mt-10 min-h-screen max-w-7xl flex-col items-center bg-background">
         {mentors.length === 0 && (
           <div className="rounded-md bg-primary p-4 text-white shadow-md">
-            You don't have any mentors yet. Add new mentors to get started.
+            You dont have any mentors yet. Add new mentors to get started.
           </div>
         )}
         {mentors.length > 0 && JSON.stringify(mentors)}
