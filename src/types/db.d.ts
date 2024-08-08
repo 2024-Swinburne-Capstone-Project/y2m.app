@@ -21,7 +21,7 @@ export interface _PrismaMigrations {
 export interface User {
   id: string;
   name: string;
-  email: string;
+  email: string | null;
   aboutMe: string | null;
   linkedInProfileLink: string | null;
 }
@@ -116,6 +116,13 @@ export interface GetInTouch {
   receivedDate: Timestamp | null;
 }
 
+export interface MentorMentee {
+  mentorId: string;
+  menteeId: string;
+  createdAt: Generated<Timestamp>;
+  updatedAt: Timestamp;
+}
+
 export interface DB {
   User: User;
   Video: Video;
@@ -129,4 +136,5 @@ export interface DB {
   Education: Education;
   Experience: Experience;
   Skill: Skill;
+  MentorMentee: MentorMentee;
 }
