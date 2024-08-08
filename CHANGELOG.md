@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.22.0...v1.22.1) (2024-08-08)
+
+
+### Miscellaneous Chores
+
+* linting ([7189618](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/718961834286ebd90321e38e0a62bf26bd69478f))
+
 ## [1.22.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.21.0...v1.22.0) (2024-08-08)
 
 
