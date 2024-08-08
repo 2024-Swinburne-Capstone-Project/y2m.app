@@ -5,6 +5,10 @@ export * from './development-hub/development-area';
 export * from './development-hub/milestone';
 export * from './development-hub/milestone-step';
 export * from './development-hub/development-hub';
+export * from './profile/education';
+export * from './profile/experience';
+export * from './profile/userProfile';
+export * from './profile/skill';
 export * from './api';
 
 type MarkupElement = {
@@ -271,11 +275,25 @@ export interface NotFoundConfig {
   buttonHref: string;
 }
 
+export interface UserButton {
+  profileButton: string;
+  signOutButton: string;
+  loginButton: string;
+  href: string;
+}
+
 export interface ProfileConfig {
-  form: ProfileForm;
+  profileForm: ProfileForm;
+  educationForm: EducationForm;
+  educationTable: Table;
+  experienceForm: ExperienceForm;
+  experienceTable: Table;
 }
 
 export interface ProfileForm {
+  header: {
+    text: string;
+  };
   profileImage: {
     label: string;
     path: string;
@@ -311,4 +329,92 @@ export interface ProfileForm {
   submitButton: {
     text: string;
   };
+  successMessage: {
+    text: string;
+  };
+}
+
+export interface EducationForm {
+  header: {
+    text: string;
+  };
+  institution: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  degree: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  fieldOfStudy: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  onGoing: {
+    label: string;
+  };
+  startDate: {
+    label: string;
+    errorMessage: string;
+  };
+  endDate: {
+    label: string;
+    errorMessage: string;
+  };
+  grade: {
+    label: string;
+    placeholder: string;
+  };
+  submitButton: {
+    text: string;
+  };
+  successMessage: {
+    text: string;
+  };
+}
+
+export interface ExperienceForm {
+  header: {
+    text: string;
+  };
+  position: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  company: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  location: {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+  };
+  current: {
+    label: string;
+  };
+  startDate: {
+    label: string;
+    errorMessage: string;
+  };
+  endDate: {
+    label: string;
+    errorMessage: string;
+  };
+  submitButton: {
+    text: string;
+  };
+  successMessage: {
+    text: string;
+  };
+}
+
+export interface Table {
+  caption: string;
+  headers: string[];
 }

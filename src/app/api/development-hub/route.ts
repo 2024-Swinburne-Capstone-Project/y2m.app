@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { Badge, DevelopmentArea, Milestone, MilestoneStep } from '@/types';
 
 export async function GET(req: NextRequest) {
   const userId = req.headers.get('X-User-Id');
@@ -11,10 +12,11 @@ export async function GET(req: NextRequest) {
     const [milestones, milestoneSteps, developmentAreas, badges] = await Promise.all([
       db.selectFrom('Milestone').selectAll().where('userId', '=', userId).execute(),
       db
-        .selectFrom('MilestoneStep')
-        .selectAll()
-        .innerJoin('Milestone', 'Milestone.id', 'MilestoneStep.milestoneId')
-        .where('Milestone.userId', '=', userId)
+        .selectFrom('MilestoneStep as ms')
+        .innerJoin('Milestone as m', 'm.id', 'ms.milestoneId')
+        .selectAll('ms')
+        .select(['m.title as milestoneTitle'])
+        .where('m.userId', '=', userId)
         .execute(),
       db.selectFrom('DevelopmentArea').selectAll().where('userId', '=', userId).execute(),
       db.selectFrom('Badge').selectAll().where('userId', '=', userId).execute(),
@@ -27,117 +29,222 @@ export async function GET(req: NextRequest) {
       badges,
     });
   } catch (error) {
-    console.error('Error fetching development hub data:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
 export async function PUT(req: NextRequest) {
-  const userId = req.headers.get('X-User-Id');
-  if (!userId) {
-    return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
-  }
-
   try {
-    const data = await req.json();
-    const { milestones, developmentAreas, badges } = data;
+    const userId = req.headers.get('X-User-Id');
+    if (!userId) {
+      return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
+    }
+
+    const {
+      milestones,
+      milestoneSteps,
+      developmentAreas,
+      badges,
+    }: {
+      milestones: Partial<Milestone>[];
+      milestoneSteps: Partial<MilestoneStep>[];
+      developmentAreas: Partial<DevelopmentArea>[];
+      badges: Partial<Badge>[];
+    } = await req.json();
 
     await db.transaction().execute(async (trx) => {
-      // Update milestones
-      for (const milestone of milestones) {
-        await trx
-          .updateTable('Milestone')
-          .set(milestone)
-          .where('id', '=', milestone.id)
+      if (milestoneSteps) {
+        const existingSteps = await trx
+          .selectFrom('MilestoneStep')
+          .select('MilestoneStep.id as id')
+          .innerJoin('Milestone', 'Milestone.id', 'MilestoneStep.milestoneId')
+          .where('Milestone.userId', '=', userId)
+          .execute();
+
+        const existingStepIds = new Set(existingSteps.map((s) => s.id));
+
+        for (const step of milestoneSteps) {
+          if (step.id && existingStepIds.has(Number(step.id))) {
+            await trx
+              .updateTable('MilestoneStep')
+              .set({
+                name: step.name,
+                status: step.status,
+              })
+              .where('id', '=', Number(step.id))
+              .execute();
+            existingStepIds.delete(Number(step.id));
+          } else if (step.milestoneId && step.name && step.status) {
+            await trx
+              .insertInto('MilestoneStep')
+              .values({
+                milestoneId: step.milestoneId,
+                name: step.name,
+                status: step.status,
+              })
+              .execute();
+          }
+        }
+
+        for (const idToRemove of Array.from(existingStepIds)) {
+          await trx.deleteFrom('MilestoneStep').where('id', '=', idToRemove).execute();
+        }
+      }
+
+      if (milestones) {
+        const existingMilestones = await trx
+          .selectFrom('Milestone')
+          .select('id')
           .where('userId', '=', userId)
           .execute();
 
-        // Update milestone steps
-        for (const step of milestone.steps) {
+        const existingMilestoneIds = new Set(existingMilestones.map((m) => m.id));
+
+        for (const milestone of milestones) {
+          if (milestone.id && existingMilestoneIds.has(Number(milestone.id))) {
+            await trx
+              .updateTable('Milestone')
+              .set({
+                title: milestone.title,
+                status: milestone.status,
+                startDate: milestone.startDate?.toString(),
+                endDate: milestone.endDate?.toString(),
+              })
+              .where('id', '=', Number(milestone.id))
+              .where('userId', '=', userId)
+              .execute();
+            existingMilestoneIds.delete(Number(milestone.id));
+          } else if (
+            milestone.title &&
+            milestone.status &&
+            milestone.startDate &&
+            milestone.endDate
+          ) {
+            await trx
+              .insertInto('Milestone')
+              .values({
+                userId,
+                title: milestone.title,
+                status: milestone.status,
+                startDate: milestone.startDate?.toString(),
+                endDate: milestone.endDate?.toString(),
+              })
+              .execute();
+          }
+        }
+
+        for (const idToRemove of Array.from(existingMilestoneIds)) {
           await trx
-            .updateTable('MilestoneStep')
-            .set(step)
-            .where('id', '=', step.id)
-            .where('milestoneId', '=', milestone.id)
+            .deleteFrom('Milestone')
+            .where('id', '=', idToRemove)
+            .where('userId', '=', userId)
             .execute();
         }
       }
 
-      // Update development areas
-      for (const area of developmentAreas) {
-        await trx
-          .updateTable('DevelopmentArea')
-          .set(area)
-          .where('id', '=', area.id)
+      if (developmentAreas) {
+        const existingAreas = await trx
+          .selectFrom('DevelopmentArea')
+          .select('id')
           .where('userId', '=', userId)
           .execute();
+
+        const existingAreaIds = new Set(existingAreas.map((a) => a.id));
+
+        for (const area of developmentAreas) {
+          if (area.id && existingAreaIds.has(Number(area.id))) {
+            await trx
+              .updateTable('DevelopmentArea')
+              .set({
+                name: area.name,
+              })
+              .where('id', '=', Number(area.id))
+              .where('userId', '=', userId)
+              .execute();
+            existingAreaIds.delete(Number(area.id));
+          } else if (area.name) {
+            await trx
+              .insertInto('DevelopmentArea')
+              .values({
+                userId,
+                name: area.name,
+              })
+              .execute();
+          }
+        }
+
+        for (const idToRemove of Array.from(existingAreaIds)) {
+          await trx
+            .deleteFrom('DevelopmentArea')
+            .where('id', '=', idToRemove)
+            .where('userId', '=', userId)
+            .execute();
+        }
       }
 
-      // Update badges
-      for (const badge of badges) {
-        await trx
-          .updateTable('Badge')
-          .set(badge)
-          .where('id', '=', badge.id)
+      if (badges) {
+        const existingBadges = await trx
+          .selectFrom('Badge')
+          .select('id')
           .where('userId', '=', userId)
           .execute();
+
+        const existingBadgeIds = new Set(existingBadges.map((b) => b.id));
+
+        for (const badge of badges) {
+          if (badge.id && existingBadgeIds.has(Number(badge.id))) {
+            await trx
+              .updateTable('Badge')
+              .set({
+                name: badge.name,
+                icon: badge.icon,
+                senderName: badge.senderName,
+                receivedDate: badge.receivedDate?.toString(),
+                message: badge.message,
+              })
+              .where('id', '=', Number(badge.id))
+              .where('userId', '=', userId)
+              .execute();
+            existingBadgeIds.delete(Number(badge.id));
+          } else if (
+            badge.name &&
+            badge.icon &&
+            badge.senderName &&
+            badge.receivedDate &&
+            badge.message
+          ) {
+            await trx
+              .insertInto('Badge')
+              .values({
+                userId,
+                name: badge.name,
+                icon: badge.icon,
+                senderName: badge.senderName,
+                receivedDate: badge.receivedDate?.toString(),
+                message: badge.message,
+              })
+              .execute();
+          }
+        }
+
+        for (const idToRemove of Array.from(existingBadgeIds)) {
+          await trx
+            .deleteFrom('Badge')
+            .where('id', '=', idToRemove)
+            .where('userId', '=', userId)
+            .execute();
+        }
       }
     });
 
     return NextResponse.json({ message: 'Development hub updated successfully' });
   } catch (error) {
-    console.error('Error updating development hub:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
-}
-
-export async function POST(req: NextRequest) {
-  const userId = req.headers.get('X-User-Id');
-  if (!userId) {
-    return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
-  }
-
-  const body = await req.json();
-  const { type, data } = body;
-
-  try {
-    let result;
-    switch (type) {
-      case 'milestone':
-        result = await db
-          .insertInto('Milestone')
-          .values({ ...data, userId })
-          .returningAll()
-          .executeTakeFirstOrThrow();
-        break;
-      case 'milestoneStep':
-        result = await db
-          .insertInto('MilestoneStep')
-          .values(data)
-          .returningAll()
-          .executeTakeFirstOrThrow();
-        break;
-      case 'developmentArea':
-        result = await db
-          .insertInto('DevelopmentArea')
-          .values({ ...data, userId })
-          .returningAll()
-          .executeTakeFirstOrThrow();
-        break;
-      case 'badge':
-        result = await db
-          .insertInto('Badge')
-          .values({ ...data, userId })
-          .returningAll()
-          .executeTakeFirstOrThrow();
-        break;
-      default:
-        return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
-    }
-
-    return NextResponse.json(result);
-  } catch (error) {
-    console.error('Error creating item:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: 'Internal Server Error',
+        details: error instanceof Error ? error.message : String(error),
+      },
+      { status: 500 }
+    );
   }
 }

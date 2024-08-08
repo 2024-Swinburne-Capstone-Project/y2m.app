@@ -78,7 +78,7 @@ export function MainNav() {
                 >
                   {marketingNavItems.map((item) => (
                     <NavigationMenuLink
-                      className={`w-initial justify-start ${getNavLinkClassName(item.href)}`}
+                      className={`childNavItem ${getNavLinkClassName(item.href)}`}
                       onClick={() => {
                         setIsDropdownOpen(false);
                         buttonRef.current?.blur();

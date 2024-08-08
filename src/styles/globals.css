@@ -49,6 +49,12 @@
   }
 }
 
+.childNavItem {
+  width: 100%;
+  text-wrap: nowrap;
+  justify-content: start;
+}
+
 @layer base {
   * {
     @apply border-border;
