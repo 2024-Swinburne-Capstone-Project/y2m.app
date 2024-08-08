@@ -1,6 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { DevelopmentHubData } from '@/types';
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const fetchDevelopmentHubData = async (userId: string): Promise<DevelopmentHubData> => {
   const response = await fetch('/api/development-hub', {

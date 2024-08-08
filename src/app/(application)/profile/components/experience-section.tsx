@@ -11,7 +11,11 @@ interface ExperienceSectionProps {
   disabled: boolean;
 }
 
-export default function ExperienceSection({ experience, onUpdate, disabled }: ExperienceSectionProps) {
+export default function ExperienceSection({
+  experience,
+  onUpdate,
+  disabled,
+}: ExperienceSectionProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const addExperience = (newExperience: Experience) => {
