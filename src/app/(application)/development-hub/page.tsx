@@ -42,7 +42,7 @@ export default function DevelopmentHubPage() {
 
   useEffect(() => {
     if (milestones.length > prevMilestonesLengthRef.current) {
-      handleSaveMilestone().then(() => {
+      handleSave().then(() => {
         prevMilestonesLengthRef.current = milestones.length;
       });
     }
@@ -56,19 +56,6 @@ export default function DevelopmentHubPage() {
       toast({
         title: 'Error',
         description: 'Failed to save changes. Please try again.',
-        variant: 'destructive',
-      });
-    }
-  };
-
-  const handleSaveMilestone = async () => {
-    try {
-      await saveData({ milestones });
-      toast({ title: 'Success', description: 'Your milestone change has been saved.' });
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to save milestone. Please try again.',
         variant: 'destructive',
       });
     }
