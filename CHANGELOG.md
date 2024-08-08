@@ -1,3 +1,10 @@
+## [1.21.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.20.0...v1.21.0) (2024-08-08)
+
+
+### Features
+
+* :sparkles: Initial Profile Page ([a556f3e](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/a556f3ed7729b6ce4f4c00793d3a4de1db4d20dd))
+
 ## [1.20.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.19.1...v1.20.0) (2024-08-01)
 
 
