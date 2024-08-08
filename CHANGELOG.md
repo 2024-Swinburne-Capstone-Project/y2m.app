@@ -1,3 +1,11 @@
+## [1.22.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.21.0...v1.22.0) (2024-08-08)
+
+
+### Features
+
+* Add My Mentors page and API endpoints ([758e063](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/758e063bdb62a2583932f49cf104f0d577a76016))
+* Add user creation API endpoint ([f226ec1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/f226ec18d7332dacc06548276c4a80c316660145))
+
 ## [1.21.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.20.0...v1.21.0) (2024-08-08)
 
 
