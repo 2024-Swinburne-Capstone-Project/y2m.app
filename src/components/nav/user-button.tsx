@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { Button } from '../ui/button';
+import { userButtonConfig } from '@/config/common/components/user-button';
 
 export default function UserButton() {
   const { user, error, isLoading } = useUser();
@@ -15,7 +16,7 @@ export default function UserButton() {
   if (!user)
     return (
       <Button asChild>
-        <a href="/api/auth/login">Login</a>
+        <a href={userButtonConfig.href}>{userButtonConfig.loginButton}</a>
       </Button>
     );
 
@@ -37,10 +38,10 @@ export default function UserButton() {
           </div>
           <div className="flex gap-2.5">
             <Button asChild>
-              <a href="/profile">My Profile</a>
+              <a href="/profile">{userButtonConfig.profileButton}</a>
             </Button>
             <Button asChild>
-              <a href="/api/auth/logout">Sign out</a>
+              <a href="/api/auth/logout">{userButtonConfig.signOutButton}</a>
             </Button>
           </div>
         </div>

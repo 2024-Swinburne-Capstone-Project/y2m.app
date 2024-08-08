@@ -5,6 +5,10 @@ export * from './development-hub/development-area';
 export * from './development-hub/milestone';
 export * from './development-hub/milestone-step';
 export * from './development-hub/development-hub';
+export * from './profile/education';
+export * from './profile/experience';
+export * from './profile/userProfile';
+export * from './profile/skill';
 export * from './api';
 
 type MarkupElement = {
@@ -269,6 +273,13 @@ export interface NotFoundConfig {
   imageAlt: string;
   buttonText: string;
   buttonHref: string;
+}
+
+export interface UserButton {
+  profileButton: string;
+  signOutButton: string;
+  loginButton: string;
+  href: string;
 }
 
 export interface ProfileConfig {

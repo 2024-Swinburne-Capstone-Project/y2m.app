@@ -23,7 +23,7 @@ const MyBadges: React.FC<MyBadgesProps> = ({ badges, setBadges }) => {
   };
 
   return (
-    <Card className="mt-8">
+    <Card className="my-8">
       <CardHeader>
         <CardTitle>{developmentHubConfig.myBadges.title}</CardTitle>
       </CardHeader>

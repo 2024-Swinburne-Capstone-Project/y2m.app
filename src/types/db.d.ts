@@ -22,6 +22,37 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  aboutMe: string | null;
+  linkedInProfileLink: string | null;
+}
+
+export interface Education {
+  id: Generated<number>;
+  userId: string;
+  institution: string;
+  degree: string;
+  fieldOfStudy: string;
+  startDate: Timestamp;
+  endDate: Timestamp | null;
+  grade: string | null;
+  onGoing: boolean;
+}
+
+export interface Experience {
+  id: Generated<number>;
+  userId: string;
+  position: string;
+  company: string;
+  location: string;
+  startDate: Timestamp;
+  endDate: Timestamp | null;
+  current: boolean;
+}
+
+export interface Skill {
+  id: Generated<number>;
+  userId: string;
+  name: string;
 }
 
 export interface BlogPost {
@@ -95,4 +126,7 @@ export interface DB {
   DevelopmentArea: DevelopmentArea;
   Badge: Badge;
   GetInTouch: GetInTouch;
+  Education: Education;
+  Experience: Experience;
+  Skill: Skill;
 }

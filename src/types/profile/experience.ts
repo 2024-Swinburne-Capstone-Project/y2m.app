@@ -1,8 +1,8 @@
-export interface Experience {
-  Position: string;
-  Company: string;
-  Location: string;
-  Current: boolean;
-  StartDate: string;
-  EndDate: string;
-}
+import { Experience as DBExperience } from '../db';
+
+export interface Experience extends DBExperience {}
+
+export type CreateExperienceData = Omit<Experience, 'id' | 'userId' | 'startDate' | 'endDate'> & {
+  startDate: Date;
+  endDate: Date | undefined;
+};

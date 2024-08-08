@@ -74,36 +74,42 @@ export default function DevelopmentHubPage() {
     }
   };
 
-  if (isLoading) return <LoadingSkeleton count={1} />;
-  if (error) return <ErrorAlert message={error.message} />;
-
   return (
     <AuthenticatedRoute>
       <div className="mx-auto mt-10 min-h-screen max-w-7xl flex-col items-center bg-background">
-        <MainSection>
-          <MainSectionBody className="space-y-6">
-            <Title>{developmentHubConfig.heroSection.title.text}</Title>
-            <Image
-              src={developmentHubConfig.heroSection.imagePath}
-              alt={developmentHubConfig.heroSection.title.text}
-              width={300}
-              height={300}
-              className="dark:rounded-full dark:bg-foreground"
+        {isLoading ? (
+          <LoadingSkeleton count={4} />
+        ) : error ? (
+          <ErrorAlert message={error.message} />
+        ) : (
+          <>
+            <MainSection>
+              <MainSectionBody className="space-y-6">
+                <Title>{developmentHubConfig.heroSection.title.text}</Title>
+                <Image
+                  src={developmentHubConfig.heroSection.imagePath}
+                  alt={developmentHubConfig.heroSection.title.text}
+                  width={300}
+                  height={300}
+                  className="dark:rounded-full dark:bg-foreground"
+                />
+              </MainSectionBody>
+            </MainSection>
+            <MilestoneProgress milestones={milestones} />
+            <GraphicalTimeline milestones={milestones} milestoneSteps={milestoneSteps} />
+            <MyBadges badges={badges} setBadges={setBadges} />
+            <DevelopmentAreas areas={developmentAreas} setAreas={setDevelopmentAreas} />
+            <KeyMilestonesAndActions
+              milestones={milestones}
+              milestoneSteps={milestoneSteps}
+              setMilestones={setMilestones}
+              setMilestoneSteps={setMilestoneSteps}
             />
-          </MainSectionBody>
-        </MainSection>
-        <MilestoneProgress milestones={milestones} />
-        <GraphicalTimeline milestones={milestones} milestoneSteps={milestoneSteps} />
-        <MyBadges badges={badges} setBadges={setBadges} />
-        <DevelopmentAreas areas={developmentAreas} setAreas={setDevelopmentAreas} />
-        <KeyMilestonesAndActions
-          milestones={milestones}
-          milestoneSteps={milestoneSteps}
-          setMilestones={setMilestones}
-          setMilestoneSteps={setMilestoneSteps}
-        />
+          </>
+        )}
+
         <div className="mt-8 flex justify-end">
-          <Button onClick={handleSave} disabled={isSaving} className="mb-5">
+          <Button onClick={handleSave} disabled={isSaving || isLoading} className="mb-5">
             {isSaving ? 'Saving...' : 'Save Changes'}
           </Button>
         </div>

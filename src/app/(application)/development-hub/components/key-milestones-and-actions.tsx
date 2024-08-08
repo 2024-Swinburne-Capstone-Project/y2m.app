@@ -13,13 +13,13 @@ import { CheckCircle2, Circle, Clock, MoreVertical, Trash2 } from 'lucide-react'
 import { Milestone, MilestoneStep } from '@/types';
 import AddMilestone from './add-milestone';
 import AddMilestoneStep from './add-milestone-step';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import RemoveButton from '@/components/common/remove-button';
 
 type MilestoneStatus = 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
 
@@ -55,9 +55,9 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
     );
   };
 
-  const updateStep = (stepId: number, updates: Partial<MilestoneStep>) => {
+  const updateStep = (stepIndex: number, updates: Partial<MilestoneStep>) => {
     setMilestoneSteps((prevSteps) =>
-      prevSteps.map((step) => (Number(step.id) === stepId ? { ...step, ...updates } : step))
+      prevSteps.map((step, index) => (index === stepIndex ? { ...step, ...updates } : step))
     );
   };
 
@@ -68,8 +68,8 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
     setMilestoneSteps((prevSteps) => prevSteps.filter((step) => step.milestoneId !== milestoneId));
   };
 
-  const removeStep = (stepId: number) => {
-    setMilestoneSteps((prevSteps) => prevSteps.filter((step) => Number(step.id) !== stepId));
+  const removeStep = (stepIndex: number) => {
+    setMilestoneSteps((prevSteps) => prevSteps.filter((step, index) => !(index === stepIndex)));
   };
 
   return (
@@ -112,10 +112,11 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
               <AccordionContent className="px-4 py-3">
                 <div className="space-y-3">
                   {milestoneSteps
+                    .map((step, index) => ({ ...step, originalIndex: index }))
                     .filter((step) => step.milestoneId === Number(milestone.id))
                     .map((step) => (
                       <div
-                        key={`step-${step.id}`}
+                        key={`step-${milestone.id}-${step.originalIndex}`}
                         className="flex items-center justify-between rounded-md px-3 py-2 text-accent-foreground transition-colors duration-200"
                       >
                         <div className="flex items-center">
@@ -128,7 +129,7 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
                           <select
                             value={step.status}
                             onChange={(e) =>
-                              updateStep(Number(step.id), {
+                              updateStep(step.originalIndex, {
                                 status: e.target.value as MilestoneStatus,
                               })
                             }
@@ -138,22 +139,11 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
                             <option value="IN_PROGRESS">In Progress</option>
                             <option value="COMPLETED">Completed</option>
                           </select>
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => removeStep(Number(step.id))}
-                                >
-                                  <Trash2 className="size-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Remove Step</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
+                          <RemoveButton
+                            onRemove={() => removeStep(step.originalIndex)}
+                            tooltipContent="Remove Step"
+                            showDropdown={false}
+                          />
                         </div>
                       </div>
                     ))}
@@ -175,7 +165,7 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
                   <AddMilestoneStep
                     milestoneId={Number(milestone.id)}
                     setMilestoneSteps={setMilestoneSteps}
-                  ></AddMilestoneStep>
+                  />
                 </div>
               </AccordionContent>
             </AccordionItem>
