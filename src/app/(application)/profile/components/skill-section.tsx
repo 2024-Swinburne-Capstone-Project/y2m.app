@@ -17,7 +17,6 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, onUpdate, disable
       items={skills}
       setItems={onUpdate}
       itemToString={(skill: Skill) => skill.name}
-      idExtractor={(skill: Skill) => skill.id?.toString()}
       placeholder="Add a new skill"
       addButtonText="Add Skill"
       createNewItem={(name: string) => ({ name }) as Skill}

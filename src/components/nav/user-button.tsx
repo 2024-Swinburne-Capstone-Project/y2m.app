@@ -32,7 +32,7 @@ export default function UserButton() {
         </Avatar>
       </PopoverTrigger>
       <PopoverContent>
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col items-center space-y-2">
           <div>
             <span>{user.email}</span>
           </div>

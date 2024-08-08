@@ -11,11 +11,11 @@ interface DevelopmentAreasProps {
 const DevelopmentAreas: React.FC<DevelopmentAreasProps> = ({ areas, setAreas }) => {
   return (
     <TagInput<DevelopmentArea>
+      className={'my-5'}
       title={developmentHubConfig.developmentAreas.title}
       items={areas}
       setItems={setAreas}
       itemToString={(area: DevelopmentArea) => area.name}
-      idExtractor={(area: DevelopmentArea) => area.id?.toString()}
       placeholder={developmentHubConfig.developmentAreas.placeholder}
       addButtonText={developmentHubConfig.developmentAreas.addButton}
       createNewItem={(name) => ({ name }) as DevelopmentArea}

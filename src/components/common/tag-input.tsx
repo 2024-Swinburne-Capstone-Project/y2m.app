@@ -11,12 +11,11 @@ interface TagInputProps<T> {
   items: T[];
   setItems: React.Dispatch<React.SetStateAction<T[]>>;
   itemToString: (item: T) => string;
-  idExtractor: (item: T) => string;
   placeholder: string;
   addButtonText: string;
   createNewItem: (name: string) => T;
   className: string;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 function TagInput<T>({
@@ -24,7 +23,6 @@ function TagInput<T>({
   items,
   setItems,
   itemToString,
-  idExtractor,
   placeholder,
   addButtonText,
   createNewItem,
@@ -41,9 +39,9 @@ function TagInput<T>({
     }
   };
 
-  const handleRemoveItem = (id: string) => {
+  const handleRemoveItem = (index: number) => {
     if (!disabled) {
-      setItems((prevItems) => prevItems.filter((item) => idExtractor(item) !== id));
+      setItems((prevItems) => prevItems.filter((_, i) => i !== index));
     }
   };
 
@@ -54,9 +52,9 @@ function TagInput<T>({
       </CardHeader>
       <CardContent>
         <div className="mb-4 flex flex-wrap gap-2">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <Badge
-              key={idExtractor(item)}
+              key={index}
               variant="secondary"
               className={disabled ? 'cursor-default' : 'cursor-pointer'}
             >
@@ -67,10 +65,10 @@ function TagInput<T>({
                     <TooltipTrigger asChild>
                       <span
                         className="ml-2 cursor-pointer"
-                        onClick={() => handleRemoveItem(idExtractor(item))}
+                        onClick={() => handleRemoveItem(index)}
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' || e.key === ' ') {
-                            handleRemoveItem(idExtractor(item));
+                            handleRemoveItem(index);
                           }
                         }}
                         tabIndex={0}

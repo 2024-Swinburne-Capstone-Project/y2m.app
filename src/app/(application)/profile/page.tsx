@@ -52,30 +52,39 @@ export default function ProfilePage() {
     }
   };
 
-  if (isLoading) return <LoadingSkeleton count={4} />;
-  if (error) return <ErrorAlert message={error.message} />;
-
   return (
     <div className="mx-auto mt-10 min-h-screen max-w-7xl flex-col items-center bg-background">
-      <ProfileSection
-        profile={user}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
-        onChange={setUser}
-      />
-      <EducationSection education={educations} onUpdate={setEducations} disabled={!isEditing} />
-      <ExperienceSection experience={experiences} onUpdate={setExperiences} disabled={!isEditing} />
-      <SkillsSection skills={skills} onUpdate={setSkills} disabled={!isEditing} />
+      {isLoading ? (
+        <LoadingSkeleton count={4} />
+      ) : error ? (
+        <ErrorAlert message={error.message} />
+      ) : (
+        <>
+          <ProfileSection
+            profile={user}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            onChange={setUser}
+          />
+          <EducationSection education={educations} onUpdate={setEducations} disabled={!isEditing} />
+          <ExperienceSection
+            experience={experiences}
+            onUpdate={setExperiences}
+            disabled={!isEditing}
+          />
+          <SkillsSection skills={skills} onUpdate={setSkills} disabled={!isEditing} />
 
-      {isEditing && (
-        <div className="mt-4 flex justify-end">
-          <Button onClick={handleSave} disabled={isSaving}>
-            {isSaving ? 'Saving...' : 'Save Changes'}
-          </Button>
-        </div>
+          {isEditing && (
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleSave} disabled={isSaving}>
+                {isSaving ? 'Saving...' : 'Save Changes'}
+              </Button>
+            </div>
+          )}
+
+          {saveError && <ErrorAlert message={saveError.message} />}
+        </>
       )}
-
-      {saveError && <ErrorAlert message={saveError.message} />}
     </div>
   );
 }
