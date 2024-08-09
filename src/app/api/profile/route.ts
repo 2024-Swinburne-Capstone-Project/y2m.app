@@ -116,7 +116,7 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-export async function uploadProfilePictureToBlob(image: string) {
+async function uploadProfilePictureToBlob(image: string) {
   const blobServiceClient = BlobServiceClient.fromConnectionString(
     process.env.AZURE_STORAGE_CONNECTION_STRING as string
   );
