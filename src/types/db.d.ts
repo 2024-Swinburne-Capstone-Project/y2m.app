@@ -102,6 +102,7 @@ export interface User {
   id: string;
   linkedInProfileLink: string | null;
   name: string;
+  profilePictureURL: string | null;
 }
 
 export interface Video {

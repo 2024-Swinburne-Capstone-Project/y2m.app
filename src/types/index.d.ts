@@ -294,11 +294,6 @@ export interface ProfileForm {
   header: {
     text: string;
   };
-  profileImage: {
-    label: string;
-    path: string;
-    errorMessage: string;
-  };
   fullName: {
     label: string;
     placeholder: string;

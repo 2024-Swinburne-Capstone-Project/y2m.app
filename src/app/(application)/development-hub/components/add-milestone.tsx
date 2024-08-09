@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { CreateMilestoneData, Milestone } from '@/types';
+import { PlusCircle } from 'lucide-react';
 
 interface AddMilestoneProps {
   setMilestones: React.Dispatch<React.SetStateAction<Milestone[]>>;
@@ -46,7 +47,10 @@ const AddMilestone: React.FC<AddMilestoneProps> = ({ setMilestones }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button>Add Milestone</Button>
+        <Button>
+          <PlusCircle className="mr-2 size-4" />
+          Add Milestone
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

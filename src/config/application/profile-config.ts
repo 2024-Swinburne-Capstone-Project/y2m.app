@@ -5,11 +5,6 @@ export const profileConfig: ProfileConfig = {
     header: {
       text: 'Profile',
     },
-    profileImage: {
-      label: 'Profile Image',
-      path: 'https://source.boringavatars.com/marble/120',
-      errorMessage: '',
-    },
     fullName: {
       label: 'Full Name',
       placeholder: 'Full Name',

@@ -11,7 +11,7 @@ interface DevelopmentAreasProps {
 const DevelopmentAreas: React.FC<DevelopmentAreasProps> = ({ areas, setAreas }) => {
   return (
     <TagInput<DevelopmentArea>
-      className={'my-5'}
+      className={''}
       title={developmentHubConfig.developmentAreas.title}
       items={areas}
       setItems={setAreas}
