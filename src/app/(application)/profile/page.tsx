@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { LoadingSkeleton } from '@/components/common/loading-skeleton';
@@ -52,6 +52,21 @@ export default function ProfilePage() {
     }
   };
 
+  const handleProfileChange = (field: string, value: string) => {
+    setUser((prevUser) => ({ ...prevUser, [field]: value }));
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUser((prevUser) => ({ ...prevUser, profilePictureURL: reader.result as string }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="mx-auto mt-10 min-h-screen max-w-7xl flex-col items-center bg-background">
       {isLoading ? (
@@ -63,8 +78,9 @@ export default function ProfilePage() {
           <ProfileSection
             profile={user}
             isEditing={isEditing}
-            setIsEditing={setIsEditing}
-            onChange={setUser}
+            onProfileChange={handleProfileChange}
+            onEditToggle={() => setIsEditing(!isEditing)}
+            handleImageChange={handleImageChange}
           />
           <EducationSection education={educations} onUpdate={setEducations} disabled={!isEditing} />
           <ExperienceSection

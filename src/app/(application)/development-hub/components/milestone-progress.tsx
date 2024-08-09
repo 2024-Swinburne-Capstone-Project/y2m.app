@@ -1,30 +1,12 @@
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { developmentHubConfig } from '@/config/application/development-hub';
 import { Milestone } from '@/types';
-
-interface MilestoneCardProps {
-  title: string;
-  value: number;
-  color: string;
-}
+import { CheckCircle, Circle, Clock } from 'lucide-react';
 
 interface MilestoneProgressProps {
   milestones: Milestone[];
 }
-
-const MilestoneCard: React.FC<MilestoneCardProps> = ({ title, value, color }) => (
-  <Card>
-    <CardContent className="flex flex-col items-center justify-center p-6">
-      <div
-        className={`text-4xl font-bold ${color} mb-4 flex size-16 items-center justify-center rounded-full text-white`}
-      >
-        {value}
-      </div>
-      <h3 className="text-lg font-semibold">{title}</h3>
-    </CardContent>
-  </Card>
-);
 
 const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ milestones }) => {
   const progress = milestones.reduce(
@@ -39,26 +21,47 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ milestones }) => 
     {
       title: developmentHubConfig.milestoneProgress.COMPLETED,
       value: progress.COMPLETED,
-      color: 'bg-green-500',
+      icon: CheckCircle,
+      color: 'text-green-500',
+      bgColor: 'bg-green-100 dark:bg-green-900',
     },
     {
       title: developmentHubConfig.milestoneProgress.IN_PROGRESS,
       value: progress.IN_PROGRESS,
-      color: 'bg-blue-500',
+      icon: Clock,
+      color: 'text-blue-500',
+      bgColor: 'bg-blue-100 dark:bg-blue-900',
     },
     {
       title: developmentHubConfig.milestoneProgress.NOT_STARTED,
       value: progress.NOT_STARTED,
-      color: 'bg-red-500',
+      icon: Circle,
+      color: 'text-gray-500',
+      bgColor: 'bg-gray-100 dark:bg-gray-700',
     },
   ];
 
   return (
-    <div className="mt-8 grid gap-8 md:grid-cols-3">
-      {milestoneData.map((milestone, index) => (
-        <MilestoneCard key={index} {...milestone} />
-      ))}
-    </div>
+    <Card className="flex h-full flex-col">
+      <CardHeader>
+        <CardTitle>{developmentHubConfig.milestoneProgress.title}</CardTitle>
+      </CardHeader>
+      <CardContent className="flex grow items-center justify-center">
+        <div className="grid w-full grid-cols-3 gap-4">
+          {milestoneData.map((data, index) => (
+            <div key={index} className="text-center">
+              <div
+                className={`mx-auto flex size-12 items-center justify-center rounded-full ${data.bgColor}`}
+              >
+                <data.icon className={`size-6 ${data.color}`} />
+              </div>
+              <div className="mt-3 text-2xl font-semibold">{data.value}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">{data.title}</div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

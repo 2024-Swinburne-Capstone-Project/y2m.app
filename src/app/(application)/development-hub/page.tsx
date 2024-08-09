@@ -7,7 +7,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { DevelopmentArea, Badge, MilestoneStep, Milestone } from '@/types';
 import { developmentHubConfig } from '@/config/application/development-hub';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 import DevelopmentAreas from './components/development-areas';
 import MilestoneProgress from './components/milestone-progress';
 import GraphicalTimeline from './components/graphical-timeline';
@@ -18,16 +18,15 @@ import { ErrorAlert } from '@/components/common/error-alert';
 import MainSection from '@/components/common/main-section';
 import MainSectionBody from '@/components/common/main-section-body';
 import Title from '@/components/common/title';
+import Image from 'next/image';
 
 export default function DevelopmentHubPage() {
   const { data, isLoading, error, saveData, isSaving, saveError } = useDevelopmentHub();
   const { toast } = useToast();
-
   const [milestoneSteps, setMilestoneSteps] = useState<MilestoneStep[]>([]);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [developmentAreas, setDevelopmentAreas] = useState<DevelopmentArea[]>([]);
   const [badges, setBadges] = useState<Badge[]>([]);
-
   const prevMilestonesLengthRef = useRef(0);
 
   useEffect(() => {
@@ -63,7 +62,7 @@ export default function DevelopmentHubPage() {
 
   return (
     <AuthenticatedRoute>
-      <div className="mx-auto mt-10 min-h-screen max-w-7xl flex-col items-center bg-background">
+      <div className="mx-auto min-h-screen max-w-7xl px-4 py-8 dark:from-gray-900 dark:to-gray-800 sm:px-6 lg:px-8">
         {isLoading ? (
           <LoadingSkeleton count={4} />
         ) : error ? (
@@ -82,10 +81,15 @@ export default function DevelopmentHubPage() {
                 />
               </MainSectionBody>
             </MainSection>
-            <MilestoneProgress milestones={milestones} />
+
+            <div className="grid gap-8 lg:grid-cols-3">
+              <MilestoneProgress milestones={milestones} />
+              <MyBadges badges={badges} setBadges={setBadges} />
+              <DevelopmentAreas areas={developmentAreas} setAreas={setDevelopmentAreas} />
+            </div>
+
             <GraphicalTimeline milestones={milestones} milestoneSteps={milestoneSteps} />
-            <MyBadges badges={badges} setBadges={setBadges} />
-            <DevelopmentAreas areas={developmentAreas} setAreas={setDevelopmentAreas} />
+
             <KeyMilestonesAndActions
               milestones={milestones}
               milestoneSteps={milestoneSteps}
@@ -96,10 +100,18 @@ export default function DevelopmentHubPage() {
         )}
 
         <div className="mt-8 flex justify-end">
-          <Button onClick={handleSave} disabled={isSaving || isLoading} className="mb-5">
-            {isSaving ? 'Saving...' : 'Save Changes'}
+          <Button onClick={handleSave} disabled={isSaving || isLoading}>
+            {isSaving ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              'Save Changes'
+            )}
           </Button>
         </div>
+
         {saveError && <ErrorAlert message={saveError.message} />}
       </div>
     </AuthenticatedRoute>
