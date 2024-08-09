@@ -1,3 +1,10 @@
+## [1.23.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.22.1...v1.23.0) (2024-08-09)
+
+
+### Features
+
+* :sparkles: Allow users to upload pictures to be used for their profile ([d26995c](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/d26995c4551a78798047ab8aa8d108b9281986fa))
+
 ## [1.22.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.22.0...v1.22.1) (2024-08-08)
 
 
