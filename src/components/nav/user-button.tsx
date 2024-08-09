@@ -6,9 +6,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { Button } from '../ui/button';
 import { userButtonConfig } from '@/config/common/components/user-button';
+import { useProfile } from '@/hooks/useProfile';
 
 export default function UserButton() {
   const { user, error, isLoading } = useUser();
+  const { profile } = useProfile();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -25,8 +27,8 @@ export default function UserButton() {
       <PopoverTrigger>
         <Avatar>
           <AvatarImage
-            src={user.picture ?? 'https://source.boringavatars.com/marble/120'}
-            alt={user.name ?? ''}
+            src={profile?.user?.profilePictureURL ?? user?.picture ?? ''}
+            alt={profile?.user?.name ?? ''}
           />
           <AvatarFallback>Fill In</AvatarFallback>
         </Avatar>

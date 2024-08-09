@@ -75,7 +75,7 @@ export default function ProfilePage() {
           <SkillsSection skills={skills} onUpdate={setSkills} disabled={!isEditing} />
 
           {isEditing && (
-            <div className="mt-4 flex justify-end">
+            <div className="mb-2.5 mt-4 flex justify-end">
               <Button onClick={handleSave} disabled={isSaving}>
                 {isSaving ? 'Saving...' : 'Save Changes'}
               </Button>

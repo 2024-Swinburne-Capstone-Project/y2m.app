@@ -5,6 +5,8 @@ import { Label } from '@/components/ui/label';
 import { User } from '@/types/profile/user';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 interface ProfileSectionProps {
   profile: User;
@@ -19,6 +21,17 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   onChange,
   setIsEditing,
 }) => {
+  const { user } = useUser();
+  const handleImageChange = async (e: any) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      onChange({ ...profile, profilePictureURL: reader.result as string });
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <Card className={'mb-5'}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -28,6 +41,25 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
         </Button>
       </CardHeader>
       <CardContent>
+        <div>
+          <Label htmlFor="picture">Profile Picture</Label>
+          <div className="flex w-full items-center gap-1.5">
+            <Input
+              disabled={!isEditing}
+              className="h-20 w-auto"
+              id="picture"
+              type="file"
+              onChange={handleImageChange}
+            />
+            <Avatar className="h-20">
+              <AvatarImage
+                src={profile.profilePictureURL ?? user?.picture ?? ''}
+                alt={profile.name ?? ''}
+                className="h-20 rounded-full"
+              />
+            </Avatar>
+          </div>
+        </div>
         <div>
           <Label htmlFor="name">Name</Label>
           <Input
