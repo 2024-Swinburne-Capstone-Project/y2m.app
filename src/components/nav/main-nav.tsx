@@ -18,7 +18,6 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 export function MainNav() {
   const pathname = usePathname();
   const { user } = useUser();
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   const getNavLinkClassName = (linkPath: string) => {
     return cn(
@@ -48,7 +47,7 @@ export function MainNav() {
               <NavigationMenuTrigger className="text-foreground/60">
                 Quick Links
               </NavigationMenuTrigger>
-              <NavigationMenuContent className='bg-background'>
+              <NavigationMenuContent className="bg-background">
                 <ul className="grid w-[400px] p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {marketingNavItems.map((item) => (
                     <ListItem
