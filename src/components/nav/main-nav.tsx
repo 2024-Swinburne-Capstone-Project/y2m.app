@@ -8,35 +8,22 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
+  NavigationMenuContent,
+  NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
 import { marketingNavItems, applicationNavItems } from '@/config/common/components/nav';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function MainNav() {
   const pathname = usePathname();
   const { user } = useUser();
-  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
-  const dropdownRef = React.useRef<HTMLUListElement>(null);
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   const getNavLinkClassName = (linkPath: string) => {
     return cn(
       navigationMenuTriggerStyle(),
       pathname === linkPath ? 'text-foreground' : 'text-foreground/60'
     );
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleBlur = (event: React.FocusEvent<HTMLButtonElement | HTMLUListElement>) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.relatedTarget as Node)) {
-      setIsDropdownOpen(false);
-    }
   };
 
   return (
@@ -57,40 +44,21 @@ export function MainNav() {
                 )
             )}
             <NavigationMenuItem>
-              <button
-                onBlur={handleBlur}
-                onClick={toggleDropdown}
-                className={getNavLinkClassName('#')}
-              >
+              <NavigationMenuTrigger className="text-foreground/60">
                 Quick Links
-                {isDropdownOpen ? (
-                  <FontAwesomeIcon icon={faChevronUp} className="mx-2.5" />
-                ) : (
-                  <FontAwesomeIcon icon={faChevronDown} className="mx-2.5" />
-                )}
-              </button>
-              {isDropdownOpen && (
-                <ul
-                  ref={dropdownRef}
-                  tabIndex={-1}
-                  className="absolute flex flex-col rounded bg-white shadow-md"
-                  onBlur={handleBlur}
-                >
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className="bg-background">
+                <ul className="grid w-[400px] p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {marketingNavItems.map((item) => (
-                    <NavigationMenuLink
-                      className={`childNavItem ${getNavLinkClassName(item.href)}`}
-                      onClick={() => {
-                        setIsDropdownOpen(false);
-                        buttonRef.current?.blur();
-                      }}
-                      href={item.href}
+                    <ListItem
                       key={item.href}
-                    >
-                      {item.title}
-                    </NavigationMenuLink>
+                      title={item.title}
+                      href={item.href}
+                      className={getNavLinkClassName(item.href)}
+                    ></ListItem>
                   ))}
                 </ul>
-              )}
+              </NavigationMenuContent>
             </NavigationMenuItem>
           </>
         )}
@@ -111,3 +79,26 @@ export function MainNav() {
     </NavigationMenu>
   );
 }
+
+const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWithoutRef<'a'>>(
+  ({ className, title, children, ...props }, ref) => {
+    return (
+      <li>
+        <NavigationMenuLink asChild>
+          <a
+            ref={ref}
+            className={cn(
+              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+              className
+            )}
+            {...props}
+          >
+            <div className="text-sm font-medium leading-none">{title}</div>
+            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+          </a>
+        </NavigationMenuLink>
+      </li>
+    );
+  }
+);
+ListItem.displayName = 'ListItem';
