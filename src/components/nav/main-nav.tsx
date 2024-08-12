@@ -48,7 +48,7 @@ export function MainNav() {
               <NavigationMenuTrigger className="text-foreground/60">
                 Quick Links
               </NavigationMenuTrigger>
-              <NavigationMenuContent>
+              <NavigationMenuContent className='bg-background'>
                 <ul className="grid w-[400px] p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {marketingNavItems.map((item) => (
                     <ListItem
