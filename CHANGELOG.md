@@ -1,3 +1,10 @@
+## [1.23.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.23.0...v1.23.1) (2024-08-12)
+
+
+### Bug Fixes
+
+* update nav to work in dark mode and use shadcn style ([#47](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/issues/47)) ([78ff77c](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/78ff77c57472c2698f38bcacab3f62a1dc237e50))
+
 ## [1.23.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.22.1...v1.23.0) (2024-08-09)
 
 
