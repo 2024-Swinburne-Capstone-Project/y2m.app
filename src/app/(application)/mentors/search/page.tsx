@@ -8,7 +8,7 @@ import { useDebounce } from 'use-debounce';
 
 export default function MentorsPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const DEBOUNCE_TIME = 500
+  const DEBOUNCE_TIME = 500;
   const [debouncedSearchQuery] = useDebounce(searchQuery, DEBOUNCE_TIME);
   const { mentors, isLoading, error } = useMentorSearch(debouncedSearchQuery);
 
