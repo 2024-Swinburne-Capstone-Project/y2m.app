@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { User } from '@/types/db'; // Adjust the import path as needed
+import { UserData } from '@/types/mentor-search/user-data';
 
-const fetchMentors = async (query: string): Promise<User[]> => {
+const fetchMentors = async (query: string): Promise<UserData[]> => {
   const response = await fetch(`/api/users?name=${encodeURIComponent(query)}`, {
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ const fetchMentors = async (query: string): Promise<User[]> => {
 export const useMentorSearch = (query: string) => {
   const queryKey = ['mentors', query];
 
-  const { data, isLoading, error, refetch } = useQuery<User[], Error>({
+  const { data, isLoading, error, refetch } = useQuery<UserData[], Error>({
     queryKey,
     queryFn: () => fetchMentors(query),
     enabled: query.length > 0, // Only run the query if there's a search term

@@ -1,12 +1,12 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { User } from '@/types/db';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown } from 'lucide-react';
-import Image from 'next/image';
+import { Badge } from '@/components/ui/badge';
+import { UserData } from '@/types/mentor-search/user-data';
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<UserData>[] = [
   {
-    accessorKey: 'name',
+    accessorKey: 'user.name',
     header: ({ column }) => {
       return (
         <Button
@@ -20,51 +20,81 @@ export const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: 'email',
-    header: 'Email',
-  },
-  {
-    accessorKey: 'aboutMe',
-    header: 'About',
+    accessorKey: 'skills',
+    header: 'Skills',
     cell: ({ row }) => {
-      const aboutMe = row.getValue('aboutMe') as string;
-      return <div className="max-w-[300px] truncate">{aboutMe || 'N/A'}</div>;
-    },
-  },
-  {
-    accessorKey: 'linkedInProfileLink',
-    header: 'LinkedIn',
-    cell: ({ row }) => {
-      const link = row.getValue('linkedInProfileLink') as string;
-      return link ? (
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline"
-        >
-          View Profile
-        </a>
-      ) : (
-        'N/A'
+      const skills = row.original.skills;
+      return (
+        <div className="flex flex-wrap gap-1">
+          {skills.length > 0 ? (
+            skills.map((skill, index) => <Badge key={index}>{skill.name}</Badge>)
+          ) : (
+            <span className="text-gray-400">No skills provided</span>
+          )}
+        </div>
       );
     },
   },
   {
-    accessorKey: 'profilePictureURL',
-    header: 'Profile Picture',
+    accessorKey: 'experience',
+    header: 'Experience',
     cell: ({ row }) => {
-      const imageUrl = row.getValue('profilePictureURL') as string;
-      return imageUrl ? (
-        <Image
-          src={imageUrl}
-          alt={`${row.getValue('name')}'s profile picture`}
-          width={40}
-          height={40}
-          className="rounded-full"
-        />
-      ) : (
-        'No Image'
+      const experiences = row.original.experience;
+      return (
+        <div>
+          {experiences.length > 0 ? (
+            experiences.map((exp) => (
+              <div key={String(exp.id)} className="mb-2">
+                <p className="font-semibold">
+                  {exp.position} at {exp.company}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {new Date(exp.startDate.toString()).toLocaleDateString()} -
+                  {exp.current
+                    ? 'Present'
+                    : exp.endDate
+                      ? new Date(exp.endDate.toString()).toLocaleDateString()
+                      : 'N/A'}
+                </p>
+                <p className="text-sm">{exp.location}</p>
+              </div>
+            ))
+          ) : (
+            <span className="text-gray-400">No experience provided</span>
+          )}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'education',
+    header: 'Education',
+    cell: ({ row }) => {
+      const educations = row.original.education;
+      return (
+        <div>
+          {educations.length > 0 ? (
+            educations.map((edu) => (
+              <div key={String(edu.id)} className="mb-2">
+                <p className="font-semibold">
+                  {edu.degree} in {edu.fieldOfStudy}
+                </p>
+                <p>{edu.institution}</p>
+                <p className="text-sm text-gray-600">
+                  {new Date(edu.startDate.toString()).toLocaleDateString()} -
+                  {edu.onGoing
+                    ? 'Present'
+                    : edu.endDate
+                      ? new Date(edu.endDate.toString()).toLocaleDateString()
+                      : 'N/A'}
+                </p>
+                {edu.grade && <p className="text-sm">Grade: {edu.grade}</p>}
+              </div>
+            ))
+          ) : (
+            <span className="text-gray-400">No education provided</span>
+          )}
+        </div>
       );
     },
   },
