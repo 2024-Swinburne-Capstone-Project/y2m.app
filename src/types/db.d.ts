@@ -96,13 +96,32 @@ export interface Skill {
   userId: string;
 }
 
+export type MentorshipRequestStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED';
+
+export interface MentorshipRequest {
+  id: Generated<number>;
+  mentorId: string;
+  menteeId: string;
+  status: MentorshipRequestStatus;
+  message: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
 export interface User {
-  aboutMe: string | null;
-  email: string | null;
   id: string;
-  linkedInProfileLink: string | null;
   name: string;
+  email: string | null;
+  aboutMe: string | null;
+  linkedInProfileLink: string | null;
   profilePictureURL: string | null;
+  isMentor: boolean;
+  isMentee: boolean;
+  mentorAreas: string[];
+  menteeInterests: string[];
+  availability: string | null;
+  mentorRequests: MentorshipRequest[];
+  menteeRequests: MentorshipRequest[];
 }
 
 export interface Video {
@@ -126,4 +145,5 @@ export interface DB {
   Skill: Skill;
   User: User;
   Video: Video;
+  MentorshipRequest: MentorshipRequest;
 }

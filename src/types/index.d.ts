@@ -321,6 +321,26 @@ export interface ProfileForm {
     list: string[];
     errorMessage: string;
   };
+  isMentor: {
+    label: string;
+  };
+  isMentee: {
+    label: string;
+  };
+  mentorAreas: {
+    label: string;
+    placeholder: string;
+    addButtonText: string;
+  };
+  menteeInterests: {
+    label: string;
+    placeholder: string;
+    addButtonText: string;
+  };
+  availability: {
+    label: string;
+    placeholder: string;
+  };
   submitButton: {
     text: string;
   };

@@ -32,6 +32,26 @@ export const profileConfig: ProfileConfig = {
       list: ['Skill 1', 'Skill 2', 'Skill 3'],
       errorMessage: 'Please select at least one skill',
     },
+    isMentor: {
+      label: 'I want to be a mentor',
+    },
+    isMentee: {
+      label: 'I want to be a mentee',
+    },
+    mentorAreas: {
+      label: 'Areas of Expertise',
+      placeholder: 'Add area of expertise',
+      addButtonText: 'Add Area',
+    },
+    menteeInterests: {
+      label: 'Areas of Interest',
+      placeholder: 'Add area of interest',
+      addButtonText: 'Add Interest',
+    },
+    availability: {
+      label: 'Availability',
+      placeholder: 'e.g., Available weekday evenings, 2 hours per week',
+    },
     submitButton: {
       text: 'Save',
     },

@@ -16,7 +16,20 @@ export async function POST(req: NextRequest) {
     if (existingUser) {
       await db.updateTable('User').set({ name, email }).where('id', '=', auth0Id).execute();
     } else {
-      await db.insertInto('User').values({ id: auth0Id, name, email }).execute();
+      await db
+        .insertInto('User')
+        .values({
+          id: auth0Id,
+          name,
+          email,
+          isMentee: false,
+          isMentor: false,
+          mentorAreas: [],
+          menteeInterests: [],
+          mentorRequests: [],
+          menteeRequests: [],
+        })
+        .execute();
     }
 
     return NextResponse.json({ message: 'User synced successfully' }, { status: 200 });

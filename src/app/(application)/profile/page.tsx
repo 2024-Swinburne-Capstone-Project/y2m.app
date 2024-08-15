@@ -52,7 +52,7 @@ export default function ProfilePage() {
     }
   };
 
-  const handleProfileChange = (field: string, value: string) => {
+  const handleProfileChange = (field: string, value: unknown) => {
     setUser((prevUser) => ({ ...prevUser, [field]: value }));
   };
 

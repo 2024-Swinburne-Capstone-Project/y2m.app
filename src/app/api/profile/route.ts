@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { UserProfile } from '@/types';
-import { BlobServiceClient } from '@azure/storage-blob';
 
 export async function GET(req: NextRequest) {
   const userId = req.headers.get('X-User-Id');
@@ -38,7 +37,7 @@ export async function GET(req: NextRequest) {
       user,
       education,
       experience,
-      skills: skills,
+      skills,
     });
   } catch (error) {
     console.error('Error fetching profile:', error);
@@ -56,14 +55,25 @@ export async function PUT(req: NextRequest) {
     const body: UserProfile = await req.json();
     const { education, experience, skills, user } = body;
 
-    if (user.profilePictureURL) {
-      const blobURL = await uploadProfilePictureToBlob(user.profilePictureURL.split(',')[1]);
-      user.profilePictureURL = blobURL;
-    }
-
     await db.transaction().execute(async (trx) => {
-      await trx.updateTable('User').set(user).where('id', '=', userId).execute();
+      await trx
+        .updateTable('User')
+        .set({
+          name: user.name,
+          email: user.email,
+          aboutMe: user.aboutMe,
+          linkedInProfileLink: user.linkedInProfileLink,
+          profilePictureURL: user.profilePictureURL,
+          isMentor: user.isMentor,
+          isMentee: user.isMentee,
+          mentorAreas: user.mentorAreas,
+          menteeInterests: user.menteeInterests,
+          availability: user.availability,
+        })
+        .where('id', '=', userId)
+        .execute();
 
+      // Update education, experience, and skills as before
       await trx.deleteFrom('Education').where('userId', '=', userId).execute();
       for (const edu of education) {
         await trx
@@ -114,18 +124,4 @@ export async function PUT(req: NextRequest) {
     console.error('Error updating profile:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
-}
-
-async function uploadProfilePictureToBlob(image: string) {
-  const blobServiceClient = BlobServiceClient.fromConnectionString(
-    process.env.AZURE_STORAGE_CONNECTION_STRING as string
-  );
-  const containerClient = blobServiceClient.getContainerClient('profilepics');
-  const blockBlobClient = containerClient.getBlockBlobClient(`${Date.now()}.png`);
-  const buffer = Buffer.from(image, 'base64');
-  await blockBlobClient.uploadData(buffer, {
-    blobHTTPHeaders: { blobContentType: 'image/png' },
-  });
-  const blobURL = blockBlobClient.url;
-  return blobURL;
 }
