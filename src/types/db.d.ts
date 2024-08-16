@@ -120,8 +120,6 @@ export interface User {
   mentorAreas: string[];
   menteeInterests: string[];
   availability: string | null;
-  mentorRequests: MentorshipRequest[];
-  menteeRequests: MentorshipRequest[];
 }
 
 export interface Video {
@@ -130,6 +128,26 @@ export interface Video {
   id: Generated<number>;
   title: string;
   videoLength: string;
+}
+
+export interface Chat {
+  id: Generated<number>;
+  createdAt: Generated<Timestamp>;
+  updatedAt: Timestamp;
+}
+
+export interface ChatParticipant {
+  chatId: number;
+  userId: string;
+  joinedAt: Generated<Timestamp>;
+}
+
+export interface Message {
+  id: Generated<number>;
+  content: string;
+  createdAt: Generated<Timestamp>;
+  chatId: number;
+  senderId: string;
 }
 
 export interface DB {
@@ -146,4 +164,7 @@ export interface DB {
   User: User;
   Video: Video;
   MentorshipRequest: MentorshipRequest;
+  Chat: Chat;
+  ChatParticipant: ChatParticipant;
+  Message: Message;
 }
