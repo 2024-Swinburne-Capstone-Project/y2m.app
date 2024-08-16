@@ -1,3 +1,11 @@
+## [1.24.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.24.0...v1.24.1) (2024-08-16)
+
+
+### CI/CD
+
+* make linting stricter to be closer to what build requires ([dd6c7d9](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/dd6c7d9a2668bbe1a1b53fc5049c1f867f6ea90e))
+* make linting stricter to be closer to what build requires ([dd6ded7](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/dd6ded7c8f2d35dc3cd2367dacfe98e2d7ddc81b))
+
 ## [1.24.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.23.1...v1.24.0) (2024-08-15)
 
 
