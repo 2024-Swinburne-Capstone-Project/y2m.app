@@ -2,6 +2,7 @@ import ApplicatonNav from '@/components/application/application-nav';
 import { Footer } from '@/components/layout/footer';
 import { redirect } from 'next/navigation';
 import { getSession } from '@auth0/nextjs-auth0';
+import Chat from './components/chat';
 
 interface ApplicatonLayoutProps {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ export default async function ApplicatonLayout({ children }: ApplicatonLayoutPro
       </header>
       <main className="flex-1">{children}</main>
       <Footer />
+      <Chat />
     </div>
   );
 }
