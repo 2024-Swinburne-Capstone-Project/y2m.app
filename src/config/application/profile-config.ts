@@ -15,7 +15,7 @@ export const profileConfig: ProfileConfig = {
       placeholder: 'Email',
       invalidErrorMessage: 'Please enter a valid email address.',
       errorMessage: 'Email is required.',
-      tooltip: 'This email is for display purposes only and cannot be changed here.',
+      tooltip: 'You cannot change your email address here. Please contact support if you need to update it.',
     },
     aboutMe: {
       label: 'About Me',
