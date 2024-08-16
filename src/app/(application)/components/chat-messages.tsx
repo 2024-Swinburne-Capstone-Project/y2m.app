@@ -3,28 +3,34 @@ import React from 'react';
 
 interface ChatMessagesProps {
   messages: { isMe: boolean; content: string }[];
+  onClose: () => void;
 }
 
-const ChatMessages: React.FC<ChatMessagesProps> = ({ messages }) => {
+const ChatMessages: React.FC<ChatMessagesProps> = ({ messages, onClose }) => {
   return (
-    <div className="h-64 overflow-y-auto border-t border-gray-200 pt-4">
+    <div className="overflow-y-auto pt-4">
       {messages.map((message, index) => (
-        <div key={index} className="mb-2">
+        <div key={index} className="mb-4">
           <p
-            className={`text-sm ${message.isMe ? 'text-right text-blue-500' : 'text-left text-gray-700'}`}
+            className={`text-sm ${message.isMe ? 'text-right text-blue-500' : 'text-left text-white'}`}
           >
             {message.content}
           </p>
         </div>
       ))}
 
-      <div className="mt-auto">
+      <div className="mt-4">
         <input
           type="text"
           placeholder="Type a message..."
           className="w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <Button className="mt-2 w-full bg-blue-500 text-white">Send</Button>
+        <div className="mt-4 flex h-auto w-full flex-1 items-center justify-between">
+          <Button className="w-3/5 bg-blue-500 text-white">Send</Button>
+          <Button variant="secondary" className="w-2/6" onClick={onClose}>
+            Back
+          </Button>
+        </div>
       </div>
     </div>
   );

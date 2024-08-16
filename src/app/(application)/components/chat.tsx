@@ -30,6 +30,11 @@ const Chat: React.FC<ChatWindowProps> = ({ onChatSelect }) => {
     );
   };
 
+  const handleBack = () => {
+    setChatWindowState(ChatWindowState.Open);
+    setActiveChat(null);
+  };
+
   const handleChatSelect = useCallback(
     (chatId: string) => {
       setActiveChat(chatId);
@@ -53,7 +58,7 @@ const Chat: React.FC<ChatWindowProps> = ({ onChatSelect }) => {
 
     if (chatWindowState === ChatWindowState.Selected && activeChat) {
       const selectedChat = chats.find((chat) => chat.id.toString() === activeChat);
-      return <ChatMessages messages={selectedChat?.messages || []} />;
+      return <ChatMessages messages={selectedChat?.messages || []} onClose={handleBack} />;
     }
 
     return null;
