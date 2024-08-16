@@ -11,4 +11,15 @@ export interface Chat extends DBChat {
   messages: Message[];
 }
 
-export interface Message extends DBMessage {}
+export interface Message extends Omit<DBMessage, 'createdAt'> {
+  senderId: string;
+  chatId: number;
+  createdAt: Date;
+}
+
+export interface CreateMessage {
+  content: string;
+  chatId: number;
+  senderId: string;
+  createdAt: Date;
+}

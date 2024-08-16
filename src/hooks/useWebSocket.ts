@@ -1,10 +1,10 @@
-import { Message } from '@/types/db';
+import { Message } from '@/types/chat/chat';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useState, useEffect, useRef } from 'react';
 
-type MessagePayload = { recipientId: string } & Message;
+type MessagePayload = { chatId: number } & Message;
 
-type ReceivedMessage = { senderId: string } & Message;
+type ReceivedMessage = { chatId: number; senderId: string } & Message;
 
 export const useWebSocket = () => {
   const [messages, setMessages] = useState<ReceivedMessage[]>([]);
@@ -15,7 +15,9 @@ export const useWebSocket = () => {
   const ws = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    ws.current = new WebSocket(`ws://localhost:3001?userId=${user?.sub}`);
+    if (!user) return;
+
+    ws.current = new WebSocket(`ws://localhost:3001?userId=${user.sub}&chatId=1`); // Replace `1` with actual chatId
 
     ws.current.onopen = () => {
       setIsConnected(true);
@@ -44,9 +46,9 @@ export const useWebSocket = () => {
     };
   }, [user]);
 
-  const sendMessage = (recipientId: string, message: Message) => {
+  const sendMessage = (message: Message) => {
     if (ws.current && isConnected) {
-      const payload: MessagePayload = { recipientId, ...message };
+      const payload: MessagePayload = { ...message };
       ws.current.send(JSON.stringify(payload));
     }
   };

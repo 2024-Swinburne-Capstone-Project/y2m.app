@@ -1,30 +1,33 @@
 import { WebSocketServer } from 'ws';
 import http from 'http';
 
-// Create an HTTP server (necessary for WebSocketServer)
 const server = http.createServer();
 
-// Create WebSocket server and attach it to the HTTP server
 const wss = new WebSocketServer({ server });
 
-// Map to keep track of WebSocket connections by userId
-const users = new Map();
+const chatClients = new Map();
 
 wss.on('connection', (socket, request) => {
-  const url = new URL(request.url, `http://${request.headers.host}`);
+  const url = new URL(request.url ?? '', `http://${request.headers.host}`);
   const userId = url.searchParams.get('userId');
+  const chatId = Number(url.searchParams.get('chatId'));
 
-  if (userId) {
-    users.set(userId, socket);
+  if (userId && chatId) {
+    if (!chatClients.has(chatId)) {
+      chatClients.set(chatId, new Set());
+    }
+    chatClients.get(chatId)?.add(socket);
 
     socket.on('message', (message) => {
       try {
-        const payload = JSON.parse(message);
-        const recipientSocket = users.get(payload.recipientId);
+        const { chatId: msgChatId } = JSON.parse(message.toString());
 
-        if (recipientSocket && recipientSocket.readyState === recipientSocket.OPEN) {
-          const message = JSON.stringify({ senderId: userId, ...payload });
-          recipientSocket.send(message);
+        if (chatId === msgChatId) {
+          chatClients.get(msgChatId)?.forEach((client) => {
+            if (client.readyState === client.OPEN) {
+              client.send(message);
+            }
+          });
         }
       } catch (error) {
         console.error('Message handling error:', error);
@@ -32,7 +35,10 @@ wss.on('connection', (socket, request) => {
     });
 
     socket.on('close', () => {
-      users.delete(userId);
+      chatClients.get(chatId)?.delete(socket);
+      if (chatClients.get(chatId)?.size === 0) {
+        chatClients.delete(chatId);
+      }
     });
   } else {
     socket.close();

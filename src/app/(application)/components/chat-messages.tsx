@@ -36,6 +36,7 @@ const MessageItem: React.FC<{ message: Message; isOwnMessage: boolean }> = ({
 
 const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend }) => {
   const [message, setMessage] = useState('');
+
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

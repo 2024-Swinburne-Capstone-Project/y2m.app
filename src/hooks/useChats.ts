@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { Chat, Message } from '@/types/chat/chat';
+import { useWebSocket } from '@/hooks/useWebSocket'; // Import your WebSocket hook
 
 export const useChats = () => {
   const [chats, setChats] = useState<Chat[]>([]);
@@ -8,6 +9,10 @@ export const useChats = () => {
   const [error, setError] = useState<string | null>(null);
   const { user } = useUser();
 
+  // Initialize WebSocket hook
+  const { messages, sendMessage: sendMessageWs } = useWebSocket();
+
+  // Fetch initial chats
   const fetchChats = useCallback(async () => {
     if (!user) return;
     try {
@@ -28,6 +33,23 @@ export const useChats = () => {
     fetchChats();
   }, [fetchChats]);
 
+  // Update chat messages with incoming WebSocket messages
+  useEffect(() => {
+    if (messages.length > 0) {
+      setChats((prevChats) =>
+        prevChats.map((chat) =>
+          Number(chat.id) === messages[0].chatId
+            ? {
+                ...chat,
+                messages: [...(chat.messages || []), messages[0]],
+              }
+            : chat
+        )
+      );
+    }
+  }, [messages]);
+
+  // Fetch chat messages for a specific chat
   const fetchChatMessages = useCallback(
     async (chatId: string) => {
       if (!user) return;
@@ -47,6 +69,7 @@ export const useChats = () => {
     [user]
   );
 
+  // Send a message to a specific chat
   const sendMessage = useCallback(
     async (chatId: string, content: string) => {
       if (!user) return;
@@ -72,13 +95,15 @@ export const useChats = () => {
               : chat
           )
         );
+        sendMessageWs(newMessage);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
       }
     },
-    [user]
+    [sendMessageWs, user]
   );
 
+  // Create a new chat
   const createNewChat = useCallback(
     async (userId: string) => {
       if (!user) return null;
@@ -103,5 +128,12 @@ export const useChats = () => {
     [user]
   );
 
-  return { chats, loading, error, sendMessage, createNewChat, fetchChatMessages };
+  return {
+    chats,
+    loading,
+    error,
+    sendMessage,
+    createNewChat,
+    fetchChatMessages,
+  };
 };
