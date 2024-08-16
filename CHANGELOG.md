@@ -1,3 +1,31 @@
+## [1.24.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.24.0...v1.24.1) (2024-08-16)
+
+
+### CI/CD
+
+* make linting stricter to be closer to what build requires ([dd6c7d9](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/dd6c7d9a2668bbe1a1b53fc5049c1f867f6ea90e))
+* make linting stricter to be closer to what build requires ([dd6ded7](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/dd6ded7c8f2d35dc3cd2367dacfe98e2d7ddc81b))
+
+## [1.24.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.23.1...v1.24.0) (2024-08-15)
+
+
+### Features
+
+* add initial mentor search ([c3aa2a9](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/c3aa2a9e65833bb47f2b1319d6549ef47bc493aa))
+* add skills experiance and education to mentor search ([ff22c17](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/ff22c17f7f4486cdd7c78be6929e4636a09823e1))
+* add user search endpoint ([e41593c](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/e41593cae478432e22f2f98cce95f36661ef4182))
+* remove unused import in mentor search data table ([959a2f3](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/959a2f30091b99f230debeeddf4aee8b164e3890))
+
+
+### Bug Fixes
+
+* remove skill as a search param until better prepared ([3340047](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/33400471d7f76e49cce130b127eea416da1717db))
+
+
+### Code Refactors
+
+* move mymentor page under mentors route ([54df10c](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/54df10c4257e3fb97ae99332c5a17f6bfb98ec67))
+
 ## [1.23.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.23.0...v1.23.1) (2024-08-12)
 
 
