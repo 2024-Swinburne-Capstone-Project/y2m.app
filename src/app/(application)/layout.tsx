@@ -1,14 +1,14 @@
-import ApplicatonNav from '@/components/application/application-nav';
+import ApplicationNav from '@/components/application/application-nav';
 import { Footer } from '@/components/layout/footer';
 import { redirect } from 'next/navigation';
 import { getSession } from '@auth0/nextjs-auth0';
-import Chat from './components/chat';
+import ChatWindow from '@/app/(application)/components/chat-window';
 
-interface ApplicatonLayoutProps {
+interface ApplicationLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function ApplicatonLayout({ children }: ApplicatonLayoutProps) {
+export default async function ApplicationLayout({ children }: ApplicationLayoutProps) {
   const session = await getSession();
   const user = session?.user;
   if (!user) {
@@ -17,11 +17,11 @@ export default async function ApplicatonLayout({ children }: ApplicatonLayoutPro
   return (
     <div className="flex min-h-screen flex-col">
       <header>
-        <ApplicatonNav />
+        <ApplicationNav />
       </header>
       <main className="flex-1">{children}</main>
       <Footer />
-      <Chat />
+      <ChatWindow />
     </div>
   );
 }
