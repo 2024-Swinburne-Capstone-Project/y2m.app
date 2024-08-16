@@ -402,6 +402,7 @@ export interface ProfileForm {
     placeholder: string;
     invalidErrorMessage: string;
     errorMessage: string;
+    tooltip: string;
   };
   aboutMe: {
     label: string;

@@ -5,11 +5,12 @@ import { User } from '@/types/profile/user';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Camera } from 'lucide-react';
+import { Camera, Info } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import TagInput from '@/components/common/tag-input';
 import { Textarea } from '@/components/ui/textarea';
 import { profileConfig } from '@/config/application/profile-config';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 interface ProfileSectionProps {
   profile: User;
   isEditing: boolean;
@@ -82,16 +83,28 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
             />
           </div>
           <div>
-            <Label htmlFor="email" className="text-sm font-medium">
-              Email
+            <Label htmlFor="email" className="flex text-sm font-medium">
+              {profileConfig.profileForm.email.label}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="ml-2 cursor-pointer text-gray-500" size={20} />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{profileConfig.profileForm.email.tooltip}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </Label>
-            <Input
-              id="email"
-              value={profile.email || ''}
-              onChange={(e) => onProfileChange('email', e.target.value)}
-              disabled={!isEditing}
-              className="mt-1"
-            />
+            <div className="flex items-center">
+              <Input
+                id="email"
+                value={profile.email || ''}
+                onChange={(e) => onProfileChange('email', e.target.value)}
+                disabled={!isEditing}
+                className="mt-1 grow"
+              />
+            </div>
           </div>
           <div className="sm:col-span-2">
             <Label htmlFor="aboutMe" className="text-sm font-medium">
