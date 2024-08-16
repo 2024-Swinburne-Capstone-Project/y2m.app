@@ -26,8 +26,6 @@ export async function POST(req: NextRequest) {
           isMentor: false,
           mentorAreas: [],
           menteeInterests: [],
-          mentorRequests: [],
-          menteeRequests: [],
         })
         .execute();
     }
