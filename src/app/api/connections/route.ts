@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
     const menteeIds = menteeConnections.map((connection) => connection.id);
 
     const [mentors, mentees] = await Promise.all([
-      fetchUserDetails(mentorIds),
-      fetchUserDetails(menteeIds),
+      mentorIds.length > 0 ? fetchUserDetails(mentorIds) : [],
+      menteeIds.length > 0 ? fetchUserDetails(menteeIds) : [],
     ]);
 
     return NextResponse.json({ mentors, mentees });
