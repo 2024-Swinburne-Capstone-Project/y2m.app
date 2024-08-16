@@ -42,19 +42,19 @@ const ChatWindow: React.FC = () => {
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-full sm:w-[400px] sm:max-w-full">
-            {activeChat ? (
-              <ChatMessages
-                chat={chats.find((c) => c.id.toString() === activeChat)}
-                onClose={() => setActiveChat(null)}
-                onSend={sendMessage}
-              />
-            ) : (
-              <ChatList
-                chats={chats}
-                onSelectChat={handleChatSelect}
-                onNewChat={() => setIsNewChatModalOpen(true)}
-              />
-            )}
+        {activeChat ? (
+          <ChatMessages
+            chat={chats.find((c) => c.id.toString() === activeChat)}
+            onClose={() => setActiveChat(null)}
+            onSend={sendMessage}
+          />
+        ) : (
+          <ChatList
+            chats={chats}
+            onSelectChat={handleChatSelect}
+            onNewChat={() => setIsNewChatModalOpen(true)}
+          />
+        )}
       </SheetContent>
       <NewChatModal
         isOpen={isNewChatModalOpen}
