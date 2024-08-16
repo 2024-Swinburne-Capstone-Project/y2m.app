@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import { useChats } from '@/hooks/useChats';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { MessageCircle, X } from 'lucide-react';
@@ -43,8 +42,6 @@ const ChatWindow: React.FC = () => {
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-full sm:w-[400px] sm:max-w-full">
-        <Card className="h-full">
-          <CardContent className="flex h-full flex-col p-0">
             {activeChat ? (
               <ChatMessages
                 chat={chats.find((c) => c.id.toString() === activeChat)}
@@ -58,8 +55,6 @@ const ChatWindow: React.FC = () => {
                 onNewChat={() => setIsNewChatModalOpen(true)}
               />
             )}
-          </CardContent>
-        </Card>
       </SheetContent>
       <NewChatModal
         isOpen={isNewChatModalOpen}
