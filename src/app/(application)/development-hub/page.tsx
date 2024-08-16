@@ -29,7 +29,6 @@ export default function DevelopmentHubPage() {
   const [badges, setBadges] = useState<Badge[]>([]);
   const prevMilestonesLengthRef = useRef(0);
 
-
   const handleSave = useCallback(async () => {
     try {
       await saveData({ milestones, milestoneSteps, developmentAreas, badges });
@@ -41,7 +40,8 @@ export default function DevelopmentHubPage() {
         variant: 'destructive',
       });
     }
-  }, [milestones, milestoneSteps, developmentAreas, badges]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [milestones, milestoneSteps, developmentAreas, badges, toast]);
 
   useEffect(() => {
     if (data) {
