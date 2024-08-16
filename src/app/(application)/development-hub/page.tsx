@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AuthenticatedRoute } from '@/components/common/authenticated-route';
 import { useDevelopmentHub } from '@/hooks/useDevelopmentHub';
 import { useToast } from '@/components/ui/use-toast';
@@ -29,6 +29,20 @@ export default function DevelopmentHubPage() {
   const [badges, setBadges] = useState<Badge[]>([]);
   const prevMilestonesLengthRef = useRef(0);
 
+  const handleSave = useCallback(async () => {
+    try {
+      await saveData({ milestones, milestoneSteps, developmentAreas, badges });
+      toast({ title: 'Success', description: 'Your changes have been saved.' });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to save changes. Please try again.',
+        variant: 'destructive',
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [milestones, milestoneSteps, developmentAreas, badges, toast]);
+
   useEffect(() => {
     if (data) {
       setMilestoneSteps(data.milestoneSteps ?? []);
@@ -45,20 +59,7 @@ export default function DevelopmentHubPage() {
         prevMilestonesLengthRef.current = milestones.length;
       });
     }
-  }, [milestones]);
-
-  const handleSave = async () => {
-    try {
-      await saveData({ milestones, milestoneSteps, developmentAreas, badges });
-      toast({ title: 'Success', description: 'Your changes have been saved.' });
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to save changes. Please try again.',
-        variant: 'destructive',
-      });
-    }
-  };
+  }, [milestones, handleSave]);
 
   return (
     <AuthenticatedRoute>

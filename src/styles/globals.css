@@ -63,3 +63,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer base {
+  :root {
+    --chart-1: 142 76% 36%; /* Green for Completed */
+    --chart-2: 217 91% 60%; /* Blue for In Progress */
+    --chart-3: 215 20% 65%; /* Gray for Not Started */
+  }
+
+  .dark {
+    --chart-1: 142 70% 45%;
+    --chart-2: 217 80% 55%;
+    --chart-3: 215 25% 60%;
+  }
+}

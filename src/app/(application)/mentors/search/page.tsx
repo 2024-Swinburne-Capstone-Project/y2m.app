@@ -1,40 +1,62 @@
 'use client';
-import { useState } from 'react';
+
+import React, { useState } from 'react';
 import { useMentorSearch } from '@/hooks/useMentorSearch';
-import { columns } from './components/columns';
-import { DataTable } from './components/data-table';
-import { Input } from '@/components/ui/input';
-import { useDebounce } from 'use-debounce';
+import { useMentorshipRequests } from '@/hooks/useMentorshipRequests';
+import { useToast } from '@/components/ui/use-toast';
 
-export default function MentorsPage() {
+import { LoadingSkeleton } from '@/components/common/loading-skeleton';
+import { ErrorAlert } from '@/components/common/error-alert';
+import HeroSection from '@/app/(application)/mentors/search/components/hero-section';
+import SearchSection from '@/app/(application)/mentors/search/components/search-section';
+import ResultsSection from '@/app/(application)/mentors/search/components/results-section';
+
+export default function MentorSearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const DEBOUNCE_TIME = 500;
-  const [debouncedSearchQuery] = useDebounce(searchQuery, DEBOUNCE_TIME);
-  const { mentors, isLoading, error } = useMentorSearch(debouncedSearchQuery);
+  const { mentors, isLoading, error, refetch } = useMentorSearch(searchQuery);
+  const { requests, createRequest, isCreating } = useMentorshipRequests();
+  const { toast } = useToast();
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    refetch();
   };
 
-  if (error) return <div>An error occurred: {error.message}</div>;
+  const handleRequestMentorship = async (mentorId: string, message: string) => {
+    try {
+      await createRequest({ mentorId, message });
+      toast({
+        title: 'Mentorship request sent successfully',
+        description: 'The mentor will be notified of your request.',
+      });
+    } catch (error) {
+      toast({
+        title: 'Failed to send mentorship request',
+        description: 'Please try again later.',
+        variant: 'destructive',
+      });
+    }
+  };
 
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="mb-4 text-2xl font-bold">Potential Mentors</h1>
-      <Input
-        type="text"
-        onChange={handleSearch}
-        placeholder="Search mentors..."
-        className="mb-4 w-full"
-      />
-      {searchQuery &&
-        (isLoading ? (
-          <div>Loading...</div>
-        ) : mentors.length > 0 ? (
-          <DataTable columns={columns} data={mentors} />
-        ) : (
-          <div>No mentors found.</div>
-        ))}
+    <div className="container mx-auto space-y-10 py-10">
+      <HeroSection />
+      <SearchSection onSearch={handleSearch} />
+      {isLoading ? (
+        <LoadingSkeleton
+          count={6}
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+        />
+      ) : error ? (
+        <ErrorAlert message={error.message} />
+      ) : (
+        <ResultsSection
+          mentors={mentors}
+          requests={requests ?? []}
+          onRequestMentorship={handleRequestMentorship}
+          isCreating={isCreating}
+        />
+      )}
     </div>
   );
 }

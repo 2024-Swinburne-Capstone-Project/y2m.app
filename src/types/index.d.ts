@@ -47,6 +47,71 @@ export interface GetInTouchConfig {
   form: GetInTouchForm;
 }
 
+export interface ConnectionsConfig {
+  pageTitle: string;
+  tabs: {
+    incoming: string;
+    outgoing: string;
+  };
+  requestCard: {
+    acceptButton: string;
+    rejectButton: string;
+    pendingStatus: string;
+  };
+  noDataDisplay: {
+    incoming: {
+      title: string;
+      description: string;
+    };
+    outgoing: {
+      title: string;
+      description: string;
+    };
+  };
+  toastMessages: {
+    acceptSuccess: string;
+    acceptError: string;
+    rejectSuccess: string;
+    rejectError: string;
+  };
+}
+
+export interface MentorSearchConfig {
+  heroSection: {
+    title: string;
+    subtitle: string;
+  };
+  searchSection: {
+    inputPlaceholder: string;
+    buttonText: string;
+  };
+  resultsSection: {
+    noDataTitle: string;
+    noDataDescription: string;
+    requestButtonText: {
+      default: string;
+      sent: string;
+      connected: string;
+    };
+    dialogTitle: string;
+    dialogPlaceholder: string;
+    dialogButtonText: {
+      default: string;
+      sending: string;
+    };
+  };
+  requestButtonText: {
+    default: string;
+    sent: string;
+  };
+  dialogTitle: string;
+  dialogPlaceholder: string;
+  dialogButtonText: {
+    default: string;
+    sending: string;
+  };
+}
+
 export interface GetInTouchForm {
   firstName: {
     label: string;
@@ -277,9 +342,41 @@ export interface NotFoundConfig {
 
 export interface UserButton {
   profileButton: string;
+  connectionsButton: string;
   signOutButton: string;
   loginButton: string;
-  href: string;
+  profileHref: string;
+  connectionsHref: string;
+  signOutHref: string;
+  loginHref: string;
+  connectionsOverviewHref: string;
+  connectionsOverviewButton: string;
+}
+
+export interface ConnectionsOverviewConfig {
+  pageTitle: string;
+  tabs: {
+    mentors: string;
+    mentees: string;
+  };
+  noDataDisplay: {
+    mentors: {
+      title: string;
+      description: string;
+    };
+    mentees: {
+      title: string;
+      description: string;
+    };
+  };
+  actionButton: {
+    mentors: string;
+    mentees: string;
+  };
+  connectionCard: {
+    viewProfileButton: string;
+    messageButton: string;
+  };
 }
 
 export interface ProfileConfig {
@@ -304,6 +401,7 @@ export interface ProfileForm {
     placeholder: string;
     invalidErrorMessage: string;
     errorMessage: string;
+    tooltip: string;
   };
   aboutMe: {
     label: string;
@@ -320,6 +418,26 @@ export interface ProfileForm {
     label: string;
     list: string[];
     errorMessage: string;
+  };
+  isMentor: {
+    label: string;
+  };
+  isMentee: {
+    label: string;
+  };
+  mentorAreas: {
+    label: string;
+    placeholder: string;
+    addButtonText: string;
+  };
+  menteeInterests: {
+    label: string;
+    placeholder: string;
+    addButtonText: string;
+  };
+  availability: {
+    label: string;
+    placeholder: string;
   };
   submitButton: {
     text: string;

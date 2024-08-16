@@ -6,11 +6,15 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Camera } from 'lucide-react';
-
+import { Switch } from '@/components/ui/switch';
+import TagInput from '@/components/common/tag-input';
+import { Textarea } from '@/components/ui/textarea';
+import { profileConfig } from '@/config/application/profile-config';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 interface ProfileSectionProps {
   profile: User;
   isEditing: boolean;
-  onProfileChange: (field: string, value: string) => void;
+  onProfileChange: (field: string, value: unknown) => void;
   onEditToggle: () => void;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -22,6 +26,10 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   onEditToggle,
   handleImageChange,
 }) => {
+  const handleTagChange = (field: string) => (items: string[]) => {
+    onProfileChange(field, items);
+  };
+
   return (
     <Card className="mb-5 overflow-hidden">
       <div className="relative h-32 bg-gradient-to-r from-blue-400 to-purple-500">
@@ -76,15 +84,24 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
           </div>
           <div>
             <Label htmlFor="email" className="text-sm font-medium">
-              Email
+              {profileConfig.profileForm.email.label}
             </Label>
-            <Input
-              id="email"
-              value={profile.email || ''}
-              onChange={(e) => onProfileChange('email', e.target.value)}
-              disabled={!isEditing}
-              className="mt-1"
-            />
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Input
+                    id="email"
+                    value={profile.email || ''}
+                    onChange={(e) => onProfileChange('email', e.target.value)}
+                    disabled
+                    className="mt-1"
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{profileConfig.profileForm.email.tooltip}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           <div className="sm:col-span-2">
             <Label htmlFor="aboutMe" className="text-sm font-medium">
@@ -108,6 +125,71 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               onChange={(e) => onProfileChange('linkedInProfileLink', e.target.value)}
               disabled={!isEditing}
               className="mt-1"
+            />
+          </div>
+        </div>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className={'flex'}>
+            <Label htmlFor="isMentor" className="text-sm font-medium">
+              {profileConfig.profileForm.isMentor.label} &nbsp;
+            </Label>
+            <Switch
+              id="isMentor"
+              checked={profile.isMentor}
+              onCheckedChange={(checked) => onProfileChange('isMentor', checked)}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className={'flex'}>
+            <Label htmlFor="isMentee" className="text-sm font-medium">
+              {profileConfig.profileForm.isMentee.label} &nbsp;
+            </Label>
+            <Switch
+              id="isMentee"
+              checked={profile.isMentee}
+              onCheckedChange={(checked) => onProfileChange('isMentee', checked)}
+              disabled={!isEditing}
+            />
+          </div>
+          {profile.isMentor && (
+            <div className="sm:col-span-2">
+              <TagInput
+                title={profileConfig.profileForm.mentorAreas.label}
+                items={profile.mentorAreas || []}
+                setItems={handleTagChange('mentorAreas')}
+                itemToString={(area) => area}
+                placeholder={profileConfig.profileForm.mentorAreas.placeholder}
+                addButtonText={profileConfig.profileForm.mentorAreas.addButtonText}
+                createNewItem={(name) => name}
+                disabled={!isEditing}
+              />
+            </div>
+          )}
+          {profile.isMentee && (
+            <div className="sm:col-span-2">
+              <TagInput
+                title={profileConfig.profileForm.menteeInterests.label}
+                items={profile.menteeInterests || []}
+                setItems={handleTagChange('menteeInterests')}
+                itemToString={(interest) => interest}
+                placeholder={profileConfig.profileForm.menteeInterests.placeholder}
+                addButtonText={profileConfig.profileForm.menteeInterests.addButtonText}
+                createNewItem={(name) => name}
+                disabled={!isEditing}
+              />
+            </div>
+          )}
+          <div className="sm:col-span-2">
+            <Label htmlFor="availability" className="text-sm font-medium">
+              {profileConfig.profileForm.availability.label}
+            </Label>
+            <Textarea
+              id="availability"
+              value={profile.availability || ''}
+              onChange={(e) => onProfileChange('availability', e.target.value)}
+              disabled={!isEditing}
+              className="mt-1"
+              placeholder={profileConfig.profileForm.availability.placeholder}
             />
           </div>
         </div>

@@ -9,12 +9,12 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 interface TagInputProps<T> {
   title: string;
   items: T[];
-  setItems: React.Dispatch<React.SetStateAction<T[]>>;
+  setItems: (items: T[]) => void; // Changed this line
   itemToString: (item: T) => string;
   placeholder: string;
   addButtonText: string;
   createNewItem: (name: string) => T;
-  className: string;
+  className?: string;
   disabled?: boolean;
 }
 
@@ -34,14 +34,14 @@ function TagInput<T>({
   const handleAddItem = () => {
     if (newItemName.trim() && !disabled) {
       const newItem = createNewItem(newItemName);
-      setItems((prevItems) => [...prevItems, newItem]);
+      setItems([...items, newItem]);
       setNewItemName('');
     }
   };
 
   const handleRemoveItem = (index: number) => {
     if (!disabled) {
-      setItems((prevItems) => prevItems.filter((_, i) => i !== index));
+      setItems(items.filter((_, i) => i !== index));
     }
   };
 

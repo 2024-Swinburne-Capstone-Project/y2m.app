@@ -15,6 +15,8 @@ export const profileConfig: ProfileConfig = {
       placeholder: 'Email',
       invalidErrorMessage: 'Please enter a valid email address.',
       errorMessage: 'Email is required.',
+      tooltip:
+        'You cannot change your email address here. Please contact support if you need to update it.',
     },
     aboutMe: {
       label: 'About Me',
@@ -31,6 +33,26 @@ export const profileConfig: ProfileConfig = {
       label: 'Skills',
       list: ['Skill 1', 'Skill 2', 'Skill 3'],
       errorMessage: 'Please select at least one skill',
+    },
+    isMentor: {
+      label: 'I want to be a mentor',
+    },
+    isMentee: {
+      label: 'I want to be a mentee',
+    },
+    mentorAreas: {
+      label: 'Areas of Expertise',
+      placeholder: 'Add area of expertise',
+      addButtonText: 'Add Area',
+    },
+    menteeInterests: {
+      label: 'Areas of Interest',
+      placeholder: 'Add area of interest',
+      addButtonText: 'Add Interest',
+    },
+    availability: {
+      label: 'Availability',
+      placeholder: 'e.g., Available weekday evenings, 2 hours per week',
     },
     submitButton: {
       text: 'Save',
