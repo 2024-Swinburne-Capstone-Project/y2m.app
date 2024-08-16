@@ -14,10 +14,11 @@ export interface MentorshipRequest {
   message: string;
   createdAt: string;
   updatedAt: string;
+  mentor: UserData;
   mentee: UserData;
 }
 
 export type CreateMentorshipRequestData = Omit<
   MentorshipRequest,
-  'id' | 'status' | 'createdAt' | 'updatedAt' | 'menteeId' | 'mentee'
+  'id' | 'status' | 'createdAt' | 'updatedAt' | 'mentor' | 'mentee' | 'menteeId'
 >;

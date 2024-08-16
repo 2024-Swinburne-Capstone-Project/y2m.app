@@ -21,7 +21,9 @@ export interface Skill extends Partial<Omit<DBSkill, 'id'>> {
 export interface User extends DBUser {}
 export interface UserData {
   user: User;
-  education: Education[];
-  experience: Experience[];
+  educations: Education[];
+  experiences: Experience[];
   skills: Skill[];
+  hasExistingRequest: boolean;
+  hasExistingConnection: boolean;
 }

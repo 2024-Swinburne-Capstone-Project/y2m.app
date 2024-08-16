@@ -17,8 +17,8 @@ interface ProfileCard {
 }
 
 const ProfileCard: React.FC<ProfileCard> = ({ userData, actionButton }) => {
-  const { user, education, experience, skills } = userData;
-
+  debugger;
+  const { user, educations, experiences, skills } = userData;
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4">
@@ -65,7 +65,7 @@ const ProfileCard: React.FC<ProfileCard> = ({ userData, actionButton }) => {
           <AccordionItem value="experience">
             <AccordionTrigger>Experience</AccordionTrigger>
             <AccordionContent>
-              {experience.map((exp, index) => (
+              {experiences.map((exp, index) => (
                 <div key={index} className="mb-2">
                   <p className="font-semibold">
                     {exp.position} at {exp.company}
@@ -80,7 +80,7 @@ const ProfileCard: React.FC<ProfileCard> = ({ userData, actionButton }) => {
           <AccordionItem value="education">
             <AccordionTrigger>Education</AccordionTrigger>
             <AccordionContent>
-              {education.map((edu, index) => (
+              {educations.map((edu, index) => (
                 <div key={index} className="mb-2">
                   <p className="font-semibold">
                     {edu.degree} in {edu.fieldOfStudy}

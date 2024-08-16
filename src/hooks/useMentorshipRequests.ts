@@ -1,7 +1,6 @@
 import {
   CreateMentorshipRequestData,
   MentorshipRequest,
-  MentorshipRequestStatus,
 } from '@/types/mentorship-request/mentorship-request';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -24,7 +23,7 @@ const createMentorshipRequest = async (
       'Content-Type': 'application/json',
       'X-User-Id': userId,
     },
-    body: JSON.stringify({ ...data, menteeId: userId }),
+    body: JSON.stringify(data),
   });
   if (!response.ok) throw new Error('Failed to create mentorship request');
   return response.json();
@@ -33,18 +32,17 @@ const createMentorshipRequest = async (
 const updateMentorshipRequest = async (
   userId: string,
   requestId: string,
-  status: MentorshipRequestStatus
-): Promise<MentorshipRequest> => {
+  action: 'accept' | 'reject'
+): Promise<void> => {
   const response = await fetch('/api/mentorship-requests', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'X-User-Id': userId,
     },
-    body: JSON.stringify({ id: requestId, status }),
+    body: JSON.stringify({ id: requestId, action }),
   });
   if (!response.ok) throw new Error('Failed to update mentorship request');
-  return response.json();
 };
 
 export const useMentorshipRequests = () => {
@@ -68,11 +66,11 @@ export const useMentorshipRequests = () => {
   });
 
   const updateMutation = useMutation<
-    MentorshipRequest,
+    void,
     Error,
-    { requestId: string; status: MentorshipRequestStatus }
+    { requestId: string; action: 'accept' | 'reject' }
   >({
-    mutationFn: ({ requestId, status }) => updateMentorshipRequest(userId, requestId, status),
+    mutationFn: ({ requestId, action }) => updateMentorshipRequest(userId, requestId, action),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey });
     },
@@ -83,11 +81,11 @@ export const useMentorshipRequests = () => {
   };
 
   const acceptRequest = async (requestId: string) => {
-    await updateMutation.mutateAsync({ requestId, status: MentorshipRequestStatus.ACCEPTED });
+    await updateMutation.mutateAsync({ requestId, action: 'accept' });
   };
 
   const rejectRequest = async (requestId: string) => {
-    await updateMutation.mutateAsync({ requestId, status: MentorshipRequestStatus.REJECTED });
+    await updateMutation.mutateAsync({ requestId, action: 'reject' });
   };
 
   return {

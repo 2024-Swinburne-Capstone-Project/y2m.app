@@ -2,15 +2,31 @@
 
 import * as React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { Button } from '../ui/button';
 import { userButtonConfig } from '@/config/common/components/user-button';
 import { useProfile } from '@/hooks/useProfile';
+import Link from 'next/link';
+import { User, LogOut, Users, ContactRound } from 'lucide-react';
 
 export default function UserButton() {
+  const [mounted, setMounted] = React.useState(false);
   const { user, error, isLoading } = useUser();
   const { profile } = useProfile();
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -18,36 +34,54 @@ export default function UserButton() {
   if (!user)
     return (
       <Button asChild>
-        <a href={userButtonConfig.href}>{userButtonConfig.loginButton}</a>
+        <a href={userButtonConfig.loginHref}>{userButtonConfig.loginButton}</a>
       </Button>
     );
 
   return (
-    <Popover>
-      <PopoverTrigger>
-        <Avatar>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Avatar className="cursor-pointer">
           <AvatarImage
             src={profile?.user?.profilePictureURL ?? user?.picture ?? ''}
             alt={profile?.user?.name ?? ''}
           />
-          <AvatarFallback>Fill In</AvatarFallback>
+          <AvatarFallback>{profile?.user?.name?.[0] ?? user.name?.[0] ?? 'U'}</AvatarFallback>
         </Avatar>
-      </PopoverTrigger>
-      <PopoverContent>
-        <div className="flex flex-col items-center space-y-2">
-          <div>
-            <span>{user.email}</span>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuLabel className="font-normal">
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">{profile?.user?.name ?? user.name}</p>
+            <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
           </div>
-          <div className="flex gap-2.5">
-            <Button asChild>
-              <a href="/profile">{userButtonConfig.profileButton}</a>
-            </Button>
-            <Button asChild>
-              <a href="/api/auth/logout">{userButtonConfig.signOutButton}</a>
-            </Button>
-          </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href={userButtonConfig.profileHref}>
+            <User className="mr-2 size-4" />
+            <span>{userButtonConfig.profileButton}</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={userButtonConfig.connectionsHref}>
+            <Users className="mr-2 size-4" />
+            <span>{userButtonConfig.connectionsButton}</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={userButtonConfig.connectionsOverviewHref}>
+            <ContactRound className="mr-2 size-4" />
+            <span>{userButtonConfig.connectionsOverviewButton}</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <a href={userButtonConfig.signOutHref}>
+            <LogOut className="mr-2 size-4" />
+            <span>{userButtonConfig.signOutButton}</span>
+          </a>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

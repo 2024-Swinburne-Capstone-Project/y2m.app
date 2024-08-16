@@ -9,50 +9,29 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const name = searchParams.get('name');
   const isMentor = searchParams.get('isMentor') === 'true';
-  const isMentee = searchParams.get('isMentee') === 'true';
 
   try {
-    let query = db
-      .selectFrom('User')
-      .leftJoin('MentorMentee', 'User.id', 'MentorMentee.mentorId')
-      .where('id', '!=', userId)
-      .select([
-        'id',
-        'name',
-        'email',
-        'aboutMe',
-        'linkedInProfileLink',
-        'profilePictureURL',
-        'isMentor',
-        'isMentee',
-        'mentorAreas',
-        'menteeInterests',
-        'availability',
-      ]);
+    let query = db.selectFrom('User').selectAll().where('id', '!=', userId);
 
     if (name) {
-      query = query.where('User.name', 'like', `%${name}%`);
+      query = query.where('name', 'like', `%${name}%`);
     }
 
     if (isMentor) {
       query = query.where('isMentor', '=', true);
     }
 
-    if (isMentee) {
-      query = query.where('isMentee', '=', true);
-    }
-
     const users = await query.execute();
 
     const detailedUsers = await Promise.all(
       users.map(async (user) => {
-        const education = await db
+        const educations = await db
           .selectFrom('Education')
           .selectAll()
           .where('userId', '=', user.id)
           .execute();
 
-        const experience = await db
+        const experiences = await db
           .selectFrom('Experience')
           .selectAll()
           .where('userId', '=', user.id)
@@ -64,11 +43,30 @@ export async function GET(request: NextRequest) {
           .where('userId', '=', user.id)
           .execute();
 
+        const existingRequest = await db
+          .selectFrom('MentorshipRequest')
+          .selectAll()
+          .where((eb) =>
+            eb.or([
+              eb.and([eb('menteeId', '=', userId), eb('mentorId', '=', user.id)]),
+              eb.and([eb('menteeId', '=', user.id), eb('mentorId', '=', userId)]),
+            ])
+          )
+          .executeTakeFirst();
+
+        const existingConnection = await db
+          .selectFrom('MentorMentee')
+          .selectAll()
+          .where('menteeId', '=', userId)
+          .executeTakeFirst();
+
         return {
           user,
-          education,
-          experience,
+          educations,
+          experiences,
           skills,
+          hasExistingRequest: !!existingRequest,
+          hasExistingConnection: !!existingConnection,
         };
       })
     );

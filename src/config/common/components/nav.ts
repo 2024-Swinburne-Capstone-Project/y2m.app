@@ -13,6 +13,5 @@ export const applicationNavItems: NavItem[] = [
   { title: 'My Skills', href: '/my-skills' },
   { title: 'Messages', href: '/messages' },
   { title: 'Notifications', href: '/notifications' },
-  { title: 'Connections', href: '/connections' },
   { title: 'Mentors', href: '/mentors/search' },
 ];

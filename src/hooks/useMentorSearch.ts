@@ -20,7 +20,7 @@ export const useMentorSearch = (query: string) => {
   const { data, isLoading, error, refetch } = useQuery<UserData[], Error>({
     queryKey,
     queryFn: () => fetchMentors(query, user?.sub ?? ''),
-    enabled: query.length > 0,
+    enabled: !!user?.sub && query.length > 0,
   });
 
   return {
