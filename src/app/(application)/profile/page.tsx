@@ -12,8 +12,10 @@ import ExperienceSection from '@/app/(application)/profile/components/experience
 import SkillsSection from '@/app/(application)/profile/components/skill-section';
 import { Education, Experience, Skill, UserProfile } from '@/types';
 import { User } from '@/types/profile/user';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function ProfilePage() {
+  const auth0User = useUser();
   const { profile, isLoading, error, saveProfile, isSaving, saveError } = useProfile();
   const [user, setUser] = useState<User>({} as User);
   const [educations, setEducations] = useState<Education[]>([]);
@@ -76,7 +78,10 @@ export default function ProfilePage() {
       ) : (
         <>
           <ProfileSection
-            profile={user}
+            profile={{
+              ...user,
+              email: auth0User?.user?.email ?? null,
+            }}
             isEditing={isEditing}
             onProfileChange={handleProfileChange}
             onEditToggle={() => setIsEditing(!isEditing)}
