@@ -17,7 +17,6 @@ interface ProfileCard {
 }
 
 const ProfileCard: React.FC<ProfileCard> = ({ userData, actionButton }) => {
-  debugger;
   const { user, educations, experiences, skills } = userData;
   return (
     <Card>
