@@ -1,23 +1,23 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { MailOpenIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { MessageCircle, X } from 'lucide-react';
 
-interface ChatFABButtonProps {
+interface ChatFABProps {
   onClick: () => void;
   isOpen: boolean;
 }
 
-const ChatFABButton: React.FC<ChatFABButtonProps> = ({ onClick, isOpen }) => {
+const ChatFAB: React.FC<ChatFABProps> = ({ onClick, isOpen }) => {
   return (
-    <Button
-      className={`rounded-full p-4 shadow-lg transition-all ${
-        isOpen ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
-      }`}
+    <motion.button
+      className="hover:bg-primary-dark flex size-14 items-center justify-center rounded-full bg-primary text-white shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
       onClick={onClick}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
-      {isOpen ? 'Close' : <MailOpenIcon className="size-6 text-white" />}
-    </Button>
+      {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+    </motion.button>
   );
 };
 
-export default ChatFABButton;
+export default ChatFAB;

@@ -1,30 +1,94 @@
+'use client';
+import React, { useState, useEffect, useRef } from 'react';
+import { Chat, Message } from '@/types/chat/chat';
 import { Button } from '@/components/ui/button';
-import React from 'react';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ChevronLeft, Send } from 'lucide-react';
 
 interface ChatMessagesProps {
-  messages: { isMe: boolean; content: string }[];
+  chat: Chat | undefined;
+  onClose: () => void;
+  onSend: (chatId: string, content: string) => void;
 }
 
-const ChatMessages: React.FC<ChatMessagesProps> = ({ messages }) => {
-  return (
-    <div className="h-64 overflow-y-auto border-t border-gray-200 pt-4">
-      {messages.map((message, index) => (
-        <div key={index} className="mb-2">
-          <p
-            className={`text-sm ${message.isMe ? 'text-right text-blue-500' : 'text-left text-gray-700'}`}
-          >
-            {message.content}
-          </p>
-        </div>
-      ))}
+const MessageItem: React.FC<{ message: Message; isOwnMessage: boolean }> = ({
+  message,
+  isOwnMessage,
+}) => (
+  <div className={`mb-4 flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`}>
+    <div
+      className={`max-w-[70%] rounded-lg p-3 ${
+        isOwnMessage ? 'bg-primary text-primary-foreground' : 'bg-muted'
+      }`}
+    >
+      <p>{message.content}</p>
+      <p className="mt-1 text-right text-xs opacity-70">
+        {new Date(message.createdAt.toString()).toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        })}
+      </p>
+    </div>
+  </div>
+);
 
-      <div className="mt-auto">
-        <input
-          type="text"
+const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend }) => {
+  const [message, setMessage] = useState('');
+
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    }
+  }, [chat?.messages]);
+
+  if (!chat) return null;
+
+  const handleSend = () => {
+    if (message.trim()) {
+      onSend(chat.id.toString(), message);
+      setMessage('');
+    }
+  };
+
+  return (
+    <div className="flex h-full flex-col">
+      <div className="flex items-center border-b p-4">
+        <Button variant="ghost" size="icon" onClick={onClose} className="mr-2">
+          <ChevronLeft className="size-6" />
+        </Button>
+        <Avatar className="mr-2 size-10">
+          <AvatarImage
+            src={chat.participants[0].profilePictureURL || ''}
+            alt={chat.participants[0].name}
+          />
+          <AvatarFallback>{chat.participants[0].name[0]}</AvatarFallback>
+        </Avatar>
+        <h2 className="text-lg font-semibold">{chat.participants[0].name}</h2>
+      </div>
+      <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
+        {chat.messages?.map((msg) => (
+          <MessageItem
+            key={msg.id.toString()}
+            message={msg}
+            isOwnMessage={msg.senderId !== chat.participants[0].id}
+          />
+        ))}
+      </ScrollArea>
+      <div className="flex border-t p-4">
+        <Input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           placeholder="Type a message..."
-          className="w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="mr-2 flex-1"
+          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
         />
-        <Button className="mt-2 w-full bg-blue-500 text-white">Send</Button>
+        <Button onClick={handleSend} disabled={!message.trim()}>
+          <Send className="size-4" />
+        </Button>
       </div>
     </div>
   );
