@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
       .select('menteeId as id')
       .execute();
 
-    const mentorIds = mentorConnections.map(connection => connection.id);
-    const menteeIds = menteeConnections.map(connection => connection.id);
+    const mentorIds = mentorConnections.map((connection) => connection.id);
+    const menteeIds = menteeConnections.map((connection) => connection.id);
 
     const [mentors, mentees] = await Promise.all([
       fetchUserDetails(mentorIds),
@@ -36,26 +36,24 @@ export async function GET(request: NextRequest) {
 }
 
 async function fetchUserDetails(userIds: string[]) {
-  const users = await db
-    .selectFrom('User')
-    .where('id', 'in', userIds)
-    .selectAll()
-    .execute();
+  const users = await db.selectFrom('User').where('id', 'in', userIds).selectAll().execute();
 
-  const userDetails = await Promise.all(users.map(async (user) => {
-    const [skills, educations, experiences] = await Promise.all([
-      db.selectFrom('Skill').selectAll().where('userId', '=', user.id).execute(),
-      db.selectFrom('Education').selectAll().where('userId', '=', user.id).execute(),
-      db.selectFrom('Experience').selectAll().where('userId', '=', user.id).execute(),
-    ]);
+  const userDetails = await Promise.all(
+    users.map(async (user) => {
+      const [skills, educations, experiences] = await Promise.all([
+        db.selectFrom('Skill').selectAll().where('userId', '=', user.id).execute(),
+        db.selectFrom('Education').selectAll().where('userId', '=', user.id).execute(),
+        db.selectFrom('Experience').selectAll().where('userId', '=', user.id).execute(),
+      ]);
 
-    return {
-      user,
-      skills,
-      educations,
-      experiences,
-    };
-  }));
+      return {
+        user,
+        skills,
+        educations,
+        experiences,
+      };
+    })
+  );
 
   return userDetails;
 }

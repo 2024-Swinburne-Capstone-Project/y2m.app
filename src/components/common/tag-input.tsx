@@ -9,7 +9,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 interface TagInputProps<T> {
   title: string;
   items: T[];
-  setItems: (items: T[]) => void;  // Changed this line
+  setItems: (items: T[]) => void; // Changed this line
   itemToString: (item: T) => string;
   placeholder: string;
   addButtonText: string;
@@ -19,16 +19,16 @@ interface TagInputProps<T> {
 }
 
 function TagInput<T>({
-                       title,
-                       items,
-                       setItems,
-                       itemToString,
-                       placeholder,
-                       addButtonText,
-                       createNewItem,
-                       className,
-                       disabled,
-                     }: TagInputProps<T>) {
+  title,
+  items,
+  setItems,
+  itemToString,
+  placeholder,
+  addButtonText,
+  createNewItem,
+  className,
+  disabled,
+}: TagInputProps<T>) {
   const [newItemName, setNewItemName] = useState('');
 
   const handleAddItem = () => {

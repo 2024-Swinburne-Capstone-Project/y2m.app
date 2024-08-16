@@ -76,7 +76,6 @@ export interface ConnectionsConfig {
   };
 }
 
-
 export interface MentorSearchConfig {
   heroSection: {
     title: string;

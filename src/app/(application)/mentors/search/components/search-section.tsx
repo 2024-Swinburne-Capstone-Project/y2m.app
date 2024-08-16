@@ -30,10 +30,10 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch }) => {
           placeholder={searchSection.inputPlaceholder}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="flex-grow"
+          className="grow"
         />
         <Button type="submit">
-          <Search className="mr-2 h-4 w-4" /> {searchSection.buttonText}
+          <Search className="mr-2 size-4" /> {searchSection.buttonText}
         </Button>
       </form>
     </motion.div>
@@ -41,4 +41,3 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch }) => {
 };
 
 export default SearchSection;
-
