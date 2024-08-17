@@ -6,9 +6,9 @@ type MessagePayload = { chatId: number } & Message;
 
 type ReceivedMessage = { chatId: number; senderId: string } & Message;
 
-export const useWebSocket = () => {
+export const useWebSocket = (chatId: string) => {
   const [messages, setMessages] = useState<ReceivedMessage[]>([]);
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(true);
 
   const { user } = useUser();
 
@@ -17,10 +17,10 @@ export const useWebSocket = () => {
   useEffect(() => {
     if (!user) return;
 
-    ws.current = new WebSocket(`ws://localhost:3001?userId=${user.sub}&chatId=1`); // Replace `1` with actual chatId
-
+    ws.current = new WebSocket(`ws://localhost:3001?userId=${user.sub}&chatId=${chatId}`);
     ws.current.onopen = () => {
       setIsConnected(true);
+      console.log('WebSocket connection opened');
     };
 
     ws.current.onmessage = (event) => {
@@ -33,22 +33,23 @@ export const useWebSocket = () => {
     };
 
     ws.current.onclose = () => {
-      setIsConnected(false);
+      setIsConnected(true);
       console.log('WebSocket connection closed');
     };
 
     ws.current.onerror = (error) => {
+      setIsConnected(true);
       console.error('WebSocket error:', error);
     };
 
     return () => {
       ws.current?.close();
     };
-  }, [user]);
+  }, [user, chatId]);
 
   const sendMessage = (message: Message) => {
     if (ws.current && isConnected) {
-      const payload: MessagePayload = { ...message };
+      const payload: MessagePayload = { ...message, chatId: Number(chatId) };
       ws.current.send(JSON.stringify(payload));
     }
   };

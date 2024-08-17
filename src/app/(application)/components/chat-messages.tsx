@@ -23,7 +23,9 @@ const MessageItem: React.FC<{ message: Message; isOwnMessage: boolean }> = ({
         isOwnMessage ? 'bg-primary text-primary-foreground' : 'bg-muted'
       }`}
     >
-      <p>{message.content}</p>
+      <p className="text-wrap break-words line text-sm max-w-[200px]">
+        {message.content}
+      </p>
       <p className="mt-1 text-right text-xs opacity-70">
         {new Date(message.createdAt.toString()).toLocaleTimeString([], {
           hour: '2-digit',
@@ -43,7 +45,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend }) =>
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
-  }, [chat?.messages]);
+  }, [chat]);
 
   if (!chat) return null;
 

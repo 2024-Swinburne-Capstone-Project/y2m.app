@@ -12,11 +12,12 @@ const ChatWindow: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeChat, setActiveChat] = useState<string | null>(null);
   const [isNewChatModalOpen, setIsNewChatModalOpen] = useState(false);
-  const { chats, loading, error, sendMessage, createNewChat, fetchChatMessages } = useChats();
+
+  const { chats, loading, error, sendMessage, createNewChat, fetchChatMessages } = useChats(activeChat);
 
   const handleChatSelect = (chatId: string) => {
     setActiveChat(chatId);
-    fetchChatMessages(chatId);
+    void fetchChatMessages(chatId);
   };
 
   const handleNewChat = async (userId: string) => {
