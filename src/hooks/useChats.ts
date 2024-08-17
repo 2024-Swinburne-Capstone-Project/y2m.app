@@ -3,14 +3,23 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import { Chat, Message } from '@/types/chat/chat';
 import { useWebSocket } from '@/hooks/useWebSocket'; // Import your WebSocket hook
 
-export const useChats = () => {
+export const useChats = (chatId: string | null) => {
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { user } = useUser();
 
   // Initialize WebSocket hook
-  const { messages, sendMessage: sendMessageWs } = useWebSocket();
+  const { messages, sendMessage: sendMessageWs } = useWebSocket(chatId ?? '-1');
+
+  // Helper to update a specific chats messages
+  const updateChatMessages = (chatId: number, messages: Message[]) => {
+    setChats((prevChats) =>
+      prevChats.map((chat) =>
+        Number(chat.id) === chatId ? { ...chat, messages } : chat
+      )
+    );
+  };
 
   // Fetch initial chats
   const fetchChats = useCallback(async () => {
@@ -30,22 +39,28 @@ export const useChats = () => {
   }, [user]);
 
   useEffect(() => {
-    fetchChats();
+    void fetchChats();
   }, [fetchChats]);
 
   // Update chat messages with incoming WebSocket messages
   useEffect(() => {
     if (messages.length > 0) {
-      setChats((prevChats) =>
-        prevChats.map((chat) =>
-          Number(chat.id) === messages[0].chatId
-            ? {
-                ...chat,
-                messages: [...(chat.messages || []), messages[0]],
-              }
-            : chat
-        )
-      );
+      const combinedMessages = chats.reduce((acc, chat) => {
+        acc[chat.id.toString()] = chat.messages || [];
+        return acc;
+      }, {} as Record<string, Message[]>);
+
+      const messagesByChatId = messages.reduce((acc, message) => {
+        if (!acc[message.chatId]) acc[message.chatId] = [];
+        acc[message.chatId].push(message);
+        return acc;
+      }, {} as Record<string, Message[]>);
+
+      Object.entries(messagesByChatId).forEach(([chatId, messages]) => {
+        const chatMessages = combinedMessages[chatId] || [];
+        const dedupedMessages = messages.filter((message) => !chatMessages.some((m) => m.id === message.id));
+        updateChatMessages(Number(chatId), [...chatMessages, ...dedupedMessages]);
+      });
     }
   }, [messages]);
 
