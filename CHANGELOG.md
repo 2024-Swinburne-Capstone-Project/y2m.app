@@ -1,3 +1,11 @@
+## [1.24.2](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.24.1...v1.24.2) (2024-08-17)
+
+
+### Miscellaneous Chores
+
+* linting and package lock update ([fafc1d4](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/fafc1d45cc7d74534844ae340dae7dd4c213b2a7))
+* linting and package lock update to fix build ([f11e0dd](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/f11e0dd3dd34accebbea42d767f526d026040467))
+
 ## [1.24.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.24.0...v1.24.1) (2024-08-16)
 
 
