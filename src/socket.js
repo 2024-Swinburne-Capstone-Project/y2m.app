@@ -1,5 +1,6 @@
-import { WebSocketServer } from 'ws';
-import http from 'http';
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { WebSocketServer } = require('ws');
+const http = require('http');
 
 const server = http.createServer();
 
