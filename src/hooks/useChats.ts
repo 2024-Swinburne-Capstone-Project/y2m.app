@@ -15,9 +15,7 @@ export const useChats = (chatId: string | null) => {
   // Helper to update a specific chats messages
   const updateChatMessages = (chatId: number, messages: Message[]) => {
     setChats((prevChats) =>
-      prevChats.map((chat) =>
-        Number(chat.id) === chatId ? { ...chat, messages } : chat
-      )
+      prevChats.map((chat) => (Number(chat.id) === chatId ? { ...chat, messages } : chat))
     );
   };
 
@@ -45,23 +43,32 @@ export const useChats = (chatId: string | null) => {
   // Update chat messages with incoming WebSocket messages
   useEffect(() => {
     if (messages.length > 0) {
-      const combinedMessages = chats.reduce((acc, chat) => {
-        acc[chat.id.toString()] = chat.messages || [];
-        return acc;
-      }, {} as Record<string, Message[]>);
+      const combinedMessages = chats.reduce(
+        (acc, chat) => {
+          acc[chat.id.toString()] = chat.messages || [];
+          return acc;
+        },
+        {} as Record<string, Message[]>
+      );
 
-      const messagesByChatId = messages.reduce((acc, message) => {
-        if (!acc[message.chatId]) acc[message.chatId] = [];
-        acc[message.chatId].push(message);
-        return acc;
-      }, {} as Record<string, Message[]>);
+      const messagesByChatId = messages.reduce(
+        (acc, message) => {
+          if (!acc[message.chatId]) acc[message.chatId] = [];
+          acc[message.chatId].push(message);
+          return acc;
+        },
+        {} as Record<string, Message[]>
+      );
 
       Object.entries(messagesByChatId).forEach(([chatId, messages]) => {
         const chatMessages = combinedMessages[chatId] || [];
-        const dedupedMessages = messages.filter((message) => !chatMessages.some((m) => m.id === message.id));
+        const dedupedMessages = messages.filter(
+          (message) => !chatMessages.some((m) => m.id === message.id)
+        );
         updateChatMessages(Number(chatId), [...chatMessages, ...dedupedMessages]);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
   // Fetch chat messages for a specific chat
