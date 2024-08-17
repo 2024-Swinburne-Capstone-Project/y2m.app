@@ -12,20 +12,24 @@ wss.on('connection', (socket, request) => {
   const userId = url.searchParams.get('userId');
   const chatId = Number(url.searchParams.get('chatId'));
 
+  console.log(`Connection parameters - userId: ${userId}, chatId: ${chatId}`);
+
   if (userId && chatId) {
     if (!chatClients.has(chatId)) {
       chatClients.set(chatId, new Set());
     }
+
     chatClients.get(chatId)?.add(socket);
 
     socket.on('message', (message) => {
       try {
-        const { chatId: msgChatId } = JSON.parse(message.toString());
+        const messageString = message.toString();
+        const parsedMessage = JSON.parse(messageString);
 
-        if (chatId === msgChatId) {
-          chatClients.get(msgChatId)?.forEach((client) => {
-            if (client.readyState === client.OPEN) {
-              client.send(message);
+        if (chatId === parsedMessage.chatId) {
+          chatClients.get(parsedMessage.chatId)?.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN) {
+              client.send(messageString);
             }
           });
         }
