@@ -17,10 +17,6 @@ jobs:
       run: bun install
     - name: Install Playwright Browsers
       run: bunx playwright install --with-deps
-    - name: Build Next.js app
-      run: bun run build
-    - name: Start Next.js server
-      run: bun run start & npx wait-on http://localhost:3000
     - name: Run Playwright tests
       run: bunx playwright test
     - uses: actions/upload-artifact@v4
