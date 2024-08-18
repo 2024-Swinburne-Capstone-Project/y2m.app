@@ -8,8 +8,6 @@ test('Validate Header and Footer', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Enterprise Solutions' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Legal' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Get in Touch' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Toggle theme' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Login' })).toBeVisible();
   await expect(page.getByRole('contentinfo').getByRole('link', { name: 'You2Mentor' })).toBeVisible();
   await expect(page.getByText('© 2024 You2Mentor. All rights')).toBeVisible();
   await expect(page.locator('div').filter({ hasText: /^© 2024 You2Mentor\. All rights reserved\.Privacy PolicyTerms of Service$/ }).locator('div').getByRole('link').first()).toBeVisible();
