@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Playwright Tests with Bun
 on:
   push:
     branches: [ main, master ]
@@ -10,15 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    - uses: oven-sh/setup-bun@v1
       with:
-        node-version: lts/*
+        bun-version: latest
     - name: Install dependencies
-      run: npm ci
+      run: bun install
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: bunx playwright install --with-deps
+    - name: Build Next.js app
+      run: bun run build
+    - name: Start Next.js server
+      run: bun run start & npx wait-on http://localhost:3000
     - name: Run Playwright tests
-      run: npx playwright test
+      run: bunx playwright test
     - uses: actions/upload-artifact@v4
       if: always()
       with:
