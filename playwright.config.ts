@@ -25,10 +25,4 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   ],
-  webServer: {
-    command: 'bun run dev',
-    port: 3000,
-    reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
-  },
 });

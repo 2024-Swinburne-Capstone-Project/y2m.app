@@ -1,4 +1,4 @@
-name: Docker Build and Playwright Tests
+name: Playwright Tests
 on:
   pull_request:
     branches:
@@ -17,6 +17,10 @@ jobs:
         run: |
           docker build -t my-app .
           docker run -d --name my-app-container -p 3000:3000 my-app
+
+      - name: Wait for application to be ready
+        run: |
+          timeout 60s bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:3000)" != "200" ]]; do sleep 5; done' || false
 
       - name: Install dependencies
         run: |
