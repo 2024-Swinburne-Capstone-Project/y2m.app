@@ -26,6 +26,18 @@ export interface BlogPost {
   title: string;
 }
 
+export interface Chat {
+  createdAt: Generated<Timestamp>;
+  id: Generated<number>;
+  updatedAt: Timestamp;
+}
+
+export interface ChatParticipant {
+  chatId: number;
+  joinedAt: Generated<Timestamp>;
+  userId: string;
+}
+
 export interface DevelopmentArea {
   id: Generated<number>;
   name: string;
@@ -74,6 +86,24 @@ export interface MentorMentee {
   updatedAt: Timestamp;
 }
 
+export interface MentorshipRequest {
+  createdAt: Generated<Timestamp>;
+  id: Generated<number>;
+  menteeId: string;
+  mentorId: string;
+  message: string;
+  status: 'ACCEPTED' | 'PENDING' | 'REJECTED';
+  updatedAt: Timestamp;
+}
+
+export interface Message {
+  chatId: number;
+  content: string;
+  createdAt: Generated<Timestamp>;
+  id: Generated<number>;
+  senderId: string;
+}
+
 export interface Milestone {
   endDate: Timestamp;
   id: Generated<number>;
@@ -96,30 +126,18 @@ export interface Skill {
   userId: string;
 }
 
-export type MentorshipRequestStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED';
-
-export interface MentorshipRequest {
-  id: Generated<number>;
-  mentorId: string;
-  menteeId: string;
-  status: MentorshipRequestStatus;
-  message: string;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
-}
-
 export interface User {
-  id: string;
-  name: string;
-  email: string | null;
   aboutMe: string | null;
-  linkedInProfileLink: string | null;
-  profilePictureURL: string | null;
-  isMentor: boolean;
-  isMentee: boolean;
-  mentorAreas: string[];
-  menteeInterests: string[];
   availability: string | null;
+  email: string | null;
+  id: string;
+  isMentee: Generated<boolean>;
+  isMentor: Generated<boolean>;
+  linkedInProfileLink: string | null;
+  menteeInterests: string[] | null;
+  mentorAreas: string[] | null;
+  name: string;
+  profilePictureURL: string | null;
 }
 
 export interface Video {
@@ -130,41 +148,21 @@ export interface Video {
   videoLength: string;
 }
 
-export interface Chat {
-  id: Generated<number>;
-  createdAt: Generated<Timestamp>;
-  updatedAt: Timestamp;
-}
-
-export interface ChatParticipant {
-  chatId: number;
-  userId: string;
-  joinedAt: Generated<Timestamp>;
-}
-
-export interface Message {
-  id: Generated<number>;
-  content: string;
-  createdAt: Generated<Timestamp>;
-  chatId: number;
-  senderId: string;
-}
-
 export interface DB {
   Badge: Badge;
   BlogPost: BlogPost;
+  Chat: Chat;
+  ChatParticipant: ChatParticipant;
   DevelopmentArea: DevelopmentArea;
   Education: Education;
   Experience: Experience;
   GetInTouch: GetInTouch;
   MentorMentee: MentorMentee;
+  MentorshipRequest: MentorshipRequest;
+  Message: Message;
   Milestone: Milestone;
   MilestoneStep: MilestoneStep;
   Skill: Skill;
   User: User;
   Video: Video;
-  MentorshipRequest: MentorshipRequest;
-  Chat: Chat;
-  ChatParticipant: ChatParticipant;
-  Message: Message;
 }
