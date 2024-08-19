@@ -64,7 +64,6 @@ export async function PUT(req: NextRequest) {
           aboutMe: user.aboutMe,
           linkedInProfileLink: user.linkedInProfileLink,
           profilePictureURL: user.profilePictureURL,
-          profileBackgroundURL: user.profileBackgroundURL,
           isMentor: !!user.isMentor,
           isMentee: !!user.isMentee,
           mentorAreas: user.mentorAreas,
