@@ -151,7 +151,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               disabled={!isEditing}
             />
           </div>
-          {profile.isMentor && (
+          {!!profile.isMentor && (
             <div className="sm:col-span-2">
               <TagInput
                 title={profileConfig.profileForm.mentorAreas.label}
@@ -165,7 +165,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               />
             </div>
           )}
-          {profile.isMentee && (
+          {!!profile.isMentee && (
             <div className="sm:col-span-2">
               <TagInput
                 title={profileConfig.profileForm.menteeInterests.label}
