@@ -34,10 +34,6 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-FROM base AS ws-installer
-WORKDIR /app
-RUN npm install ws
-
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
@@ -66,7 +62,6 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-COPY --from=ws-installer /app/node_modules/ws ./node_modules/ws
-COPY src/socket.js ./
-
-CMD ["sh", "-c", "HOSTNAME='0.0.0.0' node socket.js & HOSTNAME='0.0.0.0' node server.js"]
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/next-config-js/output
+CMD HOSTNAME="0.0.0.0" node server.js
