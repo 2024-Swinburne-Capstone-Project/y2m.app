@@ -1,3 +1,10 @@
+## [1.25.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.24.2...v1.25.0) (2024-08-22)
+
+
+### Features
+
+* change chat to use periodic query rather than web sockets ([54aab7e](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/54aab7edc485583f51be20c3439f33f74523e047))
+
 ## [1.24.2](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.24.1...v1.24.2) (2024-08-17)
 
 
