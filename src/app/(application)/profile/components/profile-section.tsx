@@ -135,7 +135,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
             </Label>
             <Switch
               id="isMentor"
-              checked={profile.isMentor}
+              checked={!!profile.isMentor}
               onCheckedChange={(checked) => onProfileChange('isMentor', checked)}
               disabled={!isEditing}
             />
@@ -146,12 +146,12 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
             </Label>
             <Switch
               id="isMentee"
-              checked={profile.isMentee}
+              checked={!!profile.isMentee}
               onCheckedChange={(checked) => onProfileChange('isMentee', checked)}
               disabled={!isEditing}
             />
           </div>
-          {profile.isMentor && (
+          {!!profile.isMentor && (
             <div className="sm:col-span-2">
               <TagInput
                 title={profileConfig.profileForm.mentorAreas.label}
@@ -165,7 +165,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               />
             </div>
           )}
-          {profile.isMentee && (
+          {!!profile.isMentee && (
             <div className="sm:col-span-2">
               <TagInput
                 title={profileConfig.profileForm.menteeInterests.label}
