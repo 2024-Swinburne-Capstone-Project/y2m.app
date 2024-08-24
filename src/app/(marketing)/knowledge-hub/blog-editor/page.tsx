@@ -17,8 +17,17 @@ import Tiptap from '@/components/marketing/tiptap';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { toast } from '@/components/ui/use-toast';
+import { useProfile } from '@/hooks/useProfile';
+import NotAuthorizedPage from '@/app/not-authorized';
 
 export default function Home() {
+  const { profile } = useProfile();
+  const isAdmin = profile?.user.role.toString() === 'ADMIN';
+
+  if (!isAdmin) {
+    return <NotAuthorizedPage />;
+  }
+
   const formSchema = z.object({
     title: z.string().min(5),
     description: z.string().min(5),

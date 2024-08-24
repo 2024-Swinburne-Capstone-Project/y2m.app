@@ -6,6 +6,7 @@ import { VideoConfig } from '@/types';
 import { ErrorAlert } from '@/components/common/error-alert';
 import { LoadingSkeleton } from '@/components/common/loading-skeleton';
 import MainSection from '@/components/common/main-section';
+import { useProfile } from '@/hooks/useProfile';
 
 interface VideoSectionProps {
   videos: VideoConfig[];
@@ -36,6 +37,9 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
     return <ErrorAlert message="No videos available." />;
   }
 
+  const { profile } = useProfile();
+  const isAdmin = profile?.user.role.toString() === 'ADMIN';
+
   return (
     <div className="mx-auto max-w-7xl">
       <Card>
@@ -44,10 +48,11 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
             <CardTitle>Videos</CardTitle>
             <CardDescription>Playlist ({videos.length})</CardDescription>
           </div>
-          {/* TODO: Add a validation that this button only shows if an authorized user is logged in */}
-          <Button asChild>
-            <Link href="/knowledge-hub/video-editor">Add New Video</Link>
-          </Button>
+          {isAdmin && (
+            <Button asChild>
+              <Link href="/knowledge-hub/video-editor">Add New Video</Link>
+            </Button>
+          )}
         </CardHeader>
         <MainSection className="flex flex-col items-start py-4 md:flex-row">
           <CardContent className="md:w-1/3">

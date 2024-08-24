@@ -138,6 +138,7 @@ export interface User {
   mentorAreas: string[] | null;
   name: string;
   profilePictureURL: string | null;
+  role: Generated<string>;
 }
 
 export interface Video {
