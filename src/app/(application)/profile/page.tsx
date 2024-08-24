@@ -58,12 +58,12 @@ export default function ProfilePage() {
     setUser((prevUser) => ({ ...prevUser, [field]: value }));
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, column: string) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUser((prevUser) => ({ ...prevUser, profilePictureURL: reader.result as string }));
+        setUser((prevUser) => ({ ...prevUser, [column]: reader.result as string }));
       };
       reader.readAsDataURL(file);
     }

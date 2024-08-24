@@ -11,12 +11,14 @@ import TagInput from '@/components/common/tag-input';
 import { Textarea } from '@/components/ui/textarea';
 import { profileConfig } from '@/config/application/profile-config';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import Image from 'next/image';
+
 interface ProfileSectionProps {
   profile: User;
   isEditing: boolean;
   onProfileChange: (field: string, value: unknown) => void;
   onEditToggle: () => void;
-  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>, column: string) => void;
 }
 
 const ProfileSection: React.FC<ProfileSectionProps> = ({
@@ -33,6 +35,14 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   return (
     <Card className="mb-5 overflow-hidden">
       <div className="relative h-32 bg-gradient-to-r from-blue-400 to-purple-500">
+        {profile.profileBackgroundURL && (
+          <Image
+            src={profile.profileBackgroundURL}
+            alt="Profile Background"
+            layout="fill"
+            objectFit="cover"
+          />
+        )}
         <Button
           variant="ghost"
           size="sm"
@@ -41,6 +51,20 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
         >
           {isEditing ? 'Cancel' : 'Edit Profile'}
         </Button>
+        {isEditing && (
+          <div className="absolute bottom-4 right-6 rounded-full bg-primary p-2 text-white shadow-lg hover:bg-white/20">
+            <Label htmlFor="backgroundPicture" className="cursor-pointer">
+              <Camera size={20} />
+            </Label>
+            <Input
+              id="backgroundPicture"
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e, 'profileBackgroundURL')}
+              className="hidden"
+            />
+          </div>
+        )}
       </div>
       <CardContent className="relative px-6 pb-6 pt-0">
         <div className="flex flex-col items-center sm:flex-row sm:items-end sm:space-x-5">
@@ -51,14 +75,14 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
             </Avatar>
             {isEditing && (
               <div className="absolute bottom-0 right-0 rounded-full bg-primary p-2 text-white shadow-lg">
-                <Label htmlFor="picture" className="cursor-pointer">
+                <Label htmlFor="profilePicture" className="cursor-pointer">
                   <Camera size={20} />
                 </Label>
                 <Input
-                  id="picture"
+                  id="profilePicture"
                   type="file"
                   accept="image/*"
-                  onChange={handleImageChange}
+                  onChange={(e) => handleImageChange(e, 'profilePictureURL')}
                   className="hidden"
                 />
               </div>
