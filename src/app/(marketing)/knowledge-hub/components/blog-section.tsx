@@ -4,19 +4,16 @@ import { BlogsCarousel } from './blogs-carousel';
 import Link from 'next/link';
 import { BlogPost } from '@/types';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useProfile } from '@/hooks/useProfile';
 import { Button } from '@/components/ui/button';
 
 interface BlogSectionProps {
   blogs: BlogPost[];
   isLoading: boolean;
   error: Error | null;
+  isAdmin: boolean;
 }
 
-export const BlogSection = ({ blogs, isLoading, error }: BlogSectionProps) => {
-  const { profile } = useProfile();
-  const isAdmin = profile?.user.role.toString() === 'ADMIN';
-
+export const BlogSection = ({ blogs, isLoading, error, isAdmin }: BlogSectionProps) => {
   return (
     <div>
       <Card>

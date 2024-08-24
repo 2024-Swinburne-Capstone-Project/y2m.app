@@ -6,13 +6,13 @@ import { VideoConfig } from '@/types';
 import { ErrorAlert } from '@/components/common/error-alert';
 import { LoadingSkeleton } from '@/components/common/loading-skeleton';
 import MainSection from '@/components/common/main-section';
-import { useProfile } from '@/hooks/useProfile';
 
 interface VideoSectionProps {
   videos: VideoConfig[];
   isLoading: boolean;
   error: Error | null;
   selectedVideoIndex: number;
+  isAdmin: boolean;
   setSelectedVideoIndex: (index: number) => void;
 }
 
@@ -21,6 +21,7 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
   isLoading,
   error,
   selectedVideoIndex,
+  isAdmin,
   setSelectedVideoIndex,
 }) => {
   if (isLoading) {
@@ -36,9 +37,6 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
   if (!videos || videos.length === 0) {
     return <ErrorAlert message="No videos available." />;
   }
-
-  const { profile } = useProfile();
-  const isAdmin = profile?.user.role.toString() === 'ADMIN';
 
   return (
     <div className="mx-auto max-w-7xl">
