@@ -21,13 +21,6 @@ import { useProfile } from '@/hooks/useProfile';
 import NotAuthorizedPage from '@/app/not-authorized';
 
 export default function Home() {
-  const { profile } = useProfile();
-  const isAdmin = profile?.user.role.toString() === 'ADMIN';
-
-  if (!isAdmin) {
-    return <NotAuthorizedPage />;
-  }
-
   const formSchema = z.object({
     title: z.string().min(5),
     description: z.string().min(5),
@@ -45,6 +38,7 @@ export default function Home() {
   });
 
   const router = useRouter();
+
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const imageURL = form.getValues('imagePath');
 
@@ -73,6 +67,13 @@ export default function Home() {
   function clearImage() {
     setImagePreview(null);
     form.setValue('imagePath', '');
+  }
+
+  const { profile } = useProfile();
+  const isAdmin = profile?.user.role.toString() === 'ADMIN';
+
+  if (!isAdmin) {
+    return <NotAuthorizedPage />;
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
