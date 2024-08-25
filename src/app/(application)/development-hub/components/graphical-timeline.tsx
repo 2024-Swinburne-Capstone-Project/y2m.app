@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Milestone, MilestoneStep } from '@/types';
-import DevelopmentChart from './development-chart';
+import DevelopmentChart from '../../../../components/application/development-chart';
 
 interface GraphicalTimelineProps {
   title: string;

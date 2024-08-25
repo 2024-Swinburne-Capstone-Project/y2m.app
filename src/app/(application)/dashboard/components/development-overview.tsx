@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Milestone, MilestoneStep } from '@/types';
 import Link from 'next/link';
-import DevelopmentChart from '../../development-hub/components/development-chart';
+import DevelopmentChart from '../../../../components/application/development-chart';
 
 interface DevelopmentOverviewProps {
   title: string;
