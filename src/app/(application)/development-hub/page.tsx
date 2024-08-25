@@ -89,7 +89,11 @@ export default function DevelopmentHubPage() {
               <DevelopmentAreas areas={developmentAreas} setAreas={setDevelopmentAreas} />
             </div>
 
-            <GraphicalTimeline milestones={milestones} milestoneSteps={milestoneSteps} />
+            <GraphicalTimeline
+              title={developmentHubConfig.graphicalTimeline.title}
+              milestones={milestones}
+              milestoneSteps={milestoneSteps}
+            />
 
             <KeyMilestonesAndActions
               milestones={milestones}

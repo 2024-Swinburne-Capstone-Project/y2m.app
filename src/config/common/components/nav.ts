@@ -9,6 +9,7 @@ export const marketingNavItems: NavItem[] = [
 ];
 
 export const applicationNavItems: NavItem[] = [
+  { title: 'Dashboard', href: '/dashboard' },
   { title: 'Development Hub', href: '/development-hub' },
   { title: 'My Skills', href: '/my-skills' },
   { title: 'Messages', href: '/messages' },
