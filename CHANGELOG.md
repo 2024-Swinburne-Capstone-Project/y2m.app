@@ -1,3 +1,21 @@
+## [1.26.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.25.0...v1.26.0) (2024-08-25)
+
+
+### Features
+
+* :sparkles: Add Admin role and restrict adding videos and blogs to admins only ([f77dfe1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/f77dfe19c2fc1f0a89424dea2229de353b229eb6))
+* :sparkles: Add Profile Background Picture Upload ([786dd64](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/786dd645dc750b6c1b52917227f4d5fbd507d005))
+
+
+### Bug Fixes
+
+* :bug: Fix mobile nav ([f61e74d](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/f61e74dd69e74b6a761e7d38da1e5e0671d5666e))
+
+
+### Miscellaneous Chores
+
+* Update isAdmin prop in BlogSection and VideoSection components ([0b1ab06](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/0b1ab06011109e5e548f502e3ec1b2ea1c71a132))
+
 ## [1.25.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.24.2...v1.25.0) (2024-08-22)
 
 
