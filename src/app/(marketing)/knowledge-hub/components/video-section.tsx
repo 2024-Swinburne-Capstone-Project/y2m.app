@@ -12,6 +12,7 @@ interface VideoSectionProps {
   isLoading: boolean;
   error: Error | null;
   selectedVideoIndex: number;
+  isAdmin: boolean;
   setSelectedVideoIndex: (index: number) => void;
 }
 
@@ -20,6 +21,7 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
   isLoading,
   error,
   selectedVideoIndex,
+  isAdmin,
   setSelectedVideoIndex,
 }) => {
   if (isLoading) {
@@ -44,10 +46,11 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
             <CardTitle>Videos</CardTitle>
             <CardDescription>Playlist ({videos.length})</CardDescription>
           </div>
-          {/* TODO: Add a validation that this button only shows if an authorized user is logged in */}
-          <Button asChild>
-            <Link href="/knowledge-hub/video-editor">Add New Video</Link>
-          </Button>
+          {isAdmin && (
+            <Button asChild>
+              <Link href="/knowledge-hub/video-editor">Add New Video</Link>
+            </Button>
+          )}
         </CardHeader>
         <MainSection className="flex flex-col items-start py-4 md:flex-row">
           <CardContent className="md:w-1/3">

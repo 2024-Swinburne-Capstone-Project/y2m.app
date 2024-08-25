@@ -137,7 +137,9 @@ export interface User {
   menteeInterests: string[] | null;
   mentorAreas: string[] | null;
   name: string;
+  profileBackgroundURL: string | null;
   profilePictureURL: string | null;
+  role: Generated<string>;
 }
 
 export interface Video {

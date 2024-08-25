@@ -15,6 +15,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { getYoutubeEmbedUrl } from '@/lib/utils';
 import { toast } from '@/components/ui/use-toast';
+import { useProfile } from '@/hooks/useProfile';
+import NotAuthorizedPage from '@/app/not-authorized';
 
 export default function Home() {
   const formSchema = z.object({
@@ -36,6 +38,13 @@ export default function Home() {
   });
 
   const router = useRouter();
+
+  const { profile } = useProfile();
+  const isAdmin = profile?.user.role.toString() === 'ADMIN';
+
+  if (!isAdmin) {
+    return <NotAuthorizedPage />;
+  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Save values to the database

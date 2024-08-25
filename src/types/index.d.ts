@@ -531,3 +531,12 @@ export interface Table {
   caption: string;
   headers: string[];
 }
+
+export interface NotAuthorizedConfig {
+  title: string;
+  description: string;
+  imageSource: string;
+  imageAlt: string;
+  buttonText: string;
+  buttonHref: string;
+}
