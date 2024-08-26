@@ -1,3 +1,10 @@
+## [1.27.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.26.0...v1.27.0) (2024-08-26)
+
+
+### Features
+
+* :sparkles: Added a Dashboard page based on the Figma Design ([0ce6953](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/0ce69538e0e32bc1b363172a6aaa5afc78cf2623))
+
 ## [1.26.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.25.0...v1.26.0) (2024-08-25)
 
 
