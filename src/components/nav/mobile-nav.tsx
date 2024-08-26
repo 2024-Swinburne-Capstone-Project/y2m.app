@@ -102,24 +102,6 @@ export function MobileNav() {
                 )
             )
           )}
-          {!user && (
-            <ul tabIndex={-1} className="flex flex-col gap-2.5">
-              {marketingNavItems.map((item) => (
-                <MobileLink
-                  className={'w-initial justify-start'}
-                  onClick={() => {
-                    setIsDropdownOpen(false);
-                    buttonRef.current?.blur();
-                    setOpen(false);
-                  }}
-                  href={item.href}
-                  key={item.href}
-                >
-                  {item.title}
-                </MobileLink>
-              ))}
-            </ul>
-          )}
         </div>
       </SheetContent>
     </Sheet>
