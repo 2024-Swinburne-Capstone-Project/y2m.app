@@ -540,3 +540,10 @@ export interface NotAuthorizedConfig {
   buttonText: string;
   buttonHref: string;
 }
+
+export type DashboardConfig = {
+  heroContent: HeroContentConfig;
+  myMentors: TextWithMarkup;
+  myMentees: TextWithMarkup;
+  developmentOverview: TextWithMarkup;
+};
