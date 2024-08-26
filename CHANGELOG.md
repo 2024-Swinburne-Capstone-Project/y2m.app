@@ -1,3 +1,17 @@
+## [1.27.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.27.0...v1.27.1) (2024-08-26)
+
+
+### Bug Fixes
+
+* attempt to resolve type error ([eac094e](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/eac094e831d33fc530d69dfd2fe53e592135701b))
+* mobile nav ([5607ab0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/5607ab07f774d49446e82cf5c019c62ad0f51217))
+
+
+### Miscellaneous Chores
+
+* add Azure Storage configuration to .env.example ([46492f3](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/46492f313392d68883dfd18a1bd43d4093e1436f))
+* lint ([2244427](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/2244427ef10025c5ca2963d31a7323b3608eb3de))
+
 ## [1.27.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.26.0...v1.27.0) (2024-08-26)
 
 
