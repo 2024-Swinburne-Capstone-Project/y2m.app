@@ -55,7 +55,7 @@ export function MobileNav() {
               className="mb-4 mr-5"
             />
           </MobileLink>
-          {user && (
+          {user ? (
             <>
               {applicationNavItems.map(
                 (item) =>
@@ -65,7 +65,6 @@ export function MobileNav() {
                     </MobileLink>
                   )
               )}
-
               <button onClick={toggleDropdown} className="flex">
                 Quick Links
                 {isDropdownOpen ? (
@@ -93,24 +92,15 @@ export function MobileNav() {
                 </ul>
               )}
             </>
-          )}
-          {!user && (
-            <ul tabIndex={-1} className="flex flex-col gap-2.5">
-              {marketingNavItems.map((item) => (
-                <MobileLink
-                  className={'w-initial justify-start'}
-                  onClick={() => {
-                    setIsDropdownOpen(false);
-                    buttonRef.current?.blur();
-                    setOpen(false);
-                  }}
-                  href={item.href}
-                  key={item.href}
-                >
-                  {item.title}
-                </MobileLink>
-              ))}
-            </ul>
+          ) : (
+            marketingNavItems.map(
+              (item) =>
+                item.href && (
+                  <MobileLink key={item.href} href={item.href} onOpenChange={setOpen}>
+                    {item.title}
+                  </MobileLink>
+                )
+            )
           )}
         </div>
       </SheetContent>
