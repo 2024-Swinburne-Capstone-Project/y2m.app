@@ -62,7 +62,7 @@ export function MediaCarousel({
                           src={item.imagePath}
                           alt={item.title}
                           width={150}
-                          className="h-full w-full rounded-md object-cover"
+                          className="size-full rounded-md object-cover"
                           height={150}
                         />
                       </AspectRatio>

@@ -25,6 +25,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { useCreateMediaRelease } from '@/hooks/useMediaReleaseData';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from '@/components/ui/use-toast';
 
 const formSchema = z.object({
   title: z.string().min(1, { message: 'Title is required' }),
@@ -34,6 +36,7 @@ const formSchema = z.object({
 
 export default function MediaCentrePage() {
   const { data: mediaReleases, isLoading, error } = useMediaReleases();
+  const queryClient = useQueryClient();
   const { mutate } = useCreateMediaRelease();
   const { profile } = useProfile();
   const isAdmin = profile?.user.role.toString() === 'ADMIN';
@@ -50,15 +53,25 @@ export default function MediaCentrePage() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    mutate({
-      title: values.title,
-      description: values.description,
-      href: values.href,
-      imagePath: imagePath,
-    });
-    useMediaReleases();
-    form.reset();
-    setIsDialogOpen(false);
+    mutate(
+      {
+        title: values.title,
+        description: values.description,
+        href: values.href,
+        imagePath: imagePath,
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries();
+          form.reset();
+          setImagePath('/y2m-logo.png');
+          setIsDialogOpen(false);
+          toast({
+            title: 'Media Release saved successfully',
+          });
+        },
+      }
+    );
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
