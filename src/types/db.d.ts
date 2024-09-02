@@ -1,9 +1,8 @@
-import type { ColumnType } from 'kysely';
+import type { ColumnType } from "kysely";
 
-export type Generated<T> =
-  T extends ColumnType<infer S, infer I, infer U>
-    ? ColumnType<S, I | undefined, U>
-    : ColumnType<T, T | undefined, T>;
+export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
+  ? ColumnType<S, I | undefined, U>
+  : ColumnType<T, T | undefined, T>;
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
@@ -79,6 +78,14 @@ export interface GetInTouch {
   receivedDate: Timestamp | null;
 }
 
+export interface MediaRelease {
+  description: string;
+  href: string;
+  id: Generated<number>;
+  imagePath: string;
+  title: string;
+}
+
 export interface MentorMentee {
   createdAt: Generated<Timestamp>;
   menteeId: string;
@@ -92,7 +99,7 @@ export interface MentorshipRequest {
   menteeId: string;
   mentorId: string;
   message: string;
-  status: 'ACCEPTED' | 'PENDING' | 'REJECTED';
+  status: "ACCEPTED" | "PENDING" | "REJECTED";
   updatedAt: Timestamp;
 }
 
@@ -108,7 +115,7 @@ export interface Milestone {
   endDate: Timestamp;
   id: Generated<number>;
   startDate: Timestamp;
-  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
+  status: "COMPLETED" | "IN_PROGRESS" | "NOT_STARTED";
   title: string;
   userId: string;
 }
@@ -117,7 +124,7 @@ export interface MilestoneStep {
   id: Generated<number>;
   milestoneId: number;
   name: string;
-  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
+  status: "COMPLETED" | "IN_PROGRESS" | "NOT_STARTED";
 }
 
 export interface Skill {
@@ -159,6 +166,7 @@ export interface DB {
   Education: Education;
   Experience: Experience;
   GetInTouch: GetInTouch;
+  MediaRelease: MediaRelease;
   MentorMentee: MentorMentee;
   MentorshipRequest: MentorshipRequest;
   Message: Message;

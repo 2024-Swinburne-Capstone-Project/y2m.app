@@ -28,6 +28,14 @@ export interface AboutConfig {
   additionalContent: AdditionalContent;
 }
 
+export interface MediaCentreConfig {
+  heroSection: HeroSectionConfig;
+  additionalContent: {
+    title: string;
+    subtitle: string;
+  };
+}
+
 export interface PrivacyPolicyConfig {
   heroSection: HeroSectionConfig;
   sections: PrivacyPolicySection[];
@@ -329,6 +337,7 @@ export type DevelopmentHubConfig = {
 export interface NavItem {
   title: string;
   href: string;
+  childMenuItems?: NavItem[];
 }
 
 export interface NotFoundConfig {

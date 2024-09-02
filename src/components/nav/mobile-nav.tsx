@@ -57,14 +57,6 @@ export function MobileNav() {
           </MobileLink>
           {user ? (
             <>
-              {applicationNavItems.map(
-                (item) =>
-                  item.href && (
-                    <MobileLink key={item.href} href={item.href} onOpenChange={setOpen}>
-                      {item.title}
-                    </MobileLink>
-                  )
-              )}
               <button onClick={toggleDropdown} className="flex">
                 Quick Links
                 {isDropdownOpen ? (
@@ -76,29 +68,71 @@ export function MobileNav() {
               {isDropdownOpen && (
                 <ul tabIndex={-1} className="flex flex-col gap-2.5 pl-2.5">
                   {marketingNavItems.map((item) => (
-                    <MobileLink
-                      className={'w-initial justify-start'}
-                      onClick={() => {
-                        setIsDropdownOpen(false);
-                        buttonRef.current?.blur();
-                        setOpen(false);
-                      }}
-                      href={item.href}
-                      key={item.href}
-                    >
-                      {item.title}
-                    </MobileLink>
+                    <>
+                      <MobileLink
+                        className={'w-initial justify-start'}
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          buttonRef.current?.blur();
+                          setOpen(false);
+                        }}
+                        href={item.href}
+                        key={item.href}
+                      >
+                        {item.title}
+                      </MobileLink>
+                      {item.childMenuItems &&
+                        item.childMenuItems.map((child) => (
+                          <MobileLink
+                            className={'w-initial ml-4 justify-start'}
+                            onClick={() => {
+                              setIsDropdownOpen(false);
+                              buttonRef.current?.blur();
+                              setOpen(false);
+                            }}
+                            href={child.href}
+                            key={child.href}
+                          >
+                            {child.title}
+                          </MobileLink>
+                        ))}
+                    </>
                   ))}
                 </ul>
+              )}
+              {applicationNavItems.map(
+                (item) =>
+                  item.href && (
+                    <MobileLink key={item.href} href={item.href} onOpenChange={setOpen}>
+                      {item.title}
+                    </MobileLink>
+                  )
               )}
             </>
           ) : (
             marketingNavItems.map(
               (item) =>
                 item.href && (
-                  <MobileLink key={item.href} href={item.href} onOpenChange={setOpen}>
-                    {item.title}
-                  </MobileLink>
+                  <>
+                    <MobileLink key={item.href} href={item.href} onOpenChange={setOpen}>
+                      {item.title}
+                    </MobileLink>
+                    {item.childMenuItems &&
+                      item.childMenuItems.map((child) => (
+                        <MobileLink
+                          className={'w-initial ml-4 justify-start'}
+                          onClick={() => {
+                            setIsDropdownOpen(false);
+                            buttonRef.current?.blur();
+                            setOpen(false);
+                          }}
+                          href={child.href}
+                          key={child.href}
+                        >
+                          {child.title}
+                        </MobileLink>
+                      ))}
+                  </>
                 )
             )
           )}
