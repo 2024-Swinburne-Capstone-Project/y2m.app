@@ -24,9 +24,11 @@ export default function MentorSearchPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const query = params.get('query') || '';
-    setSearchQuery(query);
-    refetch(); // Fetch data based on the initial query
+    const query = params.get('query');
+    if (query) {
+      setSearchQuery(query);
+      refetch();
+    }
   }, [refetch]);
 
   const handleRequestMentorship = async (mentorId: string, message: string) => {
