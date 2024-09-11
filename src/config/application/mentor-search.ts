@@ -7,7 +7,7 @@ export const mentorSearchConfig: MentorSearchConfig = {
       'Connect with industry professionals who can guide you on your career journey and help you achieve your goals.',
   },
   searchSection: {
-    inputPlaceholder: 'Search mentors by name, skills, or industry...',
+    inputPlaceholder: 'Search mentors by name, skills, education or industry...',
     buttonText: 'Search',
   },
   resultsSection: {
