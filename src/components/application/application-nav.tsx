@@ -3,6 +3,7 @@ import { ModeToggle } from '../nav/mode-toggle';
 import { MainNav } from '../nav/main-nav';
 import { MobileNav } from '../nav/mobile-nav';
 import UserButton from '../nav/user-button';
+import SearchBar from './search-bar';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -17,6 +18,7 @@ export default async function ApplicationNav() {
           <MainNav />
           <MobileNav />
           <div className="ml-auto flex space-x-4">
+            <SearchBar />
             <ModeToggle />
             <UserButton />
           </div>
