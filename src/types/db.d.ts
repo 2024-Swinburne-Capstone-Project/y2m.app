@@ -79,6 +79,14 @@ export interface GetInTouch {
   receivedDate: Timestamp | null;
 }
 
+export interface MediaRelease {
+  description: string;
+  href: string;
+  id: Generated<number>;
+  imagePath: string;
+  title: string;
+}
+
 export interface MentorMentee {
   createdAt: Generated<Timestamp>;
   menteeId: string;
@@ -159,6 +167,7 @@ export interface DB {
   Education: Education;
   Experience: Experience;
   GetInTouch: GetInTouch;
+  MediaRelease: MediaRelease;
   MentorMentee: MentorMentee;
   MentorshipRequest: MentorshipRequest;
   Message: Message;

@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('Validate Header and Footer', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await expect(page.getByRole('banner').getByRole('link', { name: 'You2Mentor' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'About' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'About' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Knowledge Hub' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Enterprise Solutions' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Legal' })).toBeVisible();
@@ -81,9 +81,9 @@ test('Validate Home', async ({ page }) => {
   );
 });
 
-test('validate About', async ({ page }) => {
+test('Validate About', async ({ page }) => {
   await page.goto('http://localhost:3000/');
-  await page.getByRole('link', { name: 'About' }).click();
+  await page.getByRole('button', { name: 'About' }).click();
   await expect(
     page.locator('div').filter({ hasText: 'At You2Mentor, we believe' }).nth(2)
   ).toBeVisible();

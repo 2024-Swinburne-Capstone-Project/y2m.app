@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMentorSearch } from '@/hooks/useMentorSearch';
 import { useMentorshipRequests } from '@/hooks/useMentorshipRequests';
 import { useToast } from '@/components/ui/use-toast';
@@ -21,6 +21,15 @@ export default function MentorSearchPage() {
     setSearchQuery(query);
     refetch();
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('query');
+    if (query) {
+      setSearchQuery(query);
+      refetch();
+    }
+  }, [refetch]);
 
   const handleRequestMentorship = async (mentorId: string, message: string) => {
     try {

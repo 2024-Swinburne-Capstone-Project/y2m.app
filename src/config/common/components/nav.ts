@@ -1,7 +1,11 @@
 import { NavItem } from '@/types';
 
 export const marketingNavItems: NavItem[] = [
-  { title: 'About', href: '/about' },
+  {
+    title: 'About',
+    href: '/about',
+    childMenuItems: [{ title: 'Media Centre', href: '/media-centre' }],
+  },
   { title: 'Knowledge Hub', href: '/knowledge-hub' },
   { title: 'Enterprise Solutions', href: '/enterprise-solutions' },
   { title: 'Legal', href: '/legal' },
