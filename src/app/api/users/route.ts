@@ -13,30 +13,29 @@ export async function GET(request: NextRequest) {
   try {
     let query = db
       .selectFrom('User as u')
-      .selectAll()
+      .selectAll('u')
+      .leftJoin('Skill as s', 's.userId', 'u.id')
+      .leftJoin('Experience as ex', 'ex.userId', 'u.id')
+      .leftJoin('Education as ed', 'ed.userId', 'u.id')
       .distinctOn('u.id')
       .where('u.id', '!=', userId);
-    if (isMentor) {
-      query = query.where('isMentor', '=', true);
-    }
 
     if (searchTerm) {
-      query = query
-        .rightJoin('Skill as s', 's.userId', 'u.id')
-        .rightJoin('Experience as ex', 'ex.userId', 'u.id')
-        .rightJoin('Education as ed', 'ed.userId', 'u.id')
-        .select(['u.name as name', 'u.id as id'])
-        .where((eb) =>
-          eb.or([
-            eb('u.name', 'ilike', `%${searchTerm}%`),
-            eb('s.name', 'ilike', `%${searchTerm}%`),
-            eb('ex.company', 'ilike', `%${searchTerm}%`),
-            eb('ex.position', 'ilike', `%${searchTerm}%`),
-            eb('ed.institution', 'ilike', `%${searchTerm}%`),
-            eb('ed.degree', 'ilike', `%${searchTerm}%`),
-            eb('ed.fieldOfStudy', 'ilike', `%${searchTerm}%`),
-          ])
-        );
+      query = query.where((eb) =>
+        eb.or([
+          eb('u.name', 'ilike', `%${searchTerm}%`),
+          eb('s.name', 'ilike', `%${searchTerm}%`),
+          eb('ex.company', 'ilike', `%${searchTerm}%`),
+          eb('ex.position', 'ilike', `%${searchTerm}%`),
+          eb('ed.institution', 'ilike', `%${searchTerm}%`),
+          eb('ed.degree', 'ilike', `%${searchTerm}%`),
+          eb('ed.fieldOfStudy', 'ilike', `%${searchTerm}%`),
+        ])
+      );
+    }
+
+    if (isMentor) {
+      query = query.where('isMentor', '=', true);
     }
 
     const users = await query.execute();
@@ -87,8 +86,6 @@ export async function GET(request: NextRequest) {
         };
       })
     );
-
-    console.log({ detailedUsers });
 
     return NextResponse.json(detailedUsers);
   } catch (error) {
