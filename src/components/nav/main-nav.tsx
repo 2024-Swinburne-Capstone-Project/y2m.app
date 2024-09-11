@@ -81,7 +81,9 @@ export function MainNav() {
                   {item.childMenuItems ? (
                     <>
                       <Link href={item.href} legacyBehavior passHref>
-                        <NavigationMenuTrigger className="text-foreground/60">
+                        <NavigationMenuTrigger
+                          className={`text-foreground/60 ${getNavLinkClassName(item.href)}`}
+                        >
                           {item.title}
                         </NavigationMenuTrigger>
                       </Link>
