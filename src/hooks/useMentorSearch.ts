@@ -3,7 +3,7 @@ import { UserData } from '@/types/mentor-search/user-data';
 import { useUser } from '@auth0/nextjs-auth0/client';
 
 const fetchMentors = async (query: string, userId: string): Promise<UserData[]> => {
-  const response = await fetch(`/api/users?name=${encodeURIComponent(query)}&isMentor=true`, {
+  const response = await fetch(`/api/users?searchTerm=${encodeURIComponent(query)}&isMentor=true`, {
     headers: {
       'X-User-Id': userId,
       'Content-Type': 'application/json',
