@@ -27,7 +27,7 @@ export default function MentorSearchPage() {
     const query = params.get('query') || '';
     setSearchQuery(query);
     refetch(); // Fetch data based on the initial query
-  }, [window.location.search]);
+  }, [refetch]);
 
   const handleRequestMentorship = async (mentorId: string, message: string) => {
     try {

@@ -1,12 +1,12 @@
 'use client';
-import React, { useState } from 'react';
+import React, { KeyboardEventHandler, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
 
-  const handleKeyDown = (e: any) => {
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       window.location.href = `/mentors/search?query=${encodeURIComponent(query)}`;
