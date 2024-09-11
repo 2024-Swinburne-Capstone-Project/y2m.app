@@ -1,3 +1,15 @@
+## [1.28.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.27.1...v1.28.0) (2024-09-11)
+
+
+### Features
+
+* :sparkles: Add Media Centre Page and Nav Links ([28debeb](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/28debeb8b0f1143c64032ebdbf999798852f7f19))
+
+
+### Bug Fixes
+
+* :bug: Implement Wildcard search through user name, skills, experince and education ([0b77f37](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/0b77f3741f12a56de6eca7ea0f1123e8cec4d45e))
+
 ## [1.27.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.27.0...v1.27.1) (2024-08-26)
 
 
