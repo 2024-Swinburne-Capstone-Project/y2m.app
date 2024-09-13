@@ -15,7 +15,9 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(query);
+    if (query.length > 0) {
+      onSearch(query);
+    }
   };
 
   return (
@@ -32,7 +34,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch }) => {
           onChange={(e) => setQuery(e.target.value)}
           className="grow"
         />
-        <Button type="submit">
+        <Button type="submit" disabled={query.length === 0}>
           <Search className="mr-2 size-4" /> {searchSection.buttonText}
         </Button>
       </form>
