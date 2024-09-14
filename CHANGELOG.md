@@ -1,3 +1,11 @@
+## [1.29.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.28.0...v1.29.0) (2024-09-14)
+
+
+### Features
+
+* :sparkles: Add Profile View Page ([d3f452d](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/d3f452dca1cf654a904b008b528b4b0848429c0d))
+* :sparkles: Add Profile View Page ([30997f5](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/30997f59980971cf0ff2a6d3c85d629541ed2ebd))
+
 ## [1.28.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.27.1...v1.28.0) (2024-09-11)
 
 
