@@ -7,7 +7,7 @@ import { LoadingSkeleton } from '@/components/common/loading-skeleton';
 import { ErrorAlert } from '@/components/common/error-alert';
 import { useProfile } from '@/hooks/useProfile';
 import ProfileSection from '@/app/(application)/profile/components/profile-section';
-import EducationSection from '@/app/(application)/profile/components/education-section';
+import EducationSection from '@/components/common/education-section';
 import ExperienceSection from '@/components/common/experience-section';
 import SkillsSection from '@/components/common/skill-section';
 import { Education, Experience, Skill, UserProfile } from '@/types';
