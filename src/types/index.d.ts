@@ -557,3 +557,11 @@ export type DashboardConfig = {
   myMentees: TextWithMarkup;
   developmentOverview: TextWithMarkup;
 };
+
+export interface MentorFeedbackConfig {
+  giveFeedbackButtonText: string;
+  dialogPlaceholder: string;
+  dialogHeader: string;
+  ratingLabel: string;
+  dialogSubmitButtonText: string;
+}

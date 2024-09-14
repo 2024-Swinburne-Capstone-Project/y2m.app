@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 
 export async function GET(request: NextRequest, { params }: { params: { userid: string } }) {
+  const loggedInUserId = request.headers.get('X-User-Id');
+  if (!loggedInUserId) {
+    return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
+  }
+
   const userId = params.userid;
   try {
     const user = await db
@@ -20,11 +25,35 @@ export async function GET(request: NextRequest, { params }: { params: { userid: 
       db.selectFrom('Experience').selectAll().where('userId', '=', user.id).execute(),
     ]);
 
+    const existingConnection = await db
+      .selectFrom('MentorMentee')
+      .selectAll()
+      .where((eb) =>
+        eb.or([
+          eb.and([eb('mentorId', '=', userId), eb('menteeId', '=', loggedInUserId)]),
+          eb.and([eb('mentorId', '=', loggedInUserId), eb('menteeId', '=', userId)]),
+        ])
+      )
+      .executeTakeFirst();
+
+    const existingRequest = await db
+      .selectFrom('MentorshipRequest')
+      .selectAll()
+      .where((eb) =>
+        eb.or([
+          eb.and([eb('mentorId', '=', userId), eb('menteeId', '=', loggedInUserId)]),
+          eb.and([eb('mentorId', '=', loggedInUserId), eb('menteeId', '=', userId)]),
+        ])
+      )
+      .executeTakeFirst();
+
     const userDetails = {
       user,
-      skills,
       educations,
       experiences,
+      skills,
+      hasExistingConnection: !!existingConnection,
+      hasExistingRequest: !!existingRequest,
     };
 
     return NextResponse.json(userDetails);

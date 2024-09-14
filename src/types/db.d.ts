@@ -87,6 +87,15 @@ export interface MediaRelease {
   title: string;
 }
 
+export interface MentorFeedback {
+  feedback: string;
+  id: Generated<number>;
+  menteeId: string;
+  mentorId: string;
+  rating: number;
+  receivedDate: Generated<Timestamp>;
+}
+
 export interface MentorMentee {
   createdAt: Generated<Timestamp>;
   menteeId: string;
@@ -145,6 +154,7 @@ export interface User {
   menteeInterests: string[] | null;
   mentorAreas: string[] | null;
   name: string;
+  overallRating: Generated<number>;
   profileBackgroundURL: string | null;
   profilePictureURL: string | null;
   role: Generated<string>;
@@ -168,6 +178,7 @@ export interface DB {
   Experience: Experience;
   GetInTouch: GetInTouch;
   MediaRelease: MediaRelease;
+  MentorFeedback: MentorFeedback;
   MentorMentee: MentorMentee;
   MentorshipRequest: MentorshipRequest;
   Message: Message;

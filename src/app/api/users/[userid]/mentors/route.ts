@@ -11,7 +11,6 @@ export async function GET(request: NextRequest, { params }: { params: { userid: 
       .innerJoin('User', 'User.id', 'MentorMentee.mentorId')
       .where('MentorMentee.menteeId', '=', userId)
       .execute();
-    console.log(mentors);
     return NextResponse.json(mentors);
   } catch (error) {
     console.error('Error fetching user mentors:', error);

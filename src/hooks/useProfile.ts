@@ -77,7 +77,7 @@ export const useUserProfile = (userId: string) => {
   const { user } = useUser();
   const queryKey = ['user', userId];
 
-  const { data, isLoading, error } = useQuery<UserData, Error>({
+  const { data, isLoading, error, refetch } = useQuery<UserData, Error>({
     queryKey,
     queryFn: () => fetchUser(userId, user?.sub ?? ''),
     enabled: !!user?.sub,
@@ -87,5 +87,6 @@ export const useUserProfile = (userId: string) => {
     data,
     isLoading,
     error,
+    refetch,
   };
 };
