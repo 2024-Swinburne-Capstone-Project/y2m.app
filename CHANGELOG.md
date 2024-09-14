@@ -1,3 +1,10 @@
+## [1.29.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.29.0...v1.29.1) (2024-09-14)
+
+
+### Miscellaneous Chores
+
+* **deps:** bump micromatch from 4.0.7 to 4.0.8 ([5c9036c](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/5c9036c81a46d70d0454816ca0740d25dafda32c))
+
 ## [1.29.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.28.0...v1.29.0) (2024-09-14)
 
 
