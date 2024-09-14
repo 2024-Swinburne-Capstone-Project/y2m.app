@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Experience } from '@/types';
 import { DataTable } from '@/components/common/data-table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import ExperienceForm from './experience-form';
+import ExperienceForm from '../../app/(application)/profile/components/experience-form';
 import { TableCell } from '@/components/ui/table';
 
 interface ExperienceSectionProps {

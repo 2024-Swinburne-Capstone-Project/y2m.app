@@ -5,11 +5,11 @@ import { LoadingSkeleton } from '@/components/common/loading-skeleton';
 import { Education, Experience, Skill, User } from '@/types/db';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ProfileView from '../components/profile-view';
+import ProfileView from './components/profile-view';
 import { useUserProfile } from '@/hooks/useProfile';
-import EducationSection from '../components/education-section';
-import ExperienceSection from '../components/experience-section';
-import SkillsSection from '../components/skill-section';
+import EducationSection from '@/components/common/education-section';
+import ExperienceSection from '@/components/common/experience-section';
+import SkillsSection from '@/components/common/skill-section';
 
 export default function ProfilePage() {
   const searchParams = useSearchParams();

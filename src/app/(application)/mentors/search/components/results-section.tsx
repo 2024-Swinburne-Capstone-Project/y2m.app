@@ -74,7 +74,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
               actionButton={
                 <div>
                   <Button className="mt-4 w-full" variant="outline" asChild>
-                    <Link href={`/profile/view/?id=${mentor.user.id}`}>
+                    <Link href={`/mentors/mentor-profile?id=${mentor.user.id}`}>
                       {resultsSection.viewProfileButtonText}
                     </Link>
                   </Button>
