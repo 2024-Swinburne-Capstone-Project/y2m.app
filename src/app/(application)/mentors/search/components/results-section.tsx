@@ -15,6 +15,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import NoDataDisplay from '@/components/common/no-data-display';
 import { mentorSearchConfig } from '@/config/application/mentor-search';
+import Link from 'next/link';
 
 interface ResultsSectionProps {
   mentors: UserData[];
@@ -71,41 +72,48 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
             <ProfileCard
               userData={mentor}
               actionButton={
-                <Dialog
-                  open={selectedMentorId === mentor.user.id}
-                  onOpenChange={(open) => !open && setSelectedMentorId(null)}
-                >
-                  <DialogTrigger asChild>
-                    <Button
-                      className="mt-4 w-full"
-                      onClick={() => setSelectedMentorId(mentor.user.id)}
-                      disabled={hasExistingRequest || mentor.hasExistingConnection}
-                    >
-                      {hasExistingRequest
-                        ? resultsSection.requestButtonText.sent
-                        : mentor.hasExistingConnection
-                          ? resultsSection.requestButtonText.connected
-                          : resultsSection.requestButtonText.default}
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>
-                        {resultsSection.dialogTitle.replace('{mentorName}', mentor.user.name)}
-                      </DialogTitle>
-                    </DialogHeader>
-                    <Textarea
-                      placeholder={resultsSection.dialogPlaceholder}
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                    />
-                    <Button onClick={handleRequestMentorship} disabled={isCreating}>
-                      {isCreating
-                        ? resultsSection.dialogButtonText.sending
-                        : resultsSection.dialogButtonText.default}
-                    </Button>
-                  </DialogContent>
-                </Dialog>
+                <div>
+                  <Button className="mt-4 w-full" variant="outline" asChild>
+                    <Link href={`/profile/view/?id=${mentor.user.id}`}>
+                      {resultsSection.viewProfileButtonText}
+                    </Link>
+                  </Button>
+                  <Dialog
+                    open={selectedMentorId === mentor.user.id}
+                    onOpenChange={(open) => !open && setSelectedMentorId(null)}
+                  >
+                    <DialogTrigger asChild>
+                      <Button
+                        className="mt-4 w-full"
+                        onClick={() => setSelectedMentorId(mentor.user.id)}
+                        disabled={hasExistingRequest || mentor.hasExistingConnection}
+                      >
+                        {hasExistingRequest
+                          ? resultsSection.requestButtonText.sent
+                          : mentor.hasExistingConnection
+                            ? resultsSection.requestButtonText.connected
+                            : resultsSection.requestButtonText.default}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>
+                          {resultsSection.dialogTitle.replace('{mentorName}', mentor.user.name)}
+                        </DialogTitle>
+                      </DialogHeader>
+                      <Textarea
+                        placeholder={resultsSection.dialogPlaceholder}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                      />
+                      <Button onClick={handleRequestMentorship} disabled={isCreating}>
+                        {isCreating
+                          ? resultsSection.dialogButtonText.sending
+                          : resultsSection.dialogButtonText.default}
+                      </Button>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               }
             />
           </motion.div>

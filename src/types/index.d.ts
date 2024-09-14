@@ -107,6 +107,7 @@ export interface MentorSearchConfig {
       default: string;
       sending: string;
     };
+    viewProfileButtonText: string;
   };
   requestButtonText: {
     default: string;
