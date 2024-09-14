@@ -1,6 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { UserProfile } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { UserData } from '@/types/mentor-search/user-data';
 
 const fetchProfileData = async (userId: string): Promise<UserProfile> => {
   const response = await fetch('/api/profile', {
@@ -58,5 +59,33 @@ export const useProfile = () => {
     saveProfile,
     isSaving: updateMutation.isPending,
     saveError: updateMutation.error,
+  };
+};
+
+const fetchUser = async (userId: string, loggedInUserId: string): Promise<UserData> => {
+  const response = await fetch(`/api/users/${userId}`, {
+    headers: {
+      'X-User-Id': loggedInUserId,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch mentor');
+  return response.json();
+};
+
+export const useUserProfile = (userId: string) => {
+  const { user } = useUser();
+  const queryKey = ['user', userId];
+
+  const { data, isLoading, error } = useQuery<UserData, Error>({
+    queryKey,
+    queryFn: () => fetchUser(userId, user?.sub ?? ''),
+    enabled: !!user?.sub,
+  });
+
+  return {
+    data,
+    isLoading,
+    error,
   };
 };

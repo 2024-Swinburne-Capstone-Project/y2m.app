@@ -24,6 +24,7 @@ export const mentorSearchConfig: MentorSearchConfig = {
       default: 'Send Request',
       sending: 'Sending Request...',
     },
+    viewProfileButtonText: 'View Profile',
   },
   requestButtonText: {
     default: 'Request Mentorship',
