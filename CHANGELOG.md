@@ -1,3 +1,10 @@
+## [1.33.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.32.0...v1.33.0) (2024-09-15)
+
+
+### Features
+
+* :sparkles: Only allow a mentee to give feedback once ([aa9993b](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/aa9993bf19c3e0da49790e71aae69c2f9d14b13c))
+
 ## [1.32.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.31.0...v1.32.0) (2024-09-15)
 
 
