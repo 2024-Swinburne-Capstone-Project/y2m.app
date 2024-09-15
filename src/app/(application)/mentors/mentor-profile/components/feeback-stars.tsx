@@ -78,7 +78,9 @@ const FeedbackStars: React.FC<FeedbackStarsProps> = ({
           </DialogContent>
         </Dialog>
       )}
-      <Button onClick={onFeedbackButtonClick}>View Feedback</Button>
+      <Button variant={'outline'} onClick={onFeedbackButtonClick}>
+        View Feedback
+      </Button>
     </div>
   );
 };
