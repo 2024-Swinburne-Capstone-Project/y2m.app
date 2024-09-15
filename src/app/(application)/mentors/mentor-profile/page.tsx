@@ -4,7 +4,7 @@ import { ErrorAlert } from '@/components/common/error-alert';
 import { LoadingSkeleton } from '@/components/common/loading-skeleton';
 import { Education, Experience, Skill, User } from '@/types/db';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ProfileView from './components/profile-view';
 import { useProfile, useUserProfile } from '@/hooks/useProfile';
 import { useSubmitMentorFeedback } from '@/hooks/useMentorFeedback';
@@ -32,6 +32,7 @@ export default function ProfilePage() {
   const { data, isLoading, error, refetch } = useUserProfile(id);
   const { submitMentorFeedback } = useSubmitMentorFeedback();
   const { createRequest, isCreating } = useMentorshipRequests();
+  const testimonialRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (data) {
@@ -82,6 +83,10 @@ export default function ProfilePage() {
     refetch();
   };
 
+  const scrollToTestimonials = () => {
+    testimonialRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="mx-auto mt-10 min-h-screen max-w-7xl flex-col items-center bg-background">
       {isLoading ? (
@@ -99,11 +104,16 @@ export default function ProfilePage() {
             onRequestMentorship={handleRequestMentorship}
             isCreating={isCreating}
             hasGivenFeedback={hasGivenFeedback}
+            onFeedbackButtonClick={scrollToTestimonials} // Pass the scroll function as a prop
           />
           <EducationSection education={educations} onUpdate={setEducations} disabled />
           <ExperienceSection experience={experiences} onUpdate={setExperiences} disabled />
           <SkillsSection skills={skills} onUpdate={setSkills} disabled />
-          {testimonials.length > 0 && <Testimonials testimonials={testimonials} />}
+          {testimonials.length > 0 && (
+            <div ref={testimonialRef}>
+              <Testimonials testimonials={testimonials} />
+            </div>
+          )}
         </div>
       )}
     </div>

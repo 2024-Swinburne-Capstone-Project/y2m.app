@@ -21,6 +21,7 @@ interface FeedbackStarsProps {
   profile: User;
   submitFeedback: (feeback: string, rating: number) => void;
   hasGivenFeedback: boolean;
+  onFeedbackButtonClick: () => void;
 }
 
 const FeedbackStars: React.FC<FeedbackStarsProps> = ({
@@ -28,6 +29,7 @@ const FeedbackStars: React.FC<FeedbackStarsProps> = ({
   profile,
   submitFeedback,
   hasGivenFeedback,
+  onFeedbackButtonClick,
 }) => {
   const [feedback, setFeedback] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
@@ -76,6 +78,7 @@ const FeedbackStars: React.FC<FeedbackStarsProps> = ({
           </DialogContent>
         </Dialog>
       )}
+      <Button onClick={onFeedbackButtonClick}>View Feedback</Button>
     </div>
   );
 };
