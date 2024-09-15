@@ -7,6 +7,7 @@ import { MessageCircle, X } from 'lucide-react';
 import ChatList from './chat-list';
 import ChatMessages from './chat-messages';
 import NewChatModal from './new-chat-modal';
+import { usePathname } from 'next/navigation';
 
 const ChatWindow: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,12 @@ const ChatWindow: React.FC = () => {
       setIsNewChatModalOpen(false);
     }
   };
+
+  const pathname = usePathname();
+
+  if (pathname === '/messages') {
+    return null;
+  }
 
   if (loading) return null;
   if (error) return <div>Error: {error}</div>;
