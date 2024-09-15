@@ -1,3 +1,11 @@
+## [1.32.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.31.0...v1.32.0) (2024-09-15)
+
+
+### Features
+
+* :bug: Allow user to view their own mentor profile ([a5ea756](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/a5ea756b3b213872a28db475c8120bf5fa804209))
+* :sparkles: Show Mentor Feedback as Testimonials ([85fc33d](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/85fc33d75bb8ecd405e79d8bdcce48fa50436a9a))
+
 ## [1.31.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.30.0...v1.31.0) (2024-09-15)
 
 
