@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { Testimonial } from '@/types';
 
 export async function GET(request: NextRequest, { params }: { params: { userid: string } }) {
   const loggedInUserId = request.headers.get('X-User-Id');
@@ -19,11 +20,41 @@ export async function GET(request: NextRequest, { params }: { params: { userid: 
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    const [skills, educations, experiences] = await Promise.all([
+    const [skills, educations, experiences, mentorFeedback] = await Promise.all([
       db.selectFrom('Skill').selectAll().where('userId', '=', user.id).execute(),
       db.selectFrom('Education').selectAll().where('userId', '=', user.id).execute(),
       db.selectFrom('Experience').selectAll().where('userId', '=', user.id).execute(),
+      db.selectFrom('MentorFeedback').selectAll().where('mentorId', '=', user.id).execute(),
     ]);
+
+    let testimonials: Testimonial[] = [];
+
+    if (mentorFeedback.length > 0) {
+      const menteeIds = mentorFeedback.map((feedback) => feedback.menteeId);
+      const mentees = await db
+        .selectFrom('User')
+        .select(['User.id', 'User.name', 'User.profilePictureURL'])
+        .where('id', 'in', menteeIds)
+        .execute();
+
+      const menteeMap = mentees.reduce(
+        (acc, mentee) => {
+          acc[mentee.id] = {
+            id: mentee.id,
+            name: mentee.name,
+            imagePath: mentee.profilePictureURL || '',
+          };
+          return acc;
+        },
+        {} as Record<string, { id: string; name: string; imagePath: string }>
+      );
+
+      testimonials = mentorFeedback.map((feedback) => ({
+        name: { text: menteeMap[feedback.menteeId].name },
+        image: menteeMap[feedback.menteeId].imagePath,
+        quote: { text: feedback.feedback },
+      }));
+    }
 
     const existingConnection = await db
       .selectFrom('MentorMentee')
@@ -52,6 +83,7 @@ export async function GET(request: NextRequest, { params }: { params: { userid: 
       educations,
       experiences,
       skills,
+      testimonials,
       hasExistingConnection: !!existingConnection,
       hasExistingRequest: !!existingRequest,
     };

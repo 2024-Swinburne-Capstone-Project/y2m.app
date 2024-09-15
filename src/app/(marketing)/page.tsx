@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { Features } from '@/components/marketing/features';
-import { Testimonials } from '@/components/marketing/testimonials';
+import Testimonials from '@/components/common/testimonials';
 import Title from '@/components/common/title';
 import Subtitle from '@/components/common/subtitle';
 import MainSectionBody from '@/components/common/main-section-body';
@@ -66,7 +66,7 @@ export default function Home() {
           <MentorBenefits />
           <MenteeBenefits />
           <HomeBlogs blogs={blogs || []} isLoading={isLoading} error={error} />
-          <Testimonials />
+          <Testimonials testimonials={homeConfig.testimonials} />
           <AcknowledgementOfCountry />
         </div>
       </AnimatePresence>

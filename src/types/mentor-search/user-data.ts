@@ -1,3 +1,4 @@
+import { Testimonial } from '..';
 import {
   Education as DBEducation,
   Experience as DBExperience,
@@ -24,6 +25,7 @@ export interface UserData {
   educations: Education[];
   experiences: Experience[];
   skills: Skill[];
+  testimonials?: Testimonial[];
   hasExistingRequest: boolean;
   hasExistingConnection: boolean;
 }

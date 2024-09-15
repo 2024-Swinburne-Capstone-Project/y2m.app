@@ -65,8 +65,10 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             </Avatar>
           </div>
           <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
-            <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{profile.name}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{profile.email}</p>
+            <p className="pt-2 text-xl font-bold text-gray-900 dark:text-gray-100">
+              {profile.name}
+            </p>
+            <p className="pb-3 text-sm text-gray-500 dark:text-gray-400">{profile.email}</p>
             <div className="flex items-center space-x-2">
               <FeedbackStars
                 hasExistingConnection={hasExistingConnection}

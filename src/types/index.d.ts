@@ -289,15 +289,7 @@ export interface HomeConfig {
       imagePath: string;
     }[];
   };
-  testimonials: {
-    title: string;
-    items: {
-      name: TextWithMarkup;
-      role: TextWithMarkup;
-      image: string;
-      quote: TextWithMarkup;
-    }[];
-  };
+  testimonials: Testimonial[];
   acknowledgementOfCountry: {
     title: string;
     text: string;
@@ -564,4 +556,11 @@ export interface MentorFeedbackConfig {
   dialogHeader: string;
   ratingLabel: string;
   dialogSubmitButtonText: string;
+}
+
+export interface Testimonial {
+  name: TextWithMarkup;
+  role?: TextWithMarkup;
+  image: string;
+  quote: TextWithMarkup;
 }

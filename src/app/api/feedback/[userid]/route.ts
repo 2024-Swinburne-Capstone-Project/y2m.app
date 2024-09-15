@@ -1,6 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 
+export async function GET(req: NextRequest, { params }: { params: { userid: string } }) {
+  const userId = params.userid;
+  if (!userId) {
+    return NextResponse.json({ message: 'User ID is required' }, { status: 400 });
+  }
+
+  try {
+    const feedback = await db
+      .selectFrom('MentorFeedback')
+      .select('feedback')
+      .where('mentorId', '=', userId)
+      .execute();
+
+    return NextResponse.json({ data: feedback }, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching mentor feedback:', error);
+    return NextResponse.json({ message: 'Failed to fetch mentor feedback' }, { status: 500 });
+  }
+}
+
 export async function POST(req: NextRequest, { params }: { params: { userid: string } }) {
   const loggedInUserId = req.headers.get('X-User-Id');
   if (!loggedInUserId) {
