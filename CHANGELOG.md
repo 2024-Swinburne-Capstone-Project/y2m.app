@@ -1,3 +1,10 @@
+## [1.30.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.29.1...v1.30.0) (2024-09-15)
+
+
+### Features
+
+* :sparkles: Add mentor feedback functionality ([099c743](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/099c74379af2088750dba0c56fd9e137bfa9ed5e))
+
 ## [1.29.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.29.0...v1.29.1) (2024-09-14)
 
 
