@@ -179,27 +179,24 @@ export const homeConfig: HomeConfig = {
       },
     ],
   },
-  testimonials: {
-    title: 'Testimonials',
-    items: [
-      {
-        name: { text: 'John Doe' },
-        role: { text: 'Software Engineer' },
-        image: '/male-user.png',
-        quote: {
-          text: 'You2Mentor has been instrumental in my career growth. The mentors are knowledgeable and supportive.',
-        },
+  testimonials: [
+    {
+      name: { text: 'John Doe' },
+      role: { text: 'Software Engineer' },
+      image: '/male-user.png',
+      quote: {
+        text: 'You2Mentor has been instrumental in my career growth. The mentors are knowledgeable and supportive.',
       },
-      {
-        name: { text: 'Jane Smith' },
-        role: { text: 'Product Manager' },
-        image: '/female-user.png',
-        quote: {
-          text: "I highly recommend You2Mentor to anyone looking to advance their skills. It's an amazing platform.",
-        },
+    },
+    {
+      name: { text: 'Jane Smith' },
+      role: { text: 'Product Manager' },
+      image: '/female-user.png',
+      quote: {
+        text: "I highly recommend You2Mentor to anyone looking to advance their skills. It's an amazing platform.",
       },
-    ],
-  },
+    },
+  ],
   acknowledgementOfCountry: {
     title: 'Acknowledgement of Country',
     text: 'You2Mentor acknowledges Aboriginal and Torres Strait Islander peoples as the traditional custodians of our land - Australia. We pay our respect to them and their cultures and to the elders past, present and emerging. Wurundjeri Woi Wurrung and Bunurong Boon Wurrung peoples of the Eastern Kulin are the traditional custodians of the land on which You2Mentor office stands.',

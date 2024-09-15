@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { User } from '@/types/profile/user';
@@ -21,6 +21,7 @@ import { mentorSearchConfig } from '@/config/application/mentor-search';
 import { DialogClose } from '@radix-ui/react-dialog';
 
 interface ProfileViewProps {
+  loggedInUser: User;
   profile: User;
   hasExistingConnection: boolean;
   hasExistingRequest: boolean;
@@ -30,6 +31,7 @@ interface ProfileViewProps {
 }
 
 const ProfileView: React.FC<ProfileViewProps> = ({
+  loggedInUser,
   profile,
   hasExistingConnection,
   hasExistingRequest,
@@ -39,11 +41,19 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 }) => {
   const { resultsSection } = mentorSearchConfig;
   const [message, setMessage] = React.useState('');
+  const [viewingSelf, setViewingSelf] = React.useState(false);
 
   const handleRequestMentorship = () => {
     onRequestMentorship(profile.id, message);
     setMessage('');
   };
+
+  useEffect(() => {
+    if (loggedInUser?.id === profile.id) {
+      setViewingSelf(true);
+    }
+  }, [loggedInUser, profile.id]);
+
   return (
     <Card className="mb-5 overflow-hidden">
       <div className="relative h-32 bg-gradient-to-r from-blue-400 to-purple-500">
@@ -65,15 +75,17 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             </Avatar>
           </div>
           <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
-            <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{profile.name}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{profile.email}</p>
+            <p className="pt-2 text-xl font-bold text-gray-900 dark:text-gray-100">
+              {profile.name}
+            </p>
+            <p className="pb-3 text-sm text-gray-500 dark:text-gray-400">{profile.email}</p>
             <div className="flex items-center space-x-2">
               <FeedbackStars
                 hasExistingConnection={hasExistingConnection}
                 profile={profile}
                 submitFeedback={submitFeedback}
               />
-              {!hasExistingConnection && (
+              {!viewingSelf && !hasExistingConnection && (
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button disabled={hasExistingRequest || hasExistingConnection}>

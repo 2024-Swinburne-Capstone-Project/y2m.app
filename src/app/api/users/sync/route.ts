@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
       .executeTakeFirst();
 
     if (existingUser) {
-      await db.updateTable('User').set({ name, email }).where('id', '=', auth0Id).execute();
+      await db.updateTable('User').set({ email }).where('id', '=', auth0Id).execute();
     } else {
       await db
         .insertInto('User')

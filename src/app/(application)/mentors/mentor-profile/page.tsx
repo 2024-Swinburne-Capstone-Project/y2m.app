@@ -6,23 +6,28 @@ import { Education, Experience, Skill, User } from '@/types/db';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ProfileView from './components/profile-view';
-import { useUserProfile } from '@/hooks/useProfile';
+import { useProfile, useUserProfile } from '@/hooks/useProfile';
 import { useSubmitMentorFeedback } from '@/hooks/useMentorFeedback';
 import EducationSection from '@/components/common/education-section';
 import ExperienceSection from '@/components/common/experience-section';
 import SkillsSection from '@/components/common/skill-section';
 import { useMentorshipRequests } from '@/hooks/useMentorshipRequests';
 import { toast } from '@/components/ui/use-toast';
+import Testimonials from '@/components/common/testimonials';
+import { Testimonial } from '@/types';
 
 export default function ProfilePage() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id') || '';
+  const { profile } = useProfile();
+  const [loggedInUser, setLoggedInUser] = useState<User>({} as User);
   const [user, setUser] = useState<User>({} as User);
   const [educations, setEducations] = useState<Education[]>([]);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
   const [existingConnection, setExistingConnection] = useState(false);
   const [existingRequest, setExistingRequest] = useState(false);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const { data, isLoading, error, refetch } = useUserProfile(id);
   const { submitMentorFeedback } = useSubmitMentorFeedback();
   const { createRequest, isCreating } = useMentorshipRequests();
@@ -35,8 +40,15 @@ export default function ProfilePage() {
       setSkills((data.skills as unknown as Skill[]) || []);
       setExistingConnection(data.hasExistingConnection);
       setExistingRequest(data.hasExistingRequest);
+      setTestimonials(data.testimonials || []);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (profile) {
+      setLoggedInUser(profile.user);
+    }
+  }, [profile]);
 
   async function submitFeedback(feedback: string, rating: number) {
     await submitMentorFeedback(id, feedback, rating);
@@ -69,6 +81,7 @@ export default function ProfilePage() {
       ) : (
         <div>
           <ProfileView
+            loggedInUser={loggedInUser}
             profile={user}
             hasExistingConnection={existingConnection}
             hasExistingRequest={existingRequest}
@@ -79,6 +92,7 @@ export default function ProfilePage() {
           <EducationSection education={educations} onUpdate={setEducations} disabled />
           <ExperienceSection experience={experiences} onUpdate={setExperiences} disabled />
           <SkillsSection skills={skills} onUpdate={setSkills} disabled />
+          {testimonials.length > 0 && <Testimonials testimonials={testimonials} />}
         </div>
       )}
     </div>

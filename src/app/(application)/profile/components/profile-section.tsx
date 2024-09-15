@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { profileConfig } from '@/config/application/profile-config';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ProfileSectionProps {
   profile: User;
@@ -91,6 +92,11 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
           <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
             <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{profile.name}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">{profile.email}</p>
+            {profile.isMentor && (
+              <Button className="mt-2" size="sm" asChild>
+                <Link href={`/mentors/mentor-profile?id=${profile.id}`}>View Mentor Profile</Link>
+              </Button>
+            )}
           </div>
         </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">

@@ -180,27 +180,24 @@ export const homeConfig: HomeConfig = {
       },
     ],
   },
-  testimonials: {
-    title: 'Témoignages',
-    items: [
-      {
-        name: { text: 'John Doe' },
-        role: { text: 'Ingénieur Logiciel' },
-        image: '/male-user.png',
-        quote: {
-          text: 'You2Mentor a joué un rôle déterminant dans la croissance de ma carrière. Les mentors sont compétents et bienveillants.',
-        },
+  testimonials: [
+    {
+      name: { text: 'John Doe' },
+      role: { text: 'Ingénieur Logiciel' },
+      image: '/male-user.png',
+      quote: {
+        text: 'You2Mentor a joué un rôle déterminant dans la croissance de ma carrière. Les mentors sont compétents et bienveillants.',
       },
-      {
-        name: { text: 'Jane Smith' },
-        role: { text: 'Chef de Produit' },
-        image: '/female-user.png',
-        quote: {
-          text: "Je recommande vivement You2Mentor à tous ceux qui cherchent à améliorer leurs compétences. C'est une plateforme incroyable.",
-        },
+    },
+    {
+      name: { text: 'Jane Smith' },
+      role: { text: 'Chef de Produit' },
+      image: '/female-user.png',
+      quote: {
+        text: "Je recommande vivement You2Mentor à tous ceux qui cherchent à améliorer leurs compétences. C'est une plateforme incroyable.",
       },
-    ],
-  },
+    },
+  ],
   acknowledgementOfCountry: {
     title: 'Reconnaissance du Pays',
     text: "You2Mentor reconnaît les peuples aborigènes et les insulaires du détroit de Torres comme les gardiens traditionnels de notre terre - l'Australie. Nous leur témoignons notre respect, ainsi qu'à leurs cultures et aux anciens, présents et émergents. Les peuples Wurundjeri Woi Wurrung et Bunurong Boon Wurrung du Kulin de l'Est sont les gardiens traditionnels de la terre sur laquelle se trouve le bureau de You2Mentor.",

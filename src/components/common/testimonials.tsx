@@ -1,17 +1,18 @@
-// components/testimonials.tsx
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { homeConfig } from '@/config/marketing/home';
+import { Testimonial } from '@/types';
 
-export function Testimonials() {
-  const { testimonials } = homeConfig;
+interface TestimonialsProps {
+  testimonials: Testimonial[];
+}
 
+const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
   return (
     <section className="mb-16">
-      <h2 className="mb-8 text-3xl font-bold">{testimonials.title}</h2>
+      <h2 className="mb-8 text-3xl font-bold">Testimonials</h2>
       <div className="grid gap-8 md:grid-cols-2">
         <AnimatePresence>
-          {testimonials.items.map((testimonial, index) => (
+          {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name.text}
               initial={{ opacity: 0, y: 20 }}
@@ -30,7 +31,7 @@ export function Testimonials() {
                 />
                 <div className="ml-4">
                   <p className="font-semibold">{testimonial.name.text}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role.text}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.role?.text}</p>
                 </div>
               </div>
               <p className="text-muted-foreground">{testimonial.quote.text}</p>
@@ -40,4 +41,6 @@ export function Testimonials() {
       </div>
     </section>
   );
-}
+};
+
+export default Testimonials;
