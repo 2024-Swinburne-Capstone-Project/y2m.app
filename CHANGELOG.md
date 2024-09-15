@@ -1,3 +1,29 @@
+## [1.31.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.30.0...v1.31.0) (2024-09-15)
+
+
+### Features
+
+* ✨ add dedicated messages page ([6bba626](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/6bba6260a8112d178ef10a71e4f87b174a553138))
+* add initial messages page ([15d69ae](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/15d69ae7767049205a5490f2ad42ffa70e09339e))
+* add mobile support to chat page ([d1ee3ed](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/d1ee3ede96b3235ab9c23072be5401ca1ec87920))
+
+
+### Bug Fixes
+
+* remove messages icon on messages page ([72a4fb3](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/72a4fb38b4d3bbeb762ce78ad394e51d1be88bba))
+
+
+### Miscellaneous Chores
+
+* update shadcn config file to new format ([a56f9f5](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/a56f9f5ca46e7380801b17e2f74c414eef9cad69))
+
+## [1.30.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.29.1...v1.30.0) (2024-09-15)
+
+
+### Features
+
+* :sparkles: Add mentor feedback functionality ([099c743](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/099c74379af2088750dba0c56fd9e137bfa9ed5e))
+
 ## [1.29.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.29.0...v1.29.1) (2024-09-14)
 
 
