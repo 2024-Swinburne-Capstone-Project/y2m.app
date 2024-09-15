@@ -28,6 +28,7 @@ export default function ProfilePage() {
   const [existingConnection, setExistingConnection] = useState(false);
   const [existingRequest, setExistingRequest] = useState(false);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [hasGivenFeedback, setHasGivenFeedback] = useState(false);
   const { data, isLoading, error, refetch } = useUserProfile(id);
   const { submitMentorFeedback } = useSubmitMentorFeedback();
   const { createRequest, isCreating } = useMentorshipRequests();
@@ -49,6 +50,15 @@ export default function ProfilePage() {
       setLoggedInUser(profile.user);
     }
   }, [profile]);
+
+  useEffect(() => {
+    if (testimonials.length > 0) {
+      const loggedInUserTestimonial = testimonials.find((t) => t.userId === loggedInUser.id);
+      if (loggedInUserTestimonial) {
+        setHasGivenFeedback(true);
+      }
+    }
+  }, [testimonials, loggedInUser.id]);
 
   async function submitFeedback(feedback: string, rating: number) {
     await submitMentorFeedback(id, feedback, rating);
@@ -88,6 +98,7 @@ export default function ProfilePage() {
             submitFeedback={submitFeedback}
             onRequestMentorship={handleRequestMentorship}
             isCreating={isCreating}
+            hasGivenFeedback={hasGivenFeedback}
           />
           <EducationSection education={educations} onUpdate={setEducations} disabled />
           <ExperienceSection experience={experiences} onUpdate={setExperiences} disabled />

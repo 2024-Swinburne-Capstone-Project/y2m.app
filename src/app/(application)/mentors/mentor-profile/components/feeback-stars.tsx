@@ -20,12 +20,14 @@ interface FeedbackStarsProps {
   hasExistingConnection: boolean;
   profile: User;
   submitFeedback: (feeback: string, rating: number) => void;
+  hasGivenFeedback: boolean;
 }
 
 const FeedbackStars: React.FC<FeedbackStarsProps> = ({
   hasExistingConnection,
   profile,
   submitFeedback,
+  hasGivenFeedback,
 }) => {
   const [feedback, setFeedback] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
@@ -39,7 +41,7 @@ const FeedbackStars: React.FC<FeedbackStarsProps> = ({
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <RatingStar rating={Number(profile.overallRating)} />
       </div>
-      {hasExistingConnection && (
+      {hasExistingConnection && !hasGivenFeedback && (
         <Dialog>
           <DialogTrigger asChild>
             <Button variant={'outline'}>{mentorFeedbackConfig.giveFeedbackButtonText}</Button>

@@ -28,6 +28,7 @@ interface ProfileViewProps {
   onRequestMentorship: (mentorId: string, message: string) => void;
   submitFeedback: (feeback: string, rating: number) => void;
   isCreating: boolean;
+  hasGivenFeedback: boolean;
 }
 
 const ProfileView: React.FC<ProfileViewProps> = ({
@@ -38,6 +39,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
   onRequestMentorship,
   submitFeedback,
   isCreating,
+  hasGivenFeedback,
 }) => {
   const { resultsSection } = mentorSearchConfig;
   const [message, setMessage] = React.useState('');
@@ -84,6 +86,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 hasExistingConnection={hasExistingConnection}
                 profile={profile}
                 submitFeedback={submitFeedback}
+                hasGivenFeedback={hasGivenFeedback}
               />
               {!viewingSelf && !hasExistingConnection && (
                 <Dialog>
