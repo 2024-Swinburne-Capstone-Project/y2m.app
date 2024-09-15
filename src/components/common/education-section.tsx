@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Education } from '@/types';
 import { DataTable } from '@/components/common/data-table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import EducationForm from './education-form';
+import EducationForm from '../../app/(application)/profile/components/education-form';
 import { TableCell } from '@/components/ui/table';
 
 interface EducationSectionProps {

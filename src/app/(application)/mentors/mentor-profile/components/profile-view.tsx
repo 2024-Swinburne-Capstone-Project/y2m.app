@@ -8,12 +8,42 @@ import { Textarea } from '@/components/ui/textarea';
 import { profileConfig } from '@/config/application/profile-config';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
+import FeedbackStars from './feeback-stars';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+} from '@/components/ui/dialog';
+import { mentorSearchConfig } from '@/config/application/mentor-search';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 interface ProfileViewProps {
   profile: User;
+  hasExistingConnection: boolean;
+  hasExistingRequest: boolean;
+  onRequestMentorship: (mentorId: string, message: string) => void;
+  submitFeedback: (feeback: string, rating: number) => void;
+  isCreating: boolean;
 }
 
-const ProfileView: React.FC<ProfileViewProps> = ({ profile }) => {
+const ProfileView: React.FC<ProfileViewProps> = ({
+  profile,
+  hasExistingConnection,
+  hasExistingRequest,
+  onRequestMentorship,
+  submitFeedback,
+  isCreating,
+}) => {
+  const { resultsSection } = mentorSearchConfig;
+  const [message, setMessage] = React.useState('');
+
+  const handleRequestMentorship = () => {
+    onRequestMentorship(profile.id, message);
+    setMessage('');
+  };
   return (
     <Card className="mb-5 overflow-hidden">
       <div className="relative h-32 bg-gradient-to-r from-blue-400 to-purple-500">
@@ -28,7 +58,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ profile }) => {
       </div>
       <CardContent className="relative px-6 pb-6 pt-0">
         <div className="flex flex-col items-center sm:flex-row sm:items-end sm:space-x-5">
-          <div className="relative -mt-16 flex">
+          <div className="relative -mt-10 flex">
             <Avatar className="size-32 border-4 border-white bg-white">
               <AvatarImage src={profile.profilePictureURL || ''} alt={profile.name || ''} />
               <AvatarFallback className="text-4xl">{profile.name?.[0]}</AvatarFallback>
@@ -37,6 +67,45 @@ const ProfileView: React.FC<ProfileViewProps> = ({ profile }) => {
           <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
             <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{profile.name}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">{profile.email}</p>
+            <div className="flex items-center space-x-2">
+              <FeedbackStars
+                hasExistingConnection={hasExistingConnection}
+                profile={profile}
+                submitFeedback={submitFeedback}
+              />
+              {!hasExistingConnection && (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button disabled={hasExistingRequest || hasExistingConnection}>
+                      {hasExistingRequest
+                        ? resultsSection.requestButtonText.sent
+                        : hasExistingConnection
+                          ? resultsSection.requestButtonText.connected
+                          : resultsSection.requestButtonText.default}
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>
+                        {resultsSection.dialogTitle.replace('{mentorName}', profile.name)}
+                      </DialogTitle>
+                    </DialogHeader>
+                    <Textarea
+                      placeholder={resultsSection.dialogPlaceholder}
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                    />
+                    <DialogClose asChild>
+                      <Button onClick={handleRequestMentorship} disabled={isCreating}>
+                        {isCreating
+                          ? resultsSection.dialogButtonText.sending
+                          : resultsSection.dialogButtonText.default}
+                      </Button>
+                    </DialogClose>
+                  </DialogContent>
+                </Dialog>
+              )}
+            </div>
           </div>
         </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
