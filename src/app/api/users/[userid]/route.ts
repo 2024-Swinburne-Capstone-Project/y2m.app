@@ -50,9 +50,11 @@ export async function GET(request: NextRequest, { params }: { params: { userid: 
       );
 
       testimonials = mentorFeedback.map((feedback) => ({
+        userId: menteeMap[feedback.menteeId].id,
         name: { text: menteeMap[feedback.menteeId].name },
         image: menteeMap[feedback.menteeId].imagePath,
         quote: { text: feedback.feedback },
+        rating: feedback.rating,
       }));
     }
 

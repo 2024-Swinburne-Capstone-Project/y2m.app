@@ -559,6 +559,7 @@ export interface MentorFeedbackConfig {
 }
 
 export interface Testimonial {
+  userId?: string;
   name: TextWithMarkup;
   role?: TextWithMarkup;
   image: string;
