@@ -17,8 +17,8 @@ interface TagInputProps<T> {
   createNewItem: (name: string) => T;
   className?: string;
   disabled?: boolean;
-  noDataIcon: React.ReactNode;
-  noDataTitle: string;
+  noDataIcon?: React.ReactNode;
+  noDataTitle?: string;
 }
 
 function TagInput<T>({
@@ -57,7 +57,7 @@ function TagInput<T>({
       </CardHeader>
       <CardContent className="flex grow flex-col">
         {items.length === 0 ? (
-          <NoDataDisplay title={noDataTitle} icon={noDataIcon} />
+          <NoDataDisplay title={noDataTitle ?? ''} icon={noDataIcon} />
         ) : (
           <>
             <div className="mb-4 grow overflow-y-auto">
