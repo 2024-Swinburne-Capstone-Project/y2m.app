@@ -209,19 +209,6 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               />
             </div>
           )}
-          <div className="sm:col-span-2">
-            <Label htmlFor="availability" className="text-sm font-medium">
-              {profileConfig.profileForm.availability.label}
-            </Label>
-            <Textarea
-              id="availability"
-              value={profile.availability || ''}
-              onChange={(e) => onProfileChange('availability', e.target.value)}
-              disabled={!isEditing}
-              className="mt-1"
-              placeholder={profileConfig.profileForm.availability.placeholder}
-            />
-          </div>
         </div>
       </CardContent>
     </Card>

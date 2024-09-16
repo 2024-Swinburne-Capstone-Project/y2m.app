@@ -181,19 +181,6 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             />
           </div>
         </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <div className="sm:col-span-2">
-            <Label htmlFor="availability" className="text-sm font-medium">
-              {profileConfig.profileForm.availability.label}
-            </Label>
-            <Textarea
-              id="availability"
-              value={profile.availability || ''}
-              disabled
-              className="mt-1 disabled:cursor-auto disabled:opacity-100"
-            />
-          </div>
-        </div>
       </CardContent>
     </Card>
   );
