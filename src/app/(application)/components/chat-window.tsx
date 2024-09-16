@@ -23,10 +23,18 @@ const ChatWindow: React.FC = () => {
   };
 
   const handleNewChat = async (userId: string) => {
-    const newChatId = await createNewChat(userId);
-    if (newChatId) {
-      setActiveChat(newChatId);
+    const existingChat = chats.find((chat) =>
+      chat.participants.some((participant) => participant.id === userId)
+    );
+    if (existingChat) {
+      setActiveChat(existingChat.id.toString());
       setIsNewChatModalOpen(false);
+    } else {
+      const newChatId = await createNewChat(userId);
+      if (newChatId) {
+        setActiveChat(newChatId);
+        setIsNewChatModalOpen(false);
+      }
     }
   };
 
