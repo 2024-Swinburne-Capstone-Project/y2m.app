@@ -26,13 +26,8 @@ export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
 
-  const {
-    selectedDays,
-    selectedTimes,
-    toggleDay,
-    changeTime,
-    getAvailabilityString,
-  } = useAvailability(user.availability || '');
+  const { selectedDays, selectedTimes, toggleDay, changeTime, getAvailabilityString } =
+    useAvailability(user.availability || '');
 
   useEffect(() => {
     if (profile) {
@@ -100,14 +95,14 @@ export default function ProfilePage() {
             onEditToggle={() => setIsEditing(!isEditing)}
             handleImageChange={handleImageChange}
           />
-            <AvailabilitySelector
-              selectedDays={selectedDays}
-              selectedTimes={selectedTimes}
-              onDayToggle={toggleDay}
-              onTimeChange={changeTime}
-              className="mb-4"
-              disabled={!isEditing}
-            />
+          <AvailabilitySelector
+            selectedDays={selectedDays}
+            selectedTimes={selectedTimes}
+            onDayToggle={toggleDay}
+            onTimeChange={changeTime}
+            className="mb-4"
+            disabled={!isEditing}
+          />
           <EducationSection education={educations} onUpdate={setEducations} disabled={!isEditing} />
           <ExperienceSection
             experience={experiences}

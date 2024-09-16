@@ -4,7 +4,6 @@ export const useAvailability = (initialAvailability: string = '') => {
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
   const [selectedTimes, setSelectedTimes] = useState<Record<string, string[]>>({});
 
-  // Parse initial availability string
   useEffect(() => {
     if (initialAvailability) {
       try {
@@ -22,14 +21,16 @@ export const useAvailability = (initialAvailability: string = '') => {
       if (prev.includes(day)) {
         const newDays = prev.filter((d) => d !== day);
         setSelectedTimes((prevTimes) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { [day]: _, ...rest } = prevTimes;
           return rest;
         });
         return newDays;
       } else {
-        return [...prev, day].sort((a, b) =>
-          ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(a) -
-          ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(b)
+        return [...prev, day].sort(
+          (a, b) =>
+            ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(a) -
+            ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(b)
         );
       }
     });
@@ -38,7 +39,7 @@ export const useAvailability = (initialAvailability: string = '') => {
   const changeTime = useCallback((day: string, startTime: string, endTime: string) => {
     setSelectedTimes((prev) => ({
       ...prev,
-      [day]: [startTime, endTime]
+      [day]: [startTime, endTime],
     }));
   }, []);
 

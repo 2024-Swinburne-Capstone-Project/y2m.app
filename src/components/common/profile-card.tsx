@@ -48,7 +48,7 @@ const ProfileCard: React.FC<ProfileCard> = ({ userData, actionButton }) => {
           </div>
         </div>
         <strong>{profileConfig.profileForm.availability.label}</strong>
-        <AvailabilityViewer availability={user.availability || ''} textBased/>
+        <AvailabilityViewer availability={user.availability || ''} textBased />
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="skills">
             <AccordionTrigger>Skills</AccordionTrigger>

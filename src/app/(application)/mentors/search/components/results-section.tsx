@@ -17,7 +17,6 @@ import NoDataDisplay from '@/components/common/no-data-display';
 import { mentorSearchConfig } from '@/config/application/mentor-search';
 import Link from 'next/link';
 
-
 interface ResultsSectionProps {
   mentors: UserData[];
   requests: MentorshipRequest[];

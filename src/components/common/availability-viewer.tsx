@@ -1,7 +1,12 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { Badge } from '../ui/badge';
 
@@ -15,8 +20,8 @@ const timeSlots = Array.from({ length: 48 }, (_, i) => {
 interface AvailabilityViewerProps {
   availability: string;
   className?: string;
-  textBased?: boolean; // Existing prop
-  withHeader?: boolean; // Added new prop
+  textBased?: boolean;
+  withHeader?: boolean;
 }
 
 export default function AvailabilityViewer({
@@ -40,8 +45,9 @@ export default function AvailabilityViewer({
       return (
         <div className="text-sm">
           {selectedDays.map((day) => (
-            <Badge variant={'secondary'} key={day} className='mb-1 mr-1'>
-              <span className="font-medium">{day}:</span>&nbsp;{selectedTimes[day][0]} - {selectedTimes[day][1]}
+            <Badge variant={'secondary'} key={day} className="mb-1 mr-1">
+              <span className="font-medium">{day}:</span>&nbsp;{selectedTimes[day][0]} -{' '}
+              {selectedTimes[day][1]}
             </Badge>
           ))}
         </div>
@@ -101,13 +107,12 @@ export default function AvailabilityViewer({
             <>
               <CardHeader>
                 <CardTitle>Availability</CardTitle>
-              </CardHeader><CardContent>
-                {renderAvailability()}
-              </CardContent>
+              </CardHeader>
+              <CardContent>{renderAvailability()}</CardContent>
             </>
           )}
         </Card>
       )}
     </>
   );
-};
+}

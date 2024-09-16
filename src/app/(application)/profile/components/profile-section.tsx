@@ -8,7 +8,6 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Camera } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import TagInput from '@/components/common/tag-input';
-import { Textarea } from '@/components/ui/textarea';
 import { profileConfig } from '@/config/application/profile-config';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';

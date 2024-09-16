@@ -17,7 +17,6 @@ import Testimonials from '@/components/common/testimonials';
 import { Testimonial } from '@/types';
 import AvailabilityViewer from '@/components/common/availability-viewer';
 
-
 export default function ProfilePage() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id') || '';
@@ -108,7 +107,7 @@ export default function ProfilePage() {
             hasGivenFeedback={hasGivenFeedback}
             onFeedbackButtonClick={scrollToTestimonials}
           />
-          <AvailabilityViewer availability={user.availability || ''} withHeader className='mb-5' />
+          <AvailabilityViewer availability={user.availability || ''} withHeader className="mb-5" />
           <EducationSection education={educations} onUpdate={setEducations} disabled />
           <ExperienceSection experience={experiences} onUpdate={setExperiences} disabled />
           <SkillsSection skills={skills} onUpdate={setSkills} disabled />

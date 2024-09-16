@@ -1,7 +1,13 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 
 const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -54,7 +60,9 @@ const AvailabilitySelector: React.FC<AvailabilitySelectorProps> = ({
               <div className="flex items-center space-x-2">
                 <Select
                   value={selectedTimes[day]?.[0] || ''}
-                  onValueChange={(value) => !disabled && onTimeChange(day, value, selectedTimes[day]?.[1] || value)} // Disable time change
+                  onValueChange={(value) =>
+                    !disabled && onTimeChange(day, value, selectedTimes[day]?.[1] || value)
+                  } // Disable time change
                   disabled={disabled}
                 >
                   <SelectTrigger className="w-[120px]">
@@ -71,7 +79,9 @@ const AvailabilitySelector: React.FC<AvailabilitySelectorProps> = ({
                 <span>to</span>
                 <Select
                   value={selectedTimes[day]?.[1] || ''}
-                  onValueChange={(value) => !disabled && onTimeChange(day, selectedTimes[day]?.[0] || value, value)} // Disable time change
+                  onValueChange={(value) =>
+                    !disabled && onTimeChange(day, selectedTimes[day]?.[0] || value, value)
+                  } // Disable time change
                   disabled={disabled}
                 >
                   <SelectTrigger className="w-[120px]">
