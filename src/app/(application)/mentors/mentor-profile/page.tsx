@@ -15,6 +15,7 @@ import { useMentorshipRequests } from '@/hooks/useMentorshipRequests';
 import { toast } from '@/components/ui/use-toast';
 import Testimonials from '@/components/common/testimonials';
 import { Testimonial } from '@/types';
+import AvailabilityViewer from '@/components/common/availability-viewer';
 
 export default function ProfilePage() {
   const searchParams = useSearchParams();
@@ -104,8 +105,9 @@ export default function ProfilePage() {
             onRequestMentorship={handleRequestMentorship}
             isCreating={isCreating}
             hasGivenFeedback={hasGivenFeedback}
-            onFeedbackButtonClick={scrollToTestimonials} // Pass the scroll function as a prop
+            onFeedbackButtonClick={scrollToTestimonials}
           />
+          <AvailabilityViewer availability={user.availability || ''} withHeader className="mb-5" />
           <EducationSection education={educations} onUpdate={setEducations} disabled />
           <ExperienceSection experience={experiences} onUpdate={setExperiences} disabled />
           <SkillsSection skills={skills} onUpdate={setSkills} disabled />

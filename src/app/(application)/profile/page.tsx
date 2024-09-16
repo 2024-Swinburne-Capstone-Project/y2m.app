@@ -13,6 +13,8 @@ import SkillsSection from '@/components/common/skill-section';
 import { Education, Experience, Skill, UserProfile } from '@/types';
 import { User } from '@/types/profile/user';
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { useAvailability } from '@/hooks/useAvailability';
+import AvailabilitySelector from './components/availability-selector';
 
 export default function ProfilePage() {
   const auth0User = useUser();
@@ -23,6 +25,9 @@ export default function ProfilePage() {
   const [skills, setSkills] = useState<Skill[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
+
+  const { selectedDays, selectedTimes, toggleDay, changeTime, getAvailabilityString } =
+    useAvailability(user.availability || '');
 
   useEffect(() => {
     if (profile) {
@@ -35,7 +40,10 @@ export default function ProfilePage() {
 
   const handleSave = async () => {
     const updatedProfile: UserProfile = {
-      user,
+      user: {
+        ...user,
+        availability: getAvailabilityString(),
+      },
       education: educations,
       experience: experiences,
       skills,
@@ -86,6 +94,14 @@ export default function ProfilePage() {
             onProfileChange={handleProfileChange}
             onEditToggle={() => setIsEditing(!isEditing)}
             handleImageChange={handleImageChange}
+          />
+          <AvailabilitySelector
+            selectedDays={selectedDays}
+            selectedTimes={selectedTimes}
+            onDayToggle={toggleDay}
+            onTimeChange={changeTime}
+            className="mb-4"
+            disabled={!isEditing}
           />
           <EducationSection education={educations} onUpdate={setEducations} disabled={!isEditing} />
           <ExperienceSection

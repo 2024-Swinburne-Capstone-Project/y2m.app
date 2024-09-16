@@ -10,6 +10,8 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { UserData } from '@/types/mentor-search/user-data';
+import { profileConfig } from '@/config/application/profile-config';
+import AvailabilityViewer from './availability-viewer';
 
 interface ProfileCard {
   userData: UserData;
@@ -35,7 +37,7 @@ const ProfileCard: React.FC<ProfileCard> = ({ userData, actionButton }) => {
       <CardContent>
         <p className="mb-2 text-sm">{user.aboutMe}</p>
         <div className="mb-2">
-          <strong>Areas of Expertise:</strong>
+          <strong>{profileConfig.profileForm.mentorAreas.label}</strong>
           <div className="mt-1 flex flex-wrap gap-1">
             {user.mentorAreas &&
               user.mentorAreas.map((area, index) => (
@@ -45,9 +47,8 @@ const ProfileCard: React.FC<ProfileCard> = ({ userData, actionButton }) => {
               ))}
           </div>
         </div>
-        <div className="mb-2">
-          <strong>Availability:</strong> {user.availability}
-        </div>
+        <strong>{profileConfig.profileForm.availability.label}</strong>
+        <AvailabilityViewer availability={user.availability || ''} textBased />
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="skills">
             <AccordionTrigger>Skills</AccordionTrigger>

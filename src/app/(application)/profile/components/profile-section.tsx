@@ -8,7 +8,6 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Camera } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import TagInput from '@/components/common/tag-input';
-import { Textarea } from '@/components/ui/textarea';
 import { profileConfig } from '@/config/application/profile-config';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
@@ -209,19 +208,6 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               />
             </div>
           )}
-          <div className="sm:col-span-2">
-            <Label htmlFor="availability" className="text-sm font-medium">
-              {profileConfig.profileForm.availability.label}
-            </Label>
-            <Textarea
-              id="availability"
-              value={profile.availability || ''}
-              onChange={(e) => onProfileChange('availability', e.target.value)}
-              disabled={!isEditing}
-              className="mt-1"
-              placeholder={profileConfig.profileForm.availability.placeholder}
-            />
-          </div>
         </div>
       </CardContent>
     </Card>

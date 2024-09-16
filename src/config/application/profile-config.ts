@@ -41,14 +41,14 @@ export const profileConfig: ProfileConfig = {
       label: 'I want to be a mentee',
     },
     mentorAreas: {
-      label: 'Areas of Expertise',
-      placeholder: 'Add area of expertise',
-      addButtonText: 'Add Area',
+      label: 'Skills',
+      placeholder: 'Add Skill...',
+      addButtonText: 'Add Skill',
     },
     menteeInterests: {
-      label: 'Areas of Interest',
-      placeholder: 'Add area of interest',
-      addButtonText: 'Add Interest',
+      label: 'Development Areas',
+      placeholder: 'Add Development Area...',
+      addButtonText: 'Add Area',
     },
     availability: {
       label: 'Availability',
