@@ -6,7 +6,7 @@ import { Milestone as MilestoneIcon } from 'lucide-react';
 
 type MilestoneProgressProps = {
   milestones: Milestone[];
-  noDataTitle: string;
+  noDataTitle?: string;
 };
 
 const MilestoneProgress = ({ milestones, noDataTitle }: MilestoneProgressProps) => {
@@ -17,7 +17,7 @@ const MilestoneProgress = ({ milestones, noDataTitle }: MilestoneProgressProps) 
       </CardHeader>
       <CardContent>
         {milestones.length === 0 ? (
-          <NoDataDisplay title={noDataTitle} icon={<MilestoneIcon />} />
+          <NoDataDisplay title={noDataTitle ?? ''} icon={<MilestoneIcon />} />
         ) : (
           <Table>
             <TableHeader>

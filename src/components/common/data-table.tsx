@@ -12,8 +12,8 @@ interface DataTableProps<T> {
   renderRow: (item: T) => React.ReactNode;
   onAddNew: () => void;
   disabled?: boolean;
-  noDataIcon: React.ReactNode;
-  noDataTitle: string;
+  noDataIcon?: React.ReactNode;
+  noDataTitle?: string;
 }
 
 export function DataTable<T>({
@@ -38,7 +38,7 @@ export function DataTable<T>({
       </CardHeader>
       <CardContent>
         {data.length === 0 ? (
-          <NoDataDisplay title={noDataTitle} icon={noDataIcon} />
+          <NoDataDisplay title={noDataTitle ?? ''} icon={noDataIcon} />
         ) : (
           <Table>
             <TableHeader>
