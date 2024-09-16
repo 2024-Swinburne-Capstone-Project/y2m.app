@@ -2,6 +2,7 @@ import React from 'react';
 import { Skill } from '@/types';
 import { profileConfig } from '@/config/application/profile-config';
 import TagInput from '@/components/common/tag-input';
+import { UserCog } from 'lucide-react';
 
 interface SkillsSectionProps {
   skills: Skill[];
@@ -21,6 +22,8 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, onUpdate, disable
       addButtonText="Add Skill"
       createNewItem={(name: string) => ({ name }) as Skill}
       disabled={disabled}
+      noDataIcon={<UserCog />}
+      noDataTitle="No Skills Added Yet"
     />
   );
 };

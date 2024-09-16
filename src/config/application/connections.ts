@@ -1,7 +1,7 @@
 import { ConnectionsConfig } from '@/types';
 
 export const connectionsConfig: ConnectionsConfig = {
-  pageTitle: 'Mentorship Connections',
+  pageTitle: 'Mentorship Requests',
   tabs: {
     incoming: 'Incoming Requests',
     outgoing: 'Outgoing Requests',
@@ -10,6 +10,7 @@ export const connectionsConfig: ConnectionsConfig = {
     acceptButton: 'Accept',
     rejectButton: 'Reject',
     pendingStatus: 'Status: Pending',
+    viewProfileButton: 'View Profile',
   },
   noDataDisplay: {
     incoming: {

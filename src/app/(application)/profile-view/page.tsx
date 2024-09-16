@@ -14,8 +14,10 @@ import SkillsSection from '@/components/common/skill-section';
 import { useMentorshipRequests } from '@/hooks/useMentorshipRequests';
 import { toast } from '@/components/ui/use-toast';
 import Testimonials from '@/components/common/testimonials';
-import { Testimonial } from '@/types';
+import { Milestone, Testimonial } from '@/types';
 import AvailabilityViewer from '@/components/common/availability-viewer';
+import { useDevelopmentHubDataByUserId } from '@/hooks/useDevelopmentHub';
+import MilestoneProgress from './components/milestone-progress';
 
 export default function ProfilePage() {
   const searchParams = useSearchParams();
@@ -31,6 +33,9 @@ export default function ProfilePage() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [hasGivenFeedback, setHasGivenFeedback] = useState(false);
   const { data, isLoading, error, refetch } = useUserProfile(id);
+  const { data: developmentHubData } = useDevelopmentHubDataByUserId(id);
+  const [milestones, setMilestones] = useState<Milestone[]>([]);
+  const [isMentee, setIsMentee] = useState(false);
   const { submitMentorFeedback } = useSubmitMentorFeedback();
   const { createRequest, isCreating } = useMentorshipRequests();
   const testimonialRef = useRef<HTMLDivElement>(null);
@@ -44,8 +49,17 @@ export default function ProfilePage() {
       setExistingConnection(data.hasExistingConnection);
       setExistingRequest(data.hasExistingRequest);
       setTestimonials(data.testimonials || []);
+      if (data.user.isMentee) {
+        setIsMentee(true);
+      }
     }
   }, [data]);
+
+  useEffect(() => {
+    if (developmentHubData && isMentee) {
+      setMilestones(developmentHubData.milestones || []);
+    }
+  }, [developmentHubData, isMentee]);
 
   useEffect(() => {
     if (profile) {
@@ -108,6 +122,9 @@ export default function ProfilePage() {
             onFeedbackButtonClick={scrollToTestimonials}
           />
           <AvailabilityViewer availability={user.availability || ''} withHeader className="mb-5" />
+          {isMentee && (
+            <MilestoneProgress milestones={milestones} noDataTitle="No Milestone Data Available" />
+          )}
           <EducationSection education={educations} onUpdate={setEducations} disabled />
           <ExperienceSection experience={experiences} onUpdate={setExperiences} disabled />
           <SkillsSection skills={skills} onUpdate={setSkills} disabled />

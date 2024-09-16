@@ -65,6 +65,7 @@ export interface ConnectionsConfig {
     acceptButton: string;
     rejectButton: string;
     pendingStatus: string;
+    viewProfileButton: string;
   };
   noDataDisplay: {
     incoming: {

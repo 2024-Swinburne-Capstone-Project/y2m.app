@@ -3,11 +3,10 @@ import { db } from '@/lib/db';
 import { Badge, DevelopmentArea, Milestone, MilestoneStep } from '@/types';
 
 export async function GET(req: NextRequest) {
-  const userId = req.headers.get('X-User-Id');
+  const userId = req.nextUrl.searchParams.get('userId');
   if (!userId) {
     return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
   }
-
   try {
     const [milestones, milestoneSteps, developmentAreas, badges] = await Promise.all([
       db.selectFrom('Milestone').selectAll().where('userId', '=', userId).execute(),

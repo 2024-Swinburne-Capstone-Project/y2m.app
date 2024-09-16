@@ -4,6 +4,7 @@ import { DataTable } from '@/components/common/data-table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import EducationForm from '../../app/(application)/profile/components/education-form';
 import { TableCell } from '@/components/ui/table';
+import { GraduationCap } from 'lucide-react';
 
 interface EducationSectionProps {
   education: Education[];
@@ -42,6 +43,8 @@ export default function EducationSection({ education, onUpdate, disabled }: Educ
         renderRow={renderEducationRow}
         onAddNew={() => setIsModalOpen(true)}
         disabled={disabled}
+        noDataIcon={<GraduationCap />}
+        noDataTitle="No Education Data Available"
       />
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>

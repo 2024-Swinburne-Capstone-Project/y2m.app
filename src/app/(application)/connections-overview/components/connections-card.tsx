@@ -39,7 +39,7 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ userData }) => {
         </div>
         <div className="flex space-x-2">
           <Button variant="outline" asChild>
-            <Link href={`/mentors/mentor-profile?id=${user.id}`}>
+            <Link href={`/profile-view?id=${user.id}`}>
               {connectionsOverviewConfig.connectionCard.viewProfileButton}
             </Link>
           </Button>

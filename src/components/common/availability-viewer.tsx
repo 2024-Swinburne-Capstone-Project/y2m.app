@@ -34,14 +34,18 @@ export default function AvailabilityViewer({
   let selectedTimes: Record<string, string[]> = {};
 
   try {
-    selectedTimes = JSON.parse(availability);
-    selectedDays = Object.keys(selectedTimes);
+    if (availability !== '') {
+      selectedTimes = JSON.parse(availability);
+      selectedDays = Object.keys(selectedTimes);
+    }
   } catch (error) {
     console.error('Error parsing availability:', error);
   }
 
   const renderAvailability = () => {
-    if (textBased) {
+    if (!availability || availability === '' || selectedDays.length === 0) {
+      return <div>User Availability Not Yet Set</div>;
+    } else if (textBased) {
       return (
         <div className="text-sm">
           {selectedDays.map((day) => (

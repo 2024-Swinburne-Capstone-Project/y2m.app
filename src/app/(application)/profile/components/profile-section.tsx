@@ -93,7 +93,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
             <p className="text-sm text-gray-500 dark:text-gray-400">{profile.email}</p>
             {profile.isMentor && (
               <Button className="mt-2" size="sm" asChild>
-                <Link href={`/mentors/mentor-profile?id=${profile.id}`}>View Mentor Profile</Link>
+                <Link href={`/profile-view?id=${profile.id}`}>View Mentor Profile</Link>
               </Button>
             )}
           </div>

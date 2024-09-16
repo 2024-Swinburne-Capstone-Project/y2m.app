@@ -4,6 +4,7 @@ import { DataTable } from '@/components/common/data-table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import ExperienceForm from '../../app/(application)/profile/components/experience-form';
 import { TableCell } from '@/components/ui/table';
+import { Briefcase } from 'lucide-react';
 
 interface ExperienceSectionProps {
   experience: Experience[];
@@ -46,6 +47,8 @@ export default function ExperienceSection({
         renderRow={renderExperienceRow}
         onAddNew={() => setIsModalOpen(true)}
         disabled={disabled}
+        noDataIcon={<Briefcase />}
+        noDataTitle="No Experience Data Available"
       />
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>

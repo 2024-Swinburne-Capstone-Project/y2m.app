@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlusCircle } from 'lucide-react';
+import NoDataDisplay from './no-data-display';
 
 interface DataTableProps<T> {
   title: string;
@@ -11,6 +12,8 @@ interface DataTableProps<T> {
   renderRow: (item: T) => React.ReactNode;
   onAddNew: () => void;
   disabled?: boolean;
+  noDataIcon: React.ReactNode;
+  noDataTitle: string;
 }
 
 export function DataTable<T>({
@@ -20,6 +23,8 @@ export function DataTable<T>({
   renderRow,
   onAddNew,
   disabled,
+  noDataIcon,
+  noDataTitle,
 }: DataTableProps<T>) {
   return (
     <Card className="mb-5">
@@ -32,20 +37,24 @@ export function DataTable<T>({
         )}
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              {headers.map((header) => (
-                <TableCell key={header}>{header}</TableCell>
+        {data.length === 0 ? (
+          <NoDataDisplay title={noDataTitle} icon={noDataIcon} />
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                {headers.map((header) => (
+                  <TableCell key={header}>{header}</TableCell>
+                ))}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data.map((item, index) => (
+                <TableRow key={index}>{renderRow(item)}</TableRow>
               ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((item, index) => (
-              <TableRow key={index}>{renderRow(item)}</TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableBody>
+          </Table>
+        )}
       </CardContent>
     </Card>
   );
