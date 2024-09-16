@@ -1,3 +1,10 @@
+## [1.33.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.33.0...v1.33.1) (2024-09-16)
+
+
+### Bug Fixes
+
+* chat duplication ([88ae655](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/88ae65581cd465145cdbcbc6add16ef8db45907e))
+
 ## [1.33.0](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.32.0...v1.33.0) (2024-09-15)
 
 
