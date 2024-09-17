@@ -64,6 +64,9 @@ const ChatWindow: React.FC = () => {
             chat={chats.find((c) => c.id.toString() === activeChat)}
             onClose={() => setActiveChat(null)}
             onSend={sendMessage}
+            onViewProfile={() => {
+              setIsOpen(false);
+            }}
           />
         ) : (
           <ChatList

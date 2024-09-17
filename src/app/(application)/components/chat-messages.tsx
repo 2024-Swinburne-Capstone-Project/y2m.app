@@ -13,6 +13,7 @@ interface ChatMessagesProps {
   chat: Chat | undefined;
   onClose: () => void;
   onSend: (chatId: string, content: string) => void;
+  onViewProfile: () => void;
 }
 
 const MessageItem: React.FC<{ message: Message; isOwnMessage: boolean }> = ({
@@ -36,7 +37,7 @@ const MessageItem: React.FC<{ message: Message; isOwnMessage: boolean }> = ({
   </div>
 );
 
-const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend }) => {
+const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend, onViewProfile }) => {
   const [message, setMessage] = useState('');
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -63,15 +64,17 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend }) =>
           <Button variant="ghost" size="icon" onClick={onClose} className="mr-2">
             <ChevronLeft className="size-6" />
           </Button>
-          <Link href={`/profile-view?id=${chat.participants[0].id}`}>
-            <Avatar className="mr-2 size-10">
-              <AvatarImage
-                src={chat.participants[0].profilePictureURL || ''}
-                alt={chat.participants[0].name}
-              />
-              <AvatarFallback>{chat.participants[0].name[0]}</AvatarFallback>
-            </Avatar>
-          </Link>
+          <Button variant={'none'} asChild onClick={onViewProfile}>
+            <Link href={`/profile-view?id=${chat.participants[0].id}`}>
+              <Avatar className="mr-2 size-10">
+                <AvatarImage
+                  src={chat.participants[0].profilePictureURL || ''}
+                  alt={chat.participants[0].name}
+                />
+                <AvatarFallback>{chat.participants[0].name[0]}</AvatarFallback>
+              </Avatar>
+            </Link>
+          </Button>
           <div>
             <h2 className="text-lg font-semibold">{chat.participants[0].name}</h2>
             <SkillsAndDevAreasSummary
