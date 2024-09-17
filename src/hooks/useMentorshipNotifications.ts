@@ -5,7 +5,7 @@ import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
 const POLLING_INTERVAL = 60000; // Poll every 1 minute
 
 const fetchUnreadNotifications = async (userId: string): Promise<MentorshipNotification[]> => {
-  const response = await fetch('/api/notifications', {
+  const response = await fetch('/api/mentorship-notifications', {
     headers: { 'X-User-Id': userId },
   });
   if (!response.ok) throw new Error('Failed to fetch notifications');
@@ -13,7 +13,7 @@ const fetchUnreadNotifications = async (userId: string): Promise<MentorshipNotif
 };
 
 const markNotificationRead = async (userId: string, notificationId: string): Promise<void> => {
-  const response = await fetch('/api/notifications', {
+  const response = await fetch('/api/mentorship-notifications', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export const useMentorshipNotifications = () => {
   const queryClient = useQueryClient();
 
   const userId = user?.sub ?? '';
-  const queryKey = ['notifications', userId];
+  const queryKey = ['mentorship-notifications', userId];
 
   const { data, isLoading, error } = useQuery<MentorshipNotification[], Error>({
     queryKey,
