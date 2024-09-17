@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AuthenticatedRoute } from '@/components/common/authenticated-route';
 import { useDevelopmentHub } from '@/hooks/useDevelopmentHub';
 import { useToast } from '@/components/ui/use-toast';
-import { DevelopmentArea, Badge, MilestoneStep, Milestone } from '@/types';
+import { DevelopmentArea, Badge, MilestoneStep, Milestone, MilestoneComment } from '@/types';
 import { developmentHubConfig } from '@/config/application/development-hub';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
@@ -26,6 +26,7 @@ export default function DevelopmentHubPage() {
   const [milestoneSteps, setMilestoneSteps] = useState<MilestoneStep[]>([]);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [developmentAreas, setDevelopmentAreas] = useState<DevelopmentArea[]>([]);
+  const [milestoneComments] = useState<MilestoneComment[]>([]);
   const [badges, setBadges] = useState<Badge[]>([]);
   const prevMilestonesLengthRef = useRef(0);
 
@@ -41,7 +42,7 @@ export default function DevelopmentHubPage() {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [milestones, milestoneSteps, developmentAreas, badges, toast]);
+  }, [milestones, milestoneSteps, developmentAreas, milestoneComments, badges, toast]);
 
   useEffect(() => {
     if (data) {

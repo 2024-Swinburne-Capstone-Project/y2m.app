@@ -121,19 +121,31 @@ export interface Message {
   senderId: string;
 }
 
-export interface Milestone {
-  endDate: Timestamp;
+export interface MilestoneComment {
   id: Generated<number>;
-  startDate: Timestamp;
-  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
+  milestoneId: string;
+  content: string;
+  createdAt: string | Date;
+}
+
+export interface Milestone {
+  id: Generated<number>;
   title: string;
+  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
+  startDate: string | Date;
+  endDate: string | Date;
   userId: string;
+}
+
+export interface MilestoneWithComments extends Milestone {
+  comments: MilestoneComment[];
 }
 
 export interface MilestoneStep {
   id: Generated<number>;
   milestoneId: number;
   name: string;
+  dueDate: Timestamp;
   status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
 }
 
@@ -183,6 +195,7 @@ export interface DB {
   MentorshipRequest: MentorshipRequest;
   Message: Message;
   Milestone: Milestone;
+  MilestoneComment: MilestoneComment;
   MilestoneStep: MilestoneStep;
   Skill: Skill;
   User: User;

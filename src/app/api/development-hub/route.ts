@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Badge, DevelopmentArea, Milestone, MilestoneStep, MilestoneComment } from '@/types';
 import { db } from '@/lib/db';
-import { Badge, DevelopmentArea, Milestone, MilestoneStep } from '@/types';
 
 export async function GET(req: NextRequest) {
   const userId = req.headers.get('X-User-Id');
@@ -9,26 +9,52 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const [milestones, milestoneSteps, developmentAreas, badges] = await Promise.all([
-      db.selectFrom('Milestone').selectAll().where('userId', '=', userId).execute(),
-      db
-        .selectFrom('MilestoneStep as ms')
-        .innerJoin('Milestone as m', 'm.id', 'ms.milestoneId')
-        .selectAll('ms')
-        .select(['m.title as milestoneTitle'])
-        .where('m.userId', '=', userId)
-        .execute(),
-      db.selectFrom('DevelopmentArea').selectAll().where('userId', '=', userId).execute(),
-      db.selectFrom('Badge').selectAll().where('userId', '=', userId).execute(),
-    ]);
+    const [milestones, milestoneSteps, milestoneComments, developmentAreas, badges] =
+      await Promise.all([
+        db.selectFrom('Milestone').selectAll().where('userId', '=', userId).execute(),
+        db
+          .selectFrom('MilestoneStep as ms')
+          .innerJoin('Milestone as m', 'm.id', 'ms.milestoneId')
+          .selectAll('ms')
+          .select(['m.title as milestoneTitle'])
+          .where('m.userId', '=', userId)
+          .execute(),
+        db
+          .selectFrom('MilestoneComment as mc')
+          .innerJoin('Milestone as m', 'm.id', 'mc.milestoneId')
+          .selectAll('mc')
+          .where('m.userId', '=', userId)
+          .execute(),
+        db.selectFrom('DevelopmentArea').selectAll().where('userId', '=', userId).execute(),
+        db.selectFrom('Badge').selectAll().where('userId', '=', userId).execute(),
+      ]);
+
+    // Group comments by milestoneId
+    const commentsByMilestone = milestoneComments.reduce(
+      (acc, comment) => {
+        if (!acc[Number(comment.milestoneId)]) {
+          acc[Number(comment.milestoneId)] = [];
+        }
+        acc[Number(comment.milestoneId)].push(comment as unknown as MilestoneComment);
+        return acc;
+      },
+      {} as Record<number, MilestoneComment[]>
+    );
+
+    // Attach comments to milestones
+    const milestonesWithComments = milestones.map((milestone) => ({
+      ...milestone,
+      comments: commentsByMilestone[milestone.id] || [],
+    }));
 
     return NextResponse.json({
-      milestones,
+      milestones: milestonesWithComments,
       milestoneSteps,
       developmentAreas,
       badges,
     });
   } catch (error) {
+    console.error('Error in GET /api/development-hub:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
@@ -46,55 +72,18 @@ export async function PUT(req: NextRequest) {
       developmentAreas,
       badges,
     }: {
-      milestones: Partial<Milestone>[];
+      milestones: Partial<Milestone & { comments?: Partial<MilestoneComment>[] }>[];
       milestoneSteps: Partial<MilestoneStep>[];
       developmentAreas: Partial<DevelopmentArea>[];
       badges: Partial<Badge>[];
     } = await req.json();
 
     await db.transaction().execute(async (trx) => {
-      if (milestoneSteps) {
-        const existingSteps = await trx
-          .selectFrom('MilestoneStep')
-          .select('MilestoneStep.id as id')
-          .innerJoin('Milestone', 'Milestone.id', 'MilestoneStep.milestoneId')
-          .where('Milestone.userId', '=', userId)
-          .execute();
-
-        const existingStepIds = new Set(existingSteps.map((s) => s.id));
-
-        for (const step of milestoneSteps) {
-          if (step.id && existingStepIds.has(Number(step.id))) {
-            await trx
-              .updateTable('MilestoneStep')
-              .set({
-                name: step.name,
-                status: step.status,
-              })
-              .where('id', '=', Number(step.id))
-              .execute();
-            existingStepIds.delete(Number(step.id));
-          } else if (step.milestoneId && step.name && step.status) {
-            await trx
-              .insertInto('MilestoneStep')
-              .values({
-                milestoneId: step.milestoneId,
-                name: step.name,
-                status: step.status,
-              })
-              .execute();
-          }
-        }
-
-        for (const idToRemove of Array.from(existingStepIds)) {
-          await trx.deleteFrom('MilestoneStep').where('id', '=', idToRemove).execute();
-        }
-      }
-
+      // Handle milestones and their comments
       if (milestones) {
         const existingMilestones = await trx
           .selectFrom('Milestone')
-          .select('id')
+          .select(['id'])
           .where('userId', '=', userId)
           .execute();
 
@@ -102,6 +91,7 @@ export async function PUT(req: NextRequest) {
 
         for (const milestone of milestones) {
           if (milestone.id && existingMilestoneIds.has(Number(milestone.id))) {
+            // Update existing milestone
             await trx
               .updateTable('Milestone')
               .set({
@@ -113,14 +103,57 @@ export async function PUT(req: NextRequest) {
               .where('id', '=', Number(milestone.id))
               .where('userId', '=', userId)
               .execute();
-            existingMilestoneIds.delete(Number(milestone.id));
+
+            // Handle comments for existing milestone
+            if (milestone.comments) {
+              const existingComments = await trx
+                .selectFrom('MilestoneComment')
+                .select(['id'])
+                .where('milestoneId', '=', milestone.id.toString())
+                .execute();
+
+              const existingCommentIds = new Set(existingComments.map((c) => c.id));
+
+              for (const comment of milestone.comments) {
+                if (comment.id && existingCommentIds.has(Number(comment.id))) {
+                  // Update existing comment
+                  await trx
+                    .updateTable('MilestoneComment')
+                    .set({
+                      content: comment.content,
+                    })
+                    .where('id', '=', Number(comment.id))
+                    .execute();
+                  existingCommentIds.delete(Number(comment.id));
+                } else if (comment.content) {
+                  // Insert new comment
+                  await trx
+                    .insertInto('MilestoneComment')
+                    .values({
+                      milestoneId: milestone.id.toString(),
+                      content: comment.content,
+                      createdAt: new Date().toISOString(),
+                    })
+                    .execute();
+                }
+              }
+
+              // Remove comments that no longer exist
+              for (const commentIdToRemove of Array.from(existingCommentIds)) {
+                await trx
+                  .deleteFrom('MilestoneComment')
+                  .where('id', '=', commentIdToRemove)
+                  .execute();
+              }
+            }
           } else if (
             milestone.title &&
             milestone.status &&
             milestone.startDate &&
             milestone.endDate
           ) {
-            await trx
+            // Insert new milestone
+            const [newMilestone] = await trx
               .insertInto('Milestone')
               .values({
                 userId,
@@ -129,11 +162,39 @@ export async function PUT(req: NextRequest) {
                 startDate: milestone.startDate?.toString(),
                 endDate: milestone.endDate?.toString(),
               })
+              .returning(['id'])
               .execute();
+
+            // Insert associated comments if any
+            if (milestone.comments && milestone.comments.length > 0) {
+              await trx
+                .insertInto('MilestoneComment')
+                .values(
+                  milestone.comments.map((comment) => ({
+                    milestoneId: newMilestone.id.toString(),
+                    content: comment.content,
+                    createdAt: new Date().toISOString(),
+                  }))
+                )
+                .execute();
+            }
           }
+          existingMilestoneIds.delete(Number(milestone.id));
         }
 
+        // Remove milestones that no longer exist
         for (const idToRemove of Array.from(existingMilestoneIds)) {
+          // Remove associated comments
+          await trx;
+          await trx.deleteFrom('MilestoneStep').where('milestoneId', '=', idToRemove).execute();
+
+          // Then, delete associated MilestoneComments
+          await trx
+            .deleteFrom('MilestoneComment')
+            .where('milestoneId', '=', idToRemove.toString())
+            .execute();
+
+          // Finally, delete the Milestone
           await trx
             .deleteFrom('Milestone')
             .where('id', '=', idToRemove)
@@ -142,10 +203,54 @@ export async function PUT(req: NextRequest) {
         }
       }
 
+      // Handle milestone steps
+      if (milestoneSteps) {
+        const existingSteps = await trx
+          .selectFrom('MilestoneStep as ms')
+          .innerJoin('Milestone as m', 'm.id', 'ms.milestoneId')
+          .select(['ms.id'])
+          .where('m.userId', '=', userId)
+          .execute();
+
+        const existingStepIds = new Set(existingSteps.map((s) => s.id));
+
+        for (const step of milestoneSteps) {
+          if (step.id && existingStepIds.has(Number(step.id))) {
+            await trx
+              .updateTable('MilestoneStep')
+              .set({
+                name: step.name,
+                status: step.status,
+                dueDate: step.dueDate?.toString(),
+              })
+              .where('id', '=', Number(step.id))
+              .execute();
+            existingStepIds.delete(Number(step.id));
+          } else if (step.milestoneId && step.name && step.status) {
+            await trx
+              .insertInto('MilestoneStep')
+              .values({
+                milestoneId: step.milestoneId,
+                name: step.name,
+                status: step.status,
+                dueDate:
+                  step.dueDate?.toString() ||
+                  new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+              })
+              .execute();
+          }
+        }
+
+        for (const idToRemove of Array.from(existingStepIds)) {
+          await trx.deleteFrom('MilestoneStep').where('id', '=', idToRemove).execute();
+        }
+      }
+
+      // Handle development areas
       if (developmentAreas) {
         const existingAreas = await trx
           .selectFrom('DevelopmentArea')
-          .select('id')
+          .select(['id'])
           .where('userId', '=', userId)
           .execute();
 
@@ -155,21 +260,13 @@ export async function PUT(req: NextRequest) {
           if (area.id && existingAreaIds.has(Number(area.id))) {
             await trx
               .updateTable('DevelopmentArea')
-              .set({
-                name: area.name,
-              })
+              .set({ name: area.name })
               .where('id', '=', Number(area.id))
               .where('userId', '=', userId)
               .execute();
             existingAreaIds.delete(Number(area.id));
           } else if (area.name) {
-            await trx
-              .insertInto('DevelopmentArea')
-              .values({
-                userId,
-                name: area.name,
-              })
-              .execute();
+            await trx.insertInto('DevelopmentArea').values({ userId, name: area.name }).execute();
           }
         }
 
@@ -182,10 +279,11 @@ export async function PUT(req: NextRequest) {
         }
       }
 
+      // Handle badges
       if (badges) {
         const existingBadges = await trx
           .selectFrom('Badge')
-          .select('id')
+          .select(['id'])
           .where('userId', '=', userId)
           .execute();
 
@@ -239,6 +337,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json({ message: 'Development hub updated successfully' });
   } catch (error) {
+    console.error('Error in PUT /api/development-hub:', error);
     return NextResponse.json(
       {
         error: 'Internal Server Error',

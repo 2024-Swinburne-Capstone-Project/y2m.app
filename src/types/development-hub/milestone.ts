@@ -1,7 +1,10 @@
-import { Milestone as DBMilestone } from '../db';
-export interface Milestone extends DBMilestone {}
+import { Milestone as DBMilestone, MilestoneComment } from '../db';
+export interface Milestone extends Omit<DBMilestone, 'comments'> {
+  comments: MilestoneComment[];
+}
+
 export type CreateMilestoneData = Partial<
-  Omit<Milestone, 'id' | 'user_id' | 'startDate' | 'endDate'>
+  Omit<Milestone, 'id' | 'user_id' | 'startDate' | 'endDate' | 'steps' | 'comments'>
 > & {
   startDate: Date;
   endDate: Date;
