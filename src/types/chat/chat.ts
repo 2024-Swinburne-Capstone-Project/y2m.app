@@ -1,4 +1,4 @@
-import { Chat as DBChat } from '../db';
+import { Chat as DBChat, DevelopmentArea, Skill } from '../db';
 import { Message as DBMessage } from '../db';
 
 export interface Chat extends DBChat {
@@ -6,6 +6,8 @@ export interface Chat extends DBChat {
     id: string;
     name: string;
     profilePictureURL: string | null;
+    skills: Skill[];
+    developmentAreas: DevelopmentArea[];
   }[];
   lastMessage: Message | null;
   messages: Message[];

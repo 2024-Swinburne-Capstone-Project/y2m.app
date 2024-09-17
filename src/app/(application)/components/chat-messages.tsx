@@ -7,6 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ChevronLeft, Send } from 'lucide-react';
 import Link from 'next/link';
+import SkillsAndDevAreasSummary from './skills-and-dev-areas-summary';
 
 interface ChatMessagesProps {
   chat: Chat | undefined;
@@ -69,7 +70,13 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend }) =>
             />
             <AvatarFallback>{chat.participants[0].name[0]}</AvatarFallback>
           </Avatar>
-          <h2 className="text-lg font-semibold">{chat.participants[0].name}</h2>
+          <div>
+            <h2 className="text-lg font-semibold">{chat.participants[0].name}</h2>
+            <SkillsAndDevAreasSummary
+              skills={chat.participants[0].skills}
+              developmentAreas={chat.participants[0].developmentAreas}
+            />
+          </div>
         </div>
         <Button asChild variant={'outline'}>
           <Link href={`/profile-view?id=${chat.participants[0].id}`}>View Profile</Link>
