@@ -12,7 +12,7 @@ interface ConnectionCardProps {
 }
 
 const ConnectionCard: React.FC<ConnectionCardProps> = ({ userData }) => {
-  const { user, skills } = userData;
+  const { user, skills, developmentAreas } = userData;
 
   return (
     <Card className="flex h-full flex-col">
@@ -27,16 +27,38 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ userData }) => {
         </div>
       </CardHeader>
       <CardContent className="flex grow flex-col justify-between">
-        <div className="mb-4">
-          <h4 className="mb-2 font-semibold">Skills:</h4>
-          <div className="flex flex-wrap gap-1">
-            {skills.slice(0, 5).map((skill) => (
-              <Badge key={skill.id} variant="secondary">
-                {skill.name}
-              </Badge>
-            ))}
-          </div>
+        <div className="mb-4 flex">
+          <div className="mr-1 text-sm font-medium">Skills:</div>
+          {skills.length > 0 ? (
+            <div className="flex flex-wrap gap-1">
+              {skills.slice(0, 5).map((skill) => (
+                <Badge key={skill.id} variant="secondary">
+                  {skill.name}
+                </Badge>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm font-medium text-muted-foreground">No Skills Added Yet</p>
+          )}
         </div>
+        {user.isMentee && (
+          <div className="mb-4 flex">
+            <div className="mr-1 text-sm font-medium">Development Areas:</div>
+            {developmentAreas && developmentAreas.length > 0 ? (
+              <div className="flex flex-wrap gap-1">
+                {developmentAreas.slice(0, 5).map((devArea) => (
+                  <Badge key={devArea.id.toString()} variant="secondary">
+                    {devArea.name}
+                  </Badge>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm font-medium text-muted-foreground">
+                No Development Areas Added Yet
+              </p>
+            )}
+          </div>
+        )}
         <div className="flex space-x-2">
           <Button variant="outline" asChild>
             <Link href={`/profile-view?id=${user.id}`}>
@@ -44,9 +66,7 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ userData }) => {
             </Link>
           </Button>
           <Button className={''} asChild>
-            <Link href={`/messages/${user.id}`}>
-              {connectionsOverviewConfig.connectionCard.messageButton}
-            </Link>
+            <Link href={`/messages`}>{connectionsOverviewConfig.connectionCard.messageButton}</Link>
           </Button>
         </div>
       </CardContent>

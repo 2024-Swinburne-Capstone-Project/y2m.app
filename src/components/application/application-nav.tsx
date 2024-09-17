@@ -6,6 +6,7 @@ import UserButton from '../nav/user-button';
 import SearchBar from './search-bar';
 import Link from 'next/link';
 import Image from 'next/image';
+import NotificationsButton from '../nav/notifications-button';
 
 export default async function ApplicationNav() {
   return (
@@ -20,6 +21,7 @@ export default async function ApplicationNav() {
           <div className="ml-auto flex space-x-4">
             <SearchBar />
             <ModeToggle />
+            <NotificationsButton />
             <UserButton />
           </div>
         </div>
