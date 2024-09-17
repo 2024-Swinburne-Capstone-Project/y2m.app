@@ -6,11 +6,30 @@ import { MessageCircle } from 'lucide-react';
 import ChatMessages from '../components/chat-messages';
 import ChatList from '../components/chat-list';
 import NewChatModal from '../components/new-chat-modal';
+import { useMessageNotifications } from '@/hooks/useMessageNotifications';
+import { MessageNotification } from '@/types/db';
 
 const MessagesPage: React.FC = () => {
   const [activeChat, setActiveChat] = useState<string | null>(null);
   const [isNewChatModalOpen, setIsNewChatModalOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
+  const { notifications, markRead } = useMessageNotifications();
+  const [unreadNotifications, setUnreadNotifications] = useState<MessageNotification[]>([]);
+
+  useEffect(() => {
+    if (notifications) {
+      const newUnreadNotifications = notifications;
+      if (newUnreadNotifications.length > unreadNotifications.length) {
+        playNotificationSound();
+      }
+      setUnreadNotifications(newUnreadNotifications);
+    }
+  }, [notifications, unreadNotifications.length]);
+
+  const playNotificationSound = () => {
+    const audio = new Audio('/message-chime.mp3');
+    audio.play();
+  };
 
   const { chats, loading, error, sendMessage, createNewChat, fetchChatMessages } =
     useChats(activeChat);
@@ -33,6 +52,7 @@ const MessagesPage: React.FC = () => {
 
   const handleChatSelect = (chatId: string) => {
     setActiveChat(chatId);
+    markRead(chatId);
   };
 
   const handleNewChat = async (userId: string) => {
@@ -55,7 +75,7 @@ const MessagesPage: React.FC = () => {
   if (error) return <div className="flex h-screen items-center justify-center">Error: {error}</div>;
 
   return (
-    <div className="flex h-screen flex-col md:flex-row">
+    <div className="flex h-[90vh] flex-col md:flex-row">
       <div
         className={`${
           isMobileView && activeChat ? 'hidden' : 'flex'
@@ -65,6 +85,7 @@ const MessagesPage: React.FC = () => {
           chats={chats}
           onSelectChat={handleChatSelect}
           onNewChat={() => setIsNewChatModalOpen(true)}
+          unreadChats={unreadNotifications}
         />
       </div>
 

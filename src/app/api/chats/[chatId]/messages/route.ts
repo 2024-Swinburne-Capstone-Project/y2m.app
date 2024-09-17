@@ -44,6 +44,27 @@ export async function POST(req: NextRequest, { params }: { params: { chatId: str
       .returningAll()
       .executeTakeFirstOrThrow();
 
+    const receiver = await db
+      .selectFrom('ChatParticipant')
+      .selectAll()
+      .where((eb) =>
+        eb.and([
+          eb('ChatParticipant.chatId', '=', newMessage.chatId),
+          eb('ChatParticipant.userId', '<>', userId),
+        ])
+      )
+      .executeTakeFirst();
+
+    if (receiver) {
+      await db
+        .insertInto('MessageNotification')
+        .values({
+          userId: receiver.userId,
+          chatId: newMessage.chatId,
+        })
+        .execute();
+    }
+
     return NextResponse.json(newMessage, { status: 201 });
   } catch (error) {
     console.error('Error sending message:', error);

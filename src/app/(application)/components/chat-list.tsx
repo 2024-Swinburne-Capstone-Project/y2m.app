@@ -6,15 +6,25 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Plus, Search } from 'lucide-react';
+import { MessageNotification } from '@/types/db';
 
 interface ChatListProps {
   chats: Chat[];
   onSelectChat: (chatId: string) => void;
   onNewChat: () => void;
+  unreadChats: MessageNotification[];
 }
 
-const ChatItem: React.FC<{ chat: Chat; onClick: () => void }> = ({ chat, onClick }) => (
-  <Button variant="ghost" className="w-full justify-start px-5 py-10" onClick={onClick}>
+const ChatItem: React.FC<{
+  chat: Chat;
+  onClick: () => void;
+  unreadChats: MessageNotification[];
+}> = ({ chat, onClick, unreadChats }) => (
+  <Button
+    variant={`${unreadChats.some((unread) => unread.chatId.toString() === chat.id.toString()) ? 'tertiary' : 'ghost'}`}
+    className={`w-full justify-start px-5 py-10 ${unreadChats.some((unread) => unread.chatId.toString() === chat.id.toString()) ? 'font-bold' : ''}`}
+    onClick={onClick}
+  >
     <Avatar className="mr-3 size-10">
       <AvatarImage
         src={chat.participants[0].profilePictureURL || ''}
@@ -39,7 +49,7 @@ const ChatItem: React.FC<{ chat: Chat; onClick: () => void }> = ({ chat, onClick
   </Button>
 );
 
-const ChatList: React.FC<ChatListProps> = ({ chats, onSelectChat, onNewChat }) => {
+const ChatList: React.FC<ChatListProps> = ({ chats, onSelectChat, onNewChat, unreadChats }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredChats = chats.filter((chat) =>
@@ -65,6 +75,7 @@ const ChatList: React.FC<ChatListProps> = ({ chats, onSelectChat, onNewChat }) =
             key={chat.id.toString()}
             chat={chat}
             onClick={() => onSelectChat(chat.id.toString())}
+            unreadChats={unreadChats}
           />
         ))}
       </ScrollArea>
