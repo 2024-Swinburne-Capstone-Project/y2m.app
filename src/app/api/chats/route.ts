@@ -24,6 +24,28 @@ export async function GET(req: NextRequest) {
           .select(['User.id', 'User.name', 'User.profilePictureURL'])
           .execute();
 
+        const participantsWithDetails = await Promise.all(
+          participants.map(async (participant) => {
+            const skills = await db
+              .selectFrom('Skill')
+              .where('userId', '=', participant.id)
+              .selectAll()
+              .execute();
+
+            const developmentAreas = await db
+              .selectFrom('DevelopmentArea')
+              .where('userId', '=', participant.id)
+              .selectAll()
+              .execute();
+
+            return {
+              ...participant,
+              skills,
+              developmentAreas,
+            };
+          })
+        );
+
         const lastMessage = await db
           .selectFrom('Message')
           .where('chatId', '=', chat.id)
@@ -34,7 +56,7 @@ export async function GET(req: NextRequest) {
 
         return {
           ...chat,
-          participants: participants.filter((p) => p.id !== userId),
+          participants: participantsWithDetails.filter((p) => p.id !== userId),
           lastMessage,
         };
       })
