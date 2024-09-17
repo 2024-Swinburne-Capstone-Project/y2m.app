@@ -13,7 +13,7 @@ interface ChatMessagesProps {
   chat: Chat | undefined;
   onClose: () => void;
   onSend: (chatId: string, content: string) => void;
-  onViewProfile: () => void;
+  onViewProfile?: () => void;
 }
 
 const MessageItem: React.FC<{ message: Message; isOwnMessage: boolean }> = ({
