@@ -4,6 +4,7 @@ export * from './development-hub/badge';
 export * from './development-hub/development-area';
 export * from './development-hub/milestone';
 export * from './development-hub/milestone-step';
+export * from './development-hub/milestone-comment';
 export * from './development-hub/development-hub';
 export * from './profile/education';
 export * from './profile/experience';
