@@ -13,7 +13,7 @@ const SkillsAndDevAreasSummary: React.FC<SkillsAndDevAreasSummaryProps> = ({
   return (
     <div className="flex items-center">
       {skills && skills.length > 0 && (
-        <div className="flex grow space-x-1 overflow-y-auto">
+        <div className="flex grow space-x-1 overflow-y-auto sm:hidden">
           <div className="text-sm font-medium">Skills:</div>
           <div className="flex flex-wrap gap-2 last:pr-2">
             {skills.map((skill, index) => (
@@ -25,7 +25,7 @@ const SkillsAndDevAreasSummary: React.FC<SkillsAndDevAreasSummaryProps> = ({
         </div>
       )}
       {developmentAreas && developmentAreas.length > 0 && (
-        <div className="flex grow space-x-1 overflow-y-auto">
+        <div className="flex grow space-x-1 overflow-y-auto sm:hidden">
           <div className="text-sm font-medium">Development Areas:</div>
           <div className="flex flex-wrap gap-2">
             {developmentAreas.map((area, index) => (

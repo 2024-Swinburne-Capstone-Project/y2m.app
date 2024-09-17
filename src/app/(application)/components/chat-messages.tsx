@@ -63,13 +63,15 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend }) =>
           <Button variant="ghost" size="icon" onClick={onClose} className="mr-2">
             <ChevronLeft className="size-6" />
           </Button>
-          <Avatar className="mr-2 size-10">
-            <AvatarImage
-              src={chat.participants[0].profilePictureURL || ''}
-              alt={chat.participants[0].name}
-            />
-            <AvatarFallback>{chat.participants[0].name[0]}</AvatarFallback>
-          </Avatar>
+          <Link href={`/profile-view?id=${chat.participants[0].id}`}>
+            <Avatar className="mr-2 size-10">
+              <AvatarImage
+                src={chat.participants[0].profilePictureURL || ''}
+                alt={chat.participants[0].name}
+              />
+              <AvatarFallback>{chat.participants[0].name[0]}</AvatarFallback>
+            </Avatar>
+          </Link>
           <div>
             <h2 className="text-lg font-semibold">{chat.participants[0].name}</h2>
             <SkillsAndDevAreasSummary
@@ -78,7 +80,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend }) =>
             />
           </div>
         </div>
-        <Button asChild variant={'outline'}>
+        <Button asChild variant={'outline'} className="sm:hidden">
           <Link href={`/profile-view?id=${chat.participants[0].id}`}>View Profile</Link>
         </Button>
       </div>
