@@ -17,13 +17,13 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, onUpdate, disable
       title={profileConfig.profileForm.skills.label}
       items={skills}
       setItems={onUpdate}
-      itemToString={(skill: Skill) => skill.name}
-      placeholder="Add a new skill"
-      addButtonText="Add Skill"
+      itemToString={(skill) => skill.name}
+      placeholder={profileConfig.profileForm.skills.placeholder}
+      addButtonText={profileConfig.profileForm.skills.addButtonText}
       createNewItem={(name: string) => ({ name }) as Skill}
       disabled={disabled}
       noDataIcon={<UserCog />}
-      noDataTitle="No Skills Added Yet"
+      noDataTitle={profileConfig.profileForm.skills.noDataTitle}
     />
   );
 };

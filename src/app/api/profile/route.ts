@@ -67,8 +67,6 @@ export async function PUT(req: NextRequest) {
           profileBackgroundURL: user.profileBackgroundURL,
           isMentor: !!user.isMentor,
           isMentee: !!user.isMentee,
-          mentorAreas: user.mentorAreas,
-          menteeInterests: user.menteeInterests,
           availability: user.availability,
         })
         .where('id', '=', userId)

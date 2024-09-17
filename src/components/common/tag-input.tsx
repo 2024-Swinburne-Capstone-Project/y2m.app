@@ -56,7 +56,7 @@ function TagInput<T>({
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent className="flex grow flex-col">
-        {items.length === 0 ? (
+        {items.length === 0 && disabled ? (
           <NoDataDisplay title={noDataTitle ?? ''} icon={noDataIcon} />
         ) : (
           <>

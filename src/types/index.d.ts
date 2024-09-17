@@ -419,8 +419,9 @@ export interface ProfileForm {
   };
   skills: {
     label: string;
-    list: string[];
-    errorMessage: string;
+    placeholder: string;
+    addButtonText: string;
+    noDataTitle: string;
   };
   isMentor: {
     label: string;
@@ -428,15 +429,11 @@ export interface ProfileForm {
   isMentee: {
     label: string;
   };
-  mentorAreas: {
+  developmentAreas: {
     label: string;
     placeholder: string;
     addButtonText: string;
-  };
-  menteeInterests: {
-    label: string;
-    placeholder: string;
-    addButtonText: string;
+    noDataTitle: string;
   };
   availability: {
     label: string;

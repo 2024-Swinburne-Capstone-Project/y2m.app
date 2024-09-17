@@ -9,20 +9,22 @@ import { useProfile } from '@/hooks/useProfile';
 import ProfileSection from '@/app/(application)/profile/components/profile-section';
 import EducationSection from '@/components/common/education-section';
 import ExperienceSection from '@/components/common/experience-section';
-import SkillsSection from '@/components/common/skill-section';
-import { Education, Experience, Skill, UserProfile } from '@/types';
+import { DevelopmentArea, Education, Experience, Skill, UserProfile } from '@/types';
 import { User } from '@/types/profile/user';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useAvailability } from '@/hooks/useAvailability';
 import AvailabilitySelector from './components/availability-selector';
+import { useDevelopmentHub } from '@/hooks/useDevelopmentHub';
 
 export default function ProfilePage() {
   const auth0User = useUser();
   const { profile, isLoading, error, saveProfile, isSaving, saveError } = useProfile();
+  const { data: developmentHubData, saveData } = useDevelopmentHub();
   const [user, setUser] = useState<User>({} as User);
   const [educations, setEducations] = useState<Education[]>([]);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
+  const [developmentAreas, setDevelopmentAreas] = useState<DevelopmentArea[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
 
@@ -38,6 +40,12 @@ export default function ProfilePage() {
     }
   }, [profile]);
 
+  useEffect(() => {
+    if (developmentHubData && user.isMentee) {
+      setDevelopmentAreas(developmentHubData.developmentAreas || []);
+    }
+  }, [developmentHubData, user.isMentee]);
+
   const handleSave = async () => {
     const updatedProfile: UserProfile = {
       user: {
@@ -51,12 +59,30 @@ export default function ProfilePage() {
 
     try {
       await saveProfile(updatedProfile);
+      await handleDevelopmentHubSave();
       setIsEditing(false);
       toast({ title: 'Success', description: 'Your profile has been updated.' });
     } catch (error) {
       toast({
         title: 'Error',
         description: 'Failed to update profile. Please try again.',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const handleDevelopmentHubSave = async () => {
+    const updatedDevelopmentHubData = {
+      developmentAreas,
+    };
+
+    try {
+      await saveData(updatedDevelopmentHubData);
+      toast({ title: 'Success', description: 'Your development areas have been updated.' });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to update development areas. Please try again.',
         variant: 'destructive',
       });
     }
@@ -94,6 +120,10 @@ export default function ProfilePage() {
             onProfileChange={handleProfileChange}
             onEditToggle={() => setIsEditing(!isEditing)}
             handleImageChange={handleImageChange}
+            skills={skills}
+            onSkillsUpdate={setSkills}
+            developmentAreas={developmentAreas}
+            onDevelopmentAreasUpdate={setDevelopmentAreas}
           />
           <AvailabilitySelector
             selectedDays={selectedDays}
@@ -109,8 +139,6 @@ export default function ProfilePage() {
             onUpdate={setExperiences}
             disabled={!isEditing}
           />
-          <SkillsSection skills={skills} onUpdate={setSkills} disabled={!isEditing} />
-
           {isEditing && (
             <div className="mb-2.5 mt-4 flex justify-end">
               <Button onClick={handleSave} disabled={isSaving}>

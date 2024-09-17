@@ -7,11 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Camera } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
-import TagInput from '@/components/common/tag-input';
 import { profileConfig } from '@/config/application/profile-config';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
 import Link from 'next/link';
+import { DevelopmentArea, Skill } from '@/types';
+import SkillsSection from '@/components/common/skill-section';
+import DevelopmentAreasSection from '@/components/common/development-areas-section';
 
 interface ProfileSectionProps {
   profile: User;
@@ -19,6 +21,10 @@ interface ProfileSectionProps {
   onProfileChange: (field: string, value: unknown) => void;
   onEditToggle: () => void;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>, column: string) => void;
+  skills: Skill[];
+  onSkillsUpdate: React.Dispatch<React.SetStateAction<Skill[]>>;
+  developmentAreas: DevelopmentArea[];
+  onDevelopmentAreasUpdate: React.Dispatch<React.SetStateAction<DevelopmentArea[]>>;
 }
 
 const ProfileSection: React.FC<ProfileSectionProps> = ({
@@ -27,11 +33,11 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   onProfileChange,
   onEditToggle,
   handleImageChange,
+  skills,
+  onSkillsUpdate,
+  developmentAreas,
+  onDevelopmentAreasUpdate,
 }) => {
-  const handleTagChange = (field: string) => (items: string[]) => {
-    onProfileChange(field, items);
-  };
-
   return (
     <Card className="mb-5 overflow-hidden">
       <div className="relative h-32 bg-gradient-to-r from-blue-400 to-purple-500">
@@ -157,6 +163,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
             />
           </div>
         </div>
+        <SkillsSection skills={skills} onUpdate={onSkillsUpdate} disabled={!isEditing} />
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <div className={'flex'}>
             <Label htmlFor="isMentor" className="text-sm font-medium">
@@ -180,30 +187,11 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               disabled={!isEditing}
             />
           </div>
-          {!!profile.isMentor && (
-            <div className="sm:col-span-2">
-              <TagInput
-                title={profileConfig.profileForm.mentorAreas.label}
-                items={profile.mentorAreas || []}
-                setItems={handleTagChange('mentorAreas')}
-                itemToString={(area) => area}
-                placeholder={profileConfig.profileForm.mentorAreas.placeholder}
-                addButtonText={profileConfig.profileForm.mentorAreas.addButtonText}
-                createNewItem={(name) => name}
-                disabled={!isEditing}
-              />
-            </div>
-          )}
           {!!profile.isMentee && (
             <div className="sm:col-span-2">
-              <TagInput
-                title={profileConfig.profileForm.menteeInterests.label}
-                items={profile.menteeInterests || []}
-                setItems={handleTagChange('menteeInterests')}
-                itemToString={(interest) => interest}
-                placeholder={profileConfig.profileForm.menteeInterests.placeholder}
-                addButtonText={profileConfig.profileForm.menteeInterests.addButtonText}
-                createNewItem={(name) => name}
+              <DevelopmentAreasSection
+                developmentAreas={developmentAreas}
+                onUpdate={onDevelopmentAreasUpdate}
                 disabled={!isEditing}
               />
             </div>
