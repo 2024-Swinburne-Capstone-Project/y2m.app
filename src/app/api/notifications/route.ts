@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const unreadNotifications = await db
-      .selectFrom('Notification')
+      .selectFrom('MentorshipNotification')
       .selectAll()
       .where((eb) => eb.and([eb('userId', '=', userId), eb('read', '=', false)]))
       .execute();
@@ -28,7 +28,7 @@ export async function PUT(req: NextRequest) {
   const { id, read } = await req.json();
 
   try {
-    await db.updateTable('Notification').set({ read }).where('id', '=', id).execute();
+    await db.updateTable('MentorshipNotification').set({ read }).where('id', '=', id).execute();
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to update notification' }, { status: 500 });

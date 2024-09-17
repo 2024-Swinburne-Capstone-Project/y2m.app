@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
       .executeTakeFirst();
 
     await db
-      .insertInto('Notification')
+      .insertInto('MentorshipNotification')
       .values({
         userId: mentorId,
         message: `You have a new mentorship request from ${user?.name}`,
@@ -194,7 +194,7 @@ export async function PUT(req: NextRequest) {
           .where('id', '=', userId)
           .executeTakeFirst();
         await trx
-          .insertInto('Notification')
+          .insertInto('MentorshipNotification')
           .values({
             userId: request.menteeId,
             message: `Your mentorship request has been accepted by ${user?.name}`,
@@ -215,7 +215,7 @@ export async function PUT(req: NextRequest) {
         .executeTakeFirst();
 
       await db
-        .insertInto('Notification')
+        .insertInto('MentorshipNotification')
         .values({
           userId: request.menteeId,
           message: `Your mentorship request has been rejected by ${user?.name}`,

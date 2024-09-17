@@ -12,13 +12,13 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import { Bell } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Notification } from '@/types/db';
-import { useNotifications } from '@/hooks/useNotifications';
+import { MentorshipNotification } from '@/types/db';
+import { useMentorshipNotifications } from '@/hooks/useMentorshipNotifications';
 
 export default function NotificationsButton() {
   const [mounted, setMounted] = useState(false);
-  const { notifications, markRead } = useNotifications();
-  const [unreadNotification, setUnreadNotifications] = useState<Notification[]>([]);
+  const { notifications, markRead } = useMentorshipNotifications();
+  const [unreadNotification, setUnreadNotifications] = useState<MentorshipNotification[]>([]);
 
   useEffect(() => {
     setMounted(true);
@@ -26,9 +26,7 @@ export default function NotificationsButton() {
 
   useEffect(() => {
     if (notifications) {
-      const newUnreadNotifications = notifications.filter(
-        (notification) => notification.type !== 'NEW_MESSAGE'
-      );
+      const newUnreadNotifications = notifications;
       if (newUnreadNotifications.length > unreadNotification.length) {
         playNotificationSound();
       }

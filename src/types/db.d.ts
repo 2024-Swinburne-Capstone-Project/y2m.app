@@ -103,6 +103,16 @@ export interface MentorMentee {
   updatedAt: Timestamp;
 }
 
+export interface MentorshipNotification {
+  id: Generated<number>;
+  message: string;
+  read: Generated<boolean>;
+  receivedDate: Generated<Timestamp>;
+  redirectLink: string;
+  type: 'ACCEPTED_MENTORSHIP_REQUEST' | 'NEW_MENTORSHIP_REQUEST' | 'REJECTED_MENTORSHIP_REQUEST';
+  userId: string;
+}
+
 export interface MentorshipRequest {
   createdAt: Generated<Timestamp>;
   id: Generated<number>;
@@ -119,6 +129,14 @@ export interface Message {
   createdAt: Generated<Timestamp>;
   id: Generated<number>;
   senderId: string;
+}
+
+export interface MessageNotification {
+  chatId: number;
+  id: Generated<number>;
+  read: Generated<boolean>;
+  receivedDate: Generated<Timestamp>;
+  userId: string;
 }
 
 export interface Milestone {
@@ -143,20 +161,6 @@ export interface MilestoneStep {
   milestoneId: number;
   name: string;
   status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
-}
-
-export interface Notification {
-  id: Generated<number>;
-  message: string;
-  read: Generated<boolean>;
-  receivedDate: Generated<Timestamp>;
-  redirectLink: string;
-  type:
-    | 'ACCEPTED_MENTORSHIP_REQUEST'
-    | 'NEW_MENTORSHIP_REQUEST'
-    | 'NEW_MESSAGE'
-    | 'REJECTED_MENTORSHIP_REQUEST';
-  userId: string;
 }
 
 export interface Skill {
@@ -200,12 +204,13 @@ export interface DB {
   MediaRelease: MediaRelease;
   MentorFeedback: MentorFeedback;
   MentorMentee: MentorMentee;
+  MentorshipNotification: MentorshipNotification;
   MentorshipRequest: MentorshipRequest;
   Message: Message;
+  MessageNotification: MessageNotification;
   Milestone: Milestone;
   MilestoneComment: MilestoneComment;
   MilestoneStep: MilestoneStep;
-  Notification: Notification;
   Skill: Skill;
   User: User;
   Video: Video;

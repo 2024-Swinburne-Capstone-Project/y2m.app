@@ -1,10 +1,10 @@
-import { Notification } from '@/types/db';
+import { MentorshipNotification } from '@/types/db';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
 
 const POLLING_INTERVAL = 60000; // Poll every 1 minute
 
-const fetchUnreadNotifications = async (userId: string): Promise<Notification[]> => {
+const fetchUnreadNotifications = async (userId: string): Promise<MentorshipNotification[]> => {
   const response = await fetch('/api/notifications', {
     headers: { 'X-User-Id': userId },
   });
@@ -24,14 +24,14 @@ const markNotificationRead = async (userId: string, notificationId: string): Pro
   if (!response.ok) throw new Error('Failed to mark notification read');
 };
 
-export const useNotifications = () => {
+export const useMentorshipNotifications = () => {
   const { user } = useUser();
   const queryClient = useQueryClient();
 
   const userId = user?.sub ?? '';
   const queryKey = ['notifications', userId];
 
-  const { data, isLoading, error } = useQuery<Notification[], Error>({
+  const { data, isLoading, error } = useQuery<MentorshipNotification[], Error>({
     queryKey,
     queryFn: () => fetchUnreadNotifications(userId),
     enabled: !!userId,

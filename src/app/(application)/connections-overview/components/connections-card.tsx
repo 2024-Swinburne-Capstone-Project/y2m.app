@@ -66,9 +66,7 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ userData }) => {
             </Link>
           </Button>
           <Button className={''} asChild>
-            <Link href={`/messages/${user.id}`}>
-              {connectionsOverviewConfig.connectionCard.messageButton}
-            </Link>
+            <Link href={`/messages`}>{connectionsOverviewConfig.connectionCard.messageButton}</Link>
           </Button>
         </div>
       </CardContent>
