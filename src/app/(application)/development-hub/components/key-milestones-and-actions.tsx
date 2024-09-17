@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-import { Milestone, MilestoneStep } from '@/types';
+import { Milestone, MilestoneStep, CreateMilestoneCommentData, MilestoneComment } from '@/types';
+import { format, isPast, isWithinInterval } from 'date-fns';
 import { developmentHubConfig } from '@/config/application/development-hub';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
 import {
-  ChevronDown,
-  ChevronUp,
-  Calendar,
   CheckCircle2,
   Clock,
   Circle,
+  MessageSquare,
+  Calendar,
+  ChevronDown,
+  ChevronUp,
   MoreHorizontal,
+  Trash2,
+  CalendarDays,
 } from 'lucide-react';
 import {
   Accordion,
@@ -26,10 +31,11 @@ import RemoveButton from '@/components/common/remove-button';
 import AddMilestone from './add-milestone';
 import {
   DropdownMenu,
+  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@radix-ui/react-dropdown-menu';
+import { Timestamp } from '@/types/db';
 
 interface KeyMilestonesAndActionsProps {
   milestones: Milestone[];
@@ -45,6 +51,49 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
   setMilestoneSteps,
 }) => {
   const [expandedMilestone, setExpandedMilestone] = useState<number | null>(null);
+  const [newComment, setNewComment] = useState<string>('');
+
+  const updateStepDueDate = (stepIndex: number, dueDate: Timestamp) => {
+    setMilestoneSteps((prevSteps) =>
+      prevSteps.map((step, index) => (index === stepIndex ? { ...step, dueDate: dueDate } : step))
+    );
+  };
+
+  const addComment = (milestoneId: number) => {
+    if (newComment.trim()) {
+      const newCommentObj: CreateMilestoneCommentData = {
+        milestoneId: milestoneId.toString(),
+        content: newComment.trim(),
+      };
+      setMilestones((prevMilestones) =>
+        prevMilestones.map((milestone) =>
+          Number(milestone.id) === milestoneId
+            ? {
+                ...milestone,
+                comments: [
+                  ...(milestone.comments || []),
+                  { ...(newCommentObj as MilestoneComment), createdAt: new Date() },
+                ],
+              }
+            : milestone
+        )
+      );
+      setNewComment('');
+    }
+  };
+
+  const removeComment = (milestoneId: number, commentIndex: number) => {
+    setMilestones((prevMilestones) =>
+      prevMilestones.map((milestone) =>
+        Number(milestone.id) === milestoneId
+          ? {
+              ...milestone,
+              comments: milestone.comments.filter((_, index) => index !== commentIndex),
+            }
+          : milestone
+      )
+    );
+  };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -98,6 +147,18 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
           : milestone
       )
     );
+  };
+
+  const getDueDateStatus = (dueDate: Date) => {
+    if (isPast(dueDate)) return 'overdue';
+    if (
+      isWithinInterval(dueDate, {
+        start: new Date(),
+        end: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+      })
+    )
+      return 'approaching';
+    return 'ok';
   };
 
   return (
@@ -172,22 +233,15 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
                 <>
                   <Accordion type="single" collapsible className="mt-4">
                     {milestoneSteps
-                      .map((step, originalStepIndex) => ({ ...step, originalStepIndex }))
                       .filter((step) => step.milestoneId === Number(milestone.id))
-                      .map((step) => (
-                        <AccordionItem
-                          key={step.originalStepIndex}
-                          value={step.originalStepIndex.toString()}
-                        >
+                      .map((step, stepIndex) => (
+                        <AccordionItem key={stepIndex} value={stepIndex.toString()}>
                           <AccordionTrigger className="py-2 text-sm">
                             <div className="flex items-center space-x-2">
                               <Checkbox
                                 checked={step.status === 'COMPLETED'}
                                 onCheckedChange={(checked) =>
-                                  updateStepStatus(
-                                    step.originalStepIndex,
-                                    checked ? 'COMPLETED' : 'NOT_STARTED'
-                                  )
+                                  updateStepStatus(stepIndex, checked ? 'COMPLETED' : 'NOT_STARTED')
                                 }
                               />
                               <span className={cn(step.status === 'COMPLETED' && 'line-through')}>
@@ -201,21 +255,60 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
                               <div className="flex items-center space-x-2">
                                 <select
                                   value={step.status}
-                                  onChange={(e) =>
-                                    updateStepStatus(step.originalStepIndex, e.target.value)
-                                  }
+                                  onChange={(e) => updateStepStatus(stepIndex, e.target.value)}
                                   className="rounded border border-gray-300 px-2 py-1 text-sm"
                                 >
                                   <option value="NOT_STARTED">Not Started</option>
                                   <option value="IN_PROGRESS">In Progress</option>
                                   <option value="COMPLETED">Completed</option>
                                 </select>
+                                <div className="flex items-center space-x-2">
+                                  <CalendarDays className="size-4 text-gray-500" />
+                                  <Input
+                                    type="date"
+                                    value={
+                                      step.dueDate
+                                        ? format(new Date(step.dueDate.toString()), 'yyyy-MM-dd')
+                                        : ''
+                                    }
+                                    onChange={(e) =>
+                                      updateStepDueDate(
+                                        stepIndex,
+                                        e.target.value as unknown as Timestamp
+                                      )
+                                    }
+                                    className="w-auto"
+                                  />
+                                </div>
                                 <RemoveButton
-                                  onRemove={() => removeStep(step.originalStepIndex)}
+                                  onRemove={() => removeStep(stepIndex)}
                                   tooltipContent="Remove Step"
                                 />
                               </div>
                             </div>
+                            {step.dueDate && (
+                              <div className="mt-2 flex items-center space-x-2">
+                                <span
+                                  className={cn(
+                                    'inline-flex items-center rounded-full px-2 py-1 text-xs font-medium',
+                                    {
+                                      'bg-red-100 text-red-800':
+                                        getDueDateStatus(new Date(step.dueDate.toString())) ===
+                                        'overdue',
+                                      'bg-yellow-100 text-yellow-800':
+                                        getDueDateStatus(new Date(step.dueDate.toString())) ===
+                                        'approaching',
+                                      'bg-green-100 text-green-800':
+                                        getDueDateStatus(new Date(step.dueDate.toString())) ===
+                                        'ok',
+                                    }
+                                  )}
+                                >
+                                  <CalendarDays className="mr-1 size-3" />
+                                  Due: {format(new Date(step.dueDate.toString()), 'MMM d, yyyy')}
+                                </span>
+                              </div>
+                            )}
                           </AccordionContent>
                         </AccordionItem>
                       ))}
@@ -224,6 +317,41 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
                     milestoneId={Number(milestone.id)}
                     setMilestoneSteps={setMilestoneSteps}
                   />
+                  <div className="mt-4">
+                    <h4 className="mb-2 font-semibold">Comments</h4>
+                    {milestone.comments &&
+                      milestone.comments.map((comment, commentIndex) => (
+                        <div
+                          key={commentIndex}
+                          className="mb-2 flex items-center justify-between rounded bg-gray-100 p-2 dark:bg-gray-700"
+                        >
+                          <div>
+                            <p className="text-sm">{comment.content}</p>
+                            <p className="text-xs text-gray-500">
+                              {new Date(comment.createdAt.toString()).toLocaleString()}
+                            </p>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeComment(Number(milestone.id), commentIndex)}
+                          >
+                            <Trash2 className="size-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    <div className="mt-2 flex space-x-2">
+                      <Input
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Add a comment..."
+                      />
+                      <Button onClick={() => addComment(Number(milestone.id))}>
+                        <MessageSquare className="mr-2 size-4" />
+                        Comment
+                      </Button>
+                    </div>
+                  </div>
                 </>
               )}
             </div>

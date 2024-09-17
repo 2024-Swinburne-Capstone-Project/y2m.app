@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { CreateMilestoneStepData, MilestoneStep } from '@/types';
+import { format } from 'date-fns/format';
 
 interface AddMilestoneStepProps {
   milestoneId: number;
@@ -26,6 +27,7 @@ const AddMilestoneStep: React.FC<AddMilestoneStepProps> = ({ milestoneId, setMil
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState('');
   const [status, setStatus] = useState<'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED'>('NOT_STARTED');
+  const [dueDate, setDueDate] = useState<Date>(new Date());
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,13 +35,14 @@ const AddMilestoneStep: React.FC<AddMilestoneStepProps> = ({ milestoneId, setMil
       name,
       status,
       milestoneId,
-      dueDate: null,
+      dueDate,
     };
 
-    setMilestoneSteps((prevSteps) => [...prevSteps, newStep as MilestoneStep]);
+    setMilestoneSteps((prevSteps) => [...prevSteps, newStep as unknown as MilestoneStep]);
     setIsOpen(false);
     setName('');
     setStatus('NOT_STARTED');
+    setDueDate(new Date());
   };
 
   return (
@@ -84,6 +87,16 @@ const AddMilestoneStep: React.FC<AddMilestoneStepProps> = ({ milestoneId, setMil
                 <SelectItem value="COMPLETED">Completed</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+          <div>
+            <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700">
+              Due Date
+            </label>
+            <Input
+              type="date"
+              value={dueDate ? format(new Date(dueDate.toString()), 'yyyy-MM-dd') : ''}
+              onChange={(e) => setDueDate(new Date(e.target.value))}
+            />
           </div>
           <Button type="submit">Add Step</Button>
         </form>

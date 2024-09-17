@@ -131,6 +131,13 @@ export interface Message {
   senderId: string;
 }
 
+export interface MilestoneComment {
+  id: Generated<number>;
+  milestoneId: string;
+  content: string;
+  createdAt: string | Date;
+}
+
 export interface MessageNotification {
   chatId: number;
   id: Generated<number>;
@@ -140,19 +147,16 @@ export interface MessageNotification {
 }
 
 export interface Milestone {
-  endDate: Timestamp;
   id: Generated<number>;
-  startDate: Timestamp;
-  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
   title: string;
+  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
+  startDate: string | Date;
+  endDate: string | Date;
   userId: string;
 }
 
-export interface MilestoneComment {
-  content: string;
-  createdAt: Generated<Timestamp>;
-  id: Generated<number>;
-  milestoneId: number;
+export interface MilestoneWithComments extends Milestone {
+  comments: MilestoneComment[];
 }
 
 export interface MilestoneStep {
@@ -160,6 +164,7 @@ export interface MilestoneStep {
   id: Generated<number>;
   milestoneId: number;
   name: string;
+  dueDate: Timestamp;
   status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
 }
 
