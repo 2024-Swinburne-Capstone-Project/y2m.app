@@ -36,17 +36,6 @@ const ProfileCard: React.FC<ProfileCard> = ({ userData, actionButton }) => {
       </CardHeader>
       <CardContent>
         <p className="mb-2 text-sm">{user.aboutMe}</p>
-        <div className="mb-2">
-          <strong>{profileConfig.profileForm.mentorAreas.label}</strong>
-          <div className="mt-1 flex flex-wrap gap-1">
-            {user.mentorAreas &&
-              user.mentorAreas.map((area, index) => (
-                <Badge key={index} variant="secondary">
-                  {area}
-                </Badge>
-              ))}
-          </div>
-        </div>
         <strong>{profileConfig.profileForm.availability.label}</strong>
         <AvailabilityViewer availability={user.availability || ''} textBased />
         <Accordion type="single" collapsible className="w-full">

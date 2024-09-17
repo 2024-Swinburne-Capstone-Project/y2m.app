@@ -84,14 +84,16 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             </p>
             <p className="pb-3 text-sm text-gray-500 dark:text-gray-400">{profile.email}</p>
             <div className="flex items-center space-x-2">
-              <FeedbackStars
-                hasExistingConnection={hasExistingConnection}
-                profile={profile}
-                submitFeedback={submitFeedback}
-                hasGivenFeedback={hasGivenFeedback}
-                onFeedbackButtonClick={onFeedbackButtonClick}
-              />
-              {!viewingSelf && !hasExistingConnection && (
+              {profile.isMentor && (
+                <FeedbackStars
+                  hasExistingConnection={hasExistingConnection}
+                  profile={profile}
+                  submitFeedback={submitFeedback}
+                  hasGivenFeedback={hasGivenFeedback}
+                  onFeedbackButtonClick={onFeedbackButtonClick}
+                />
+              )}
+              {!viewingSelf && !hasExistingConnection && profile.isMentor && (
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button disabled={hasExistingRequest || hasExistingConnection}>

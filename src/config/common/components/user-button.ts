@@ -1,14 +1,14 @@
 import { UserButton } from '@/types';
 
 export const userButtonConfig: UserButton = {
-  profileButton: 'My Profile',
-  connectionsButton: 'Connections',
-  signOutButton: 'Sign out',
   loginButton: 'Login',
-  profileHref: '/profile',
-  connectionsHref: '/connections',
-  signOutHref: '/api/auth/logout',
   loginHref: '/profile',
-  connectionsOverviewHref: '/connections-overview',
+  signOutButton: 'Sign out',
+  signOutHref: '/api/auth/logout',
+  profileButton: 'My Profile',
+  profileHref: '/profile',
+  connectionsButton: 'Requests', // previously called 'Connections'
+  connectionsHref: '/connections',
   connectionsOverviewButton: 'Connections Overview',
+  connectionsOverviewHref: '/connections-overview',
 };

@@ -2,10 +2,8 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import { DevelopmentHubData } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-const fetchDevelopmentHubData = async (userId: string): Promise<DevelopmentHubData> => {
-  const response = await fetch('/api/development-hub', {
-    headers: { 'X-User-Id': userId },
-  });
+export const fetchDevelopmentHubData = async (userId: string): Promise<DevelopmentHubData> => {
+  const response = await fetch(`/api/development-hub?userId=${userId}`);
   if (!response.ok) throw new Error('Failed to fetch data');
   return response.json();
 };
@@ -57,5 +55,19 @@ export const useDevelopmentHub = () => {
     saveData,
     isSaving: updateMutation.isPending,
     saveError: updateMutation.error,
+  };
+};
+
+export const useDevelopmentHubDataByUserId = (userId: string) => {
+  const { data, isLoading, error } = useQuery<DevelopmentHubData, Error>({
+    queryKey: ['developmentHub', userId],
+    queryFn: () => fetchDevelopmentHubData(userId),
+    enabled: !!userId,
+  });
+
+  return {
+    data,
+    isLoading,
+    error,
   };
 };

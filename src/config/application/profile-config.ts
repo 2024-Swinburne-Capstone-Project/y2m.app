@@ -31,8 +31,9 @@ export const profileConfig: ProfileConfig = {
     },
     skills: {
       label: 'Skills',
-      list: ['Skill 1', 'Skill 2', 'Skill 3'],
-      errorMessage: 'Please select at least one skill',
+      placeholder: 'Add a new skill',
+      addButtonText: 'Add Skill',
+      noDataTitle: 'No Skills Added Yet',
     },
     isMentor: {
       label: 'I want to be a mentor',
@@ -40,15 +41,11 @@ export const profileConfig: ProfileConfig = {
     isMentee: {
       label: 'I want to be a mentee',
     },
-    mentorAreas: {
-      label: 'Skills',
-      placeholder: 'Add Skill...',
-      addButtonText: 'Add Skill',
-    },
-    menteeInterests: {
+    developmentAreas: {
       label: 'Development Areas',
-      placeholder: 'Add Development Area...',
+      placeholder: 'Add a new development area',
       addButtonText: 'Add Area',
+      noDataTitle: 'No Development Areas Added Yet',
     },
     availability: {
       label: 'Availability',

@@ -65,6 +65,7 @@ export interface ConnectionsConfig {
     acceptButton: string;
     rejectButton: string;
     pendingStatus: string;
+    viewProfileButton: string;
   };
   noDataDisplay: {
     incoming: {
@@ -418,8 +419,9 @@ export interface ProfileForm {
   };
   skills: {
     label: string;
-    list: string[];
-    errorMessage: string;
+    placeholder: string;
+    addButtonText: string;
+    noDataTitle: string;
   };
   isMentor: {
     label: string;
@@ -427,15 +429,11 @@ export interface ProfileForm {
   isMentee: {
     label: string;
   };
-  mentorAreas: {
+  developmentAreas: {
     label: string;
     placeholder: string;
     addButtonText: string;
-  };
-  menteeInterests: {
-    label: string;
-    placeholder: string;
-    addButtonText: string;
+    noDataTitle: string;
   };
   availability: {
     label: string;

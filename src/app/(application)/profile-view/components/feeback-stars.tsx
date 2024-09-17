@@ -43,7 +43,7 @@ const FeedbackStars: React.FC<FeedbackStarsProps> = ({
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <RatingStar rating={Number(profile.overallRating)} />
       </div>
-      {hasExistingConnection && !hasGivenFeedback && (
+      {hasExistingConnection && !hasGivenFeedback && profile.isMentor && (
         <Dialog>
           <DialogTrigger asChild>
             <Button variant={'outline'}>{mentorFeedbackConfig.giveFeedbackButtonText}</Button>

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 interface NoDataDisplayProps {
   title: string;
-  description: string;
+  description?: string;
   actionLabel?: string;
   onAction?: () => void;
   icon?: React.ReactNode;

@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ChevronLeft, Send } from 'lucide-react';
+import Link from 'next/link';
 
 interface ChatMessagesProps {
   chat: Chat | undefined;
@@ -56,18 +57,23 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend }) =>
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex items-center border-b p-4">
-        <Button variant="ghost" size="icon" onClick={onClose} className="mr-2">
-          <ChevronLeft className="size-6" />
+      <div className="flex justify-between border-b p-4">
+        <div className="flex items-center">
+          <Button variant="ghost" size="icon" onClick={onClose} className="mr-2">
+            <ChevronLeft className="size-6" />
+          </Button>
+          <Avatar className="mr-2 size-10">
+            <AvatarImage
+              src={chat.participants[0].profilePictureURL || ''}
+              alt={chat.participants[0].name}
+            />
+            <AvatarFallback>{chat.participants[0].name[0]}</AvatarFallback>
+          </Avatar>
+          <h2 className="text-lg font-semibold">{chat.participants[0].name}</h2>
+        </div>
+        <Button asChild variant={'outline'}>
+          <Link href={`/profile-view?id=${chat.participants[0].id}`}>View Profile</Link>
         </Button>
-        <Avatar className="mr-2 size-10">
-          <AvatarImage
-            src={chat.participants[0].profilePictureURL || ''}
-            alt={chat.participants[0].name}
-          />
-          <AvatarFallback>{chat.participants[0].name[0]}</AvatarFallback>
-        </Avatar>
-        <h2 className="text-lg font-semibold">{chat.participants[0].name}</h2>
       </div>
       <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
         {chat.messages?.map((msg) => (
