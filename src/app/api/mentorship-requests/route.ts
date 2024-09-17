@@ -124,6 +124,23 @@ export async function POST(req: NextRequest) {
       .returningAll()
       .executeTakeFirstOrThrow();
 
+    const user = await db
+      .selectFrom('User')
+      .selectAll()
+      .where('id', '=', userId)
+      .executeTakeFirst();
+
+    await db
+      .insertInto('Notification')
+      .values({
+        userId: mentorId,
+        message: `You have a new mentorship request from ${user?.name}`,
+        receivedDate: new Date().toISOString(),
+        type: 'NEW_MENTORSHIP_REQUEST',
+        redirectLink: `/connections`,
+      })
+      .execute();
+
     return NextResponse.json(newRequest, { status: 201 });
   } catch (error) {
     console.error('Error creating mentorship request:', error);
@@ -170,10 +187,43 @@ export async function PUT(req: NextRequest) {
             updatedAt: new Date().toISOString(),
           })
           .execute();
+
+        const user = await db
+          .selectFrom('User')
+          .selectAll()
+          .where('id', '=', userId)
+          .executeTakeFirst();
+        await trx
+          .insertInto('Notification')
+          .values({
+            userId: request.menteeId,
+            message: `Your mentorship request has been accepted by ${user?.name}`,
+            receivedDate: new Date().toISOString(),
+            type: 'ACCEPTED_MENTORSHIP_REQUEST',
+            redirectLink: `/connections-overview`,
+          })
+          .execute();
       });
     } else if (action === 'reject') {
       // Simply delete the request
       await db.deleteFrom('MentorshipRequest').where('id', '=', id).execute();
+
+      const user = await db
+        .selectFrom('User')
+        .selectAll()
+        .where('id', '=', userId)
+        .executeTakeFirst();
+
+      await db
+        .insertInto('Notification')
+        .values({
+          userId: request.menteeId,
+          message: `Your mentorship request has been rejected by ${user?.name}`,
+          receivedDate: new Date().toISOString(),
+          type: 'REJECTED_MENTORSHIP_REQUEST',
+          redirectLink: '',
+        })
+        .execute();
     } else {
       return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
     }

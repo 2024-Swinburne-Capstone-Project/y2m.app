@@ -130,11 +130,33 @@ export interface Milestone {
   userId: string;
 }
 
+export interface MilestoneComment {
+  content: string;
+  createdAt: Generated<Timestamp>;
+  id: Generated<number>;
+  milestoneId: number;
+}
+
 export interface MilestoneStep {
+  dueDate: Timestamp | null;
   id: Generated<number>;
   milestoneId: number;
   name: string;
   status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
+}
+
+export interface Notification {
+  id: Generated<number>;
+  message: string;
+  read: Generated<boolean>;
+  receivedDate: Generated<Timestamp>;
+  redirectLink: string;
+  type:
+    | 'ACCEPTED_MENTORSHIP_REQUEST'
+    | 'NEW_MENTORSHIP_REQUEST'
+    | 'NEW_MESSAGE'
+    | 'REJECTED_MENTORSHIP_REQUEST';
+  userId: string;
 }
 
 export interface Skill {
@@ -151,8 +173,6 @@ export interface User {
   isMentee: Generated<boolean>;
   isMentor: Generated<boolean>;
   linkedInProfileLink: string | null;
-  menteeInterests: string[] | null;
-  mentorAreas: string[] | null;
   name: string;
   overallRating: Generated<number>;
   profileBackgroundURL: string | null;
@@ -183,7 +203,9 @@ export interface DB {
   MentorshipRequest: MentorshipRequest;
   Message: Message;
   Milestone: Milestone;
+  MilestoneComment: MilestoneComment;
   MilestoneStep: MilestoneStep;
+  Notification: Notification;
   Skill: Skill;
   User: User;
   Video: Video;

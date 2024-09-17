@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
     const menteeIds = menteeConnections.map((connection) => connection.id);
 
     const [mentors, mentees] = await Promise.all([
-      mentorIds.length > 0 ? fetchUserDetails(mentorIds) : [],
-      menteeIds.length > 0 ? fetchUserDetails(menteeIds) : [],
+      mentorIds.length > 0 ? fetchUserDetails(mentorIds, false) : [],
+      menteeIds.length > 0 ? fetchUserDetails(menteeIds, true) : [],
     ]);
 
     return NextResponse.json({ mentors, mentees });
@@ -35,15 +35,18 @@ export async function GET(request: NextRequest) {
   }
 }
 
-async function fetchUserDetails(userIds: string[]) {
+async function fetchUserDetails(userIds: string[], isMentee: boolean) {
   const users = await db.selectFrom('User').where('id', 'in', userIds).selectAll().execute();
 
   const userDetails = await Promise.all(
     users.map(async (user) => {
-      const [skills, educations, experiences] = await Promise.all([
+      const [skills, educations, experiences, developmentAreas] = await Promise.all([
         db.selectFrom('Skill').selectAll().where('userId', '=', user.id).execute(),
         db.selectFrom('Education').selectAll().where('userId', '=', user.id).execute(),
         db.selectFrom('Experience').selectAll().where('userId', '=', user.id).execute(),
+        isMentee
+          ? db.selectFrom('DevelopmentArea').selectAll().where('userId', '=', user.id).execute()
+          : [],
       ]);
 
       return {
@@ -51,6 +54,7 @@ async function fetchUserDetails(userIds: string[]) {
         skills,
         educations,
         experiences,
+        developmentAreas: isMentee ? developmentAreas : undefined,
       };
     })
   );

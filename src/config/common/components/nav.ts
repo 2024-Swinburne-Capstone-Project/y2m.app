@@ -16,6 +16,5 @@ export const applicationNavItems: NavItem[] = [
   { title: 'Dashboard', href: '/dashboard' },
   { title: 'Development Hub', href: '/development-hub' },
   { title: 'Messages', href: '/messages' },
-  { title: 'Notifications', href: '/notifications' },
   { title: 'Mentors', href: '/mentors/search' },
 ];
