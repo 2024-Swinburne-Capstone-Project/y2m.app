@@ -38,6 +38,11 @@ const ChatWindow: React.FC = () => {
     }
   };
 
+  const closeSheet = () => {
+    setActiveChat(null);
+    setIsOpen(false);
+  };
+
   const pathname = usePathname();
 
   if (pathname === '/messages') {
@@ -64,9 +69,7 @@ const ChatWindow: React.FC = () => {
             chat={chats.find((c) => c.id.toString() === activeChat)}
             onClose={() => setActiveChat(null)}
             onSend={sendMessage}
-            onViewProfile={() => {
-              setIsOpen(false);
-            }}
+            onViewProfile={closeSheet}
           />
         ) : (
           <ChatList
