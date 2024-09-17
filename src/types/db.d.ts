@@ -103,6 +103,16 @@ export interface MentorMentee {
   updatedAt: Timestamp;
 }
 
+export interface MentorshipNotification {
+  id: Generated<number>;
+  message: string;
+  read: Generated<boolean>;
+  receivedDate: Generated<Timestamp>;
+  redirectLink: string;
+  type: 'ACCEPTED_MENTORSHIP_REQUEST' | 'NEW_MENTORSHIP_REQUEST' | 'REJECTED_MENTORSHIP_REQUEST';
+  userId: string;
+}
+
 export interface MentorshipRequest {
   createdAt: Generated<Timestamp>;
   id: Generated<number>;
@@ -121,6 +131,14 @@ export interface Message {
   senderId: string;
 }
 
+export interface MessageNotification {
+  chatId: number;
+  id: Generated<number>;
+  read: Generated<boolean>;
+  receivedDate: Generated<Timestamp>;
+  userId: string;
+}
+
 export interface Milestone {
   endDate: Timestamp;
   id: Generated<number>;
@@ -130,7 +148,15 @@ export interface Milestone {
   userId: string;
 }
 
+export interface MilestoneComment {
+  content: string;
+  createdAt: Generated<Timestamp>;
+  id: Generated<number>;
+  milestoneId: number;
+}
+
 export interface MilestoneStep {
+  dueDate: Timestamp | null;
   id: Generated<number>;
   milestoneId: number;
   name: string;
@@ -151,8 +177,6 @@ export interface User {
   isMentee: Generated<boolean>;
   isMentor: Generated<boolean>;
   linkedInProfileLink: string | null;
-  menteeInterests: string[] | null;
-  mentorAreas: string[] | null;
   name: string;
   overallRating: Generated<number>;
   profileBackgroundURL: string | null;
@@ -180,9 +204,12 @@ export interface DB {
   MediaRelease: MediaRelease;
   MentorFeedback: MentorFeedback;
   MentorMentee: MentorMentee;
+  MentorshipNotification: MentorshipNotification;
   MentorshipRequest: MentorshipRequest;
   Message: Message;
+  MessageNotification: MessageNotification;
   Milestone: Milestone;
+  MilestoneComment: MilestoneComment;
   MilestoneStep: MilestoneStep;
   Skill: Skill;
   User: User;

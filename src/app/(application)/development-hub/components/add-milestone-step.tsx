@@ -33,6 +33,7 @@ const AddMilestoneStep: React.FC<AddMilestoneStepProps> = ({ milestoneId, setMil
       name,
       status,
       milestoneId,
+      dueDate: null,
     };
 
     setMilestoneSteps((prevSteps) => [...prevSteps, newStep as MilestoneStep]);

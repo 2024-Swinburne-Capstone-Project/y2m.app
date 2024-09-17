@@ -1,4 +1,4 @@
-import { Testimonial } from '..';
+import { DevelopmentArea, Testimonial } from '..';
 import {
   Education as DBEducation,
   Experience as DBExperience,
@@ -26,6 +26,7 @@ export interface UserData {
   experiences: Experience[];
   skills: Skill[];
   testimonials?: Testimonial[];
+  developmentAreas?: DevelopmentArea[];
   hasExistingRequest: boolean;
   hasExistingConnection: boolean;
 }
