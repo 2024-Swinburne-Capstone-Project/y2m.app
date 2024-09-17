@@ -136,6 +136,7 @@ export interface MilestoneComment {
   milestoneId: string;
   content: string;
   createdAt: string | Date;
+}
 
 export interface MessageNotification {
   chatId: number;
