@@ -1,3 +1,11 @@
+## [1.33.2](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.33.1...v1.33.2) (2024-09-17)
+
+
+### Bug Fixes
+
+* :bug: Fix UAT Bugs ([916fcc9](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/916fcc926ba7b2cf93bf65249d6f16731e1fa059))
+* :bug: Remove mentorAreas and menteeAreas and properly map skills and developmentAreas to their respective tables from profile section ([9569a25](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/commit/9569a25720ead4554738bde5b3515ade58843609))
+
 ## [1.33.1](https://github.com/2024-Swinburne-Capstone-Project/y2m.app/compare/v1.33.0...v1.33.1) (2024-09-16)
 
 
