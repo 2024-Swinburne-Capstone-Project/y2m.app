@@ -18,21 +18,21 @@ import { useMentorshipNotifications } from '@/hooks/useMentorshipNotifications';
 export default function NotificationsButton() {
   const [mounted, setMounted] = useState(false);
   const { notifications, markRead } = useMentorshipNotifications();
-  const [unreadNotification, setUnreadNotifications] = useState<MentorshipNotification[]>([]);
+  const [unreadNotifications, setUnreadNotifications] = useState<MentorshipNotification[]>([]);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (notifications) {
+    if (notifications && notifications.length > 0) {
       const newUnreadNotifications = notifications;
-      if (newUnreadNotifications.length > unreadNotification.length) {
+      if (newUnreadNotifications.length > unreadNotifications.length) {
         playNotificationSound();
       }
       setUnreadNotifications(newUnreadNotifications);
     }
-  }, [notifications, unreadNotification.length]);
+  }, [notifications, unreadNotifications.length]);
 
   const playNotificationSound = () => {
     const audio = new Audio('/notification-chime.wav');
@@ -46,7 +46,7 @@ export default function NotificationsButton() {
       <DropdownMenuTrigger asChild>
         <Button variant={'outline'} size="icon" className="relative">
           <Bell size={20} />
-          {unreadNotification.length > 0 && (
+          {unreadNotifications.length > 0 && (
             <span className="absolute right-2 top-2 block size-2 rounded-full bg-blue-500"></span>
           )}
         </Button>
@@ -56,9 +56,9 @@ export default function NotificationsButton() {
           <p className="text-md font-medium leading-none">Notifications</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {unreadNotification.length > 0 ? (
+        {unreadNotifications.length > 0 ? (
           <div>
-            {unreadNotification.map((notification) => (
+            {unreadNotifications.map((notification) => (
               <Link href={notification.redirectLink} key={notification.id.toString()}>
                 <DropdownMenuItem
                   className="flex items-center space-x-2"
