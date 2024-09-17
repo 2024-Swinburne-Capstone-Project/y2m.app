@@ -34,7 +34,7 @@ export default function NotificationsButton() {
       }
       setUnreadNotifications(newUnreadNotifications);
     }
-  }, [notifications]);
+  }, [notifications, unreadNotification.length]);
 
   const playNotificationSound = () => {
     const audio = new Audio('/notification-chime.wav');
@@ -49,7 +49,7 @@ export default function NotificationsButton() {
         <Button variant={'outline'} size="icon" className="relative">
           <Bell size={20} />
           {unreadNotification.length > 0 && (
-            <span className="absolute right-2 top-2 block h-2 w-2 rounded-full bg-blue-500"></span>
+            <span className="absolute right-2 top-2 block size-2 rounded-full bg-blue-500"></span>
           )}
         </Button>
       </DropdownMenuTrigger>
