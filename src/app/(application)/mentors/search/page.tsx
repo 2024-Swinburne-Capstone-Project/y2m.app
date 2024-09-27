@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMentorSearch } from '@/hooks/useMentorSearch';
 import { useMentorshipRequests } from '@/hooks/useMentorshipRequests';
+import { useRecommendedMentors } from '@/hooks/useRecommendedMentors';
 import { useToast } from '@/components/ui/use-toast';
 
 import { LoadingSkeleton } from '@/components/common/loading-skeleton';
@@ -14,6 +15,11 @@ import ResultsSection from '@/app/(application)/mentors/search/components/result
 export default function MentorSearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const { mentors, isLoading, error, refetch } = useMentorSearch(searchQuery);
+  const {
+    recommendedMentors,
+    isLoading: isLoadingRecommended,
+    error: recommendedError,
+  } = useRecommendedMentors();
   const { requests, createRequest, isCreating } = useMentorshipRequests();
   const { toast } = useToast();
 
@@ -65,6 +71,29 @@ export default function MentorSearchPage() {
           onRequestMentorship={handleRequestMentorship}
           isCreating={isCreating}
         />
+      )}
+      {isLoadingRecommended ? (
+        <LoadingSkeleton
+          count={3}
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+        />
+      ) : recommendedError ? (
+        <ErrorAlert message={recommendedError.message} />
+      ) : recommendedMentors.length > 0 ? (
+        <>
+          <div className="text-center">Or view recommended mentors</div>
+          <ResultsSection
+            mentors={recommendedMentors}
+            requests={requests ?? []}
+            onRequestMentorship={handleRequestMentorship}
+            isCreating={isCreating}
+          />
+        </>
+      ) : (
+        <div className="text-center text-secondary">
+          We could not find any recommended mentors. Please add more skills to your profile to get
+          better recommendations.
+        </div>
       )}
     </div>
   );

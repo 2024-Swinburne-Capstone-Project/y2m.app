@@ -6,39 +6,19 @@ export async function GET(request: NextRequest) {
   if (!userId) {
     return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
   }
+
   const searchParams = request.nextUrl.searchParams;
   const searchTerm = searchParams.get('searchTerm');
   const isMentor = searchParams.get('isMentor') === 'true';
+  const isRecommended = searchParams.get('recommended') === 'true';
 
   try {
-    let query = db
-      .selectFrom('User as u')
-      .selectAll('u')
-      .leftJoin('Skill as s', 's.userId', 'u.id')
-      .leftJoin('Experience as ex', 'ex.userId', 'u.id')
-      .leftJoin('Education as ed', 'ed.userId', 'u.id')
-      .distinctOn('u.id')
-      .where('u.id', '!=', userId);
-
-    if (searchTerm) {
-      query = query.where((eb) =>
-        eb.or([
-          eb('u.name', 'ilike', `%${searchTerm}%`),
-          eb('s.name', 'ilike', `%${searchTerm}%`),
-          eb('ex.company', 'ilike', `%${searchTerm}%`),
-          eb('ex.position', 'ilike', `%${searchTerm}%`),
-          eb('ed.institution', 'ilike', `%${searchTerm}%`),
-          eb('ed.degree', 'ilike', `%${searchTerm}%`),
-          eb('ed.fieldOfStudy', 'ilike', `%${searchTerm}%`),
-        ])
-      );
+    let users;
+    if (isRecommended) {
+      users = await getRecommendedMentors(userId);
+    } else {
+      users = await searchUsers(userId, searchTerm, isMentor);
     }
-
-    if (isMentor) {
-      query = query.where('isMentor', '=', true);
-    }
-
-    const users = await query.execute();
 
     const detailedUsers = await Promise.all(
       users.map(async (user) => {
@@ -92,4 +72,59 @@ export async function GET(request: NextRequest) {
     console.error('Error searching users:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
+}
+
+async function getRecommendedMentors(userId: string) {
+  const userSkills = await db
+    .selectFrom('Skill')
+    .select('name')
+    .where('userId', '=', userId)
+    .execute();
+
+  if (userSkills.length === 0) {
+    return [];
+  }
+
+  const skillNames = userSkills.map((skill) => skill.name.toLowerCase());
+
+  return db
+    .selectFrom('User as u')
+    .leftJoin('Skill as s', 's.userId', 'u.id')
+    .selectAll('u')
+    .distinct()
+    .where('u.id', '!=', userId)
+    .where('u.isMentor', '=', true)
+    .where((eb) => eb.or(skillNames.map((skillName) => eb('s.name', 'ilike', `%${skillName}%`))))
+    .execute();
+}
+
+async function searchUsers(userId: string, searchTerm: string | null, isMentor: boolean) {
+  let query = db
+    .selectFrom('User as u')
+    .leftJoin('Skill as s', 's.userId', 'u.id')
+    .leftJoin('Experience as ex', 'ex.userId', 'u.id')
+    .leftJoin('Education as ed', 'ed.userId', 'u.id')
+    .selectAll('u')
+    .distinct()
+    .where('u.id', '!=', userId);
+
+  if (searchTerm) {
+    query = query.where((eb) =>
+      eb.or([
+        eb('u.name', 'ilike', `%${searchTerm}%`),
+        eb('s.name', 'ilike', `%${searchTerm}%`),
+        eb('ex.company', 'ilike', `%${searchTerm}%`),
+        eb('ex.position', 'ilike', `%${searchTerm}%`),
+        eb('ed.institution', 'ilike', `%${searchTerm}%`),
+        eb('ed.degree', 'ilike', `%${searchTerm}%`),
+        eb('ed.fieldOfStudy', 'ilike', `%${searchTerm}%`),
+      ])
+    );
+  }
+
+  if (isMentor) {
+    query = query.where('isMentor', '=', true);
+  }
+
+  return query.execute();
 }
