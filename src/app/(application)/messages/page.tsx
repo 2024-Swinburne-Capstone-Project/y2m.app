@@ -95,6 +95,7 @@ const MessagesPage: React.FC = () => {
             chat={chats.find((c) => c.id.toString() === activeChat)}
             onClose={() => setActiveChat(null)}
             onSend={sendMessage}
+            small={isMobileView}
           />
         ) : (
           <div className="flex h-full items-center justify-center">

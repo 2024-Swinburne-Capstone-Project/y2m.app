@@ -32,7 +32,7 @@ const ChatItem: React.FC<{
       />
       <AvatarFallback>{chat.participants[0].name[0]}</AvatarFallback>
     </Avatar>
-    <div className="flex-1 text-left">
+    <div className="max-w-[65%] flex-1 text-left">
       <h3 className="font-medium">{chat.participants[0].name}</h3>
       <p className="truncate text-sm text-muted-foreground">
         {chat.lastMessage?.content || 'No messages yet'}

@@ -93,6 +93,7 @@ const ChatWindow: React.FC = () => {
             onClose={() => setActiveChat(null)}
             onSend={sendMessage}
             onViewProfile={closeSheet}
+            small={true}
           />
         ) : (
           <ChatList
