@@ -48,7 +48,7 @@ const AddMilestoneStep: React.FC<AddMilestoneStepProps> = ({ milestoneId, setMil
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="mt-2">
           Add Step
         </Button>
       </DialogTrigger>

@@ -7,7 +7,7 @@ export const userButtonConfig: UserButton = {
   signOutHref: '/api/auth/logout',
   profileButton: 'My Profile',
   profileHref: '/profile',
-  connectionsButton: 'Requests', // previously called 'Connections'
+  connectionsButton: 'Connections', // previously called 'Connections'
   connectionsHref: '/connections',
   connectionsOverviewButton: 'Connections Overview',
   connectionsOverviewHref: '/connections-overview',
