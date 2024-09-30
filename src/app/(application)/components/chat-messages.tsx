@@ -14,6 +14,7 @@ interface ChatMessagesProps {
   onClose: () => void;
   onSend: (chatId: string, content: string) => void;
   onViewProfile?: () => void;
+  small: boolean;
 }
 
 const MessageItem: React.FC<{ message: Message; isOwnMessage: boolean }> = ({
@@ -37,7 +38,13 @@ const MessageItem: React.FC<{ message: Message; isOwnMessage: boolean }> = ({
   </div>
 );
 
-const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend, onViewProfile }) => {
+const ChatMessages: React.FC<ChatMessagesProps> = ({
+  chat,
+  onClose,
+  onSend,
+  onViewProfile,
+  small,
+}) => {
   const [message, setMessage] = useState('');
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -77,15 +84,19 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, onClose, onSend, onVi
           </Button>
           <div>
             <h2 className="text-lg font-semibold">{chat.participants[0].name}</h2>
-            <SkillsAndDevAreasSummary
-              skills={chat.participants[0].skills}
-              developmentAreas={chat.participants[0].developmentAreas}
-            />
+            {!small && (
+              <SkillsAndDevAreasSummary
+                skills={chat.participants[0].skills}
+                developmentAreas={chat.participants[0].developmentAreas}
+              />
+            )}
           </div>
         </div>
-        <Button asChild variant={'outline'} className="sm:hidden">
-          <Link href={`/profile-view?id=${chat.participants[0].id}`}>View Profile</Link>
-        </Button>
+        {!small && (
+          <Button asChild variant={'outline'}>
+            <Link href={`/profile-view?id=${chat.participants[0].id}`}>View Profile</Link>
+          </Button>
+        )}
       </div>
       <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
         {chat.messages?.map((msg) => (
