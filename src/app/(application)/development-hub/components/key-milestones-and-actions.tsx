@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 import { Milestone, MilestoneStep, CreateMilestoneCommentData, MilestoneComment } from '@/types';
 import { format, isPast, isWithinInterval } from 'date-fns';
 import { developmentHubConfig } from '@/config/application/development-hub';
@@ -52,12 +54,36 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
 }) => {
   const [expandedMilestone, setExpandedMilestone] = useState<number | null>(null);
   const [newComment, setNewComment] = useState<string>('');
+  const [showConfetti, setShowConfetti] = useState(false);
+  const { width, height } = useWindowSize();
+  const [confettiKey, setConfettiKey] = useState(0);
+
+  useEffect(() => {
+    console.log('Confetti state:', showConfetti);
+  }, [showConfetti]);
 
   const updateStepDueDate = (stepIndex: number, dueDate: Timestamp) => {
     setMilestoneSteps((prevSteps) =>
       prevSteps.map((step, index) => (index === stepIndex ? { ...step, dueDate: dueDate } : step))
     );
   };
+
+  const triggerConfetti = () => {
+    setConfettiKey((prevKey) => prevKey + 1);
+    setShowConfetti(true);
+    setTimeout(() => {
+      setShowConfetti(false);
+    }, 5000); // Stop confetti after 5 seconds
+  };
+
+  useEffect(() => {
+    if (showConfetti) {
+      const timer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showConfetti]);
 
   const addComment = (milestoneId: number) => {
     if (newComment.trim()) {
@@ -118,11 +144,19 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
 
   const updateStepStatus = (stepIndex: number, newStatus: string) => {
     setMilestoneSteps((prevSteps) =>
-      prevSteps.map((step, index) =>
-        index === stepIndex
-          ? { ...step, status: newStatus as 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED' }
-          : step
-      )
+      prevSteps.map((step, index) => {
+        if (index === stepIndex) {
+          // Trigger confetti if the step is marked as completed and wasn't completed before
+          if (newStatus === 'COMPLETED' && step.status !== 'COMPLETED') {
+            triggerConfetti();
+          }
+          return {
+            ...step,
+            status: newStatus as 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED',
+          };
+        }
+        return step;
+      })
     );
   };
 
@@ -140,6 +174,10 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
   };
 
   const updateMilestoneStatus = (milestoneIndex: number, newStatus: string) => {
+    console.debug('New milestone status:', newStatus);
+    if (newStatus === 'COMPLETED') {
+      triggerConfetti();
+    }
     setMilestones((prevMilestones) =>
       prevMilestones.map((milestone, index) =>
         index === milestoneIndex
@@ -163,6 +201,13 @@ const KeyMilestonesAndActions: React.FC<KeyMilestonesAndActionsProps> = ({
 
   return (
     <Card className="mt-8">
+      <Confetti
+        key={confettiKey}
+        width={width}
+        height={height * 2}
+        run={showConfetti}
+        recycle={false}
+      />
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>{developmentHubConfig.keyMilestones.title}</CardTitle>
         <AddMilestone setMilestones={setMilestones} />
