@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { profileConfig } from '@/config/application/profile-config';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
-import FeedbackStars from './feeback-stars';
+import FeedbackStars from './feedback-stars';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/dialog';
 import { mentorSearchConfig } from '@/config/application/mentor-search';
 import { DialogClose } from '@radix-ui/react-dialog';
+import { Skill } from '@/types';
 
 interface ProfileViewProps {
   loggedInUser: User;
@@ -26,10 +27,11 @@ interface ProfileViewProps {
   hasExistingConnection: boolean;
   hasExistingRequest: boolean;
   onRequestMentorship: (mentorId: string, message: string) => void;
-  submitFeedback: (feeback: string, rating: number) => void;
+  submitFeedback: (feedback: string, rating: number) => void;
   isCreating: boolean;
   hasGivenFeedback: boolean;
   onFeedbackButtonClick: () => void;
+  skills: Skill[];
 }
 
 const ProfileView: React.FC<ProfileViewProps> = ({
@@ -42,6 +44,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
   isCreating,
   hasGivenFeedback,
   onFeedbackButtonClick,
+  skills,
 }) => {
   const { resultsSection } = mentorSearchConfig;
   const [message, setMessage] = React.useState('');
@@ -91,6 +94,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                   submitFeedback={submitFeedback}
                   hasGivenFeedback={hasGivenFeedback}
                   onFeedbackButtonClick={onFeedbackButtonClick}
+                  skills={skills}
                 />
               )}
               {!viewingSelf && !hasExistingConnection && profile.isMentor && (
@@ -133,12 +137,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             <Label htmlFor="name" className="text-sm font-medium">
               Name
             </Label>
-            <Input
-              id="name"
-              value={profile.name || ''}
-              disabled
-              className="mt-1 disabled:cursor-auto disabled:opacity-100"
-            />
+            <Input id="name" value={profile.name || ''} disabled className="mt-1" />
           </div>
           <div>
             <Label htmlFor="email" className="text-sm font-medium">
@@ -147,12 +146,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Input
-                    id="email"
-                    value={profile.email || ''}
-                    disabled
-                    className="mt-1 disabled:cursor-auto disabled:opacity-100"
-                  />
+                  <Input id="email" value={profile.email || ''} disabled className="mt-1" />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{profileConfig.profileForm.email.tooltip}</p>
@@ -164,12 +158,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             <Label htmlFor="aboutMe" className="text-sm font-medium">
               About Me
             </Label>
-            <Input
-              id="aboutMe"
-              value={profile.aboutMe || ''}
-              disabled
-              className="mt-1 disabled:cursor-auto disabled:opacity-100"
-            />
+            <Input id="aboutMe" value={profile.aboutMe || ''} disabled className="mt-1" />
           </div>
           <div className="sm:col-span-2">
             <Label htmlFor="linkedInProfileLink" className="text-sm font-medium">
@@ -179,7 +168,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
               id="linkedInProfileLink"
               value={profile.linkedInProfileLink || ''}
               disabled
-              className="mt-1 disabled:cursor-auto disabled:opacity-100"
+              className="mt-1"
             />
           </div>
         </div>
