@@ -38,8 +38,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
               <p className="mb-4 text-muted-foreground">{testimonial.quote.text}</p>
               {testimonial.endorsedSkill && (
                 <Badge variant="secondary" className="mt-2">
-                  Endorsed: {testimonial.endorsedSkill} {' '}
-                  -> {testimonial.rating} / 5
+                  Endorsed: {testimonial.endorsedSkill} {' ->'} {testimonial.rating} / 5
                 </Badge>
               )}
             </motion.div>

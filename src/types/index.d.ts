@@ -563,5 +563,6 @@ export interface Testimonial {
   role?: TextWithMarkup;
   image: string;
   quote: TextWithMarkup;
+  rating: number;
   endorsedSkill?: string;
 }
