@@ -188,6 +188,7 @@ export const homeConfig: HomeConfig = {
       quote: {
         text: 'You2Mentor a joué un rôle déterminant dans la croissance de ma carrière. Les mentors sont compétents et bienveillants.',
       },
+      rating: 0,
     },
     {
       name: { text: 'Jane Smith' },
@@ -196,6 +197,7 @@ export const homeConfig: HomeConfig = {
       quote: {
         text: "Je recommande vivement You2Mentor à tous ceux qui cherchent à améliorer leurs compétences. C'est une plateforme incroyable.",
       },
+      rating: 0,
     },
   ],
   acknowledgementOfCountry: {

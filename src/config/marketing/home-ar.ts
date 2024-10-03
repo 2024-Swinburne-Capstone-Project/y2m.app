@@ -187,6 +187,7 @@ export const homeConfig: HomeConfig = {
       quote: {
         text: 'لقد كان أنت2معلم فعالاً في نمو مسيرتي المهنية. الموجهون على دراية وداعمة',
       },
+      rating: 0,
     },
     {
       name: { text: 'جين سميث' },
@@ -195,6 +196,7 @@ export const homeConfig: HomeConfig = {
       quote: {
         text: 'أوصي بشدة باستخدام أنت2معلم لأي شخص يتطلع إلى تطوير مهاراته. إنها منصة مذهلة',
       },
+      rating: 0,
     },
   ],
   acknowledgementOfCountry: {
