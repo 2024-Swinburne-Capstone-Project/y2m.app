@@ -18,6 +18,7 @@ import { Milestone, Testimonial } from '@/types';
 import AvailabilityViewer from '@/components/common/availability-viewer';
 import { useDevelopmentHubDataByUserId } from '@/hooks/useDevelopmentHub';
 import MilestoneProgress from './components/milestone-progress';
+import SkillEndorsements from './components/skill-endorsements';
 
 export default function ProfilePage() {
   const searchParams = useSearchParams();
@@ -76,8 +77,8 @@ export default function ProfilePage() {
     }
   }, [testimonials, loggedInUser.id]);
 
-  async function submitFeedback(feedback: string, rating: number) {
-    await submitMentorFeedback(id, feedback, rating);
+  async function submitFeedback(feedback: string, rating: number, endorsedSkill?: string) {
+    await submitMentorFeedback(id, feedback, rating, endorsedSkill);
     refetch();
   }
 
@@ -102,6 +103,8 @@ export default function ProfilePage() {
     testimonialRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  console.log(testimonials);
+
   return (
     <div className="mx-auto mt-10 min-h-screen max-w-7xl flex-col items-center bg-background">
       {isLoading ? (
@@ -120,6 +123,7 @@ export default function ProfilePage() {
             isCreating={isCreating}
             hasGivenFeedback={hasGivenFeedback}
             onFeedbackButtonClick={scrollToTestimonials}
+            skills={skills}
           />
           <AvailabilityViewer availability={user.availability || ''} withHeader className="mb-5" />
           {isMentee && (
@@ -128,6 +132,7 @@ export default function ProfilePage() {
           <EducationSection education={educations} onUpdate={setEducations} disabled />
           <ExperienceSection experience={experiences} onUpdate={setExperiences} disabled />
           <SkillsSection skills={skills} onUpdate={setSkills} disabled />
+          <SkillEndorsements skills={skills} />
           {testimonials.length > 0 && (
             <div ref={testimonialRef}>
               <Testimonials testimonials={testimonials} />

@@ -93,6 +93,7 @@ export interface MentorFeedback {
   menteeId: string;
   mentorId: string;
   rating: number;
+  endorsedSkill: string | null;
   receivedDate: Generated<Timestamp>;
 }
 
@@ -172,6 +173,7 @@ export interface Skill {
   id: Generated<number>;
   name: string;
   userId: string;
+  endorsements: Generated<number>;
 }
 
 export interface User {

@@ -4,7 +4,8 @@ const updateMentorFeedback = async (
   userId: string,
   loggedInUserId: string,
   feedback: string,
-  rating: number
+  rating: number,
+  endorsedSkill?: string
 ) => {
   const response = await fetch(`/api/feedback/${userId}`, {
     method: 'POST',
@@ -12,7 +13,7 @@ const updateMentorFeedback = async (
       'X-User-Id': loggedInUserId,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ feedback, rating }),
+    body: JSON.stringify({ feedback, rating, endorsedSkill }),
   });
   if (!response.ok) throw new Error('Failed to submit feedback');
   return response.json();
@@ -21,9 +22,14 @@ const updateMentorFeedback = async (
 export const useSubmitMentorFeedback = () => {
   const { user } = useUser();
 
-  const submitMentorFeedback = async (userId: string, feedback: string, rating: number) => {
+  const submitMentorFeedback = async (
+    userId: string,
+    feedback: string,
+    rating: number,
+    endorsedSkill?: string
+  ) => {
     if (!user) throw new Error('User not authenticated');
-    return updateMentorFeedback(userId, user?.sub ?? '', feedback, rating);
+    return updateMentorFeedback(userId, user?.sub ?? '', feedback, rating, endorsedSkill);
   };
 
   return { submitMentorFeedback };

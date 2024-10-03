@@ -563,4 +563,5 @@ export interface Testimonial {
   role?: TextWithMarkup;
   image: string;
   quote: TextWithMarkup;
+  endorsedSkill?: string;
 }
