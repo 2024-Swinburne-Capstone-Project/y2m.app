@@ -11,17 +11,25 @@ import {
   DialogClose,
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import { User } from '@/types/db';
+import { User, Skill } from '@/types/db';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { mentorFeedbackConfig } from '@/config/application/mentor-feedback';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface FeedbackStarsProps {
   hasExistingConnection: boolean;
   profile: User;
-  submitFeedback: (feeback: string, rating: number) => void;
+  submitFeedback: (feedback: string, rating: number, endorsedSkill?: string) => void;
   hasGivenFeedback: boolean;
   onFeedbackButtonClick: () => void;
+  skills: Skill[];
 }
 
 const FeedbackStars: React.FC<FeedbackStarsProps> = ({
@@ -30,12 +38,14 @@ const FeedbackStars: React.FC<FeedbackStarsProps> = ({
   submitFeedback,
   hasGivenFeedback,
   onFeedbackButtonClick,
+  skills,
 }) => {
   const [feedback, setFeedback] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
+  const [endorsedSkill, setEndorsedSkill] = useState<string>('');
 
   const handleFeedbackSubmit = () => {
-    submitFeedback(feedback, rating);
+    submitFeedback(feedback, rating, endorsedSkill);
   };
 
   return (
@@ -68,6 +78,19 @@ const FeedbackStars: React.FC<FeedbackStarsProps> = ({
               min={1}
               max={5}
             />
+            <Label className="text-sm font-medium">Endorse a Skill (Optional)</Label>
+            <Select onValueChange={setEndorsedSkill} value={endorsedSkill}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a skill to endorse" />
+              </SelectTrigger>
+              <SelectContent>
+                {skills.map((skill) => (
+                  <SelectItem key={skill.id.toString()} value={skill.name}>
+                    {skill.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <DialogFooter>
               <DialogClose asChild>
                 <Button type="button" onClick={handleFeedbackSubmit}>

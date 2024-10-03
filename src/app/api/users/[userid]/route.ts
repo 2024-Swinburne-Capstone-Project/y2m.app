@@ -55,6 +55,7 @@ export async function GET(request: NextRequest, { params }: { params: { userid: 
         image: menteeMap[feedback.menteeId].imagePath,
         quote: { text: feedback.feedback },
         rating: feedback.rating,
+        endorsedSkill: feedback?.endorsedSkill || '',
       }));
     }
 

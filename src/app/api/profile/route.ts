@@ -27,11 +27,7 @@ export async function GET(req: NextRequest) {
       .where('userId', '=', userId)
       .execute();
 
-    const skills = await db
-      .selectFrom('Skill')
-      .select('name')
-      .where('userId', '=', userId)
-      .execute();
+    const skills = await db.selectFrom('Skill').selectAll().where('userId', '=', userId).execute();
 
     return NextResponse.json({
       user,
