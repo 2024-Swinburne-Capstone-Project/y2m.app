@@ -159,10 +159,10 @@ export interface Milestone {
 }
 
 export interface MilestoneComment {
-  content: string;
-  createdAt: Generated<Timestamp>;
   id: Generated<number>;
-  milestoneId: number;
+  milestoneId: string;
+  content: string;
+  createdAt: string | Date;
 }
 
 export interface MilestoneStep {
