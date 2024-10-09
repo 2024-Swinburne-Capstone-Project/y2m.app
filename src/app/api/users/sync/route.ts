@@ -24,6 +24,15 @@ export async function POST(req: NextRequest) {
           isMentor: false,
         })
         .execute();
+
+      await db
+        .insertInto('AccountNotification')
+        .values({
+          userId: auth0Id,
+          message: 'Welcome to You2Mentor! Please set up your account to get started.',
+          redirectLink: '/profile',
+        })
+        .execute();
     }
 
     return NextResponse.json({ message: 'User synced successfully' }, { status: 200 });

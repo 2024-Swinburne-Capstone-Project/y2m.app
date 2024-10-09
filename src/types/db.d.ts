@@ -7,6 +7,15 @@ export type Generated<T> =
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export interface AccountNotification {
+  id: Generated<number>;
+  message: string;
+  read: Generated<boolean>;
+  receivedDate: Generated<Timestamp>;
+  redirectLink: string;
+  userId: string;
+}
+
 export interface Badge {
   icon: string;
   id: Generated<number>;
@@ -88,12 +97,12 @@ export interface MediaRelease {
 }
 
 export interface MentorFeedback {
+  endorsedSkill: string | null;
   feedback: string;
   id: Generated<number>;
   menteeId: string;
   mentorId: string;
   rating: number;
-  endorsedSkill: string | null;
   receivedDate: Generated<Timestamp>;
 }
 
@@ -132,13 +141,6 @@ export interface Message {
   senderId: string;
 }
 
-export interface MilestoneComment {
-  id: Generated<number>;
-  milestoneId: string;
-  content: string;
-  createdAt: string | Date;
-}
-
 export interface MessageNotification {
   chatId: number;
   id: Generated<number>;
@@ -148,16 +150,19 @@ export interface MessageNotification {
 }
 
 export interface Milestone {
+  endDate: Timestamp;
   id: Generated<number>;
-  title: string;
+  startDate: Timestamp;
   status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
-  startDate: string | Date;
-  endDate: string | Date;
+  title: string;
   userId: string;
 }
 
-export interface MilestoneWithComments extends Milestone {
-  comments: MilestoneComment[];
+export interface MilestoneComment {
+  content: string;
+  createdAt: Generated<Timestamp>;
+  id: Generated<number>;
+  milestoneId: number;
 }
 
 export interface MilestoneStep {
@@ -165,15 +170,14 @@ export interface MilestoneStep {
   id: Generated<number>;
   milestoneId: number;
   name: string;
-  dueDate: Timestamp;
   status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
 }
 
 export interface Skill {
+  endorsements: Generated<number>;
   id: Generated<number>;
   name: string;
   userId: string;
-  endorsements: Generated<number>;
 }
 
 export interface User {
@@ -200,6 +204,7 @@ export interface Video {
 }
 
 export interface DB {
+  AccountNotification: AccountNotification;
   Badge: Badge;
   BlogPost: BlogPost;
   Chat: Chat;
