@@ -75,7 +75,7 @@ runs:
         -backend-config="key=$ENVIRONMENT.terraform.tfstate" \
         && break || sleep 10; done
       shell: bash
-      working-directory: '${{ github.workspace }}'
+      working-directory: '${{ github.workspace }}/terraform'
 
     - name: Destroy Terraform Resources
       env:
@@ -99,7 +99,7 @@ runs:
         -var="auth0_ci_client_id=$AUTH0_CI_CLIENT_ID" \
         -var="auth0_ci_client_secret=$AUTH0_CI_CLIENT_SECRET"
       shell: bash
-      working-directory: '${{ github.workspace }}'
+      working-directory: '${{ github.workspace }}/terraform'
 
     - name: Disable local IP access to the Storage Account
       uses: azure/CLI@v2

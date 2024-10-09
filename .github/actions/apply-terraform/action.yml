@@ -85,7 +85,7 @@ runs:
         -backend-config="key=$ENVIRONMENT.terraform.tfstate" \
         && break || sleep 10; done
       shell: bash
-      working-directory: '${{ github.workspace }}'
+      working-directory: '${{ github.workspace }}/terraform'
     - name: Apply Terraform
       env:
         AZURE_CREDENTIALS: ${{ inputs.azure_credentials }}
@@ -108,7 +108,7 @@ runs:
         -var="auth0_ci_client_id=$AUTH0_CI_CLIENT_ID" \
         -var="auth0_ci_client_secret=$AUTH0_CI_CLIENT_SECRET"
       shell: bash
-      working-directory: '${{ github.workspace }}'
+      working-directory: '${{ github.workspace }}/terraform'
     - name: Get output data from Terraform
       id: terraform-output
       env:
@@ -119,7 +119,7 @@ runs:
         echo "application_name=$(jq -r .application_name.value terraform-output.json)" >> $GITHUB_OUTPUT
         echo "application_url=$(jq -r .application_url.value terraform-output.json)" >> $GITHUB_OUTPUT
         echo "resource_group=$(jq -r .resource_group.value terraform-output.json)" >> $GITHUB_OUTPUT
-      working-directory: '${{ github.workspace }}'
+      working-directory: '${{ github.workspace }}/terraform'
       shell: bash
     - name: Disable local IP access to the Storage Account
       uses: azure/CLI@v2
