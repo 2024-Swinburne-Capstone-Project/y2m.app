@@ -95,6 +95,7 @@ runs:
         -var="container_registry_name=$CONTAINER_REGISTRY_NAME" \
         -var="container_registry_username=$ARM_CLIENT_ID" \
         -var="container_registry_password=$ARM_CLIENT_SECRET" \
+        -var="container_tag=${{ github.sha }}" \
         -var="auth0_issuer_base_url=$AUTH0_ISSUER_BASE_URL" \
         -var="auth0_ci_client_id=$AUTH0_CI_CLIENT_ID" \
         -var="auth0_ci_client_secret=$AUTH0_CI_CLIENT_SECRET"
