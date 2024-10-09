@@ -49,8 +49,11 @@ resource "azurerm_linux_web_app" "application" {
 
   site_config {
     application_stack {
-      docker_image     = "${var.container_registry_name}.azurecr.io/${var.application_name}/${var.application_name}"
-      docker_image_tag = var.container_tag
+      //The docker image, including tag, to be used. e.g. appsvc/staticsite:latest
+      docker_image_name        = "${var.application_name}/${var.application_name}:${var.container_tag}"
+      docker_registry_url      = "https://${var.container_registry_name}.azurecr.io"
+      docker_registry_password = var.container_registry_password
+      docker_registry_username = var.container_registry_username
     }
     always_on  = false
     ftps_state = "FtpsOnly"
@@ -63,9 +66,7 @@ resource "azurerm_linux_web_app" "application" {
   app_settings = {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "WEBSITES_PORT"                       = "3000"
-    "DOCKER_REGISTRY_SERVER_URL"          = "https://${var.container_registry_name}.azurecr.io"
-    "DOCKER_REGISTRY_SERVER_USERNAME"     = "${var.container_registry_username}"
-    "DOCKER_REGISTRY_SERVER_PASSWORD"     = "${var.container_registry_password}"
+
     # These are app specific environment variables
 
     "DATABASE_URL"      = var.database_url
