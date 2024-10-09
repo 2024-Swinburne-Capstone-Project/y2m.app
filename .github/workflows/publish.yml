@@ -1,31 +1,27 @@
-name: Image-Publish
+name: GitOps
 on:
   push:
     branches:
-      - 'main'
+      - 'env-*'
 
 jobs:
   publish:
+    name: Publish Image
     runs-on: ubuntu-latest
-
     steps:
       - name: Set repo name
         run: |
           echo "REPO_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]' | tr '.' '-')" >>${GITHUB_ENV}
-
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Build with Docker
         run: |
           docker build -t ${{ secrets.container_registry_name }}.azurecr.io/$REPO_NAME/$REPO_NAME:${{ github.sha }} .
         shell: bash
-
       - name: Login to Azure
         uses: azure/login@v1
         with:
           creds: ${{ secrets.azure_credentials }}
-
       - name: Push to Azure Container Registry
         env:
           AZURE_CREDENTIALS: ${{ secrets.azure_credentials }}
@@ -33,3 +29,21 @@ jobs:
           az acr login -n ${{ secrets.container_registry_name }}.azurecr.io
           docker push ${{ secrets.container_registry_name }}.azurecr.io/$REPO_NAME/$REPO_NAME:${{ github.sha }}
         shell: bash
+  build-and-deploy:
+    name: Build and Deploy
+    needs: publish
+    runs-on: ubuntu-22.04
+    outputs:
+      resource_group: ${{ steps.infrastructure-deployment.outputs.resource_group }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply Terraform configuration
+        id: infrastructure-deployment
+        uses: ./.github/actions/apply-terraform
+        with:
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          tf_storage_account: ${{ secrets.TF_STORAGE_ACCOUNT }}
+          container_registry_name: ${{ secrets.CONTAINER_REGISTRY_NAME }}
+          auth0_issuer_base_url: ${{ secrets.AUTH0_ISSUER_BASE_URL }}
+          auth0_ci_client_id: ${{ secrets.AUTH0_CI_CLIENT_ID }}
+          auth0_ci_client_secret: ${{ secrets.AUTH0_CI_CLIENT_SECRET }}

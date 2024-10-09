@@ -1,0 +1,23 @@
+name: Destroy Resources on Branch Deletion
+
+on: delete
+jobs:
+  destroy:
+    if: |
+      github.event.ref_type =='branch' && 
+      startswith(github.event.ref, 'env-')
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Destroy Terraform resources
+      id: destroy-infrastructure
+      uses: ./.github/actions/destroy-terraform
+      with:
+        azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        tf_storage_account: ${{ secrets.TF_STORAGE_ACCOUNT }}
+        container_registry_name: ${{ secrets.CONTAINER_REGISTRY_NAME }}
+        auth0_issuer_base_url: ${{ secrets.AUTH0_ISSUER_BASE_URL }}
+        auth0_ci_client_id: ${{ secrets.AUTH0_CI_CLIENT_ID }}
+        auth0_ci_client_secret: ${{ secrets.AUTH0_CI_CLIENT_SECRET }}
