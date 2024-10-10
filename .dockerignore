@@ -8,3 +8,5 @@ README.md
 .github
 .vscode
 .gitignore
+tests
+terraform
