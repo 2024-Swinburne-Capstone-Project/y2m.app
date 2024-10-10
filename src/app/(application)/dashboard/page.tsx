@@ -73,7 +73,7 @@ export default function DashboardPage() {
           <ConnectionsOverview title={dashboardConfig.myMentors.text} count={mentors.length} />
           <ConnectionsOverview title={dashboardConfig.myMentees.text} count={mentees.length} />
         </div>
-        {profile?.user.isMentee && <SuggestedSkills />}
+        {profile?.user?.isMentee && <SuggestedSkills />}
         <DevelopmentOverview
           title={dashboardConfig.developmentOverview.text}
           milestones={data?.milestones ?? []}

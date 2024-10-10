@@ -112,6 +112,12 @@ export async function PUT(req: NextRequest) {
           })
           .execute();
       }
+
+      await trx
+        .updateTable('AccountNotification')
+        .set({ read: true })
+        .where('userId', '=', userId)
+        .execute();
     });
 
     return NextResponse.json({ message: 'Profile updated successfully' });

@@ -1,9 +1,8 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Chat, Message } from '@/types/chat/chat';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ChevronLeft, Send } from 'lucide-react';
 import Link from 'next/link';
@@ -46,14 +45,22 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
   small,
 }) => {
   const [message, setMessage] = useState('');
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollToBottom = useCallback(() => {
+    if (messagesContainerRef.current) {
+      const scrollContainer = messagesContainerRef.current;
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
+  }, []);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
-    }
-  }, [chat]);
+    const timer = setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [chat?.messages, scrollToBottom]);
 
   if (!chat) return null;
 
@@ -98,7 +105,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
           </Button>
         )}
       </div>
-      <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
+      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4">
         {chat.messages?.map((msg) => (
           <MessageItem
             key={msg.id.toString()}
@@ -106,7 +113,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
             isOwnMessage={msg.senderId !== chat.participants[0].id}
           />
         ))}
-      </ScrollArea>
+      </div>
       <div className="flex border-t p-4">
         <Input
           value={message}
