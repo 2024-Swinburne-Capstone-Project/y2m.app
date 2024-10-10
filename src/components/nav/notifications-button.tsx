@@ -32,31 +32,35 @@ export default function NotificationsButton() {
   }, []);
 
   useEffect(() => {
-    if (notifications && notifications.length > 0) {
+    if (notifications && notifications.length > 0 && notifications !== unreadNotifications) {
       const newUnreadNotifications = notifications;
       if (newUnreadNotifications.length > unreadNotifications.length) {
         playNotificationSound();
       }
       setUnreadNotifications(newUnreadNotifications);
     }
-  }, [notifications, unreadNotifications.length]);
+  }, [notifications, unreadNotifications]);
 
   useEffect(() => {
-    if (accountNotifications && accountNotifications.length > 0) {
+    if (
+      accountNotifications &&
+      accountNotifications.length > 0 &&
+      accountNotifications !== unreadAccountNotifications
+    ) {
       const newUnreadAccountNotifications = accountNotifications;
       if (newUnreadAccountNotifications.length > unreadAccountNotifications.length) {
         playNotificationSound();
       }
       setUnreadAccountNotifications(newUnreadAccountNotifications);
     }
-  }, [accountNotifications, unreadAccountNotifications.length]);
+  }, [accountNotifications, unreadAccountNotifications]);
 
   useEffect(() => {
     if (tempReadNotification) {
       const notificationToUpdate = unreadAccountNotifications.find(
         (notification) => notification.id === tempReadNotification.id
       );
-      if (notificationToUpdate) {
+      if (notificationToUpdate && !notificationToUpdate.tempRead) {
         notificationToUpdate.tempRead = true;
         setUnreadAccountNotifications([...unreadAccountNotifications]);
       }
