@@ -19,7 +19,7 @@ import { User, LogOut, Users, ContactRound } from 'lucide-react';
 
 export default function UserButton() {
   const [mounted, setMounted] = React.useState(false);
-  const { user, error, isLoading } = useUser();
+  const { user, error } = useUser();
   const { profile } = useProfile();
 
   React.useEffect(() => {
@@ -27,8 +27,6 @@ export default function UserButton() {
   }, []);
 
   if (!mounted) return null;
-
-  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
   if (!user)
