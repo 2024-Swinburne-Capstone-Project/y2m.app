@@ -16,6 +16,7 @@ import { MentorshipNotification } from '@/types/db';
 import { AccountNotification } from '@/types/account-notification';
 import { useMentorshipNotifications } from '@/hooks/useMentorshipNotifications';
 import { useAccountNotifications } from '@/hooks/useAccountNotifications';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function NotificationsButton() {
   const [mounted, setMounted] = useState(false);
@@ -26,6 +27,7 @@ export default function NotificationsButton() {
     AccountNotification[]
   >([]);
   const [tempReadNotification, setTempReadNotification] = useState<AccountNotification>();
+  const { user, error } = useUser();
 
   useEffect(() => {
     setMounted(true);
@@ -73,6 +75,8 @@ export default function NotificationsButton() {
   };
 
   if (!mounted) return null;
+  if (error) return <div>{error.message}</div>;
+  if (!user) return;
 
   return (
     <DropdownMenu>

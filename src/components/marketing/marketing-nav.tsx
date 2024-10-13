@@ -5,6 +5,7 @@ import { MobileNav } from '../nav/mobile-nav';
 import UserButton from '../nav/user-button';
 import Link from 'next/link';
 import Image from 'next/image';
+import NotificationsButton from '../nav/notifications-button';
 
 export default async function MarketingNav() {
   return (
@@ -18,6 +19,7 @@ export default async function MarketingNav() {
           <MobileNav />
           <div className="ml-auto flex space-x-4">
             <ModeToggle />
+            <NotificationsButton />
             <UserButton />
           </div>
         </div>
