@@ -74,6 +74,13 @@ export default function NotificationsButton() {
     audio.play();
   };
 
+  const handleMarkRead = (id: string) => {
+    markRead(id);
+    setUnreadNotifications((prev) =>
+      prev.filter((notification) => notification.id.toString() !== id)
+    );
+  };
+
   if (!mounted) return null;
   if (error) return <div>{error.message}</div>;
   if (!user) return;
@@ -101,7 +108,7 @@ export default function NotificationsButton() {
                 <Link href={notification.redirectLink} key={notification.id.toString()}>
                   <DropdownMenuItem
                     className="flex items-center space-x-2"
-                    onClick={() => markRead(notification.id.toString())}
+                    onClick={() => handleMarkRead(notification.id.toString())}
                   >
                     <span>{notification.message}</span>
                   </DropdownMenuItem>
