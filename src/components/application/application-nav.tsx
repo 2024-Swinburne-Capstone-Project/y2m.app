@@ -7,6 +7,8 @@ import SearchBar from './search-bar';
 import Link from 'next/link';
 import Image from 'next/image';
 import NotificationsButton from '../nav/notifications-button';
+import { HelpCircle } from 'lucide-react';
+import { Button } from '../ui/button';
 
 export default async function ApplicationNav() {
   return (
@@ -21,6 +23,15 @@ export default async function ApplicationNav() {
           <div className="ml-auto flex space-x-4">
             <SearchBar />
             <ModeToggle />
+            <Button variant={'outline'} size="icon" className="relative">
+              <Link
+                href="https://scribehow.com/page/You2Mentor_User_Guide__Gr7fdifpTXeEe9gv48XQ9Q?referrer=documents"
+                className="hidden items-center space-x-2 md:flex"
+                target="_blank"
+              >
+                <HelpCircle size={20} />
+              </Link>
+            </Button>
             <NotificationsButton />
             <UserButton />
           </div>
