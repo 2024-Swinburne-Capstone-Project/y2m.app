@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { getRandomString, getRandomNumber } from '../src/utils/randomData';
 
 test('Validate Header and Footer', async ({ page }) => {
   await page.goto('http://localhost:3000/');

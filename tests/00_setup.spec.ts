@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
+import { getRandomString, getRandomNumber } from '../src/utils/randomData';
 
-test('login with mentor', async ({ page }) => {
+test('setup mentor', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await page.getByRole('link', { name: 'Login' }).click();
   await page.getByLabel('Email address').fill('testMentor@gmail.com');
@@ -10,7 +11,7 @@ test('login with mentor', async ({ page }) => {
   await page.getByRole('menuitem', { name: 'Sign out' }).click();
 });
 
-test('login with mentee', async ({ page }) => {
+test('setup mentee', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await page.getByRole('link', { name: 'Login' }).click();
   await page.getByLabel('Email address').fill('testMentee@gmail.com');
