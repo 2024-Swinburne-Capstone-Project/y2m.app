@@ -1,20 +1,10 @@
-import type { ColumnType } from 'kysely';
+import type { ColumnType } from "kysely";
 
-export type Generated<T> =
-  T extends ColumnType<infer S, infer I, infer U>
-    ? ColumnType<S, I | undefined, U>
-    : ColumnType<T, T | undefined, T>;
+export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
+  ? ColumnType<S, I | undefined, U>
+  : ColumnType<T, T | undefined, T>;
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
-
-export interface AccountNotification {
-  id: Generated<number>;
-  message: string;
-  read: Generated<boolean>;
-  receivedDate: Generated<Timestamp>;
-  redirectLink: string;
-  userId: string;
-}
 
 export interface Badge {
   icon: string;
@@ -88,39 +78,11 @@ export interface GetInTouch {
   receivedDate: Timestamp | null;
 }
 
-export interface MediaRelease {
-  description: string;
-  href: string;
-  id: Generated<number>;
-  imagePath: string;
-  title: string;
-}
-
-export interface MentorFeedback {
-  endorsedSkill: string | null;
-  feedback: string;
-  id: Generated<number>;
-  menteeId: string;
-  mentorId: string;
-  rating: number;
-  receivedDate: Generated<Timestamp>;
-}
-
 export interface MentorMentee {
   createdAt: Generated<Timestamp>;
   menteeId: string;
   mentorId: string;
   updatedAt: Timestamp;
-}
-
-export interface MentorshipNotification {
-  id: Generated<number>;
-  message: string;
-  read: Generated<boolean>;
-  receivedDate: Generated<Timestamp>;
-  redirectLink: string;
-  type: 'ACCEPTED_MENTORSHIP_REQUEST' | 'NEW_MENTORSHIP_REQUEST' | 'REJECTED_MENTORSHIP_REQUEST';
-  userId: string;
 }
 
 export interface MentorshipRequest {
@@ -129,7 +91,7 @@ export interface MentorshipRequest {
   menteeId: string;
   mentorId: string;
   message: string;
-  status: 'ACCEPTED' | 'PENDING' | 'REJECTED';
+  status: "ACCEPTED" | "PENDING" | "REJECTED";
   updatedAt: Timestamp;
 }
 
@@ -141,40 +103,23 @@ export interface Message {
   senderId: string;
 }
 
-export interface MessageNotification {
-  chatId: number;
-  id: Generated<number>;
-  read: Generated<boolean>;
-  receivedDate: Generated<Timestamp>;
-  userId: string;
-}
-
 export interface Milestone {
   endDate: Timestamp;
   id: Generated<number>;
   startDate: Timestamp;
-  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
+  status: "COMPLETED" | "IN_PROGRESS" | "NOT_STARTED";
   title: string;
   userId: string;
 }
 
-export interface MilestoneComment {
-  id: Generated<number>;
-  milestoneId: string;
-  content: string;
-  createdAt: string | Date;
-}
-
 export interface MilestoneStep {
-  dueDate: Timestamp | null;
   id: Generated<number>;
   milestoneId: number;
   name: string;
-  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
+  status: "COMPLETED" | "IN_PROGRESS" | "NOT_STARTED";
 }
 
 export interface Skill {
-  endorsements: Generated<number>;
   id: Generated<number>;
   name: string;
   userId: string;
@@ -188,8 +133,9 @@ export interface User {
   isMentee: Generated<boolean>;
   isMentor: Generated<boolean>;
   linkedInProfileLink: string | null;
+  menteeInterests: string[] | null;
+  mentorAreas: string[] | null;
   name: string;
-  overallRating: Generated<number>;
   profileBackgroundURL: string | null;
   profilePictureURL: string | null;
   role: Generated<string>;
@@ -204,7 +150,6 @@ export interface Video {
 }
 
 export interface DB {
-  AccountNotification: AccountNotification;
   Badge: Badge;
   BlogPost: BlogPost;
   Chat: Chat;
@@ -213,15 +158,10 @@ export interface DB {
   Education: Education;
   Experience: Experience;
   GetInTouch: GetInTouch;
-  MediaRelease: MediaRelease;
-  MentorFeedback: MentorFeedback;
   MentorMentee: MentorMentee;
-  MentorshipNotification: MentorshipNotification;
   MentorshipRequest: MentorshipRequest;
   Message: Message;
-  MessageNotification: MessageNotification;
   Milestone: Milestone;
-  MilestoneComment: MilestoneComment;
   MilestoneStep: MilestoneStep;
   Skill: Skill;
   User: User;
