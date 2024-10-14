@@ -11,6 +11,7 @@ export default defineConfig({
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
   },
+  globalSetup: require.resolve('./src/scripts/resetDatabase.ts'),
   projects: [
     {
       name: 'chromium',
