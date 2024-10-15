@@ -1,32 +1,19 @@
-import dotenv from 'dotenv';
-import { Pool } from 'pg';
-import path from 'path';
+import { execSync } from 'child_process';
 
-// Load environment variables from .env file
-dotenv.config({ path: path.resolve(__dirname, '../../.env') }); // Adjust the path as necessary
+async function globalSetup() {
+  // Start the database
+  execSync('npm run db:start', { stdio: 'inherit' });
 
+  // Optionally, you can add a delay here to ensure the database is fully up
+  await new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-
-async function resetDatabase() {
-  const client = await pool.connect();
-  try {
-    await client.query('BEGIN');
-    // Truncate all tables to reset the database
-    await client.query('TRUNCATE TABLE "AccountNotification", "Badge", "Chat", "ChatParticipant", "DevelopmentArea", "Education", "Experience", "GetInTouch", "MediaRelease", "MentorFeedback", "MentorshipNotification", "MentorshipRequest", "Milestone", "MilestoneComment", "MilestoneStep", "Message", "MessageNotification", "User", "Video" CASCADE;');
-    await client.query('COMMIT');
-    
-    // Log success message
-    console.log('Database reset successfully'); // Add this line
-  } catch (error) {
-    await client.query('ROLLBACK');
-    console.error('Error resetting database:', error);
-  } finally {
-    client.release();
-  }
+  // You can also add any other setup logic here if needed
 }
 
-// Export the function as the default export
-export default resetDatabase;
+// Call this function to stop the database after tests
+async function globalTeardown() {
+  execSync('npm run db:stop', { stdio: 'inherit' });
+}
+
+export default globalSetup;
+export { globalTeardown };
