@@ -1,19 +1,30 @@
 import Title from '@/components/common/title';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
-import { Users } from 'lucide-react';
+import { Users, Search } from 'lucide-react';
 import Link from 'next/link';
 
 interface ConnectionsOverviewProps {
   title: string;
   count?: number;
+  showSearchButton?: boolean;
 }
 
-const ConnectionsOverview: React.FC<ConnectionsOverviewProps> = ({ title, count }) => {
+const ConnectionsOverview: React.FC<ConnectionsOverviewProps> = ({
+  title,
+  count,
+  showSearchButton,
+}) => {
   return (
     <Card className="flex h-full flex-col">
-      <CardHeader>
+      <CardHeader className="flex flex-row items-baseline justify-between">
         <CardTitle>{title}</CardTitle>
+        <Button variant="outline" asChild className={!showSearchButton ? 'invisible' : ''}>
+          <Link href="/mentors/search">
+            <Search className="mr-2 size-4" />
+            Find Mentors
+          </Link>
+        </Button>
       </CardHeader>
       <CardContent className="">
         <div className="grid w-full grid-cols-2 gap-4">
