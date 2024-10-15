@@ -75,17 +75,17 @@ export async function GET(request: NextRequest) {
 }
 
 async function getRecommendedMentors(userId: string) {
-  const userSkills = await db
-    .selectFrom('Skill')
+  const userDevelopmentAreas = await db
+    .selectFrom('DevelopmentArea')
     .select('name')
     .where('userId', '=', userId)
     .execute();
 
-  if (userSkills.length === 0) {
+  if (userDevelopmentAreas.length === 0) {
     return [];
   }
 
-  const skillNames = userSkills.map((skill) => skill.name.toLowerCase());
+  const devAreaNames = userDevelopmentAreas.map((devArea) => devArea.name.toLowerCase());
 
   return db
     .selectFrom('User as u')
@@ -94,7 +94,9 @@ async function getRecommendedMentors(userId: string) {
     .distinct()
     .where('u.id', '!=', userId)
     .where('u.isMentor', '=', true)
-    .where((eb) => eb.or(skillNames.map((skillName) => eb('s.name', 'ilike', `%${skillName}%`))))
+    .where((eb) =>
+      eb.or(devAreaNames.map((devAreaName) => eb('s.name', 'ilike', `%${devAreaName}%`)))
+    )
     .execute();
 }
 
