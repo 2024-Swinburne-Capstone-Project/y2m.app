@@ -1,4 +1,3 @@
-// app/(application)/dashboard/page.tsx
 'use client';
 
 import React from 'react';
@@ -70,7 +69,11 @@ export default function DashboardPage() {
           </MainSectionBody>
         </MainSection>
         <div className="grid gap-8 lg:grid-cols-2">
-          <ConnectionsOverview title={dashboardConfig.myMentors.text} count={mentors.length} />
+          <ConnectionsOverview
+            title={dashboardConfig.myMentors.text}
+            count={mentors.length}
+            showSearchButton={true}
+          />
           <ConnectionsOverview title={dashboardConfig.myMentees.text} count={mentees.length} />
         </div>
         {profile?.user?.isMentee && <SuggestedSkills />}

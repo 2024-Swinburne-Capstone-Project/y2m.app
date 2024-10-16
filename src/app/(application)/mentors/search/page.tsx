@@ -90,9 +90,9 @@ export default function MentorSearchPage() {
           />
         </>
       ) : (
-        <div className="text-center text-secondary">
-          We could not find any recommended mentors. Please add more skills to your profile to get
-          better recommendations.
+        <div className="text-center text-[#ea580c]">
+          We could not find any recommended mentors. Please add more development areas to your
+          profile to get better recommendations.
         </div>
       )}
     </div>

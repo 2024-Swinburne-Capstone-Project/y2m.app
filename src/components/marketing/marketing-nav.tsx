@@ -24,7 +24,7 @@ export default async function MarketingNav() {
             <Button variant={'outline'} size="icon" className="relative">
               <Link
                 href="https://scribehow.com/page/You2Mentor_User_Guide__Gr7fdifpTXeEe9gv48XQ9Q?referrer=documents"
-                className="hidden items-center space-x-2 md:flex"
+                className="items-center space-x-2 md:flex"
                 target="_blank"
               >
                 <HelpCircle size={20} />
