@@ -8,8 +8,8 @@ export default defineConfig({
   //workers: 1,
   reporter: 'html',
   use: {
-    //baseURL: 'https://app-y2m-app-stg.azurewebsites.net/',
-    baseURL: 'http://localhost:3000/',
+    baseURL: 'https://app-y2m-app-stg.azurewebsites.net/',
+    // baseURL: 'http://localhost:3000/',
     trace: 'on-first-retry',
   },
   projects: [
@@ -17,10 +17,10 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
