@@ -1,8 +1,9 @@
-import type { ColumnType } from "kysely";
+import type { ColumnType } from 'kysely';
 
-export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
-  ? ColumnType<S, I | undefined, U>
-  : ColumnType<T, T | undefined, T>;
+export type Generated<T> =
+  T extends ColumnType<infer S, infer I, infer U>
+    ? ColumnType<S, I | undefined, U>
+    : ColumnType<T, T | undefined, T>;
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
@@ -118,7 +119,7 @@ export interface MentorshipNotification {
   read: Generated<boolean>;
   receivedDate: Generated<Timestamp>;
   redirectLink: string;
-  type: "ACCEPTED_MENTORSHIP_REQUEST" | "NEW_MENTORSHIP_REQUEST" | "REJECTED_MENTORSHIP_REQUEST";
+  type: 'ACCEPTED_MENTORSHIP_REQUEST' | 'NEW_MENTORSHIP_REQUEST' | 'REJECTED_MENTORSHIP_REQUEST';
   userId: string;
 }
 
@@ -128,7 +129,7 @@ export interface MentorshipRequest {
   menteeId: string;
   mentorId: string;
   message: string;
-  status: "ACCEPTED" | "PENDING" | "REJECTED";
+  status: 'ACCEPTED' | 'PENDING' | 'REJECTED';
   updatedAt: Timestamp;
 }
 
@@ -152,16 +153,16 @@ export interface Milestone {
   endDate: Timestamp;
   id: Generated<number>;
   startDate: Timestamp;
-  status: "COMPLETED" | "IN_PROGRESS" | "NOT_STARTED";
+  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
   title: string;
   userId: string;
 }
 
 export interface MilestoneComment {
-  content: string;
-  createdAt: Generated<Timestamp>;
   id: Generated<number>;
-  milestoneId: number;
+  milestoneId: string;
+  content: string;
+  createdAt: string | Date;
 }
 
 export interface MilestoneStep {
@@ -169,7 +170,7 @@ export interface MilestoneStep {
   id: Generated<number>;
   milestoneId: number;
   name: string;
-  status: "COMPLETED" | "IN_PROGRESS" | "NOT_STARTED";
+  status: 'COMPLETED' | 'IN_PROGRESS' | 'NOT_STARTED';
 }
 
 export interface Skill {
