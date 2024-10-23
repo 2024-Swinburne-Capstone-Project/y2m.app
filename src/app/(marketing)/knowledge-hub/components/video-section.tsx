@@ -34,10 +34,6 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
     return <ErrorAlert message={`Error loading videos: ${error.message}`} />;
   }
 
-  if (!videos || videos.length === 0) {
-    return <ErrorAlert message="No videos available." />;
-  }
-
   return (
     <div className="mx-auto max-w-7xl">
       <Card>
@@ -54,18 +50,20 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
         </CardHeader>
         <MainSection className="flex flex-col items-start py-4 md:flex-row">
           <CardContent className="md:w-1/3">
-            {videos.map((video, index) => (
-              <div
-                key={video.id}
-                className={`cursor-pointer p-5 ${
-                  selectedVideoIndex === index ? 'bg-secondary' : ''
-                }`}
-                onClick={() => setSelectedVideoIndex(index)}
-              >
-                <p className="font-medium leading-none">{video.title.text}</p>
-                <p className="text-muted-foreground">{video.description.text}</p>
-              </div>
-            ))}
+            {videos.length === 0 ? (
+              <ErrorAlert message="No videos available." />
+            ) : (
+              videos.map((video, index) => (
+                <div
+                  key={video.id}
+                  className={`cursor-pointer p-5 ${selectedVideoIndex === index ? 'bg-secondary' : ''}`}
+                  onClick={() => setSelectedVideoIndex(index)}
+                >
+                  <p className="font-medium leading-none">{video.title.text}</p>
+                  <p className="text-muted-foreground">{video.description.text}</p>
+                </div>
+              ))
+            )}
           </CardContent>
           <CardContent className="md:w-2/3" style={{ margin: 0 }}>
             {selectedVideoIndex !== null && videos[selectedVideoIndex] && (
