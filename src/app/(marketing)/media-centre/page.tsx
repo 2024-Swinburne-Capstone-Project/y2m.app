@@ -117,7 +117,7 @@ export default function MediaCentrePage() {
           <MainSection className="-mb-20 mr-20 pb-0">
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
-                <Button variant="default">Add New Media Release</Button>
+                <Button className="mb-24" variant="default">Add New Media Release</Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
