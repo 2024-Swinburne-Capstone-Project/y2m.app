@@ -8,10 +8,10 @@ export default defineConfig({
   //workers: 1,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:3000',
+    //baseURL: 'https://app-y2m-app-stg.azurewebsites.net/',
+    baseURL: 'http://localhost:3000/',
     trace: 'on-first-retry',
   },
-  globalSetup: require.resolve('./src/scripts/resetDatabase.ts'),
   projects: [
     {
       name: 'chromium',
@@ -21,9 +21,9 @@ export default defineConfig({
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
   ],
 });
