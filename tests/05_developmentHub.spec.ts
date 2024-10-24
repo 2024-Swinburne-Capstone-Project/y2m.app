@@ -33,4 +33,4 @@ test('My Development Areas', async ({ page }) => {
     await page.getByLabel('End Date').fill('2025-10-25');
     await page.getByRole('button', { name: 'Add Milestone' }).click();
     await page.getByRole('button', { name: 'Save Changes' }).click();
-    });
+  });
