@@ -1,0 +1,61 @@
+import { test, expect } from '@playwright/test';
+import { getRandomString, getRandomNumber } from '../src/utils/randomData';
+
+test('Message from Mentee to Mentor', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Login' }).click();
+  await page.getByLabel('Email address').click();
+  await page.getByLabel('Email address').fill('testMentee@gmail.com');
+  await page.getByLabel('Password').click();
+  await page.getByLabel('Password').fill('xpu-xya7erp9PQX*pnj');
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  await page.getByRole('link', { name: 'Messages' }).click();
+  await page.getByRole('button', { name: /Test Mentor/ }).click();
+  await page.getByPlaceholder('Type a message...').click();
+  var randomMessage = getRandomString();
+  await page.getByPlaceholder('Type a message...').fill(randomMessage);
+  await page.getByPlaceholder('Type a message...').press('Enter');
+  await page.getByRole('img', { name: 'Test Mentee' }).click();
+  await page.getByRole('menuitem', { name: 'Sign out' }).click();
+  await page.getByRole('link', { name: 'Login' }).click();
+  await page.getByLabel('Email address').click();
+  await page.getByLabel('Email address').fill('testMentor@gmail.com');
+  await page.getByLabel('Password').click();
+  await page.getByLabel('Password').fill('bef*TPU_kqa5ufe8cen');
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  await page.getByText('Messages').click();
+  await page.getByRole('button', { name: /Test Mentee/ }).click();
+  await expect(page.getByRole('main')).toContainText(randomMessage);
+  await page.getByRole('img', { name: 'Test Mentor' }).click();
+  await page.getByRole('menuitem', { name: 'Sign out' }).click();
+});
+
+
+test('Message from Mentor to Mentee', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Login' }).click();
+  await page.getByLabel('Email address').click();
+  await page.getByLabel('Email address').fill('testMentor@gmail.com');
+  await page.getByLabel('Password').click();
+  await page.getByLabel('Password').fill('bef*TPU_kqa5ufe8cen');
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  await page.getByRole('link', { name: 'Messages' }).click();
+  await page.getByRole('button', { name: /Test Mentee/ }).click();
+  await page.getByPlaceholder('Type a message...').click();
+  var randomMessage = getRandomString();
+  await page.getByPlaceholder('Type a message...').fill(randomMessage);
+  await page.getByPlaceholder('Type a message...').press('Enter');
+  await page.getByRole('img', { name: 'Test Mentor' }).click();
+  await page.getByRole('menuitem', { name: 'Sign out' }).click();
+  await page.getByRole('link', { name: 'Login' }).click();
+  await page.getByLabel('Email address').click();
+  await page.getByLabel('Email address').fill('testMentee@gmail.com');
+  await page.getByLabel('Password').click();
+  await page.getByLabel('Password').fill('xpu-xya7erp9PQX*pnj');
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  await page.getByText('Messages').click();
+  await page.getByRole('button', { name: /Test Mentor/ }).click();
+  await expect(page.getByRole('main')).toContainText(randomMessage);
+  await page.getByRole('img', { name: 'Test Mentee' }).click();
+  await page.getByRole('menuitem', { name: 'Sign out' }).click();
+});

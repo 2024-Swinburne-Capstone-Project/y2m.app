@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { getRandomString, getRandomNumber } from '../src/utils/randomData';
 
 test('Validate Header and Footer', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
   await expect(page.getByRole('banner').getByRole('link', { name: 'You2Mentor' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'About' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Knowledge Hub' })).toBeVisible();
@@ -67,7 +68,7 @@ test('Validate Header and Footer', async ({ page }) => {
 });
 
 test('Validate Home', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
   await expect(page.getByRole('heading', { name: 'What Do We Offer?' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Who We Are' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'What You Can Do' })).toBeVisible();
@@ -82,7 +83,7 @@ test('Validate Home', async ({ page }) => {
 });
 
 test('Validate About', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
   await page.getByRole('button', { name: 'About' }).click();
   await expect(
     page.locator('div').filter({ hasText: 'At You2Mentor, we believe' }).nth(2)
@@ -92,7 +93,7 @@ test('Validate About', async ({ page }) => {
 });
 
 test('Validate Knowleduge Hub', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
   await page.getByRole('link', { name: 'Knowledge Hub' }).click();
   await expect(page.getByRole('heading', { name: 'Knowledge Hub' })).toBeVisible();
   await expect(page.getByRole('tab', { name: 'Videos' })).toBeVisible();
@@ -100,7 +101,7 @@ test('Validate Knowleduge Hub', async ({ page }) => {
 });
 
 test('Validate Enterprise Solutions', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
   await page.getByRole('link', { name: 'Enterprise Solutions' }).click();
   await expect(
     page.locator('div').filter({ hasText: 'Enterprise SolutionsCreate' }).nth(2)
@@ -114,7 +115,7 @@ test('Validate Enterprise Solutions', async ({ page }) => {
 });
 
 test('Validate Legal', async ({ page }) => {
-  await page.goto('http://localhost:3000');
+  await page.goto('/');
   await page.getByRole('link', { name: 'Legal' }).click();
   await expect(page.getByRole('heading', { name: 'Privacy Policy', exact: true })).toBeVisible();
   await expect(page.getByRole('img', { name: 'Privacy Policy' })).toBeVisible();
@@ -143,7 +144,7 @@ test('Validate Legal', async ({ page }) => {
 });
 
 test('Validate Get in Touch', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
   await page.getByRole('link', { name: 'Get in Touch' }).click();
   await expect(page.getByRole('img', { name: 'Get in Touch' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Most Popular Questions' })).toBeVisible();
