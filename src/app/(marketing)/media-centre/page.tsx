@@ -113,7 +113,7 @@ export default function MediaCentrePage() {
       </MainSection>
 
       {isAdmin && (
-        <div className="flex flex-col items-end">
+        <div className="mb-4 flex flex-col items-end">
           <MainSection className="-mb-20 mr-20 pb-0">
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
